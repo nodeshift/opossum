@@ -46,3 +46,35 @@ const breaker = circuitBreaker(asyncFunctionThatCouldFail, options);
 // will trigger our fallback function
 breaker.fallback(() => 'Sorry, out of service right now');
 ```
+
+### Promises vs. Callbacks
+The `opossum` API uses a `Promise` as a return value for a breaker that
+has been fired. But your circuit action - the async function that might fail -
+doesn't have to return a promise. In fact it doesn't have to even be a function.
+Check this out.
+
+```javascript
+const breaker = circuitBreaker('foo', options);
+
+breaker.fire()
+  .then((result) => console.log(result)) // logs 'foo'
+  .catch(console.error);
+```
+
+OK, that's kind of intesting, but maybe you're still stuck on this whole
+promises thing. What about Node.js APIs? All those async I/O bound functions
+take a callback. How do you deal with that? Easy, my friend - just `promisify` it.
+
+```javascript
+const fs = require('fs');
+const circuitBreaker = require('opossum');
+
+const readFile = circuitBreaker.promisify(fs.readFile);
+const breaker = circuitBreaker(readFile, options);
+
+breaker.fire('./package.json', 'utf-8')
+  .then((result) => console.log(result.toString()))
+  .catch(console.error);
+```
+
+## More to come
