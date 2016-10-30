@@ -13,4 +13,7 @@ const defaults = {
 function circuitBreaker (action, options) {
   return new CircuitBreaker(action, Object.assign({}, defaults, options));
 }
+
+circuitBreaker.promisify = require('./lib/promisify');
+
 module.exports = exports = circuitBreaker;

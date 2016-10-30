@@ -4,6 +4,7 @@ const circuitBreaker = require('../');
 
 test('api', (t) => {
   const breaker = circuitBreaker(passFail);
+  t.ok(circuitBreaker.promisify);
   t.ok(breaker);
   t.ok(breaker.fire);
   t.notOk(breaker.open);
@@ -25,6 +26,26 @@ test('Passes arguments to the circuit function', (t) => {
     .catch(t.fail);
 });
 
+test('Fails when the circuit function fails', (t) => {
+  const expected = -1;
+  const breaker = circuitBreaker(passFail);
+
+  breaker.fire(expected)
+    .then(t.fail)
+    .catch((e) => t.equals(e, expected))
+    .then(t.end);
+});
+
+test('Fails when the circuit function times out', (t) => {
+  const expected = 'Action timed out after 10ms';
+  const breaker = circuitBreaker(slowFunction, { timeout: 10 });
+
+  breaker.fire()
+    .then(t.fail)
+    .catch((e) => t.equals(e, expected))
+    .then(t.end);
+});
+
 test('Works with functions that do not return a promise', (t) => {
   const breaker = circuitBreaker(nonPromise);
 
@@ -43,8 +64,9 @@ test('Works with non-functions', (t) => {
     .catch(t.fail);
 });
 
-test.skip('Works with callback functions', (t) => {
-  const breaker = circuitBreaker(callbackFunction);
+test('Works with callback functions', (t) => {
+  const promisified = circuitBreaker.promisify(callbackFunction);
+  const breaker = circuitBreaker(promisified);
 
   breaker.fire(3, 4)
     .then((arg) => t.equals(arg, 7))
@@ -52,23 +74,13 @@ test.skip('Works with callback functions', (t) => {
     .catch(t.fail);
 });
 
-test('Fails when the circuit function fails', (t) => {
-  const expected = -1;
-  const breaker = circuitBreaker(passFail);
+test('Works with callback functions that fail', (t) => {
+  const promisified = circuitBreaker.promisify(failedCallbackFunction);
+  const breaker = circuitBreaker(promisified);
 
-  breaker.fire(expected)
+  breaker.fire(3, 4)
     .then(t.fail)
-    .catch((e) => t.equals(e, expected))
-    .then(t.end);
-});
-
-test('Fails when the circuit function times out', (t) => {
-  const expected = 'Action timed out after 10ms';
-  const breaker = circuitBreaker(slowFunction, { timeout: 10 });
-
-  breaker.fire()
-    .then(t.fail)
-    .catch((e) => t.equals(e, expected))
+    .catch((e) => t.equals(e, 'Whoops!'))
     .then(t.end);
 });
 
@@ -122,7 +134,7 @@ test('Executes fallback action, if one exists, when breaker is open', (t) => {
     });
 });
 
-test('Passes arguments to fallback function', (t) => {
+test('Passes arguments to the fallback function', (t) => {
   const fails = -1;
   const expected = 100;
   const breaker = circuitBreaker(passFail, { maxFailures: 1 });
@@ -168,5 +180,9 @@ function nonPromise () {
 }
 
 function callbackFunction (x, y, callback) {
-  callback(x + y);
+  callback(null, x + y);
+}
+
+function failedCallbackFunction () {
+  Array.prototype.slice.call(arguments).pop()('Whoops!');
 }
