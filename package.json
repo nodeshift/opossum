@@ -1,0 +1,51 @@
+{
+  "name": "opossum",
+  "version": "0.0.1",
+  "author": "Red Hat, Inc.",
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "tape test/*.js | tap-spec",
+    "lint": "eslint test/*.js index.js",
+    "prepublish": "nsp check",
+    "coverage": "istanbul cover tape test/*.js",
+    "dependencyCheck": "szero . --ci",
+    "release": "standard-version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lance/opossum.git"
+  },
+  "files": [
+    "package.json",
+    "README.md",
+    "LICENSE",
+    "index.js"
+  ],
+  "bugs": {
+    "url": "https://github.com/lance/opossum/issues"
+  },
+  "homepage": "https://github.com/lance/opossum",
+  "devDependencies": {
+    "eslint": "~3.8.1",
+    "eslint-config-semistandard": "~7.0.0",
+    "eslint-config-standard": "~6.2.0",
+    "eslint-plugin-promise": "~3.3.0",
+    "eslint-plugin-react": "~6.4.1",
+    "eslint-plugin-standard": "~2.0.1",
+    "istanbul": "~0.4.5",
+    "nsp": "~2.6.2",
+    "tap-spec": "~4.1.1",
+    "tape": "~4.6.2",
+    "szero": "^0.5.1",
+    "standard-version": "^3.0.0"
+  },
+  "gitHubUser": "lance",
+  "description": "A fail-fast circuit breaker for promises and callbacks",
+  "keywords": [
+    "circuit-breaker",
+    "fail-fast"
+  ],
+  "dependencies": {
+    "fidelity": "~4.2.0"
+  }
+}
