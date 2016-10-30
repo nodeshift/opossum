@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - "4"
+  - "5"
+  - "6"
+before_script:
+  - npm install -g coveralls
+script:
+   - make ci
+notifications:
+  irc: "chat.freenode.net#brass-monkey"
+after_success:
+  - cat ./coverage/lcov.info | coveralls
