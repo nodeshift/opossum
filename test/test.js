@@ -25,6 +25,33 @@ test('Passes arguments to the circuit function', (t) => {
     .catch(t.fail);
 });
 
+test('Works with functions that do not return a promise', (t) => {
+  const breaker = circuitBreaker(nonPromise);
+
+  breaker.fire()
+    .then((arg) => t.equals(arg, 'foo'))
+    .then(t.end)
+    .catch(t.fail);
+});
+
+test('Works with non-functions', (t) => {
+  const breaker = circuitBreaker('foobar');
+
+  breaker.fire()
+    .then((arg) => t.equals(arg, 'foobar'))
+    .then(t.end)
+    .catch(t.fail);
+});
+
+test.skip('Works with callback functions', (t) => {
+  const breaker = circuitBreaker(callbackFunction);
+
+  breaker.fire(3, 4)
+    .then((arg) => t.equals(arg, 7))
+    .then(t.end)
+    .catch(t.fail);
+});
+
 test('Fails when the circuit function fails', (t) => {
   const expected = -1;
   const breaker = circuitBreaker(passFail);
@@ -136,3 +163,10 @@ function slowFunction () {
   });
 }
 
+function nonPromise () {
+  return 'foo';
+}
+
+function callbackFunction (x, y, callback) {
+  callback(x + y);
+}
