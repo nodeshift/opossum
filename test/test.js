@@ -202,6 +202,110 @@ test('CircuitBreaker status', (t) => {
     });
 });
 
+test('CircuitBreaker events', (t) => {
+  const options = {
+    maxFailures: 1,
+    timeout: 500,
+    resetTimeout: 500
+  };
+
+  const breaker = circuitBreaker(passFail, options);
+  let fired = 0;
+  let failures = 0;
+  let success = 0;
+  let reject = 0;
+  let timeout = 0;
+  let open = 0;
+  let close = 0;
+  let halfOpen = 0;
+
+  breaker.on('fire', () => fired++);
+  breaker.on('failure', () => failures++);
+  breaker.on('success', () => success++);
+  breaker.on('reject', () => reject++);
+  breaker.on('timeout', () => timeout++);
+  breaker.on('open', () => open++);
+  breaker.on('close', () => close++);
+  breaker.on('halfOpen', () => halfOpen++);
+
+  breaker.fire(10)
+    .then(() => {
+      t.equals(fired, 1);
+      t.equals(success, 1);
+      t.equals(failures, 0);
+      t.equals(reject, 0);
+      t.equals(open, 0);
+      t.equals(close, 0);
+      t.equals(halfOpen, 0);
+      t.equals(timeout, 0);
+    })
+    .then(() => {
+      breaker.fire(-1)
+        .then(t.fail)
+        .catch((e) => {
+          t.equals(fired, 2);
+          t.equals(success, 1);
+          t.equals(failures, 1);
+          t.equals(reject, 0);
+          t.equals(open, 1);
+          t.equals(close, 0);
+          t.equals(halfOpen, 0);
+          t.equals(timeout, 0);
+        })
+        .then(() => {
+          breaker.fire(10)
+            .then(t.fail)
+            .catch((e) => {
+              t.equals(fired, 3);
+              t.equals(success, 1);
+              t.equals(failures, 2);
+              t.equals(reject, 1);
+              t.equals(open, 1);
+              t.equals(close, 0);
+              t.equals(halfOpen, 0);
+              t.equals(timeout, 0);
+            })
+            .then(() => {
+              return new Promise((resolve) => {
+                setTimeout(() => {
+                  t.equals(fired, 3);
+                  t.equals(success, 1);
+                  t.equals(failures, 2);
+                  t.equals(reject, 1);
+                  t.equals(open, 1);
+                  t.equals(close, 0);
+                  t.equals(halfOpen, 1);
+                  t.equals(timeout, 0);
+                  resolve();
+                }, 500);
+              })
+              .then(() => {
+                breaker.fire(10)
+                  .then(() => {
+                    t.equals(fired, 4);
+                    t.equals(success, 2);
+                    t.equals(failures, 2);
+                    t.equals(reject, 1);
+                    t.equals(open, 1);
+                    t.equals(close, 1);
+                    t.equals(halfOpen, 1);
+                    t.equals(timeout, 0);
+                  });
+              });
+            });
+        });
+    })
+    .then(() => {
+      const timeoutBreaker = circuitBreaker(slowFunction, options);
+      let timedOut = false;
+      timeoutBreaker.on('timeout', () => timedOut++);
+      timeoutBreaker.fire().then(t.fail);
+    })
+    .then(t.end)
+    .catch(t.fail);
+
+});
+
 /**
  * Returns a promise that resolves if the parameter
  * 'x' evaluates to >= 0. Otherwise the returned promise fails.

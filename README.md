@@ -54,20 +54,7 @@ after the `resetTimeout` has expired.
 ### Promises vs. Callbacks
 The `opossum` API uses a `Promise` as a return value for a breaker that
 has been fired. But your circuit action - the async function that might fail -
-doesn't have to return a promise. In fact it doesn't have to even be a function.
-Check this out.
-
-```javascript
-const breaker = circuitBreaker('foo', options);
-
-breaker.fire()
-  .then((result) => console.log(result)) // logs 'foo'
-  .catch(console.error);
-```
-
-OK, that's kind of intesting, but maybe you're still stuck on this whole
-promises thing. What about Node.js APIs? All those async I/O bound functions
-take a callback. How do you deal with that? Easy, my friend - just `promisify` it.
+doesn't have to return a promise. Check this out.
 
 ```javascript
 const fs = require('fs');
@@ -80,7 +67,22 @@ breaker.fire('./package.json', 'utf-8')
   .then(console.log)
   .catch(console.error);
 ```
-#### Promise Interoperability
+
+Now, you've got easy monitoring of all those Node.js I/O bount functions.
+How do you deal with that? Easy, my friend - just `promisify` it.
+
+And just for fun, your circuit doesn't even really have to be a function.
+Not sure when you'd use this - but you could if you wanted to.
+
+```javascript
+const breaker = circuitBreaker('foo', options);
+
+breaker.fire()
+  .then((result) => console.log(result)) // logs 'foo'
+  .catch(console.error);
+```
+
+### Promise Interoperability
 
 The `Promise` implementation used in `opossum` is compliant with both the
 ES6 `Promise` API as well as the `promises/A+` API. This means that it doesn't
@@ -94,4 +96,16 @@ you create the breaker. E.g.
 const breaker = circuitBreaker(readFile, { Promise: Promise });
 ```
 
-## More to come
+### Events
+
+A `CircuitBreaker` will emit events for important things that occur.
+Here are the events you can listen for.
+
+* `fire` (or `execute`) - emitted when the breaker is fired.
+* `reject` - emitted when the breaker is open (or halfOpen).
+* `timeout` - emitted when the breaker action times out.
+* `success` - emitted when the breaker action completes successfully
+* `failure` - emitted when the breaker action fails, called with the error
+* `open` - emitted when the breaker state changes to `open`
+* `close` - emitted when the breaker state changes to `closed`
+* `halfOpen` - emitted when the breaker state changes to `halfOpen`
