@@ -47,6 +47,10 @@ const breaker = circuitBreaker(asyncFunctionThatCouldFail, options);
 breaker.fallback(() => 'Sorry, out of service right now');
 ```
 
+When a fallback function is triggered, it's considered a failure, and the
+fallback function will continue to be executed until the breaker is closed,
+after the `resetTimeout` has expired.
+
 ### Promises vs. Callbacks
 The `opossum` API uses a `Promise` as a return value for a breaker that
 has been fired. But your circuit action - the async function that might fail -
@@ -75,6 +79,19 @@ const breaker = circuitBreaker(readFile, options);
 breaker.fire('./package.json', 'utf-8')
   .then(console.log)
   .catch(console.error);
+```
+#### Promise Interoperability
+
+The `Promise` implementation used in `opossum` is compliant with both the
+ES6 `Promise` API as well as the `promises/A+` API. This means that it doesn't
+matter what flavor of promise your API uses, `opossum` should work fine with
+them. If you would like to control what `Promise` implementation used in
+`opossum`, provide a `Promise` constructor function in your options when
+you create the breaker. E.g.
+
+```javascript
+// Force to use native JS promises
+const breaker = circuitBreaker(readFile, { Promise: Promise });
 ```
 
 ## More to come
