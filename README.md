@@ -73,7 +73,7 @@ const readFile = circuitBreaker.promisify(fs.readFile);
 const breaker = circuitBreaker(readFile, options);
 
 breaker.fire('./package.json', 'utf-8')
-  .then((result) => console.log(result.toString()))
+  .then(console.log)
   .catch(console.error);
 ```
 
