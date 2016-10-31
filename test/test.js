@@ -303,7 +303,6 @@ test('CircuitBreaker events', (t) => {
     })
     .then(t.end)
     .catch(t.fail);
-
 });
 
 /**
