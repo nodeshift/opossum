@@ -151,6 +151,40 @@ test('Passes arguments to the fallback function', (t) => {
     });
 });
 
+test('CircuitBreaker status', (t) => {
+  const breaker = circuitBreaker(passFail, { maxFailures: 1 });
+  const deepEqual = (t, expected) => (actual) => t.deepEqual(actual, expected);
+
+  Fidelity.all([
+    breaker.fire(10).then(deepEqual(t, 10)),
+    breaker.fire(20).then(deepEqual(t, 20)),
+    breaker.fire(30).then(deepEqual(t, 30))
+  ])
+    .then(() => t.deepEqual(breaker.status.fires, 3))
+    .catch(t.fail)
+    .then(() => {
+      breaker.fire(-10)
+        .then(t.fail)
+        .catch((value) => {
+          t.deepEqual(value, -10);
+          t.deepEqual(breaker.status.failures, 1);
+          t.deepEqual(breaker.status.fires, 4);
+        })
+        .then(() => {
+          breaker.fallback(() => 'Fallback called');
+          breaker.fire(-20)
+            .then((result) => {
+              // t.deepEqual(result, 'Fallback called');
+              t.deepEqual(breaker.status.failures, 1);
+              t.deepEqual(breaker.status.fires, 5);
+              t.deepEqual(breaker.status.fallbacks, 1);
+            })
+            .catch(t.fail);
+        })
+        .then(t.end);
+    });
+});
+
 /**
  * Returns a promise that resolves if the parameter
  * 'x' evaluates to >= 0. Otherwise the returned promise fails.
