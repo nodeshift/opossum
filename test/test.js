@@ -9,7 +9,7 @@ test('api', (t) => {
   t.ok(circuitBreaker.promisify);
   t.ok(breaker);
   t.ok(breaker.fire);
-  t.notOk(breaker.open);
+  t.notOk(breaker.opened);
   t.notOk(breaker.halfOpen);
   t.ok(breaker.closed);
   t.ok(breaker.status);
