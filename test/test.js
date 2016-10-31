@@ -1,3 +1,5 @@
+'use strict';
+
 const test = require('tape');
 const Fidelity = require('fidelity');
 const circuitBreaker = require('../');
