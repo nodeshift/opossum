@@ -109,3 +109,4 @@ Here are the events you can listen for.
 * `open` - emitted when the breaker state changes to `open`
 * `close` - emitted when the breaker state changes to `closed`
 * `halfOpen` - emitted when the breaker state changes to `halfOpen`
+* `fallback` - emitted when the breaker has a fallback function and executes it
