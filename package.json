@@ -19,7 +19,8 @@
     "package.json",
     "README.md",
     "LICENSE",
-    "index.js"
+    "index.js",
+    "lib"
   ],
   "bugs": {
     "url": "https://github.com/lance/opossum/issues"
