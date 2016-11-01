@@ -132,9 +132,11 @@ test('Breaker resets for circuits with a fallback function', (t) => {
       setTimeout(() => {
         breaker.fire(100)
           .then((arg) => t.equals(arg, 100))
-          .then(t.end);
+          .then(t.end)
+          .catch(t.fail);
       }, resetTimeout * 1.25);
-    });
+    })
+    .catch(t.fail);
 });
 
 test('Executes fallback action, if one exists, when breaker is open', (t) => {
