@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/lance/opossum.git"
+    "url": "git://github.com/bucharest-gold/opossum.git"
   },
   "files": [
     "package.json",
@@ -23,9 +23,9 @@
     "lib"
   ],
   "bugs": {
-    "url": "https://github.com/lance/opossum/issues"
+    "url": "https://github.com/bucharest-gold/opossum/issues"
   },
-  "homepage": "https://github.com/lance/opossum",
+  "homepage": "https://github.com/bucharest-gold/opossum",
   "devDependencies": {
     "eslint": "~3.8.1",
     "eslint-config-semistandard": "~7.0.0",
@@ -40,7 +40,6 @@
     "szero": "^0.5.1",
     "standard-version": "^3.0.0"
   },
-  "gitHubUser": "lance",
   "description": "A fail-fast circuit breaker for promises and callbacks",
   "keywords": [
     "circuit-breaker",
