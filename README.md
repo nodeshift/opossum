@@ -1,4 +1,9 @@
 # opossum
+[![Build Status](https://travis-ci.org/bucharest-gold/opossum.svg?branch=master)](https://travis-ci.org/bucharest-gold/opossum)
+[![Known Vulnerabilities](https://snyk.io/test/npm/opossum/badge.svg)](https://snyk.io/test/npm/opossum)
+[![dependencies Status](https://david-dm.org/bucharest-gold/opossum/status.svg)](https://david-dm.org/bucharest-gold/opossum)
+
+[![NPM](https://nodei.co/npm/opossum.png)](https://npmjs.org/package/opossum)
 
 Opossum is a Node.js circuit breaker that executes asynchronous functions
 and monitors their execution status. When things start failing, `opossum`
@@ -8,6 +13,13 @@ to be executed when in the failure state.
 For more about the circuit breaker pattern, there are lots of resources
 on the web - search it! Here is one place to
 [start reading](http://martinfowler.com/bliki/CircuitBreaker.html).
+
+|                 | Project Info  |
+| --------------- | ------------- |
+| License:        | Apache-2.0  |
+| Build:          | make  |
+| Issue tracker:  | https://github.com/bucharest-gold/opossum/issues  |
+| Engines:        | Node.js 4.x, 5.x, 6.x
 
 ## Usage
 
