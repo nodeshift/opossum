@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.1.1"></a>
+## [0.1.1](https://github.com/bucharest-gold/opossum/compare/v0.1.0...v0.1.1) (2016-11-03)
+
+
+### Bug Fixes
+
+* Don't use Status for managing breaker state ([8c4c659](https://github.com/bucharest-gold/opossum/commit/8c4c659))
+* **events:** Include timeout in stats ([abbdb61](https://github.com/bucharest-gold/opossum/commit/abbdb61))
+
+
+
 <a name="0.1.0"></a>
 # 0.1.0 (2016-11-01)
 
