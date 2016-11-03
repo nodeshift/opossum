@@ -18,6 +18,7 @@ on the web - search it! Here is one place to
 | --------------- | ------------- |
 | License:        | Apache-2.0  |
 | Build:          | make  |
+| Documentation:  | https://bucharest-gold.github.io/opossum/ |
 | Issue tracker:  | https://github.com/bucharest-gold/opossum/issues  |
 | Engines:        | Node.js 4.x, 5.x, 6.x
 
