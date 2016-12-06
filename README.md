@@ -123,3 +123,16 @@ Here are the events you can listen for.
 * `close` - emitted when the breaker state changes to `closed`
 * `halfOpen` - emitted when the breaker state changes to `halfOpen`
 * `fallback` - emitted when the breaker has a fallback function and executes it
+
+### Development
+
+Contributions to Opossum are welcome! When contributing, be sure that you've added a test for any code changes you've made, and that `make test` passes.
+
+### Releasing
+
+* Make sure everything works: `make clean ci`
+* Run standard-version: `npm run release`
+* Push to GitHub: `git push --follow-tags origin master`
+* Publish to npmjs.com: `npm publish`
+* Assuming all goes well, head over to https://github.com/bucharest-gold/opossum/releases and update the release with any relevant notes. The generated CHANGELOG.md file should be updated, so you can use it to document release changes.
+* Tweet, blog and otherwise promote your awesome success!
