@@ -172,6 +172,17 @@ test('Passes arguments to the fallback function', (t) => {
     });
 });
 
+test('Returns self from fallback()', (t) => {
+  circuitBreaker(passFail, { maxFailures: 1 })
+    .fallback(() => {})
+    .fire(1)
+    .then((result) => {
+      t.equals(result, 1);
+    })
+    .then(t.end)
+    .catch(t.fail);
+});
+
 test('CircuitBreaker status', (t) => {
   const breaker = circuitBreaker(passFail, { maxFailures: 1 });
   const deepEqual = (t, expected) => (actual) => t.deepEqual(actual, expected);
