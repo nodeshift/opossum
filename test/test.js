@@ -217,6 +217,13 @@ test('CircuitBreaker status', (t) => {
     });
 });
 
+test('CircuitBreaker fallback event', (t) => {
+  const breaker = circuitBreaker(passFail, {maxFailures: 0});
+  breaker.fallback(() => {});
+  breaker.on('fallback', t.end); // if no event fires, test times out
+  breaker.fire(-1);
+});
+
 test('CircuitBreaker events', (t) => {
   const options = {
     maxFailures: 1,
@@ -233,6 +240,7 @@ test('CircuitBreaker events', (t) => {
   let open = 0;
   let close = 0;
   let halfOpen = 0;
+  let fallback = 0;
 
   breaker.on('fire', () => fired++);
   breaker.on('failure', () => failures++);
@@ -242,6 +250,7 @@ test('CircuitBreaker events', (t) => {
   breaker.on('open', () => open++);
   breaker.on('close', () => close++);
   breaker.on('halfOpen', () => halfOpen++);
+  breaker.on('fallback', () => fallback++);
 
   breaker.fire(10)
     .then(() => {
