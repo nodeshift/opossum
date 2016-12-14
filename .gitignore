@@ -1,3 +1,5 @@
 node_modules
 docs
 coverage
+dist
+test/browser/browserified-tests.js

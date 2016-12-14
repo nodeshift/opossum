@@ -1,8 +1,11 @@
 'use strict';
 
+const browser = require('./browser/browser-tap');
 const test = require('tape');
 const Fidelity = require('fidelity');
 const circuitBreaker = require('../');
+
+browser.enable();
 
 test('api', (t) => {
   const breaker = circuitBreaker(passFail);
@@ -347,9 +350,12 @@ function passFail (x) {
  */
 function slowFunction () {
   return new Fidelity((resolve, reject) => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       resolve('done');
-    }, 10000).unref();
+    }, 10000);
+    if (typeof timer.unref === 'function') {
+      timer.unref();
+    }
   });
 }
 
