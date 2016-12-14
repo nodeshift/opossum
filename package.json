@@ -6,13 +6,11 @@
   "scripts": {
     "preci": "npm install && npm run dependency-check",
     "ci": "npm run build && npm run test:ci",
-
     "prebuild": "npm run lint",
     "build": "npm run build:browser && npm run build:compress && npm run build:docs",
     "build:browser": "browserify index.js lib/*.js > dist/opossum.js",
     "build:compress": "escompress dist/opossum.js > dist/opossum-min.js",
-    "build:docs":  "jsdoc --verbose -d docs -t ./node_modules/ink-docstrap/template -R README.md index.js lib",
-
+    "build:docs": "jsdoc --verbose -d docs -t ./node_modules/ink-docstrap/template -R README.md index.js lib",
     "pretest": "npm run lint",
     "test": "npm run test:console",
     "test:ci": "npm run test:console && npm run test:headless && npm run test:coverage",
@@ -22,13 +20,10 @@
     "pretest:browser": "npm run build",
     "test:browser": "browserify ./test/test.js > test/browser/browserified-tests.js && opener http://localhost:9007/test/browser/index.html && http-server . -p 9007",
     "test:coverage": "istanbul cover tape test/*.js",
-
     "prepublish": "nsp check",
     "postpublish": "./publish-docs.sh",
-
     "prerelease": "npm test",
     "release": "standard-version",
-
     "lint": "eslint test/*.js index.js lib/*.js",
     "dependency-check": "szero . --ci"
   },
@@ -48,6 +43,7 @@
   },
   "homepage": "https://github.com/bucharest-gold/opossum",
   "devDependencies": {
+    "babel-plugin-transform-dead-code-elimination": "~2.2.2",
     "browserify": "~13.1.1",
     "escompress": "~0.5.0",
     "eslint": "~3.8.1",
