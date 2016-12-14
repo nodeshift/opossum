@@ -1,13 +1,12 @@
 language: node_js
 node_js:
   - "4"
-  - "5"
   - "6"
   - "7"
 before_script:
   - npm install -g coveralls
 script:
-   - npm run ci
+   - make
 notifications:
   irc: "chat.freenode.net#brass-monkey"
 after_success:

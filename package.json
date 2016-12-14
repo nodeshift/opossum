@@ -4,9 +4,6 @@
   "author": "Red Hat, Inc.",
   "license": "Apache-2.0",
   "scripts": {
-    "preci": "npm install && npm run dependency-check",
-    "ci": "npm run build && npm run test:ci",
-
     "prebuild": "npm run lint",
     "build": "npm run build:browser && npm run build:compress && npm run build:docs",
     "build:browser": "browserify index.js lib/*.js > dist/opossum.js",
