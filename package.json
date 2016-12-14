@@ -14,7 +14,6 @@
     "test": "npm run test:console",
     "test:ci": "npm run test:console && npm run test:headless && npm run test:coverage",
     "test:console": "tape test/*.js | tap-spec",
-    "pretest:headless": "npm run build",
     "test:headless": "browserify ./test/test.js | tape-run",
     "pretest:browser": "npm run build",
     "test:browser": "browserify ./test/test.js > test/browser/browserified-tests.js && opener http://localhost:9007/test/browser/index.html && http-server . -p 9007",
