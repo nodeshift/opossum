@@ -332,6 +332,44 @@ test('CircuitBreaker events', (t) => {
     .catch(t.fail);
 });
 
+test('circuit halfOpen', (t) => {
+  const options = {
+    maxFailures: 1,
+    resetTimeout: 100
+  };
+
+  const breaker = circuitBreaker(passFail, options);
+  breaker.fire(-1)
+    .catch((e) => t.equals(e, 'Error: -1 is < 0', 'function should fail'))
+    .then(() => {
+      t.ok(breaker.opened, 'breaker should be open');
+    })
+    .then(() => {
+      setTimeout(() => {
+        t.ok(breaker.halfOpen, 'breaker should be halfOpen');
+        // breaker should be half open, fail it again should open the circuit again
+        breaker
+          .fire(-1)
+          .catch((e) => t.equals(e, 'Error: -1 is < 0', 'function should fail again'))
+          .then(() => {
+            t.ok(breaker.opened, 'breaker should be open again');
+            setTimeout(() => {
+              t.ok(breaker.halfOpen, 'breaker should be halfOpen again');
+              // breaker should be half open again and it should allow the original function to be called, and it should pass this time.
+              breaker
+                .fire(1)
+                .then((result) => {
+                  t.equals(1, result);
+                  t.ok(breaker.closed, 'breaker should be closed');
+                  t.end();
+                })
+                .catch(t.fail);
+            }, options.resetTimeout * 1.1);
+          });
+    }, options.resetTimeout * 1.1);
+  });
+});
+
 /**
  * Returns a promise that resolves if the parameter
  * 'x' evaluates to >= 0. Otherwise the returned promise fails.
