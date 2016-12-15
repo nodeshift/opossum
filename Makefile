@@ -1,6 +1,7 @@
 ci:
 	npm run lint
 	npm run build:browser
+	npm run build:browser-test
 	npm run build:compress
 	npm run test:ci
 
