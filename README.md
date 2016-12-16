@@ -130,7 +130,7 @@ Contributions to Opossum are welcome! When contributing, be sure that you've add
 
 ### Releasing
 
-* Make sure everything works: `make clean ci`
+* Make sure everything works: `make clean && npm install && make ci`
 * Run standard-version: `npm run release`
 * Push to GitHub: `git push --follow-tags origin master`
 * Publish to npmjs.com: `npm publish`
