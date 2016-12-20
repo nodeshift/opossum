@@ -1,0 +1,37 @@
+{
+  "name": "opossum-browser-example",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "Apache-2.0",
+  "scripts": {
+    "lint": "eslint test/*.js index.js app.js",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bucharest-gold/opossum.git"
+  },
+  "devDependencies": {
+    "eslint": "~3.8.1",
+    "eslint-config-semistandard": "~7.0.0",
+    "eslint-config-standard": "~6.2.0",
+    "eslint-plugin-promise": "~3.3.0",
+    "eslint-plugin-react": "~6.4.1",
+    "eslint-plugin-standard": "~2.0.1"
+  },
+  "description": "Simple example with opossum and browser.",
+  "dependencies": {
+    "angular": "^1.6.0",
+    "angular-route": "^1.6.0",
+    "boom": "~4.2.0",
+    "bootstrap": "~3.3.7",
+    "hapi": "~16.0.1",
+    "inert": "~4.0.3",
+    "jquery": "~3.1.1"
+  },
+  "bugs": {
+    "url": "https://github.com/bucharest-gold/opossum/issues"
+  },
+  "homepage": "https://github.com/bucharest-gold/opossum#readme",
+  "author": ""
+}
