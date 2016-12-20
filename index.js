@@ -60,9 +60,8 @@ function exportModule (exported) {
   if (typeof module === 'object' && module.exports) {
     // we're in a node.js environment
     module.exports = exports = exported;
-  } else {
-    root[exported.name] = exported;
   }
+  root[exported.name] = exported;
 }
 
 exportModule(circuitBreaker);
