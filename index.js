@@ -57,16 +57,10 @@ function circuitBreaker (action, options) {
 circuitBreaker.promisify = require('./lib/promisify');
 
 function exportModule (exported) {
-  console.log('Exporting', exported);
-  console.log('Module', module);
-  if (typeof document === 'object') {
-    // in a browser environment
-    root[exported.name] = exported;
-  } else if (typeof module === 'object' && module.exports) {
+  if (typeof module === 'object' && module.exports) {
     // we're in a node.js environment
     module.exports = exports = exported;
   } else {
-    // ??
     root[exported.name] = exported;
   }
 }
