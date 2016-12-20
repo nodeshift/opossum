@@ -41,12 +41,12 @@ test('Fails when the circuit function fails', (t) => {
 });
 
 test('Fails when the circuit function times out', (t) => {
-  const expected = 'Time out after 10ms';
+  const expected = 'Timed out after 10ms';
   const breaker = circuitBreaker(slowFunction, { timeout: 10 });
 
   breaker.fire()
     .then(t.fail)
-    .catch((e) => t.equals(e, expected))
+    .catch((e) => t.equals(e.message, expected))
     .then(t.end);
 });
 
@@ -127,52 +127,48 @@ test('Breaker resets for circuits with a fallback function', (t) => {
   const breaker = circuitBreaker(passFail, { maxFailures: 1, resetTimeout });
   breaker.fallback((x) => x * 2);
 
-  breaker.fire(fails)
-    .then((result) => {
-      t.deepEqual(result, -2);
-      // Now the breaker should be open. Wait for reset and
-      // fire again.
-      setTimeout(() => {
-        breaker.fire(100)
-          .then((arg) => t.equals(arg, 100))
-          .then(t.end)
-          .catch(t.fail);
-      }, resetTimeout * 1.25);
-    })
-    .catch(t.fail);
+  breaker.on('fallback', (result) => {
+    t.equal(result, -2);
+    // Now the breaker should be open. Wait for reset and
+    // fire again.
+    setTimeout(() => {
+      breaker.fire(100)
+        .then((arg) => {
+          t.equals(arg, 100);
+        })
+        .then(t.end)
+        .catch(t.fail);
+    }, resetTimeout * 1.25);
+  });
+
+  breaker.fire(fails);
 });
 
 test('Executes fallback action, if one exists, when breaker is open', (t) => {
   const fails = -1;
+  const expected = 100;
   const breaker = circuitBreaker(passFail, { maxFailures: 1 });
-  breaker.fallback(() => 'fallback');
+  breaker.fallback(() => expected);
+  breaker.on('fallback', (result) => {
+    t.equals(result, expected);
+    t.end();
+  });
   breaker.fire(fails)
     .then(() => {
       // Now the breaker should be open. See if fallback fires.
-      breaker.fire()
-        .then((arg) => {
-          t.equals(arg, 'fallback');
-        })
-        .then(t.end)
-        .catch(t.fail);
+      breaker.fire().then(t.fail);
     });
 });
 
 test('Passes arguments to the fallback function', (t) => {
   const fails = -1;
-  const expected = 100;
   const breaker = circuitBreaker(passFail, { maxFailures: 1 });
+  breaker.on('fallback', (result) => {
+    t.equals(result, fails);
+    t.end();
+  });
   breaker.fallback((x) => x);
-  breaker.fire(fails)
-    .then(() => {
-      // Now the breaker should be open. See if fallback fires.
-      breaker.fire(expected)
-        .then((arg) => {
-          t.equals(arg, expected);
-        })
-        .then(t.end)
-        .catch(t.fail);
-    });
+  breaker.fire(fails).then(t.fail);
 });
 
 test('Returns self from fallback()', (t) => {

@@ -10,6 +10,13 @@ const defaults = {
   Promise: Fidelity
 };
 
+/** Detect free variable `global` from Node.js. */
+const freeGlobal = typeof global === 'object' && global && global.Object === Object && global;
+
+/* eslint no-new-func: 0 */
+/** Used as a reference to the global object. */
+const root = freeGlobal || Function('return this')();
+
 /**
  * @module opossum
  */
@@ -49,4 +56,19 @@ function circuitBreaker (action, options) {
  */
 circuitBreaker.promisify = require('./lib/promisify');
 
-module.exports = exports = circuitBreaker;
+function exportModule (exported) {
+  console.log('Exporting', exported);
+  console.log('Module', module);
+  if (typeof document === 'object') {
+    // in a browser environment
+    root[exported.name] = exported;
+  } else if (typeof module === 'object' && module.exports) {
+    // we're in a node.js environment
+    module.exports = exports = exported;
+  } else {
+    // ??
+    root[exported.name] = exported;
+  }
+}
+
+exportModule(circuitBreaker);
