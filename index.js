@@ -10,11 +10,11 @@ const defaults = {
   Promise: Fidelity
 };
 
-/** Detect free variable `global` from Node.js. */
+// Detect free variable `global` from Node.js.
 const freeGlobal = typeof global === 'object' && global && global.Object === Object && global;
 
 /* eslint no-new-func: 0 */
-/** Used as a reference to the global object. */
+// Used as a reference to the global object.
 const root = freeGlobal || Function('return this')();
 
 /**
