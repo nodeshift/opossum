@@ -2,6 +2,11 @@
 /* global $ circuitBreaker */
 
 (function appInitialization () {
+  $(() => {
+    $('#flakey').click(() => circuit.fire());
+    $('.clear').click(() => $(this).siblings('p').remove());
+  });
+
   const route = '/flakeyService';
   const element = '#flakeyResponse';
 
@@ -12,9 +17,7 @@
     Promise: Promise
   };
 
-  const circuit = circuitBreaker((route, element) => {
-    circuit.fallback(() => ({ body: `${route} unavailable right now. Try later.` }));
-
+  const circuit = circuitBreaker(() => {
     // Return a promise to the circuit
     return new Promise((resolve, reject) => {
       $.get(route)
@@ -26,8 +29,11 @@
     });
   }, circuitBreakerOptions);
 
+  circuit.fallback(() => ({ body: `${route} unavailable right now. Try later.` }));
+
   circuit.on('success',
-    (data) => $(element).append(makeNode(`SUCCESS: ${JSON.stringify(data)}`)));
+    (result) => $(element).append(
+      makeNode(`SUCCESS: ${JSON.stringify(result)}`)));
 
   circuit.on('timeout',
     () => $(element).append(
@@ -53,19 +59,18 @@
     (data) => $(element).append(
       makeNode(`FALLBACK: ${JSON.stringify(data)}`)));
 
+  function callService () {
+    circuit.fire()
+      .catch((e) => {
+        $(element).append(makeNode(`ERROR: ${JSON.stringify(e)}`));
+        console.error(e);
+      });
+  }
+
   function makeNode (body) {
     const response = document.createElement('p');
     $(response).addClass(body.substring(0, body.indexOf(':')).toLowerCase());
     response.append(body);
     return response;
   }
-
-  function callService () {
-    circuit.fire(route, element).catch((e) => console.error(e));
-  }
-
-  $(() => {
-    $('#flakey').click(callService);
-    $('.clear').click(function () { $(this).siblings('p').remove(); });
-  });
 })();

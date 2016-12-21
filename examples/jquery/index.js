@@ -42,8 +42,7 @@ server.route({
     // if we're really slowing down, just reply with an error
     if (delay > 1000) {
       console.log('Long delay encountered, returning Error 423 (Locked)');
-      return reply(
-        Boom.locked(util.format({ body: 'Flakey service is flakey' })));
+      return reply(Boom.locked('Flakey service is flakey'));
     }
     const response = reply({
       body: 'Flakey service response',
@@ -60,7 +59,9 @@ server.route({
 // reset the delay every 10 seconds
 setInterval(() => {
   delay = baseline;
-  console.log('Resetting flakey service delay to', delay);
+  if (delay !== baseline) {
+    console.log('Resetting flakey service delay to', delay);
+  }
 }, 20000);
 
 server.start((err) => {
