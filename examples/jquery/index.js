@@ -58,8 +58,8 @@ server.route({
 
 // reset the delay every 10 seconds
 setInterval(() => {
-  delay = baseline;
   if (delay !== baseline) {
+    delay = baseline;
     console.log('Resetting flakey service delay to', delay);
   }
 }, 20000);
@@ -76,7 +76,7 @@ server.start((err) => {
 });
 
 process.on('uncaughtException', (e) => {
-  process._rawDebug(`Caught exception ${e}`);
+  process._rawDebug(`Uncaught exception ${e}`);
 });
 
 function possibleError (err) {

@@ -3,8 +3,8 @@
 
 (function appInitialization () {
   $(() => {
-    $('#flakey').click(() => circuit.fire());
-    $('.clear').click(() => $(this).siblings('p').remove());
+    $('#flakey').click(() => circuit.fire().catch((e) => console.error(e)));
+    $('.clear').click(function () { $(this).siblings('p').remove(); });
   });
 
   const route = '/flakeyService';
@@ -12,22 +12,11 @@
 
   const circuitBreakerOptions = {
     timeout: 500,
-    maxFailures: 2,
-    resetTimeout: 5000,
-    Promise: Promise
+    maxFailures: 3,
+    resetTimeout: 5000
   };
 
-  const circuit = circuitBreaker(() => {
-    // Return a promise to the circuit
-    return new Promise((resolve, reject) => {
-      $.get(route)
-        .done((data) => resolve(data))
-        .fail((err) => {
-          reject(err);
-          console.error(err);
-        });
-    });
-  }, circuitBreakerOptions);
+  const circuit = circuitBreaker(() => $.get(route), circuitBreakerOptions);
 
   circuit.fallback(() => ({ body: `${route} unavailable right now. Try later.` }));
 
@@ -58,14 +47,6 @@
   circuit.on('fallback',
     (data) => $(element).append(
       makeNode(`FALLBACK: ${JSON.stringify(data)}`)));
-
-  function callService () {
-    circuit.fire()
-      .catch((e) => {
-        $(element).append(makeNode(`ERROR: ${JSON.stringify(e)}`));
-        console.error(e);
-      });
-  }
 
   function makeNode (body) {
     const response = document.createElement('p');
