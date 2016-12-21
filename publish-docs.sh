@@ -19,7 +19,7 @@ while true; do
   esac
 done
 
-npm run docs
+npm run build:docs
 git clone https://github.com/bucharest-gold/opossum.git $PUBLISH_DIR
 cd $PUBLISH_DIR
 git checkout gh-pages
