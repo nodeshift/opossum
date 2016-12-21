@@ -73,7 +73,8 @@ Here is an example using [hapi.js](hapijs.com). See the
 [examples](https://github.com/bucharest-gold/opossum/tree/master/examples/)
 folder for more detail.
 
-```js index.js
+```js
+// server.js
 const server = new Hapi.Server();
 server.register(require('inert', (err) => possibleError(err)));
 server.route({
@@ -87,7 +88,7 @@ server.route({
 });
 ```
 
-```html index.html
+```html
 <html>
 <head>
   <title>My Super App</title>
@@ -101,7 +102,8 @@ server.route({
 </html>
 ```
 
-```js app.js
+```js
+// app.js
 const route = 'https://example-service.com/rest/route';
 const circuitBreakerOptions = {
   timeout: 500,
