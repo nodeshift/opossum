@@ -366,6 +366,47 @@ test('circuit halfOpen', (t) => {
     });
 });
 
+test('CircuitBreaker fallback as a CircuitBreaker', (t) => {
+  t.plan(2);
+  const options = {
+    maxFailures: 1,
+    resetTimeout: 100
+  };
+
+  const input = -1;
+  const breaker = circuitBreaker(passFail, options);
+  breaker.fallback(circuitBreaker((x) => x, options));
+
+  breaker.on('fallback', (resultPromise) => {
+    resultPromise
+      .then((value) => t.equals(value, input, 'Fallback value equals input'))
+      .then(t.end);
+  });
+
+  breaker.fire(input)
+    .catch((e) => t.equals(e, 'Error: -1 is < 0', 'Breaker should fail'));
+});
+
+test('CircuitBreaker fallback as a CircuitBreaker that fails', (t) => {
+  t.plan(2);
+  const options = {
+    maxFailures: 1,
+    resetTimeout: 100
+  };
+
+  const input = -1;
+  const breaker = circuitBreaker(passFail, options);
+  breaker.fallback(circuitBreaker(passFail, options));
+
+  breaker.on('fallback', (resultPromise) => {
+    resultPromise
+      .catch((e) => t.equals(e, 'Error: -1 is < 0', 'Breaker should fail'))
+      .then(t.end);
+  });
+
+  breaker.fire(input)
+    .catch((e) => t.equals(e, 'Error: -1 is < 0', 'Breaker should fail'));
+});
 /**
  * Returns a promise that resolves if the parameter
  * 'x' evaluates to >= 0. Otherwise the returned promise fails.
@@ -373,7 +414,7 @@ test('circuit halfOpen', (t) => {
 function passFail (x) {
   return new Fidelity((resolve, reject) => {
     setTimeout(() => {
-      (x >= 0) ? resolve(x) : reject(`Error: ${x} is < 0`);
+      (x > 0) ? resolve(x) : reject(`Error: ${x} is < 0`);
     }, 100);
   });
 }
