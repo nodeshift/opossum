@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/bucharest-gold/opossum/compare/v0.3.0...v0.5.0) (2016-12-22)
+
+
+### Bug Fixes
+
+* ensure fallback event emits after function call ([df40ea7](https://github.com/bucharest-gold/opossum/commit/df40ea7))
+* ensure pending close flag is reset ([5a1b70b](https://github.com/bucharest-gold/opossum/commit/5a1b70b))
+* ensure that promise is rejected on fallback ([d4496d8](https://github.com/bucharest-gold/opossum/commit/d4496d8))
+* fix (again) browser load of circuitBreaker ([58a80fb](https://github.com/bucharest-gold/opossum/commit/58a80fb))
+* fix export of module in browser environment ([5a0594c](https://github.com/bucharest-gold/opossum/commit/5a0594c))
+
+
+### Features
+
+* allow for a CircuitBreaker as a fallback ([85cbc34](https://github.com/bucharest-gold/opossum/commit/85cbc34))
+* Full featured browser capabilities ([2cc08f0](https://github.com/bucharest-gold/opossum/commit/2cc08f0))
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/bucharest-gold/opossum/compare/v0.3.0...v0.4.0) (2016-12-20)
 
