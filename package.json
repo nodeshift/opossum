@@ -20,7 +20,7 @@
     "prepublish": "nsp check && npm run build:browser",
     "postpublish": "./publish-docs.sh",
     "prerelease": "npm test",
-    "release": "standard-version",
+    "release": "standard-version -s",
     "lint": "eslint test/*.js index.js lib/*.js",
     "dependency-check": "szero . --ci"
   },
