@@ -11,7 +11,7 @@ plays dead and fails fast. If you want, you can provide a fallback function
 to be executed when in the failure state.
 
 For more about the circuit breaker pattern, there are lots of resources
-on the web - search it! Here is one place to
+on the web - search it! Fowler's blog post is one place to
 [start reading](http://martinfowler.com/bliki/CircuitBreaker.html).
 
 |                 | Project Info  |
@@ -20,12 +20,12 @@ on the web - search it! Here is one place to
 | Build:          | make  |
 | Documentation:  | https://bucharest-gold.github.io/opossum/ |
 | Issue tracker:  | https://github.com/bucharest-gold/opossum/issues  |
-| Engines:        | Node.js 4.x, 5.x, 6.x
+| Engines:        | Node.js 4.x, 5.x, 6.x, 7.x
 
 ## Usage
 
 Let's say you've got an API that depends on something that might fail -
-a network operation, or disk read, for example. Wrap that puppy up in a
+a network operation, or disk read, for example. Wrap those functions up in a
 `CircuitBreaker` and you have control over your destiny.
 
 ```javascript
@@ -44,34 +44,60 @@ const options = {
 };
 const breaker = circuitBreaker(asyncFunctionThatCouldFail, options);
 
-breaker.fire('foo', 'bar')
-  .then((result) => console.log(result))
+breaker.fire(params)
+  .then(console.log)
   .catch(console.error);
 ```
+### Fallback
 
-You could also provide a fallback function that will be executed instead
-of indicating failure. After the `resetTimeout` expires, `opossum` will try
-the circuit again.
+You can also provide a fallback function that will be executed in the
+event of failure. To take some action when the fallback is performed,
+listen for the `fallback` event.
 
 ```javascript
 const breaker = circuitBreaker(asyncFunctionThatCouldFail, options);
 // if asyncFunctionThatCouldFail starts to fail, firing the breaker
 // will trigger our fallback function
 breaker.fallback(() => 'Sorry, out of service right now');
+breaker.on('fallback', (result) => reportFallbackEvent(result));
 ```
 
+Once the circuit has opened, a timeout is set based on `options.resetTimeout`.
+When the `resetTimeout` expires, `opossum` will enter the `halfOpen` state and
+try the action again. If successful, the circuit will close and emit the `close`
+event.
+
 When a fallback function is triggered, it's considered a failure, and the
-fallback function will continue to be executed until the breaker is closed,
-after the `resetTimeout` has expired.
+fallback function will continue to be executed until the breaker is closed.
 
 ### Browser
 
-Opossum really shines in a browser. You can use it to guard against network failures in your AJAX calls. A browserified version of module is available
+Opossum really shines in a browser. You can use it to guard against network
+failures in your AJAX calls. A browserified version of the module is available
 as a compressed file, or exploded in the `dist` folder.
 
 Here is an example using [hapi.js](hapijs.com). See the
 [examples](https://github.com/bucharest-gold/opossum/tree/master/examples/)
 folder for more detail.
+
+Include `opossum.js` in your HTML file.
+
+```html
+<html>
+<head>
+  <title>My Super App</title>
+  <script type='text/javascript' src="/jquery.js"></script>
+  <script type='text/javascript' src="/opossum.js"></script>
+  <script type='text/javascript' src="/app.js"></script>
+<body>
+...
+</body>
+</head>
+</html>
+```
+
+In your application, set a route to the file, pointing to
+`node_modules/opossum/dist/opossum-min.js`.
 
 ```js
 // server.js
@@ -87,20 +113,9 @@ server.route({
   }
 });
 ```
-
-```html
-<html>
-<head>
-  <title>My Super App</title>
-  <script type='text/javascript' src="/jquery.js"></script>
-  <script type='text/javascript' src="/opossum.js"></script>
-  <script type='text/javascript' src="/app.js"></script>
-<body>
-...
-</body>
-</head>
-</html>
-```
+In the browser's global scope will be a `circuitBreaker` function. Use it
+to create circuit breakers, guarding against network failures in your REST
+API calls.
 
 ```js
 // app.js
@@ -174,9 +189,11 @@ circuit.on('fallback',
 
 
 ### Promises vs. Callbacks
-The `opossum` API uses a `Promise` as a return value for a breaker that
-has been fired. But your circuit action - the async function that might fail -
-doesn't have to return a promise. Check this out.
+The `opossum` API returns a `Promise` from `CircuitBreaker.fire()`.
+But your circuit action - the async function that might fail -
+doesn't have to return a promise. You can easily turn Node.js style
+callback functions into something `opossum` understands by using
+`circuitBreaker.promisify()`.
 
 ```javascript
 const fs = require('fs');
@@ -190,9 +207,6 @@ breaker.fire('./package.json', 'utf-8')
   .catch(console.error);
 ```
 
-Now, you've got easy monitoring of all those Node.js I/O bount functions.
-How do you deal with that? Easy, my friend - just `promisify` it.
-
 And just for fun, your circuit doesn't even really have to be a function.
 Not sure when you'd use this - but you could if you wanted to.
 
@@ -200,7 +214,7 @@ Not sure when you'd use this - but you could if you wanted to.
 const breaker = circuitBreaker('foo', options);
 
 breaker.fire()
-  .then((result) => console.log(result)) // logs 'foo'
+  .then(console.log) // logs 'foo'
   .catch(console.error);
 ```
 
@@ -209,11 +223,11 @@ breaker.fire()
 The `Promise` implementation used in `opossum` is compliant with both the
 ES6 `Promise` API as well as the `promises/A+` API. This means that it doesn't
 matter what flavor of promise your API uses, `opossum` should work fine with
-them. If you would like to control what `Promise` implementation used in
+it. If you would like to control what `Promise` implementation used in
 `opossum`, provide a `Promise` constructor function in your options when
 you create the breaker. E.g.
 
 ```javascript
-// Force to use native JS promises
+// Force opossum to use native JS promises
 const breaker = circuitBreaker(readFile, { Promise: Promise });
 ```
