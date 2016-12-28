@@ -3,7 +3,6 @@
 const Hapi = require('hapi');
 const Boom = require('boom');
 const path = require('path');
-const util = require('util');
 
 const server = new Hapi.Server();
 
