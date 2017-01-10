@@ -387,6 +387,26 @@ test('circuit halfOpen', (t) => {
     });
 });
 
+test('CircuitBreaker fallback as a rejected promise', (t) => {
+  t.plan(1);
+  const options = {
+    maxFailures: 1,
+    resetTimeout: 100
+  };
+  const input = -1;
+  const breaker = circuitBreaker(passFail, options);
+  breaker.fallback(() => Promise.reject('nope'));
+
+  breaker.on('fallback', (resultPromise) => {
+    resultPromise
+      .then(t.fail)
+      .catch((e) => t.equals('nope', e))
+      .then(t.end);
+  });
+
+  breaker.fire(input);
+});
+
 test('CircuitBreaker fallback as a CircuitBreaker', (t) => {
   t.plan(2);
   const options = {
