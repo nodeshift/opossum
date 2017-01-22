@@ -1,0 +1,37 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 1em !important;
+}
+button {
+  padding: 1ex 1em;
+  margin-right: 1em;
+  font-size: larger;
+}
+.row {
+  padding: 1em;
+}
+h2 {
+  border-bottom: 1px dotted #999;
+}
+.clear {
+  cursor: pointer;
+  color: #3336ff;
+}
+.success {
+  color: darkgreen
+}
+.open {
+  color: red
+}
+.fallback {
+  color: darkblue
+}
+.rejected {
+  color: darkorange
+}
+.close {
+  color: green
+}
+.timeout {
+  color: darksalmon
+}
