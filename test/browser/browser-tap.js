@@ -1,11 +1,10 @@
 // for browser output
 // TODO: This is all pretty hackey
 const log = console.log;
-const inBrowser = typeof document !== 'undefined';
 
 function enable () {
   console.log = function () {
-    if (inBrowser) {
+    if (typeof process === 'undefined') {
       printToBrowser(arguments[0]);
     }
     log.apply(log, Array.prototype.slice.call(arguments));
@@ -24,7 +23,7 @@ function printToBrowser (line) {
     p.style.color = 'green';
   } else if (line.startsWith('not ok') || line.startsWith('# fail')) {
     p.style.color = 'red';
-    statusBar.style.backgroundColor = 'red';
+    if (statusBar) statusBar.style.backgroundColor = 'red';
   } else if (line.startsWith('# tests')) {
     p.className = 'test-count';
   } else if (line.startsWith('#')) {
