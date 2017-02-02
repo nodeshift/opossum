@@ -8,7 +8,7 @@ const cb = require('../');
 browser.enable();
 
 test('global namespace', (t) => {
-  const inBrowser = typeof process === 'undefined';
+  const inBrowser = typeof window === 'object';
   const globalExport = typeof circuitBreaker !== 'undefined';
   t.ok((inBrowser && globalExport) ||
       (!inBrowser && !globalExport), 'behaves correctly');

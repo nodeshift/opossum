@@ -1,4 +1,4 @@
-(function (global) {
+(() => {
   'use strict';
 
   const CircuitBreaker = require('./lib/circuit');
@@ -10,13 +10,6 @@
     resetTimeout: 30000, // 30 seconds
     Promise: Fidelity
   };
-
-  // Detect free variable `global` from Node.js.
-  const freeGlobal = typeof global === 'object' && global && global.Object === Object && global;
-
-  /* eslint no-new-func: 0 */
-  // Used as a reference to the global object.
-  const root = freeGlobal || Function('return this')();
 
   /**
    * @module opossum
@@ -57,14 +50,11 @@
    */
   circuitBreaker.promisify = require('./lib/promisify');
 
-  function exportModule (exported) {
-    if (typeof module === 'object' && module.exports) {
-      // we're in a node.js environment
-      module.exports = exports = exported;
-    } else {
-      root[exported.name] = exported;
-    }
+  if (typeof window === 'object') {
+    window[circuitBreaker.name] = circuitBreaker;
   }
-
-  exportModule(circuitBreaker);
-}.call(this));
+  if (typeof process === 'object') {
+    // we're in a node.js environment
+    module.exports = exports = circuitBreaker;
+  }
+}).call();
