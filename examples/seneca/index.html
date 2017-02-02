@@ -1,0 +1,76 @@
+<html>
+<head>
+  <title>Opossum Circuit Breaker Example</title>
+  <script type='text/javascript' src="/jquery.js"></script>
+  <script type='text/javascript' src="/opossum.js"></script>
+  <script type='text/javascript' src="/app.js"></script>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 1em;
+    }
+    button {
+      padding: 1ex 1em;
+      margin-right: 1em;
+      font-size: larger;
+    }
+    .row {
+      padding: 1em;
+      width: 100%
+    }
+    h2 {
+      border-bottom: 1px dotted #999;
+    }
+    .clear {
+      cursor: pointer;
+      color: #3336ff;
+    }
+    .success {
+      color: darkgreen
+    }
+    .open {
+      color: red
+    }
+    .fallback {
+      color: darkblue
+    }
+    .rejected {
+      color: darkorange
+    }
+    .close {
+      color: green
+    }
+    .timeout {
+      color: darksalmon
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>Opossum Circuit Breaker Example</h1>
+
+    <p>
+      When you click the button here, this simple app calls a flakey web service that takes longer and longer to respond. The app's circuit breaker is configured to timeout after 500ms and execute a fallback command. Every 20 seconds, the flakey service is reset and the pattern is repeated.
+    </p>
+    <p>
+      If more than 3 errors are observed by the circuit within a single timeout period, then it begins to fail fast, rejecting the network call outright and executing the fallback function.
+    </p>
+    <p>
+       This should allow you to see all of the various events that occur when using a circuit breaker.
+    </p>
+    <p>
+      The <a href="/app.js">source code</a> for the application is relatively simple, and uses some basic jQuery capabilities to make the ajax calls and update the DOM accordingly.
+    </p>
+    <div class="row">
+      <button type="button" id="flakey">
+        Flakey Service
+      </button>
+    </div>
+
+    <div class="row" id="flakeyResponse">
+      <h2>FLAKEY RESPONSES</h2>
+      <span class="clear">Click to clear</span>
+    </div>
+  </div>
+</body>
+</html>
