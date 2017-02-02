@@ -4,7 +4,7 @@ const log = console.log;
 
 function enable () {
   console.log = function () {
-    if (typeof process === 'undefined') {
+    if (typeof window !== 'undefined') {
       printToBrowser(arguments[0]);
     }
     log.apply(log, Array.prototype.slice.call(arguments));
