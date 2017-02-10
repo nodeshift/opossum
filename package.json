@@ -64,7 +64,7 @@
     "szero": "^0.8.0",
     "tap-spec": "~4.1.1",
     "tape": "~4.6.2",
-    "tape-run": "~2.1.4"
+    "tape-run": "~2.2.0"
   },
   "description": "A fail-fast circuit breaker for promises and callbacks",
   "keywords": [
