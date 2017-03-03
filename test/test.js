@@ -168,14 +168,12 @@ test('Executes fallback action, if one exists, when breaker is open', (t) => {
   const expected = 100;
   const breaker = cb(passFail, { maxFailures: 1 });
   breaker.fallback(() => expected);
-  breaker.on('fallback', (result) => {
-    t.equals(result, expected, 'fallback action executes');
-    t.end();
-  });
   breaker.fire(fails)
     .then(() => {
       // Now the breaker should be open. See if fallback fires.
-      breaker.fire().then(t.fail);
+      breaker.fire()
+        .then((x) => t.equals(x, expected, 'fallback action executes'))
+        .then(t.end);
     });
 });
 
@@ -188,7 +186,7 @@ test('Passes arguments to the fallback function', (t) => {
     t.end();
   });
   breaker.fallback((x) => x);
-  breaker.fire(fails).then(t.fail);
+  breaker.fire(fails).catch(t.fail);
 });
 
 test('Returns self from fallback()', (t) => {
@@ -228,7 +226,7 @@ test('CircuitBreaker status', (t) => {
           breaker.fire(-20)
             .then((result) => {
               t.equal(result, 'Fallback called', 'fallback is invoked');
-              t.equal(breaker.status.failures, 2, 'status reports 2 failures');
+              t.equal(breaker.status.failures, 1, 'status reports 1 failures');
               t.equal(breaker.status.fires, 5, 'status reports 5 fires');
               t.equal(breaker.status.fallbacks, 1, 'status reports 1 fallback');
             })
@@ -416,7 +414,7 @@ test('CircuitBreaker fallback as a rejected promise', (t) => {
 });
 
 test('CircuitBreaker fallback as a CircuitBreaker', (t) => {
-  t.plan(2);
+  t.plan(1);
   const options = {
     maxFailures: 1,
     resetTimeout: 100
@@ -426,18 +424,13 @@ test('CircuitBreaker fallback as a CircuitBreaker', (t) => {
   const breaker = cb(passFail, options);
   breaker.fallback(cb((x) => x, options));
 
-  breaker.on('fallback', (resultPromise) => {
-    resultPromise
-      .then((value) => t.equals(value, input, 'Fallback value equals input'))
-      .then(t.end);
-  });
-
   breaker.fire(input)
-    .catch((e) => t.equals(e, 'Error: -1 is < 0', 'Breaker should fail'));
+    .then((v) => t.equals(v, input, 'Fallback value equals input'))
+    .then(t.end);
 });
 
 test('CircuitBreaker fallback as a CircuitBreaker that fails', (t) => {
-  t.plan(2);
+  t.plan(1);
   const options = {
     maxFailures: 1,
     resetTimeout: 100
@@ -447,14 +440,9 @@ test('CircuitBreaker fallback as a CircuitBreaker that fails', (t) => {
   const breaker = cb(passFail, options);
   breaker.fallback(cb(passFail, options));
 
-  breaker.on('fallback', (resultPromise) => {
-    resultPromise
-      .catch((e) => t.equals(e, 'Error: -1 is < 0', 'Breaker should fail'))
-      .then(t.end);
-  });
-
   breaker.fire(input)
-    .catch((e) => t.equals(e, 'Error: -1 is < 0', 'Breaker should fail'));
+    .catch((e) => t.equals(e, 'Error: -1 is < 0', 'Breaker should fail'))
+    .then(t.end);
 });
 /**
  * Returns a promise that resolves if the parameter
