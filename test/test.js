@@ -201,6 +201,19 @@ test('Returns self from fallback()', (t) => {
     .catch(t.fail);
 });
 
+test('CircuitBreaker emits failure when falling back', (t) => {
+  t.plan(2);
+  const breaker = cb(passFail).fallback(() => 'fallback value');
+
+  breaker.on('failure', (err) => {
+    t.equals(err, 'Error: -1 is < 0', 'Unexpected error');
+  });
+
+  breaker.fire(-1).then((result) => {
+    t.equals('fallback value', result, 'fallback value is correct');
+  }).catch(t.fail);
+});
+
 test('CircuitBreaker status', (t) => {
   t.plan(11);
   const breaker = cb(passFail, { maxFailures: 1 });
@@ -226,12 +239,13 @@ test('CircuitBreaker status', (t) => {
           breaker.fire(-20)
             .then((result) => {
               t.equal(result, 'Fallback called', 'fallback is invoked');
-              t.equal(breaker.status.failures, 1, 'status reports 1 failures');
+              t.equal(breaker.status.failures, 2, 'status reports 2 failures');
               t.equal(breaker.status.fires, 5, 'status reports 5 fires');
               t.equal(breaker.status.fallbacks, 1, 'status reports 1 fallback');
             })
             .catch(t.fail);
         })
+        .catch(t.fail)
         .then(t.end);
     });
 });
