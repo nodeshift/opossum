@@ -401,12 +401,12 @@ test('CircuitBreaker fallback as a rejected promise', (t) => {
   };
   const input = -1;
   const breaker = cb(passFail, options);
-  breaker.fallback(() => Promise.reject('nope'));
+  breaker.fallback(() => Promise.reject(new Error('nope')));
 
   breaker.on('fallback', (resultPromise) => {
     resultPromise
       .then(t.fail)
-      .catch((e) => t.equals('nope', e))
+      .catch((e) => t.equals('nope', e.message))
       .then(t.end);
   });
 
