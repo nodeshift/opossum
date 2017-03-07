@@ -40,6 +40,35 @@ test('Passes parameters to the circuit function', (t) => {
     .catch(t.fail);
 });
 
+test('Using cache', (t) => {
+  t.plan(3);
+  const expected = 34;
+  const options = {
+    cache: true
+  };
+  const breaker = cb(passFail, options);
+
+  breaker.fire(expected)
+    .then((arg) => t.equals(arg, expected, `cache hits:misses ${breaker.status.cacheHit}:${breaker.status.cacheMiss}`))
+    .catch(t.fail)
+    .then(() => {
+      breaker.fire(expected)
+        .then((arg) => {
+          t.equals(arg, expected, `cache hits:misses ${breaker.status.cacheHit}:${breaker.status.cacheMiss}`);
+          breaker.clearCache();
+        })
+        .catch(t.fail)
+        .then(() => {
+          breaker.fire(expected)
+            .then((arg) => {
+              t.equals(arg, expected, `cache hits:misses ${breaker.status.cacheHit}:${breaker.status.cacheMiss}`);
+            })
+            .then(t.end)
+            .catch(t.fail);
+        });
+    });
+});
+
 test('Fails when the circuit function fails', (t) => {
   t.plan(1);
   const breaker = cb(passFail);
