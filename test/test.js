@@ -213,6 +213,19 @@ test('CircuitBreaker emits failure when action throws', (t) => {
     });
 });
 
+test('CircuitBreaker executes fallback when an action throws', (t) => {
+  t.plan(3);
+  const breaker = cb(() => { throw new Error('E_TOOMANYCHICKENTACOS'); })
+    .fallback(() => 'Fallback executed');
+  breaker.fire()
+    .then((result) => {
+      t.equals(breaker.status.failures, 1, 'expected failure status');
+      t.equals(breaker.status.fallbacks, 1, 'expected fallback status');
+      t.equals(result, 'Fallback executed');
+    })
+    .catch(t.fail);
+});
+
 test('CircuitBreaker emits failure when falling back', (t) => {
   t.plan(2);
   const breaker = cb(passFail).fallback(() => 'fallback value');
