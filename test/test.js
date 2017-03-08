@@ -351,6 +351,36 @@ test('CircuitBreaker rolling counts', (t) => {
     });
 });
 
+test('CircuitBreaker status listeners', (t) => {
+  // 100ms snapshot intervals should ensure that event stats
+  // will be scattered across > 1 snapshot
+  const opts = { rollingCountTimeout: 2500, rollingCountBuckets: 25 };
+  const breaker = cb(passFail, opts);
+
+  const results = {
+    successes: 0,
+    fires: 0
+  };
+  breaker.status.addSnapshotListener((snapshot) => {
+    t.ok(snapshot.successes !== undefined, 'has successes stat');
+    t.ok(snapshot.fires !== undefined, 'has fires stat');
+    t.ok(snapshot.failures !== undefined, 'has failures stat');
+    t.ok(snapshot.fallbacks !== undefined, 'has fallbacks stat');
+    t.ok(snapshot.rejects !== undefined, 'has rejects stat');
+    t.ok(snapshot.timeouts !== undefined, 'has timeouts stat');
+
+    results.successes += snapshot.successes;
+    results.fires += snapshot.fires;
+  });
+  breaker.fire(10)
+    .then(() => breaker.fire(10))
+    .then(() => breaker.fire(10))
+    .then(() => breaker.fire(10))
+    .then(() => breaker.fire(10))
+    .then(() => t.equal(results.fires, 5) && t.equal(results.successes, 5))
+    .then(t.end);
+});
+
 test('CircuitBreaker fallback event', (t) => {
   t.plan(1);
   const breaker = cb(passFail, {maxFailures: 0});
