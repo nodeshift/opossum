@@ -294,6 +294,24 @@ test('CircuitBreaker status', (t) => {
     });
 });
 
+test('CircuitBreaker rolling counts', (t) => {
+  const breaker = cb(passFail, { rollingCountTimeout: 100 });
+  const deepEqual = (t, expected) => (actual) => t.deepEqual(actual, expected, 'expected status values');
+  Fidelity.all([
+    breaker.fire(10).then(deepEqual(t, 10)),
+    breaker.fire(20).then(deepEqual(t, 20)),
+    breaker.fire(30).then(deepEqual(t, 30))
+  ])
+    .then(() =>
+      t.deepEqual(breaker.status.successes, 3, 'breaker succeeded 3 times'))
+    .then(() => {
+      setTimeout(() => {
+        t.deepEqual(breaker.status.successes, 0, 'breaker reset stats');
+        t.end();
+      }, 100);
+    });
+});
+
 test('CircuitBreaker fallback event', (t) => {
   t.plan(1);
   const breaker = cb(passFail, {maxFailures: 0});
