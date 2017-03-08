@@ -330,7 +330,8 @@ test('CircuitBreaker status', (t) => {
 });
 
 test('CircuitBreaker rolling counts', (t) => {
-  const breaker = cb(passFail, { rollingCountTimeout: 100 });
+  const opts = { rollingCountTimeout: 1000, rollingCountBuckets: 10 };
+  const breaker = cb(passFail, opts);
   const deepEqual = (t, expected) => (actual) => t.deepEqual(actual, expected, 'expected status values');
   Fidelity.all([
     breaker.fire(10).then(deepEqual(t, 10)),
@@ -341,6 +342,9 @@ test('CircuitBreaker rolling counts', (t) => {
       t.deepEqual(breaker.status.successes, 3, 'breaker succeeded 3 times'))
     .then(() => {
       setTimeout(() => {
+        const window = breaker.status.window;
+        t.ok(window.length > 1);
+        t.equal(window[window.length - 1].fires, 3, 'breaker stats are rolling');
         t.deepEqual(breaker.status.successes, 0, 'breaker reset stats');
         t.end();
       }, 100);
