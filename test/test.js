@@ -29,6 +29,25 @@ test('api', (t) => {
   t.end();
 });
 
+test('has a name based on the function name', (t) => {
+  const breaker = cb(passFail);
+  t.equals(breaker.name, passFail.name);
+  t.end();
+});
+
+test('accepts a name as an option', (t) => {
+  const breaker = cb(passFail, {name: 'tacoMachine'});
+  t.equals(breaker.name, 'tacoMachine');
+  t.end();
+});
+
+test('uses UUID as a name when none is provided and the function is anonymoys',
+  (t) => {
+    const breaker = cb((_) => _);
+    t.ok(breaker.name);
+    t.end();
+  });
+
 test('Passes parameters to the circuit function', (t) => {
   t.plan(1);
   const expected = 34;
