@@ -59,6 +59,41 @@ test('Passes parameters to the circuit function', (t) => {
     .catch(t.fail);
 });
 
+test('Using cache', (t) => {
+  t.plan(7);
+  const expected = 34;
+  const options = {
+    cache: true
+  };
+  const breaker = cb(passFail, options);
+
+  breaker.fire(expected)
+    .then((arg) => {
+      t.equals(breaker.status.cacheHits, 0);
+      t.equals(breaker.status.cacheMisses, 1);
+      t.equals(arg, expected, `cache hits:misses ${breaker.status.cacheHits}:${breaker.status.cacheMisses}`);
+    })
+    .catch(t.fail)
+    .then(() => {
+      breaker.fire(expected)
+        .then((arg) => {
+          t.equals(breaker.status.cacheHits, 1);
+          t.equals(breaker.status.cacheMisses, 1);
+          t.equals(arg, expected, `cache hits:misses ${breaker.status.cacheHits}:${breaker.status.cacheMisses}`);
+          breaker.clearCache();
+        })
+        .catch(t.fail)
+        .then(() => {
+          breaker.fire(expected)
+            .then((arg) => {
+              t.equals(arg, expected, `cache hits:misses ${breaker.status.cacheHits}:${breaker.status.cacheMisses}`);
+            })
+            .then(t.end)
+            .catch(t.fail);
+        });
+    });
+});
+
 test('Fails when the circuit function fails', (t) => {
   t.plan(1);
   const breaker = cb(passFail);
@@ -520,6 +555,23 @@ test('CircuitBreaker fallback as a CircuitBreaker that fails', (t) => {
     .catch((e) => t.equals(e, 'Error: -1 is < 0', 'Breaker should fail'))
     .then(t.end);
 });
+
+test('CircuitBreaker fallback as a CircuitBreaker', (t) => {
+  t.plan(1);
+  const options = {
+    maxFailures: 1,
+    resetTimeout: 100
+  };
+
+  const input = -1;
+  const breaker = cb(passFail, options);
+  breaker.fallback(cb((x) => x, options));
+
+  breaker.fire(input)
+    .then((v) => t.equals(v, input, 'Fallback value equals input'))
+    .then(t.end);
+});
+
 /**
  * Returns a promise that resolves if the parameter
  * 'x' evaluates to >= 0. Otherwise the returned promise fails.
