@@ -60,7 +60,7 @@ test('Passes parameters to the circuit function', (t) => {
 });
 
 test('Using cache', (t) => {
-  t.plan(3);
+  t.plan(7);
   const expected = 34;
   const options = {
     cache: true
@@ -68,11 +68,17 @@ test('Using cache', (t) => {
   const breaker = cb(passFail, options);
 
   breaker.fire(expected)
-    .then((arg) => t.equals(arg, expected, `cache hits:misses ${breaker.status.cacheHits}:${breaker.status.cacheMisses}`))
+    .then((arg) => {
+      t.equals(breaker.status.cacheHits, 0);
+      t.equals(breaker.status.cacheMisses, 1);
+      t.equals(arg, expected, `cache hits:misses ${breaker.status.cacheHits}:${breaker.status.cacheMisses}`);
+    })
     .catch(t.fail)
     .then(() => {
       breaker.fire(expected)
         .then((arg) => {
+          t.equals(breaker.status.cacheHits, 1);
+          t.equals(breaker.status.cacheMisses, 1);
           t.equals(arg, expected, `cache hits:misses ${breaker.status.cacheHits}:${breaker.status.cacheMisses}`);
           breaker.clearCache();
         })
