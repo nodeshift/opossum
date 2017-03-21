@@ -194,6 +194,15 @@ test('Breaker resets after a configurable amount of time', (t) => {
     });
 });
 
+test('Breaker status reflects open state', (t) => {
+  t.plan(1);
+  const breaker = cb(passFail, {maxFailures: 0, resetTimeout: 100});
+  breaker.fire(-1)
+    .then(t.fail)
+    .catch(() => t.ok(breaker.status.window[0].isCircuitBreakerOpen))
+    .then(t.end);
+});
+
 test('Breaker resets for circuits with a fallback function', (t) => {
   t.plan(2);
   const fails = -1;
