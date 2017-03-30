@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/bucharest-gold/opossum/compare/v0.5.1...v0.6.0) (2017-03-30)
+
+
+### Bug Fixes
+
+* circuit should emit failure event on fallback ([f2594d8](https://github.com/bucharest-gold/opossum/commit/f2594d8))
+* include the error when emitting the 'fallback event' ([40eb2eb](https://github.com/bucharest-gold/opossum/commit/40eb2eb))
+* promise should reject when action throws ([58dab98](https://github.com/bucharest-gold/opossum/commit/58dab98))
+* typo copy past duplicated property ([54a27b9](https://github.com/bucharest-gold/opossum/commit/54a27b9))
+
+
+### Features
+
+* add basic rolling stats to a circuit ([8fb9561](https://github.com/bucharest-gold/opossum/commit/8fb9561))
+* Add caching capability to circuits ([6c3144f](https://github.com/bucharest-gold/opossum/commit/6c3144f))
+* Add caching capability to circuits ([0b717f6](https://github.com/bucharest-gold/opossum/commit/0b717f6))
+* Applying code review ([6a0f7ff](https://github.com/bucharest-gold/opossum/commit/6a0f7ff))
+* Applying code review ([8445a24](https://github.com/bucharest-gold/opossum/commit/8445a24))
+* circuits now have a name based on the action ([f08d46e](https://github.com/bucharest-gold/opossum/commit/f08d46e))
+
+
+
 <a name="0.5.1"></a>
 ## [0.5.1](https://github.com/bucharest-gold/opossum/compare/v0.5.0...v0.5.1) (2017-03-02)
 
