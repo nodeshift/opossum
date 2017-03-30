@@ -60,7 +60,7 @@ test('Passes parameters to the circuit function', (t) => {
 });
 
 test('Using cache', (t) => {
-  t.plan(7);
+  t.plan(9);
   const expected = 34;
   const options = {
     cache: true
@@ -69,16 +69,18 @@ test('Using cache', (t) => {
 
   breaker.fire(expected)
     .then((arg) => {
-      t.equals(breaker.status.cacheHits, 0);
-      t.equals(breaker.status.cacheMisses, 1);
+      t.equals(breaker.status.cacheHits, 0, 'does not hit the cache');
+      t.equals(breaker.status.cacheMisses, 1, 'emits a cacheMiss');
+      t.equals(breaker.status.fires, 1, 'fired once');
       t.equals(arg, expected, `cache hits:misses ${breaker.status.cacheHits}:${breaker.status.cacheMisses}`);
     })
     .catch(t.fail)
     .then(() => {
       breaker.fire(expected)
         .then((arg) => {
-          t.equals(breaker.status.cacheHits, 1);
-          t.equals(breaker.status.cacheMisses, 1);
+          t.equals(breaker.status.cacheHits, 1, 'hit the cache');
+          t.equals(breaker.status.cacheMisses, 1, 'did not emit miss');
+          t.equals(breaker.status.fires, 2, 'fired twice');
           t.equals(arg, expected, `cache hits:misses ${breaker.status.cacheHits}:${breaker.status.cacheMisses}`);
           breaker.clearCache();
         })
@@ -190,6 +192,15 @@ test('Breaker resets after a configurable amount of time', (t) => {
           .then(t.end);
       }, resetTimeout * 1.25);
     });
+});
+
+test('Breaker status reflects open state', (t) => {
+  t.plan(1);
+  const breaker = cb(passFail, {maxFailures: 0, resetTimeout: 100});
+  breaker.fire(-1)
+    .then(t.fail)
+    .catch(() => t.ok(breaker.status.window[0].isCircuitBreakerOpen))
+    .then(t.end);
 });
 
 test('Breaker resets for circuits with a fallback function', (t) => {
@@ -330,7 +341,8 @@ test('CircuitBreaker status', (t) => {
 });
 
 test('CircuitBreaker rolling counts', (t) => {
-  const breaker = cb(passFail, { rollingCountTimeout: 100 });
+  const opts = { rollingCountTimeout: 1000, rollingCountBuckets: 10 };
+  const breaker = cb(passFail, opts);
   const deepEqual = (t, expected) => (actual) => t.deepEqual(actual, expected, 'expected status values');
   Fidelity.all([
     breaker.fire(10).then(deepEqual(t, 10)),
@@ -341,10 +353,43 @@ test('CircuitBreaker rolling counts', (t) => {
       t.deepEqual(breaker.status.successes, 3, 'breaker succeeded 3 times'))
     .then(() => {
       setTimeout(() => {
+        const window = breaker.status.window;
+        t.ok(window.length > 1);
+        t.equal(window[window.length - 1].fires, 3, 'breaker stats are rolling');
         t.deepEqual(breaker.status.successes, 0, 'breaker reset stats');
         t.end();
       }, 100);
     });
+});
+
+test('CircuitBreaker status listeners', (t) => {
+  // 100ms snapshot intervals should ensure that event stats
+  // will be scattered across > 1 snapshot
+  const opts = { rollingCountTimeout: 2500, rollingCountBuckets: 25 };
+  const breaker = cb(passFail, opts);
+
+  const results = {
+    successes: 0,
+    fires: 0
+  };
+  breaker.status.addSnapshotListener((snapshot) => {
+    t.ok(snapshot.successes !== undefined, 'has successes stat');
+    t.ok(snapshot.fires !== undefined, 'has fires stat');
+    t.ok(snapshot.failures !== undefined, 'has failures stat');
+    t.ok(snapshot.fallbacks !== undefined, 'has fallbacks stat');
+    t.ok(snapshot.rejects !== undefined, 'has rejects stat');
+    t.ok(snapshot.timeouts !== undefined, 'has timeouts stat');
+
+    results.successes += snapshot.successes;
+    results.fires += snapshot.fires;
+  });
+  breaker.fire(10)
+    .then(() => breaker.fire(10))
+    .then(() => breaker.fire(10))
+    .then(() => breaker.fire(10))
+    .then(() => breaker.fire(10))
+    .then(() => t.equal(results.fires, 5) && t.equal(results.successes, 5))
+    .then(t.end);
 });
 
 test('CircuitBreaker fallback event', (t) => {
