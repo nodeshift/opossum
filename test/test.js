@@ -341,7 +341,7 @@ test('CircuitBreaker status', (t) => {
 });
 
 test('CircuitBreaker rolling counts', (t) => {
-  const opts = { rollingCountTimeout: 1000, rollingCountBuckets: 10 };
+  const opts = { rollingCountTimeout: 200, rollingCountBuckets: 2 };
   const breaker = cb(passFail, opts);
   const deepEqual = (t, expected) => (actual) => t.deepEqual(actual, expected, 'expected status values');
   Fidelity.all([
@@ -355,24 +355,17 @@ test('CircuitBreaker rolling counts', (t) => {
       setTimeout(() => {
         const window = breaker.status.window;
         t.ok(window.length > 1);
-        t.equal(window[window.length - 1].fires, 3, 'breaker stats are rolling');
         t.deepEqual(breaker.status.successes, 0, 'breaker reset stats');
         t.end();
-      }, 100);
+      }, 300);
     });
 });
 
 test('CircuitBreaker status listeners', (t) => {
-  // 100ms snapshot intervals should ensure that event stats
-  // will be scattered across > 1 snapshot
   const opts = { rollingCountTimeout: 2500, rollingCountBuckets: 25 };
   const breaker = cb(passFail, opts);
 
-  const results = {
-    successes: 0,
-    fires: 0
-  };
-  breaker.status.addSnapshotListener((snapshot) => {
+  breaker.status.on('snapshot', (snapshot) => {
     t.ok(snapshot.successes !== undefined, 'has successes stat');
     t.ok(snapshot.fires !== undefined, 'has fires stat');
     t.ok(snapshot.failures !== undefined, 'has failures stat');
@@ -380,16 +373,9 @@ test('CircuitBreaker status listeners', (t) => {
     t.ok(snapshot.rejects !== undefined, 'has rejects stat');
     t.ok(snapshot.timeouts !== undefined, 'has timeouts stat');
 
-    results.successes += snapshot.successes;
-    results.fires += snapshot.fires;
+    breaker.status.removeAllListeners('snapshot');
   });
-  breaker.fire(10)
-    .then(() => breaker.fire(10))
-    .then(() => breaker.fire(10))
-    .then(() => breaker.fire(10))
-    .then(() => breaker.fire(10))
-    .then(() => t.equal(results.fires, 5) && t.equal(results.successes, 5))
-    .then(t.end);
+  breaker.fire(10).then(_ => t.end());
 });
 
 test('CircuitBreaker fallback event', (t) => {
