@@ -69,26 +69,30 @@ test('Using cache', (t) => {
 
   breaker.fire(expected)
     .then((arg) => {
-      t.equals(breaker.status.cacheHits, 0, 'does not hit the cache');
-      t.equals(breaker.status.cacheMisses, 1, 'emits a cacheMiss');
-      t.equals(breaker.status.fires, 1, 'fired once');
-      t.equals(arg, expected, `cache hits:misses ${breaker.status.cacheHits}:${breaker.status.cacheMisses}`);
+      const stats = breaker.status.stats;
+      t.equals(stats.cacheHits, 0, 'does not hit the cache');
+      t.equals(stats.cacheMisses, 1, 'emits a cacheMiss');
+      t.equals(stats.fires, 1, 'fired once');
+      t.equals(arg, expected,
+        `cache hits:misses ${stats.cacheHits}:${stats.cacheMisses}`);
     })
     .catch(t.fail)
     .then(() => {
       breaker.fire(expected)
         .then((arg) => {
-          t.equals(breaker.status.cacheHits, 1, 'hit the cache');
-          t.equals(breaker.status.cacheMisses, 1, 'did not emit miss');
-          t.equals(breaker.status.fires, 2, 'fired twice');
-          t.equals(arg, expected, `cache hits:misses ${breaker.status.cacheHits}:${breaker.status.cacheMisses}`);
+          const stats = breaker.status.stats;
+          t.equals(stats.cacheHits, 1, 'hit the cache');
+          t.equals(stats.cacheMisses, 1, 'did not emit miss');
+          t.equals(stats.fires, 2, 'fired twice');
+          t.equals(arg, expected, `cache hits:misses ${stats.cacheHits}:${stats.cacheMisses}`);
           breaker.clearCache();
         })
         .catch(t.fail)
         .then(() => {
           breaker.fire(expected)
             .then((arg) => {
-              t.equals(arg, expected, `cache hits:misses ${breaker.status.cacheHits}:${breaker.status.cacheMisses}`);
+              const stats = breaker.status.stats;
+              t.equals(arg, expected, `cache hits:misses ${stats.cacheHits}:${stats.cacheMisses}`);
             })
             .then(t.end)
             .catch(t.fail);
@@ -173,7 +177,8 @@ test('Breaker opens after a configurable number of failures', (t) => {
         .then(t.fail)
         .catch((e) => t.equals(e, 'Breaker is open', 'breaker opens'))
         .then(t.end);
-    });
+    })
+    .catch(t.fail);
 });
 
 test('Breaker resets after a configurable amount of time', (t) => {
@@ -194,7 +199,7 @@ test('Breaker resets after a configurable amount of time', (t) => {
     });
 });
 
-test('Breaker status reflects open state', (t) => {
+test.skip('Breaker status reflects open state', (t) => {
   t.plan(1);
   const breaker = cb(passFail, {maxFailures: 0, resetTimeout: 100});
   breaker.fire(-1)
@@ -272,7 +277,7 @@ test('CircuitBreaker emits failure when action throws', (t) => {
   breaker.fire()
     .then(t.fail)
     .catch((e) => {
-      t.equals(breaker.status.failures, 1, 'expected failure status');
+      t.equals(breaker.status.stats.failures, 1, 'expected failure status');
       t.equals(e.message, 'E_TOOMANYCHICKENTACOS', 'expected error message');
       t.end();
     });
@@ -284,8 +289,9 @@ test('CircuitBreaker executes fallback when an action throws', (t) => {
     .fallback(() => 'Fallback executed');
   breaker.fire()
     .then((result) => {
-      t.equals(breaker.status.failures, 1, 'expected failure status');
-      t.equals(breaker.status.fallbacks, 1, 'expected fallback status');
+      const stats = breaker.status.stats;
+      t.equals(stats.failures, 1, 'expected failure status');
+      t.equals(stats.fallbacks, 1, 'expected fallback status');
       t.equals(result, 'Fallback executed');
     })
     .catch(t.fail);
@@ -314,24 +320,26 @@ test('CircuitBreaker status', (t) => {
     breaker.fire(20).then(deepEqual(t, 20)),
     breaker.fire(30).then(deepEqual(t, 30))
   ])
-    .then(() => t.deepEqual(breaker.status.fires, 3, 'breaker fired 3 times'))
+    .then(() => t.deepEqual(breaker.status.stats.fires, 3, 'breaker fired 3 times'))
     .catch(t.fail)
     .then(() => {
       breaker.fire(-10)
         .then(t.fail)
         .catch((value) => {
+          const stats = breaker.status.stats;
           t.equal(value, 'Error: -10 is < 0', 'fails with correct error message');
-          t.equal(breaker.status.failures, 1, 'status reports a single failure');
-          t.equal(breaker.status.fires, 4, 'status reports 4 fires');
+          t.equal(stats.failures, 1, 'status reports a single failure');
+          t.equal(stats.fires, 4, 'status reports 4 fires');
         })
         .then(() => {
           breaker.fallback(() => 'Fallback called');
           breaker.fire(-20)
             .then((result) => {
+              const stats = breaker.status.stats;
               t.equal(result, 'Fallback called', 'fallback is invoked');
-              t.equal(breaker.status.failures, 2, 'status reports 2 failures');
-              t.equal(breaker.status.fires, 5, 'status reports 5 fires');
-              t.equal(breaker.status.fallbacks, 1, 'status reports 1 fallback');
+              t.equal(stats.failures, 2, 'status reports 2 failures');
+              t.equal(stats.fires, 5, 'status reports 5 fires');
+              t.equal(stats.fallbacks, 1, 'status reports 1 fallback');
             })
             .catch(t.fail);
         })
@@ -349,13 +357,14 @@ test('CircuitBreaker rolling counts', (t) => {
     breaker.fire(20).then(deepEqual(t, 20)),
     breaker.fire(30).then(deepEqual(t, 30))
   ])
-    .then(() =>
-      t.deepEqual(breaker.status.successes, 3, 'breaker succeeded 3 times'))
+    .then(() => {
+      t.deepEqual(breaker.status.stats.successes, 3, 'breaker succeeded 3 times');
+    })
     .then(() => {
       setTimeout(() => {
         const window = breaker.status.window;
         t.ok(window.length > 1);
-        t.deepEqual(breaker.status.successes, 0, 'breaker reset stats');
+        t.deepEqual(window[0].successes, 0, 'breaker reset stats');
         t.end();
       }, 300);
     });
