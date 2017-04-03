@@ -187,7 +187,7 @@ test('Breaker opens after a configurable number of failures', (t) => {
       // with a valid value
       breaker.fire(100)
         .then(t.fail)
-        .catch((e) => t.equals(e, 'Breaker is open', 'breaker opens'))
+        .catch((e) => t.equals(e.message, 'Breaker is open', 'breaker opens'))
         .then(t.end);
     })
     .catch(t.fail);
@@ -323,7 +323,7 @@ test('CircuitBreaker emits failure when falling back', (t) => {
 });
 
 test('CircuitBreaker status', (t) => {
-  t.plan(11);
+  t.plan(12);
   const breaker = cb(passFail, { errorThresholdPercentage: 1 });
   const deepEqual = (t, expected) => (actual) => t.deepEqual(actual, expected, 'expected status values');
 
@@ -349,7 +349,8 @@ test('CircuitBreaker status', (t) => {
             .then((result) => {
               const stats = breaker.status.stats;
               t.equal(result, 'Fallback called', 'fallback is invoked');
-              t.equal(stats.failures, 2, 'status reports 2 failures');
+              t.equal(stats.failures, 1, 'status reports 1 failure');
+              t.equal(stats.rejects, 1, 'status reports 1 reject');
               t.equal(stats.fires, 5, 'status reports 5 fires');
               t.equal(stats.fallbacks, 1, 'status reports 1 fallback');
             })
@@ -469,7 +470,7 @@ test('CircuitBreaker events', (t) => {
             .catch((e) => {
               t.equals(fired, 3, 'fire event fired');
               t.equals(success, 1, 'success event did not fire');
-              t.equals(failures, 2, 'failure event fired');
+              t.equals(failures, 1, 'failure event did not fire');
               t.equals(reject, 1, 'reject event fired');
               t.equals(open, 1, 'open event did not fire');
               t.equals(close, 0, 'close event did not fire');
@@ -481,7 +482,7 @@ test('CircuitBreaker events', (t) => {
                 setTimeout(() => {
                   t.equals(fired, 3, 'fire event did not fire');
                   t.equals(success, 1, 'success event did not fire');
-                  t.equals(failures, 2, 'failure event did not fire');
+                  t.equals(failures, 1, 'failure event fired');
                   t.equals(reject, 1, 'reject event did not fire');
                   t.equals(open, 1, 'open event did not fire');
                   t.equals(close, 0, 'close event did not fire');
@@ -495,7 +496,7 @@ test('CircuitBreaker events', (t) => {
                   .then(() => {
                     t.equals(fired, 4, 'fire event fired');
                     t.equals(success, 2, 'success event fired');
-                    t.equals(failures, 2, 'failure event did not fire');
+                    t.equals(failures, 1, 'failure event fired');
                     t.equals(reject, 1, 'reject event did not fire');
                     t.equals(open, 1, 'open event did not fire');
                     t.equals(close, 1, 'close event fired');
