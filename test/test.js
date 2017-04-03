@@ -624,6 +624,18 @@ test('CircuitBreaker fallback as a CircuitBreaker', (t) => {
     .then(t.end);
 });
 
+test('options.maxFailures should be deprecated', (t) => {
+  const options = { maxFailures: 1 };
+  const originalLog = console.error;
+  console.error = (msg) => {
+    t.equals(msg, 'options.maxFailures is deprecated. Please use options.errorThresholdPercentage');
+    // restore console.error
+    console.error = originalLog;
+    t.end();
+  };
+  cb(passFail, options);
+});
+
 /**
  * Returns a promise that resolves if the parameter
  * 'x' evaluates to >= 0. Otherwise the returned promise fails.
