@@ -48,6 +48,18 @@ test('uses UUID as a name when none is provided and the function is anonymoys',
     t.end();
   });
 
+test('accepts a group as an option', (t) => {
+  const breaker = cb(passFail, {group: 'tacoMachine'});
+  t.equals(breaker.group, 'tacoMachine');
+  t.end();
+});
+
+test('uses name as a group when no group is provided', (t) => {
+  const breaker = cb(passFail, {name: 'tacoMachine'});
+  t.equals(breaker.group, 'tacoMachine');
+  t.end();
+});
+
 test('Passes parameters to the circuit function', (t) => {
   t.plan(1);
   const expected = 34;
