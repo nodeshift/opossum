@@ -6,7 +6,7 @@
 
   const defaults = {
     timeout: 10000, // 10 seconds
-    maxFailures: 10,
+    errorThresholdPercentage: 50,
     resetTimeout: 30000, // 30 seconds
     Promise: Fidelity
   };

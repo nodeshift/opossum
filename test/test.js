@@ -177,7 +177,7 @@ test('Works with callback functions that fail', (t) => {
 
 test('Breaker opens after a configurable number of failures', (t) => {
   t.plan(2);
-  const breaker = cb(passFail, { maxFailures: 1 });
+  const breaker = cb(passFail, { errorThresholdPercentage: 10 });
 
   breaker.fire(-1)
     .then(t.fail)
@@ -197,7 +197,7 @@ test('Breaker resets after a configurable amount of time', (t) => {
   t.plan(1);
   const fails = -1;
   const resetTimeout = 100;
-  const breaker = cb(passFail, { maxFailures: 1, resetTimeout });
+  const breaker = cb(passFail, { errorThresholdPercentage: 1, resetTimeout });
 
   breaker.fire(fails)
     .catch(() => {
@@ -213,7 +213,7 @@ test('Breaker resets after a configurable amount of time', (t) => {
 
 test.skip('Breaker status reflects open state', (t) => {
   t.plan(1);
-  const breaker = cb(passFail, {maxFailures: 0, resetTimeout: 100});
+  const breaker = cb(passFail, {errorThresholdPercentage: 0, resetTimeout: 100});
   breaker.fire(-1)
     .then(t.fail)
     .catch(() => t.ok(breaker.status.window[0].isCircuitBreakerOpen))
@@ -224,7 +224,7 @@ test('Breaker resets for circuits with a fallback function', (t) => {
   t.plan(2);
   const fails = -1;
   const resetTimeout = 100;
-  const breaker = cb(passFail, { maxFailures: 1, resetTimeout });
+  const breaker = cb(passFail, { errorThresholdPercentage: 1, resetTimeout });
   breaker.fallback((x) => x * 2);
 
   breaker.on('fallback', (result) => {
@@ -248,7 +248,7 @@ test('Executes fallback action, if one exists, when breaker is open', (t) => {
   t.plan(1);
   const fails = -1;
   const expected = 100;
-  const breaker = cb(passFail, { maxFailures: 1 });
+  const breaker = cb(passFail, { errorThresholdPercentage: 1 });
   breaker.fallback(() => expected);
   breaker.fire(fails)
     .then(() => {
@@ -262,7 +262,7 @@ test('Executes fallback action, if one exists, when breaker is open', (t) => {
 test('Passes arguments to the fallback function', (t) => {
   t.plan(1);
   const fails = -1;
-  const breaker = cb(passFail, { maxFailures: 1 });
+  const breaker = cb(passFail, { errorThresholdPercentage: 1 });
   breaker.on('fallback', (result) => {
     t.equals(result, fails, 'fallback received expected parameters');
     t.end();
@@ -273,7 +273,7 @@ test('Passes arguments to the fallback function', (t) => {
 
 test('Returns self from fallback()', (t) => {
   t.plan(1);
-  cb(passFail, { maxFailures: 1 })
+  cb(passFail, { errorThresholdPercentage: 1 })
     .fallback(() => {})
     .fire(1)
     .then((result) => {
@@ -324,7 +324,7 @@ test('CircuitBreaker emits failure when falling back', (t) => {
 
 test('CircuitBreaker status', (t) => {
   t.plan(11);
-  const breaker = cb(passFail, { maxFailures: 1 });
+  const breaker = cb(passFail, { errorThresholdPercentage: 1 });
   const deepEqual = (t, expected) => (actual) => t.deepEqual(actual, expected, 'expected status values');
 
   Fidelity.all([
@@ -401,7 +401,7 @@ test('CircuitBreaker status listeners', (t) => {
 
 test('CircuitBreaker fallback event', (t) => {
   t.plan(1);
-  const breaker = cb(passFail, {maxFailures: 0});
+  const breaker = cb(passFail, {errorThresholdPercentage: 0});
   breaker.fallback((x) => x);
   breaker.on('fallback', (value) => {
     t.equal(value, -1, 'fallback value received');
@@ -413,7 +413,7 @@ test('CircuitBreaker fallback event', (t) => {
 test('CircuitBreaker events', (t) => {
   t.plan(41);
   const options = {
-    maxFailures: 1,
+    errorThresholdPercentage: 1,
     timeout: 500,
     resetTimeout: 500
   };
@@ -520,7 +520,7 @@ test('CircuitBreaker events', (t) => {
 test('circuit halfOpen', (t) => {
   t.plan(8);
   const options = {
-    maxFailures: 1,
+    errorThresholdPercentage: 1,
     resetTimeout: 100
   };
 
@@ -559,7 +559,7 @@ test('circuit halfOpen', (t) => {
 test('CircuitBreaker fallback as a rejected promise', (t) => {
   t.plan(1);
   const options = {
-    maxFailures: 1,
+    errorThresholdPercentage: 1,
     resetTimeout: 100
   };
   const input = -1;
@@ -579,7 +579,7 @@ test('CircuitBreaker fallback as a rejected promise', (t) => {
 test('CircuitBreaker fallback as a CircuitBreaker', (t) => {
   t.plan(1);
   const options = {
-    maxFailures: 1,
+    errorThresholdPercentage: 1,
     resetTimeout: 100
   };
 
@@ -595,7 +595,7 @@ test('CircuitBreaker fallback as a CircuitBreaker', (t) => {
 test('CircuitBreaker fallback as a CircuitBreaker that fails', (t) => {
   t.plan(1);
   const options = {
-    maxFailures: 1,
+    errorThresholdPercentage: 1,
     resetTimeout: 100
   };
 
@@ -611,7 +611,7 @@ test('CircuitBreaker fallback as a CircuitBreaker that fails', (t) => {
 test('CircuitBreaker fallback as a CircuitBreaker', (t) => {
   t.plan(1);
   const options = {
-    maxFailures: 1,
+    errorThresholdPercentage: 1,
     resetTimeout: 100
   };
 
