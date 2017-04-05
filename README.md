@@ -231,3 +231,11 @@ you create the breaker. E.g.
 // Force opossum to use native JS promises
 const breaker = circuitBreaker(readFile, { Promise: Promise });
 ```
+
+### Hystrix Metrics
+
+A Hystrix Stream is available for use with a Hystrix Dashboard using the `circuitBreaker.hystrixStats.getHystrixStream` method.
+
+This method returns a [Node.js Stream](https://nodejs.org/api/stream.html), which makes it easy to create an SSE stream that will be compliant with a Hystrix Dashboard.
+
+Additional Reading: [Hystrix Metrics Event Stream](https://github.com/Netflix/Hystrix/tree/master/hystrix-contrib/hystrix-metrics-event-stream), [Turbine](https://github.com/Netflix/Turbine/wiki), [Hystrix Dashboard](https://github.com/Netflix/Hystrix/wiki/Dashboard)
