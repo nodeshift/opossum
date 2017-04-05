@@ -3,8 +3,8 @@
 
 (function appInitialization () {
   $(() => {
-    $('#flakey').click(() => circuit.fire().catch((e) => console.error(e)));
-    $('.clear').click(function () { $(this).parent().find('#flakeyResponse').remove(); });
+    $('#flakey').click(_ => circuit.fire().catch(console.error));
+    $('.clear').click(_ => { $('.clear').parent().find('#flakeyResponse').remove(); });
   });
 
   const route = '/flakeyService';
@@ -12,13 +12,25 @@
 
   const circuitBreakerOptions = {
     timeout: 500,
-    maxFailures: 3,
+    errorThresholdPercentage: 50,
     resetTimeout: 5000
   };
 
-  const circuit = circuitBreaker(() => $.get(route), circuitBreakerOptions);
+  const circuit = circuitBreaker(_ => $.get(route), circuitBreakerOptions);
 
-  circuit.fallback(() => ({ body: `${route} unavailable right now. Try later.` }));
+  circuit.fallback(_ => ({ body: `${route} unavailable right now. Try later.` }));
+
+  circuit.status.on('snapshot', (stats) => {
+    const response = document.createElement('p');
+    $(response).addClass('stats');
+    Object.keys(stats).forEach((key) => {
+      const p = document.createElement('p');
+      p.append(`${key}: ${stats[key]}`);
+      $(response).append(p);
+    });
+
+    $('#stats').children().replaceWith($(response));
+  });
 
   circuit.on('success',
     (result) => $(element).prepend(
