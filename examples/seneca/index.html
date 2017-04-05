@@ -18,6 +18,10 @@
       padding: 1em;
       width: 100%
     }
+    .right {
+      float:right;
+      width: 50%;
+    }
     h2 {
       border-bottom: 1px dotted #999;
     }
@@ -53,22 +57,22 @@
       When you click the button here, this simple app calls a flakey web service that takes longer and longer to respond. The app's circuit breaker is configured to timeout after 500ms and execute a fallback command. Every 20 seconds, the flakey service is reset and the pattern is repeated.
     </p>
     <p>
-      If more than 3 errors are observed by the circuit within a single timeout period, then it begins to fail fast, rejecting the network call outright and executing the fallback function.
+      If more than half of the requests error, then it begins to fail fast, rejecting the network call outright and executing the fallback function.
     </p>
     <p>
-       This should allow you to see all of the various events that occur when using a circuit breaker.
-    </p>
-    <p>
-      The <a href="/app.js">source code</a> for the application is relatively simple, and uses some basic jQuery capabilities to make the ajax calls and update the DOM accordingly.
+      The <a href="/app.js">source code</a>.
     </p>
     <div class="row">
       <button type="button" id="flakey">
         Flakey Service
       </button>
     </div>
-
+    <div class="row right">
+      <h2>Circuit Breaker Statistics</h2>
+      <div id='stats'><p>...</p></div>
+    </div>
     <div class="row" id="flakeyResponse">
-      <h2>FLAKEY RESPONSES</h2>
+      <h2>Flakey Responses</h2>
       <span class="clear">Click to clear</span>
     </div>
   </div>
