@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/bucharest-gold/opossum/compare/v0.6.0...v1.0.0) (2017-04-06)
+
+
+### Bug Fixes
+
+* do not fire failure event on short circuit ([ab87350](https://github.com/bucharest-gold/opossum/commit/ab87350))
+* make Status an EventEmitter ([8aad11a](https://github.com/bucharest-gold/opossum/commit/8aad11a))
+* remove default maxFailures option ([be65d3b](https://github.com/bucharest-gold/opossum/commit/be65d3b))
+
+
+### Features
+
+* add a group option.  GH-Issue [#43](https://github.com/bucharest-gold/opossum/issues/43) ([3052f23](https://github.com/bucharest-gold/opossum/commit/3052f23))
+* Add an example on how to use the Hystrix Metrics ([fd8246a](https://github.com/bucharest-gold/opossum/commit/fd8246a))
+* Addition of Hystrix Mertrics Stream. GH-ISSUE [#39](https://github.com/bucharest-gold/opossum/issues/39) ([2d44df6](https://github.com/bucharest-gold/opossum/commit/2d44df6))
+* circuit status now contains a rolling window ([#34](https://github.com/bucharest-gold/opossum/issues/34)) ([05c0a2f](https://github.com/bucharest-gold/opossum/commit/05c0a2f))
+* prefer an error percentage threshold ([245d47b](https://github.com/bucharest-gold/opossum/commit/245d47b))
+
+
+
 <a name="0.6.0"></a>
 # [0.6.0](https://github.com/bucharest-gold/opossum/compare/v0.5.1...v0.6.0) (2017-03-30)
 
