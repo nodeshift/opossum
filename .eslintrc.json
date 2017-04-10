@@ -1,3 +1,6 @@
 {
-  "extends": "semistandard"
+  "extends": "semistandard",
+  "rules": {
+    "standard/no-callback-literal": "off"
+  }
 }

@@ -3,3 +3,4 @@ docs
 coverage
 dist/*
 test/browser/browserified-tests.js
+*.log
