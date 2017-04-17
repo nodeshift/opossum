@@ -2,7 +2,6 @@
 
 const browser = require('./browser/browser-tap');
 const test = require('tape');
-const Fidelity = require('fidelity');
 const cb = require('../');
 
 browser.enable();
@@ -118,8 +117,12 @@ test('Fails when the circuit function fails', (t) => {
   const breaker = cb(passFail);
 
   breaker.fire(-1)
-    .then(t.fail)
-    .catch((e) => t.equals(e, 'Error: -1 is < 0', 'expected error caught'))
+    .then(() => {
+      return t.fail;
+    })
+    .catch((e) => {
+      t.equals(e, 'Error: -1 is < 0', 'expected error caught');
+    })
     .then(t.end);
 });
 
@@ -212,7 +215,7 @@ test('Breaker resets after a configurable amount of time', (t) => {
     });
 });
 
-test.skip('Breaker status reflects open state', (t) => {
+test('Breaker status reflects open state', (t) => {
   t.plan(1);
   const breaker = cb(passFail, {errorThresholdPercentage: 0, resetTimeout: 100});
   breaker.fire(-1)
@@ -328,7 +331,7 @@ test('CircuitBreaker status', (t) => {
   const breaker = cb(passFail, { errorThresholdPercentage: 1 });
   const deepEqual = (t, expected) => (actual) => t.deepEqual(actual, expected, 'expected status values');
 
-  Fidelity.all([
+  Promise.all([
     breaker.fire(10).then(deepEqual(t, 10)),
     breaker.fire(20).then(deepEqual(t, 20)),
     breaker.fire(30).then(deepEqual(t, 30))
@@ -366,7 +369,7 @@ test('CircuitBreaker rolling counts', (t) => {
   const opts = { rollingCountTimeout: 200, rollingCountBuckets: 2 };
   const breaker = cb(passFail, opts);
   const deepEqual = (t, expected) => (actual) => t.deepEqual(actual, expected, 'expected status values');
-  Fidelity.all([
+  Promise.all([
     breaker.fire(10).then(deepEqual(t, 10)),
     breaker.fire(20).then(deepEqual(t, 20)),
     breaker.fire(30).then(deepEqual(t, 30))
@@ -642,8 +645,10 @@ test('options.maxFailures should be deprecated', (t) => {
  * Returns a promise that resolves if the parameter
  * 'x' evaluates to >= 0. Otherwise the returned promise fails.
  */
+
+ /* eslint prefer-promise-reject-errors: "off" */
 function passFail (x) {
-  return new Fidelity((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
       (x > 0) ? resolve(x) : reject(`Error: ${x} is < 0`);
     }, 100);
@@ -655,7 +660,7 @@ function passFail (x) {
  * after 1 second.
  */
 function slowFunction () {
-  return new Fidelity((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
       resolve('done');
     }, 10000);

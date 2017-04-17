@@ -2,13 +2,11 @@
   'use strict';
 
   const CircuitBreaker = require('./lib/circuit');
-  const Fidelity = require('fidelity');
 
   const defaults = {
     timeout: 10000, // 10 seconds
     errorThresholdPercentage: 50,
-    resetTimeout: 30000, // 30 seconds
-    Promise: Fidelity
+    resetTimeout: 30000 // 30 seconds
   };
 
   /**
@@ -25,9 +23,6 @@
    * opening. Default 10.
    * @param options.resetTimeout The time in milliseconds to wait before setting
    * the breaker to `halfOpen` state, and trying the action again.
-   * @param options.Promise {Promise} Opossum uses Fidelity promises, but works
-   * fine with any Promise that follows the spec. You can specify your favored
-   * implementation by providing the constructor as an option.
    * @return a {@link CircuitBreaker} instance
    */
   function circuitBreaker (action, options) {

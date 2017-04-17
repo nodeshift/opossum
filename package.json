@@ -74,6 +74,5 @@
     "fail-fast"
   ],
   "dependencies": {
-    "fidelity": "~4.2.0"
   }
 }
