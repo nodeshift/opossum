@@ -218,20 +218,6 @@ breaker.fire()
   .catch(console.error);
 ```
 
-### Promise Interoperability
-
-The `Promise` implementation used in `opossum` is compliant with both the
-ES6 `Promise` API as well as the `promises/A+` API. This means that it doesn't
-matter what flavor of promise your API uses, `opossum` should work fine with
-it. If you would like to control what `Promise` implementation used in
-`opossum`, provide a `Promise` constructor function in your options when
-you create the breaker. E.g.
-
-```javascript
-// Force opossum to use native JS promises
-const breaker = circuitBreaker(readFile, { Promise: Promise });
-```
-
 ### Hystrix Metrics
 
 A Hystrix Stream is available for use with a Hystrix Dashboard using the `circuitBreaker.hystrixStats.getHystrixStream` method.
