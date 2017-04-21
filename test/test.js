@@ -523,7 +523,7 @@ test('CircuitBreaker events', (t) => {
 });
 
 test('circuit halfOpen', (t) => {
-  t.plan(8);
+  t.plan(14);
   const options = {
     errorThresholdPercentage: 1,
     resetTimeout: 100
@@ -534,24 +534,30 @@ test('circuit halfOpen', (t) => {
     .catch((e) => t.equals(e, 'Error: -1 is < 0', 'function should fail'))
     .then(() => {
       t.ok(breaker.opened, 'breaker should be open');
+      t.notOk(breaker.pendingClose, 'breaker should not be pending close');
     })
     .then(() => {
       setTimeout(() => {
         t.ok(breaker.halfOpen, 'breaker should be halfOpen');
+        t.ok(breaker.pendingClose, 'breaker should be pending close');
         // breaker should be half open, fail it again should open the circuit again
         breaker
           .fire(-1)
           .catch((e) => t.equals(e, 'Error: -1 is < 0', 'function should fail again'))
           .then(() => {
             t.ok(breaker.opened, 'breaker should be open again');
+            t.notOk(breaker.halfOpen, 'breaker should not be halfOpen');
+            t.notOk(breaker.pendingClose, 'breaker should not be pending close');
             setTimeout(() => {
               t.ok(breaker.halfOpen, 'breaker should be halfOpen again');
+              t.ok(breaker.pendingClose, 'breaker should be pending close');
               // breaker should be half open again and it should allow the original function to be called, and it should pass this time.
               breaker
                 .fire(1)
                 .then((result) => {
                   t.equals(1, result);
                   t.ok(breaker.closed, 'breaker should be closed');
+                  t.notOk(breaker.pendingClose, 'breaker should not be pending close');
                   t.end();
                 })
                 .catch(t.fail);
