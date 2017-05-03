@@ -49,7 +49,7 @@
     "browserify": "~14.3.0",
     "escompress": "~0.5.0",
     "eslint": "~3.19.0",
-    "eslint-config-semistandard": "~8.0.0",
+    "eslint-config-semistandard": "~11.0.0",
     "eslint-config-standard": "~10.2.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-node": "^4.2.2",
