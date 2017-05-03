@@ -679,7 +679,7 @@ test('Circuit Breaker success event emits latency', (t) => {
   breaker.fire(1);
 });
 
-test('Circuit Breaker timeout event emits latency', (t) => {
+test('Circuit Breaker failure event emits latency', (t) => {
   t.plan(1);
   const breaker = cb(passFail);
   breaker.on('failure', (result, latencyTime) => {
@@ -690,7 +690,7 @@ test('Circuit Breaker timeout event emits latency', (t) => {
   breaker.fire(-1).catch(() => {});
 });
 
-test('Circuit Breaker failure event emits latency', (t) => {
+test('Circuit Breaker timeout event emits latency', (t) => {
   t.plan(1);
   const breaker = cb(slowFunction, { timeout: 10 });
 
