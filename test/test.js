@@ -647,6 +647,61 @@ test('options.maxFailures should be deprecated', (t) => {
   cb(passFail, options);
 });
 
+test('rolling percentile enabled option defaults to true', (t) => {
+  const breaker = cb(passFail);
+  t.equals(breaker.status.rollingPercentilesEnabled, true, 'rollingPercentilesEnabled should default to true');
+  t.equals(breaker.status.stats.latencyMean, 0, 'latencyMean is starts at 0 when rollingPercentilesEnabled is true');
+  [0.0, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99, 0.995, 1].forEach((p) => {
+    t.equals(breaker.status.stats.percentiles[p], 0, `${p} percentile should be 0 at the start`);
+  });
+  t.end();
+});
+
+test('rolling percentile enabled option set to false', (t) => {
+  const options = { rollingPercentilesEnabled: false };
+  const breaker = cb(passFail, options);
+  t.equals(breaker.status.rollingPercentilesEnabled, false, 'rollingPercentilesEnabled set to false');
+  t.equals(breaker.status.stats.latencyMean, -1, 'latencyMean is -1 when rollingPercentilesEnabled is false');
+  [0.0, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99, 0.995, 1].forEach((p) => {
+    t.equals(breaker.status.stats.percentiles[p], -1, `${p} percentile should be -1 when rollingPercentilesEnabled is false`);
+  });
+  t.end();
+});
+
+test('Circuit Breaker success event emits latency', (t) => {
+  t.plan(1);
+  const breaker = cb(passFail);
+  breaker.on('success', (result, latencyTime) => {
+    t.ok(latencyTime, 'second argument is the latency');
+    t.end();
+  });
+
+  breaker.fire(1);
+});
+
+test('Circuit Breaker failure event emits latency', (t) => {
+  t.plan(1);
+  const breaker = cb(passFail);
+  breaker.on('failure', (result, latencyTime) => {
+    t.ok(latencyTime, 'second argument is the latency');
+    t.end();
+  });
+
+  breaker.fire(-1).catch(() => {});
+});
+
+test('Circuit Breaker timeout event emits latency', (t) => {
+  t.plan(1);
+  const breaker = cb(slowFunction, { timeout: 10 });
+
+  breaker.on('timeout', (result, latencyTime) => {
+    t.ok(latencyTime, 'second argument is the latency');
+    t.end();
+  });
+
+  breaker.fire(-1).catch(() => {});
+});
+
 /**
  * Returns a promise that resolves if the parameter
  * 'x' evaluates to >= 0. Otherwise the returned promise fails.
