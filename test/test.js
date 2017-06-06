@@ -127,13 +127,17 @@ test('Fails when the circuit function fails', (t) => {
 });
 
 test('Fails when the circuit function times out', (t) => {
-  t.plan(1);
+  t.plan(2);
   const expected = 'Timed out after 10ms';
+  const expectedCode = 'ETIMEDOUT';
   const breaker = cb(slowFunction, { timeout: 10 });
 
   breaker.fire()
     .then(t.fail)
-    .catch((e) => t.equals(e.message, expected, 'timeout message received'))
+    .catch((e) => {
+      t.equals(e.message, expected, 'timeout message received');
+      t.equals(e.code, expectedCode, 'ETIMEDOUT');
+    })
     .then(t.end);
 });
 
