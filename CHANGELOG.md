@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/bucharest-gold/opossum/compare/v1.0.0...v1.1.0) (2017-06-06)
+
+
+### Bug Fixes
+
+* don't let circuits get stuck half open ([5e1171c](https://github.com/bucharest-gold/opossum/commit/5e1171c))
+* fix logic around pendingClose ([4d89ae4](https://github.com/bucharest-gold/opossum/commit/4d89ae4))
+
+
+### Features
+
+* add ETIMEDOUT error code for timeout error ([#64](https://github.com/bucharest-gold/opossum/issues/64)) ([5df9f65](https://github.com/bucharest-gold/opossum/commit/5df9f65))
+* addition of rolling percentile latency's. GH-ISSUE [#38](https://github.com/bucharest-gold/opossum/issues/38) ([ce7b50d](https://github.com/bucharest-gold/opossum/commit/ce7b50d))
+* remove fidelity promises. ([3f5827a](https://github.com/bucharest-gold/opossum/commit/3f5827a))
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/bucharest-gold/opossum/compare/v0.6.0...v1.0.0) (2017-04-06)
 
