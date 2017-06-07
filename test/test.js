@@ -515,7 +515,7 @@ test('CircuitBreaker events', (t) => {
                     const timeoutBreaker = cb(slowFunction, options);
                     let timedOut = false;
                     timeoutBreaker.on('timeout', () => timedOut++);
-                    timeoutBreaker.fire().then(t.fail);
+                    timeoutBreaker.fire().then(t.fail).catch(() => {});
                   })
                   .then((e) => t.equals(timeout, 0, 'timeout event fired'))
                   .then(t.end);
@@ -588,7 +588,7 @@ test('CircuitBreaker fallback as a rejected promise', (t) => {
       .then(t.end);
   });
 
-  breaker.fire(input);
+  breaker.fire(input).catch(() => {});
 });
 
 test('CircuitBreaker fallback as a CircuitBreaker', (t) => {
