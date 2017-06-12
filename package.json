@@ -73,5 +73,7 @@
     "circuit-breaker",
     "fail-fast"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "await-semaphore": "^0.1.1"
+  }
 }
