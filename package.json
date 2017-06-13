@@ -46,6 +46,7 @@
     "babel-plugin-transform-merge-sibling-variables": "6.8.3",
     "babel-plugin-transform-minify-booleans": "~6.8.0",
     "babel-plugin-transform-undefined-to-void": "~6.8.0",
+    "blue-tape": "^1.0.0",
     "browserify": "~14.3.0",
     "escompress": "~0.5.0",
     "eslint": "~3.19.0",
@@ -73,5 +74,7 @@
     "circuit-breaker",
     "fail-fast"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "await-semaphore": "^0.1.1"
+  }
 }

@@ -2,6 +2,7 @@
 
 const browser = require('./browser/browser-tap');
 const test = require('tape');
+const bluetest = require('blue-tape');
 const cb = require('../');
 
 browser.enable();
@@ -330,7 +331,7 @@ test('CircuitBreaker emits failure when falling back', (t) => {
   }).catch(t.fail);
 });
 
-test('CircuitBreaker status', (t) => {
+bluetest('CircuitBreaker status', (t) => {
   t.plan(12);
   const breaker = cb(passFail, { errorThresholdPercentage: 1 });
   const deepEqual = (t, expected) => (actual) => t.deepEqual(actual, expected, 'expected status values');
@@ -353,7 +354,7 @@ test('CircuitBreaker status', (t) => {
         })
         .then(() => {
           breaker.fallback(() => 'Fallback called');
-          breaker.fire(-20)
+          return breaker.fire(-20)
             .then((result) => {
               const stats = breaker.status.stats;
               t.equal(result, 'Fallback called', 'fallback is invoked');
