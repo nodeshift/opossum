@@ -719,6 +719,29 @@ test('Circuit Breaker timeout with semaphore released', (t) => {
   breaker.fire(-1).catch(() => {});
 });
 
+test('Semaphore capacity limit', (t) => {
+  t.plan(4);
+  const breaker = cb('foobar', { capacity: 1 });
+
+  breaker.fire()
+    .then(() => t.ok(true, `semaphore count is: ${breaker.semaphore.count} and initial capacity is: ${breaker.options.capacity}`))
+    .catch(t.fail)
+    .then(() => {
+      breaker.fire()
+      .then(() => t.ok(true, `semaphore count is: ${breaker.semaphore.count} and initial capacity is: ${breaker.options.capacity}`))
+      .catch(t.fail);
+    });
+  breaker.fire()
+    .then(() => t.ok(true, `semaphore count is: ${breaker.semaphore.count} and initial capacity is: ${breaker.options.capacity}`))
+    .catch(t.fail)
+    .then(() => {
+      breaker.fire()
+      .then(() => t.ok(true, `semaphore count is: ${breaker.semaphore.count} and initial capacity is: ${breaker.options.capacity}`))
+      .then(t.end)
+      .catch(t.fail);
+    });
+});
+
 /**
  * Returns a promise that resolves if the parameter
  * 'x' evaluates to >= 0. Otherwise the returned promise fails.
