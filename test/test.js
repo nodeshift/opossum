@@ -712,7 +712,7 @@ test('Circuit Breaker timeout with semaphore released', (t) => {
   const breaker = cb(slowFunction, { timeout: 10, capacity: 2 });
 
   breaker.on('timeout', (result) => {
-    t.equal(breaker.semaphore.count, breaker.options.capacity);
+    t.equal(breaker.semaphore.count, breaker.options.capacity, `semaphore count is: ${breaker.semaphore.count} and initial capacity is: ${breaker.options.capacity}`);
     t.end();
   });
 
