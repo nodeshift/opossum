@@ -742,6 +742,68 @@ test('Semaphore capacity limit', (t) => {
     });
 });
 
+test('Semaphore capacity limit in parallel', (t) => {
+  const parallel = require('run-parallel');
+  t.plan(24);
+  const breaker = cb('foobar', { capacity: 1 });
+
+  const tasks = [
+    () => {
+      breaker.fire()
+      .then((result) => {
+        t.ok(true, `semaphore count is: ${breaker.semaphore.count} and initial capacity is: ${breaker.options.capacity}`);
+        t.ok(true, `failures: ${breaker.stats.failures}`);
+        t.ok(true, `fallbacks: ${breaker.stats.fallbacks}`);
+        t.ok(true, `successes: ${breaker.stats.successes}`);
+        t.ok(true, `rejects: ${breaker.stats.rejects}`);
+        t.ok(true, `fires: ${breaker.stats.fires}`);
+      })
+      .catch(t.fail);
+    },
+    () => {
+      breaker.fire()
+      .then((result) => {
+        t.ok(true, `semaphore count is: ${breaker.semaphore.count} and initial capacity is: ${breaker.options.capacity}`);
+        t.ok(true, `failures: ${breaker.stats.failures}`);
+        t.ok(true, `fallbacks: ${breaker.stats.fallbacks}`);
+        t.ok(true, `successes: ${breaker.stats.successes}`);
+        t.ok(true, `rejects: ${breaker.stats.rejects}`);
+        t.ok(true, `fires: ${breaker.stats.fires}`);
+      })
+      .catch(t.fail);
+    },
+    () => {
+      breaker.fire()
+      .then((result) => {
+        t.ok(true, `semaphore count is: ${breaker.semaphore.count} and initial capacity is: ${breaker.options.capacity}`);
+        t.ok(true, `failures: ${breaker.stats.failures}`);
+        t.ok(true, `fallbacks: ${breaker.stats.fallbacks}`);
+        t.ok(true, `successes: ${breaker.stats.successes}`);
+        t.ok(true, `rejects: ${breaker.stats.rejects}`);
+        t.ok(true, `fires: ${breaker.stats.fires}`);
+      })
+      .catch(t.fail);
+    }
+  ];
+
+  parallel(tasks, (error) => {
+    t.error(error);
+    t.fail();
+  });
+
+  breaker.fire()
+    .then((result) => {
+      t.ok(true, `This is not in parallel -> semaphore count is: ${breaker.semaphore.count} and initial capacity is: ${breaker.options.capacity}`);
+      t.ok(true, `failures: ${breaker.stats.failures}`);
+      t.ok(true, `fallbacks: ${breaker.stats.fallbacks}`);
+      t.ok(true, `successes: ${breaker.stats.successes}`);
+      t.ok(true, `rejects: ${breaker.stats.rejects}`);
+      t.ok(true, `fires: ${breaker.stats.fires}`);
+    })
+    .then(t.end)
+    .catch(t.fail);
+});
+
 /**
  * Returns a promise that resolves if the parameter
  * 'x' evaluates to >= 0. Otherwise the returned promise fails.
