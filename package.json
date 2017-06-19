@@ -63,7 +63,6 @@
     "jsdoc": "~3.4.2",
     "nsp": "~2.6.2",
     "opener": "~1.4.2",
-    "run-parallel": "^1.1.6",
     "standard-version": "^4.0.0",
     "szero": "^0.9.0",
     "tap-spec": "~4.1.1",

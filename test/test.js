@@ -719,89 +719,21 @@ test('Circuit Breaker timeout with semaphore released', (t) => {
   breaker.fire(-1).catch(() => {});
 });
 
-test('Semaphore capacity limit', (t) => {
-  t.plan(4);
-  const breaker = cb('foobar', { capacity: 1 });
+test('CircuitBreaker semaphore rate limiting', (t) => {
+  t.plan(2);
+  let timedOut = false;
+  const breaker = cb(timedFunction, { timeout: 300, capacity: 1 });
 
-  breaker.fire()
-    .then(() => t.ok(true, `semaphore count is: ${breaker.semaphore.count} and initial capacity is: ${breaker.options.capacity}`))
-    .catch(t.fail)
-    .then(() => {
-      breaker.fire()
-      .then(() => t.ok(true, `semaphore count is: ${breaker.semaphore.count} and initial capacity is: ${breaker.options.capacity}`))
-      .catch(t.fail);
-    });
-  breaker.fire()
-    .then(() => t.ok(true, `semaphore count is: ${breaker.semaphore.count} and initial capacity is: ${breaker.options.capacity}`))
-    .catch(t.fail)
-    .then(() => {
-      breaker.fire()
-      .then(() => t.ok(true, `semaphore count is: ${breaker.semaphore.count} and initial capacity is: ${breaker.options.capacity}`))
-      .then(t.end)
-      .catch(t.fail);
-    });
-});
-
-test('Semaphore capacity limit in parallel', (t) => {
-  const parallel = require('run-parallel');
-  t.plan(24);
-  const breaker = cb('foobar', { capacity: 1 });
-
-  const tasks = [
-    () => {
-      breaker.fire()
-      .then((result) => {
-        t.ok(true, `semaphore count is: ${breaker.semaphore.count} and initial capacity is: ${breaker.options.capacity}`);
-        t.ok(true, `failures: ${breaker.stats.failures}`);
-        t.ok(true, `fallbacks: ${breaker.stats.fallbacks}`);
-        t.ok(true, `successes: ${breaker.stats.successes}`);
-        t.ok(true, `rejects: ${breaker.stats.rejects}`);
-        t.ok(true, `fires: ${breaker.stats.fires}`);
-      })
-      .catch(t.fail);
-    },
-    () => {
-      breaker.fire()
-      .then((result) => {
-        t.ok(true, `semaphore count is: ${breaker.semaphore.count} and initial capacity is: ${breaker.options.capacity}`);
-        t.ok(true, `failures: ${breaker.stats.failures}`);
-        t.ok(true, `fallbacks: ${breaker.stats.fallbacks}`);
-        t.ok(true, `successes: ${breaker.stats.successes}`);
-        t.ok(true, `rejects: ${breaker.stats.rejects}`);
-        t.ok(true, `fires: ${breaker.stats.fires}`);
-      })
-      .catch(t.fail);
-    },
-    () => {
-      breaker.fire()
-      .then((result) => {
-        t.ok(true, `semaphore count is: ${breaker.semaphore.count} and initial capacity is: ${breaker.options.capacity}`);
-        t.ok(true, `failures: ${breaker.stats.failures}`);
-        t.ok(true, `fallbacks: ${breaker.stats.fallbacks}`);
-        t.ok(true, `successes: ${breaker.stats.successes}`);
-        t.ok(true, `rejects: ${breaker.stats.rejects}`);
-        t.ok(true, `fires: ${breaker.stats.fires}`);
-      })
-      .catch(t.fail);
-    }
-  ];
-
-  parallel(tasks, (error) => {
-    t.error(error);
-    t.fail();
+  // fire once to acquire the semaphore and hold it for a long time
+  breaker.fire(1000).catch(e => {
+    t.equals(e.code, 'ETIMEDOUT', 'Breaker timed out');
+    timedOut = true;
   });
 
-  breaker.fire()
-    .then((result) => {
-      t.ok(true, `This is not in parallel -> semaphore count is: ${breaker.semaphore.count} and initial capacity is: ${breaker.options.capacity}`);
-      t.ok(true, `failures: ${breaker.stats.failures}`);
-      t.ok(true, `fallbacks: ${breaker.stats.fallbacks}`);
-      t.ok(true, `successes: ${breaker.stats.successes}`);
-      t.ok(true, `rejects: ${breaker.stats.rejects}`);
-      t.ok(true, `fires: ${breaker.stats.fires}`);
-    })
-    .then(t.end)
-    .catch(t.fail);
+  breaker.fire(0).then(_ => {
+    t.ok(timedOut, 'Breaker delayed execution on semaphore acquisition');
+    t.end();
+  }).catch(t.fail);
 });
 
 /**
@@ -823,10 +755,14 @@ function passFail (x) {
  * after 1 second.
  */
 function slowFunction () {
+  return timedFunction(10000);
+}
+
+function timedFunction (ms) {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
       resolve('done');
-    }, 10000);
+    }, ms);
     if (typeof timer.unref === 'function') {
       timer.unref();
     }
