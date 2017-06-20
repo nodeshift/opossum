@@ -353,7 +353,7 @@ test('CircuitBreaker status', (t) => {
         })
         .then(() => {
           breaker.fallback(() => 'Fallback called');
-          breaker.fire(-20)
+          return breaker.fire(-20)
             .then((result) => {
               const stats = breaker.status.stats;
               t.equal(result, 'Fallback called', 'fallback is invoked');
@@ -706,6 +706,32 @@ test('Circuit Breaker timeout event emits latency', (t) => {
   breaker.fire(-1).catch(() => {});
 });
 
+test('Circuit Breaker timeout with semaphore released', (t) => {
+  t.plan(1);
+  const breaker = cb(slowFunction, { timeout: 10, capacity: 2 });
+
+  breaker.on('timeout', (result) => {
+    t.equal(breaker.semaphore.count, breaker.options.capacity, `semaphore count is: ${breaker.semaphore.count} and initial capacity is: ${breaker.options.capacity}`);
+    t.end();
+  });
+
+  breaker.fire(-1).catch(() => {});
+});
+
+test('CircuitBreaker semaphore rate limiting', (t) => {
+  t.plan(2);
+  const breaker = cb(timedFunction, { timeout: 300, capacity: 1 });
+
+  // fire once to acquire the semaphore and hold it for a long time
+  breaker.fire(1000).catch(e => {});
+
+  breaker.fire(0).catch(err => {
+    t.equals(breaker.stats.semaphoreRejections, 1, 'Semaphore rejection status incremented');
+    t.equals(err.code, 'ESEMLOCKED', 'Semaphore was locked');
+    t.end();
+  });
+});
+
 /**
  * Returns a promise that resolves if the parameter
  * 'x' evaluates to >= 0. Otherwise the returned promise fails.
@@ -725,10 +751,14 @@ function passFail (x) {
  * after 1 second.
  */
 function slowFunction () {
+  return timedFunction(10000);
+}
+
+function timedFunction (ms) {
   return new Promise((resolve, reject) => {
     const timer = setTimeout(() => {
       resolve('done');
-    }, 10000);
+    }, ms);
     if (typeof timer.unref === 'function') {
       timer.unref();
     }

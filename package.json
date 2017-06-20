@@ -72,6 +72,5 @@
   "keywords": [
     "circuit-breaker",
     "fail-fast"
-  ],
-  "dependencies": {}
+  ]
 }
