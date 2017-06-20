@@ -73,8 +73,5 @@
   "keywords": [
     "circuit-breaker",
     "fail-fast"
-  ],
-  "dependencies": {
-    "await-semaphore": "^0.1.1"
-  }
+  ]
 }

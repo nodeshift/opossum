@@ -721,19 +721,16 @@ test('Circuit Breaker timeout with semaphore released', (t) => {
 
 test('CircuitBreaker semaphore rate limiting', (t) => {
   t.plan(2);
-  let timedOut = false;
   const breaker = cb(timedFunction, { timeout: 300, capacity: 1 });
 
   // fire once to acquire the semaphore and hold it for a long time
-  breaker.fire(1000).catch(e => {
-    t.equals(e.code, 'ETIMEDOUT', 'Breaker timed out');
-    timedOut = true;
-  });
+  breaker.fire(1000).catch(e => {});
 
-  breaker.fire(0).then(_ => {
-    t.ok(timedOut, 'Breaker delayed execution on semaphore acquisition');
+  breaker.fire(0).catch(err => {
+    t.equals(breaker.stats.semaphoreRejections, 1, 'Semaphore rejection status incremented');
+    t.equals(err.code, 'ESEMLOCKED', 'Semaphore was locked');
     t.end();
-  }).catch(t.fail);
+  });
 });
 
 /**
