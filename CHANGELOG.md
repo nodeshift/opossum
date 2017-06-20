@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/bucharest-gold/opossum/compare/v1.1.0...v1.2.0) (2017-06-20)
+
+
+### Features
+
+* semaphore added ([#72](https://github.com/bucharest-gold/opossum/issues/72)) ([8c0a46b](https://github.com/bucharest-gold/opossum/commit/8c0a46b)), closes [#60](https://github.com/bucharest-gold/opossum/issues/60)
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/bucharest-gold/opossum/compare/v1.0.0...v1.1.0) (2017-06-06)
 
