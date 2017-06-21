@@ -11,7 +11,7 @@ test('Circuits accept a health check function', t => {
     t.ok(true, 'function called');
     t.end();
     return Promise.resolve();
-  }));
+  }), 10000);
 });
 
 test('health-check-failed is emitted on failure', t => {
@@ -23,7 +23,7 @@ test('health-check-failed is emitted on failure', t => {
   });
   circuit.healthCheck(healthChecker(_ => {
     return Promise.reject(new Error('Too many tacos'));
-  }));
+  }), 10000);
 });
 
 test('circuit opens on health check failure', t => {
@@ -35,7 +35,7 @@ test('circuit opens on health check failure', t => {
   });
   circuit.healthCheck(healthChecker(_ => {
     return Promise.reject(new Error('Too many tacos'));
-  }));
+  }), 10000);
 });
 
 test('Health check function executes in the circuit breaker context', t => {
@@ -49,7 +49,7 @@ test('Health check function executes in the circuit breaker context', t => {
     }
     called = true;
     return Promise.resolve();
-  });
+  }, 10000);
 });
 
 const healthChecker = func => _ => {
