@@ -52,6 +52,32 @@ test('Health check function executes in the circuit breaker context', t => {
   }, 10000);
 });
 
+test('Health check function throws a TypeError if the interval duration is not a number', t => {
+  t.plan(2);
+  const circuit = opossum(common.passFail);
+  try {
+    circuit.healthCheck(_ => {}, 'Biscuits and gravy');
+    t.fail('Circuit breaker did not throw TypeError');
+  } catch (e) {
+    t.equals(e.constructor, TypeError, 'throws TypeError');
+    t.equals(e.message, 'Health check interval must be a number', 'include correct message');
+    t.end();
+  }
+});
+
+test('Health check function throws a TypeError if the function parameter is not a function', t => {
+  t.plan(2);
+  const circuit = opossum(common.passFail);
+  try {
+    circuit.healthCheck('Biscuits and gravy');
+    t.fail('Circuit breaker did not throw TypeError');
+  } catch (e) {
+    t.equals(e.constructor, TypeError, 'throws TypeError');
+    t.equals(e.message, 'Health check function must be a function', 'include correct message');
+    t.end();
+  }
+});
+
 const healthChecker = func => _ => {
   let called = false;
   if (!called) return func();
