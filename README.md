@@ -39,7 +39,7 @@ function asyncFunctionThatCouldFail (x, y) {
 
 const options = {
   timeout: 3000, // If our function takes longer than 3 seconds, trigger a failure
-  maxFailures: 5, // Once we fail this many times in a row, start failing fast
+  errorThresholdPercentage: 50, // When 50% of requests fail, trip the circuit
   resetTimeout: 30000 // After 30 seconds, try again.
 };
 const breaker = circuitBreaker(asyncFunctionThatCouldFail, options);
