@@ -71,6 +71,10 @@
   "description": "A fail-fast circuit breaker for promises and callbacks",
   "keywords": [
     "circuit-breaker",
-    "fail-fast"
+    "fail-fast",
+    "circuit",
+    "breaker",
+    "hystrix",
+    "rate-limiting"
   ]
 }
