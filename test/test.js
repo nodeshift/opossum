@@ -732,6 +732,52 @@ test('CircuitBreaker semaphore rate limiting', (t) => {
   });
 });
 
+test('CircuitBreaker with failureCheck returns false', (t) => {
+  t.plan(3);
+  const breaker = cb(passFail, { errorThresholdPercentage: 10 });
+
+  breaker.failureCheck((e) => {
+    t.equals(e, 'Error: -1 is < 0', 'passed checked error');
+    return false;
+  });
+
+  breaker.fire(-1)
+    .then(() => t.fail('Tested function should throw an error'))
+    .catch((e) => t.equals(e, 'Error: -1 is < 0', 'caught expected error'))
+    .then(() => t.notOk(breaker.opened, 'Breaker should not open'))
+    .catch(t.end);
+});
+
+test('CircuitBreaker with failureCheck returns true', (t) => {
+  t.plan(3);
+  const breaker = cb(passFail, { errorThresholdPercentage: 10 });
+
+  breaker.failureCheck((e) => {
+    t.equals(e, 'Error: -1 is < 0', 'passed checked error');
+    return true;
+  });
+
+  breaker.fire(-1)
+    .then(() => t.fail('Tested function should throw an error'))
+    .catch((e) => t.equals(e, 'Error: -1 is < 0', 'caught expected error'))
+    .then(() => t.ok(breaker.opened, 'Breaker should open'))
+    .catch(t.end);
+});
+
+test('CircuitBreaker with invalid failureCheck function', (t) => {
+  t.plan(2);
+  const breaker = cb(passFail, { errorThresholdPercentage: 10 });
+
+  try {
+    breaker.failureCheck('not a func');
+    t.fail('Breaker should throw a TypeError');
+  } catch (e) {
+    t.ok(e instanceof TypeError, 'Breaker should throw TypeError');
+    t.equals(e.message, 'Failure check function must be a function', 'incorrect message');
+    t.end();
+  }
+});
+
 const common = require('./common');
 const passFail = common.passFail;
 const slowFunction = common.slowFunction;
