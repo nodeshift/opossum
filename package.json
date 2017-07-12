@@ -59,7 +59,7 @@
     "http-server": "~0.10.0",
     "ink-docstrap": "~1.3.0",
     "istanbul": "~0.4.5",
-    "jsdoc": "~3.4.2",
+    "jsdoc": "~3.5.2",
     "nsp": "~2.6.2",
     "opener": "~1.4.2",
     "standard-version": "^4.0.0",
