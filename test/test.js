@@ -499,27 +499,27 @@ test('CircuitBreaker events', (t) => {
                   resolve();
                 }, 500);
               })
-              .then(() => {
-                breaker.fire(10)
-                  .then(() => {
-                    t.equals(fired, 4, 'fire event fired');
-                    t.equals(success, 2, 'success event fired');
-                    t.equals(failures, 1, 'failure event fired');
-                    t.equals(reject, 1, 'reject event did not fire');
-                    t.equals(open, 1, 'open event did not fire');
-                    t.equals(close, 1, 'close event fired');
-                    t.equals(halfOpen, 1, 'halfOpen event did not fire');
-                    t.equals(timeout, 0, 'timeout event did not fire');
-                  })
-                  .then(() => {
-                    const timeoutBreaker = cb(slowFunction, options);
-                    let timedOut = false;
-                    timeoutBreaker.on('timeout', () => timedOut++);
-                    timeoutBreaker.fire().then(t.fail).catch(() => {});
-                  })
-                  .then((e) => t.equals(timeout, 0, 'timeout event fired'))
-                  .then(t.end);
-              });
+                .then(() => {
+                  breaker.fire(10)
+                    .then(() => {
+                      t.equals(fired, 4, 'fire event fired');
+                      t.equals(success, 2, 'success event fired');
+                      t.equals(failures, 1, 'failure event fired');
+                      t.equals(reject, 1, 'reject event did not fire');
+                      t.equals(open, 1, 'open event did not fire');
+                      t.equals(close, 1, 'close event fired');
+                      t.equals(halfOpen, 1, 'halfOpen event did not fire');
+                      t.equals(timeout, 0, 'timeout event did not fire');
+                    })
+                    .then(() => {
+                      const timeoutBreaker = cb(slowFunction, options);
+                      let timedOut = false;
+                      timeoutBreaker.on('timeout', () => timedOut++);
+                      timeoutBreaker.fire().then(t.fail).catch(() => {});
+                    })
+                    .then((e) => t.equals(timeout, 0, 'timeout event fired'))
+                    .then(t.end);
+                });
             });
         });
     })

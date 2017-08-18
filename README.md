@@ -1,4 +1,6 @@
 # opossum
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/bucharest-gold/opossum.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/bucharest-gold/opossum.svg?branch=master)](https://travis-ci.org/bucharest-gold/opossum)
 [![Known Vulnerabilities](https://snyk.io/test/npm/opossum/badge.svg)](https://snyk.io/test/npm/opossum)
 [![dependencies Status](https://david-dm.org/bucharest-gold/opossum/status.svg)](https://david-dm.org/bucharest-gold/opossum)

@@ -5,7 +5,7 @@
  * 'x' evaluates to >= 0. Otherwise the returned promise fails.
  */
 
- /* eslint prefer-promise-reject-errors: "off" */
+/* eslint prefer-promise-reject-errors: "off" */
 function passFail (x) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
