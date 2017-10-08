@@ -581,14 +581,9 @@ test('CircuitBreaker fallback as a rejected promise', (t) => {
   const breaker = cb(passFail, options);
   breaker.fallback(() => Promise.reject(new Error('nope')));
 
-  breaker.on('fallback', (resultPromise) => {
-    resultPromise
-      .then(t.fail)
-      .catch((e) => t.equals('nope', e.message))
-      .then(t.end);
-  });
-
-  breaker.fire(input).catch(() => {});
+  breaker.fire(input).then(t.fail).catch(e => {
+    t.equals('nope', e.message);
+  }).then(t.end);
 });
 
 test('CircuitBreaker fallback as a CircuitBreaker', (t) => {
