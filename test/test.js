@@ -282,7 +282,7 @@ test('Passes arguments to the fallback function', (t) => {
 test('Returns self from fallback()', (t) => {
   t.plan(1);
   cb(passFail, { errorThresholdPercentage: 1 })
-    .fallback(() => {})
+    .fallback(noop)
     .fire(1)
     .then((result) => {
       t.equals(result, 1, 'instance returned from fallback');
@@ -515,7 +515,7 @@ test('CircuitBreaker events', (t) => {
                       const timeoutBreaker = cb(slowFunction, options);
                       let timedOut = false;
                       timeoutBreaker.on('timeout', () => timedOut++);
-                      timeoutBreaker.fire().then(t.fail).catch(() => {});
+                      timeoutBreaker.fire().then(t.fail).catch(noop);
                     })
                     .then((e) => t.equals(timeout, 0, 'timeout event fired'))
                     .then(t.end);
@@ -603,7 +603,7 @@ test('CircuitBreaker fallback event as a rejected promise', (t) => {
       .then(t.end);
   });
 
-  breaker.fire(input).then(t.fail).catch(_ => {});
+  breaker.fire(input).then(t.fail).catch(noop);
 });
 
 test('CircuitBreaker fallback as a CircuitBreaker', (t) => {
@@ -706,7 +706,7 @@ test('Circuit Breaker failure event emits latency', (t) => {
     t.end();
   });
 
-  breaker.fire(-1).catch(() => {});
+  breaker.fire(-1).catch(noop);
 });
 
 test('Circuit Breaker timeout event emits latency', (t) => {
@@ -718,7 +718,7 @@ test('Circuit Breaker timeout event emits latency', (t) => {
     t.end();
   });
 
-  breaker.fire(-1).catch(() => {});
+  breaker.fire(-1).catch(noop);
 });
 
 test('Circuit Breaker timeout with semaphore released', (t) => {
@@ -730,7 +730,7 @@ test('Circuit Breaker timeout with semaphore released', (t) => {
     t.end();
   });
 
-  breaker.fire(-1).catch(() => {});
+  breaker.fire(-1).catch(noop);
 });
 
 test('CircuitBreaker semaphore rate limiting', (t) => {
@@ -738,7 +738,7 @@ test('CircuitBreaker semaphore rate limiting', (t) => {
   const breaker = cb(timedFunction, { timeout: 300, capacity: 1 });
 
   // fire once to acquire the semaphore and hold it for a long time
-  breaker.fire(1000).catch(e => {});
+  breaker.fire(1000).catch(noop);
 
   breaker.fire(0).catch(err => {
     t.equals(breaker.stats.semaphoreRejections, 1, 'Semaphore rejection status incremented');
@@ -747,6 +747,7 @@ test('CircuitBreaker semaphore rate limiting', (t) => {
   });
 });
 
+const noop = _ => {};
 const common = require('./common');
 const passFail = common.passFail;
 const slowFunction = common.slowFunction;
