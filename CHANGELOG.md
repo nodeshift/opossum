@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/bucharest-gold/opossum/compare/v1.2.1...v1.3.0) (2017-10-16)
+
+
+### Bug Fixes
+
+* ensure breaker.fire() returns rejected promise when fallback fails ([fbedb07](https://github.com/bucharest-gold/opossum/commit/fbedb07))
+* ensure fallback event always fires ([27c3f8b](https://github.com/bucharest-gold/opossum/commit/27c3f8b))
+* JSDoc now available for semaphore-locked event ([6f6c9bd](https://github.com/bucharest-gold/opossum/commit/6f6c9bd))
+
+
+### Features
+
+* Add health check function to a circuit breaker ([#76](https://github.com/bucharest-gold/opossum/issues/76)) ([0e39faa](https://github.com/bucharest-gold/opossum/commit/0e39faa))
+
+
+
 <a name="1.2.1"></a>
 ## [1.2.1](https://github.com/bucharest-gold/opossum/compare/v1.2.0...v1.2.1) (2017-06-20)
 
