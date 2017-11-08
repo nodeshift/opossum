@@ -22,7 +22,7 @@ on the web - search it! Fowler's blog post is one place to
 | Build:          | make  |
 | Documentation:  | https://bucharest-gold.github.io/opossum/ |
 | Issue tracker:  | https://github.com/bucharest-gold/opossum/issues  |
-| Engines:        | Node.js 4.x, 6.x, 8.x
+| Engines:        | Node.js 6.x, 8.x, 9.x
 
 ## Usage
 
