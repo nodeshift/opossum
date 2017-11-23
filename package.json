@@ -6,7 +6,7 @@
   "scripts": {
     "prebuild": "npm run lint",
     "build": "npm run build:browser && npm run build:compress && npm run build:docs",
-    "build:browser": "browserify index.js lib/*.js > dist/opossum.js",
+    "build:browser": "browserify index.js lib/circuit.js lib/hystrix-formatter.js lib/hystrix-stats.js lib/promisify.js lib/semaphore.js lib/status.js > dist/opossum.js",
     "build:compress": "escompress dist/opossum.js > dist/opossum-min.js",
     "build:docs": "jsdoc --verbose -d docs -t ./node_modules/ink-docstrap/template -R README.md index.js lib",
     "pretest": "npm run lint",
