@@ -35,5 +35,5 @@ test('When half-open, the circuit only allows one request through', t => {
     breaker
       .fire(1)
       .catch((e) => t.equals(e.message, 'Breaker is open'));
-  }, options.resetTimeout * 1.1);
+  }, options.resetTimeout * 1.5);
 });
