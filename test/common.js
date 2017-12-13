@@ -33,6 +33,17 @@ function timedFunction (ms) {
   });
 }
 
+function timedFailingFunction (ms) {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      reject(`Failed after ${ms}`);
+    }, ms);
+    if (typeof timer.unref === 'function') {
+      timer.unref();
+    }
+  });
+}
+
 function nonPromise () {
   return 'foo';
 }
@@ -49,6 +60,7 @@ module.exports = exports = {
   passFail,
   slowFunction,
   timedFunction,
+  timedFailingFunction,
   callbackFunction,
   failedCallbackFunction,
   nonPromise
