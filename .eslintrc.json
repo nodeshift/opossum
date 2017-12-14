@@ -4,7 +4,8 @@
     "standard/no-callback-literal": "off",
     "arrow-spacing": "error",
     "arrow-parens": ["error", "as-needed"],
-    "arrow-body-style": ["error", "as-needed"]
+    "arrow-body-style": ["error", "as-needed"],
+    "prefer-template": "error"
   }
 
 }
