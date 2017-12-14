@@ -21,9 +21,7 @@ test('health-check-failed is emitted on failure', t => {
     t.equals(e.message, 'Too many tacos', 'health-check-failed emitted');
     t.end();
   });
-  circuit.healthCheck(healthChecker(_ => {
-    return Promise.reject(new Error('Too many tacos'));
-  }), 10000);
+  circuit.healthCheck(healthChecker(_ => Promise.reject(new Error('Too many tacos'))), 10000);
 });
 
 test('circuit opens on health check failure', t => {
@@ -33,9 +31,7 @@ test('circuit opens on health check failure', t => {
     t.ok(circuit.opened, 'circuit opened');
     t.end();
   });
-  circuit.healthCheck(healthChecker(_ => {
-    return Promise.reject(new Error('Too many tacos'));
-  }), 10000);
+  circuit.healthCheck(healthChecker(_ => Promise.reject(new Error('Too many tacos'))), 10000);
 });
 
 test('Health check function executes in the circuit breaker context', t => {
