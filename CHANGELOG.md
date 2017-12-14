@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * build on windows10 due browserify limitations ([#112](https://github.com/bucharest-gold/opossum/issues/112)) ([dee4a9a](https://github.com/bucharest-gold/opossum/commit/dee4a9a))
-
+* halfOpen state does not reject and doesn't trigger a later re-try. ([#120](https://github.com/bucharest-gold/opossum/pull/120) ([04df6f7](https://github.com/bucharest-gold/opossum/commit/04df6f7b9a9b9e9ce672ea1665f1d95586f039a6))
 
 
 <a name="1.3.0"></a>
