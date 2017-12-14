@@ -5,6 +5,7 @@ node_js:
   - "8"
   - "9"
 before_install:
+  - if [ $(npm --version | cut -d'.' -f1) != "5" ] ; then npm install -g npm@5 ; fi
   - npm install -g greenkeeper-lockfile@1
 before_script:
   - export DISPLAY=:99.0
