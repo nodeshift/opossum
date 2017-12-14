@@ -96,7 +96,8 @@ test('Using cache', t => {
           t.equals(stats.cacheHits, 1, 'hit the cache');
           t.equals(stats.cacheMisses, 1, 'did not emit miss');
           t.equals(stats.fires, 2, 'fired twice');
-          t.equals(arg, expected, `cache hits:misses ${stats.cacheHits}:${stats.cacheMisses}`);
+          t.equals(arg, expected,
+            `cache hits:misses ${stats.cacheHits}:${stats.cacheMisses}`);
           breaker.clearCache();
         })
         .catch(t.fail)
@@ -104,7 +105,8 @@ test('Using cache', t => {
           breaker.fire(expected)
             .then(arg => {
               const stats = breaker.status.stats;
-              t.equals(arg, expected, `cache hits:misses ${stats.cacheHits}:${stats.cacheMisses}`);
+              t.equals(arg, expected,
+                `cache hits:misses ${stats.cacheHits}:${stats.cacheMisses}`);
             })
             .then(t.end)
             .catch(t.fail);
@@ -144,7 +146,7 @@ test('Works with functions that do not return a promise', t => {
   const breaker = cb(nonPromise);
 
   breaker.fire()
-    .then(arg => t.equals(arg, 'foo', 'nonPromise function returns expected value'))
+    .then(arg => t.equals(arg, 'foo', 'non-Promise returns expected value'))
     .then(t.end)
     .catch(t.fail);
 });
@@ -219,7 +221,8 @@ test('Breaker resets after a configurable amount of time', t => {
 
 test('Breaker status reflects open state', t => {
   t.plan(1);
-  const breaker = cb(passFail, {errorThresholdPercentage: 0, resetTimeout: 100});
+  const breaker = cb(passFail,
+    { errorThresholdPercentage: 0, resetTimeout: 100 });
   breaker.fire(-1)
     .then(t.fail)
     .catch(() => t.ok(breaker.status.window[0].isCircuitBreakerOpen))
@@ -331,21 +334,24 @@ test('CircuitBreaker emits failure when falling back', t => {
 test('CircuitBreaker status', t => {
   t.plan(12);
   const breaker = cb(passFail, { errorThresholdPercentage: 1 });
-  const deepEqual = (t, expected) => actual => t.deepEqual(actual, expected, 'expected status values');
+  const deepEqual = (t, expected) =>
+    actual => t.deepEqual(actual, expected, 'expected status values');
 
   Promise.all([
     breaker.fire(10).then(deepEqual(t, 10)),
     breaker.fire(20).then(deepEqual(t, 20)),
     breaker.fire(30).then(deepEqual(t, 30))
   ])
-    .then(() => t.deepEqual(breaker.status.stats.fires, 3, 'breaker fired 3 times'))
+    .then(() => t.deepEqual(breaker.status.stats.fires, 3,
+      'breaker fired 3 times'))
     .catch(t.fail)
     .then(() => {
       breaker.fire(-10)
         .then(t.fail)
         .catch(value => {
           const stats = breaker.status.stats;
-          t.equal(value, 'Error: -10 is < 0', 'fails with correct error message');
+          t.equal(value, 'Error: -10 is < 0',
+            'fails with correct error message');
           t.equal(stats.failures, 1, 'status reports a single failure');
           t.equal(stats.fires, 4, 'status reports 4 fires');
         })
@@ -370,14 +376,16 @@ test('CircuitBreaker status', t => {
 test('CircuitBreaker rolling counts', t => {
   const opts = { rollingCountTimeout: 200, rollingCountBuckets: 2 };
   const breaker = cb(passFail, opts);
-  const deepEqual = (t, expected) => actual => t.deepEqual(actual, expected, 'expected status values');
+  const deepEqual = (t, expected) =>
+    actual => t.deepEqual(actual, expected, 'expected status values');
   Promise.all([
     breaker.fire(10).then(deepEqual(t, 10)),
     breaker.fire(20).then(deepEqual(t, 20)),
     breaker.fire(30).then(deepEqual(t, 30))
   ])
     .then(() => {
-      t.deepEqual(breaker.status.stats.successes, 3, 'breaker succeeded 3 times');
+      t.deepEqual(breaker.status.stats.successes, 3,
+        'breaker succeeded 3 times');
     })
     .then(() => {
       setTimeout(() => {
@@ -540,24 +548,28 @@ test('circuit halfOpen', t => {
       setTimeout(() => {
         t.ok(breaker.halfOpen, 'breaker should be halfOpen');
         t.ok(breaker.pendingClose, 'breaker should be pending close');
-        // breaker should be half open, fail it again should open the circuit again
+        // breaker should be half open fail again should open the circuit
         breaker
           .fire(-1)
-          .catch(e => t.equals(e, 'Error: -1 is < 0', 'function should fail again'))
+          .catch(e => t.equals(e, 'Error: -1 is < 0',
+            'function should fail again'))
           .then(() => {
             t.ok(breaker.opened, 'breaker should be open again');
             t.notOk(breaker.halfOpen, 'breaker should not be halfOpen');
-            t.notOk(breaker.pendingClose, 'breaker should not be pending close');
+            t.notOk(breaker.pendingClose,
+              'breaker should not be pending close');
             setTimeout(() => {
               t.ok(breaker.halfOpen, 'breaker should be halfOpen again');
               t.ok(breaker.pendingClose, 'breaker should be pending close');
-              // breaker should be half open again and it should allow the original function to be called, and it should pass this time.
+              // breaker should be half open and it should allow the original
+              // function to be called, and it should pass this time.
               breaker
                 .fire(1)
                 .then(result => {
                   t.equals(1, result);
                   t.ok(breaker.closed, 'breaker should be closed');
-                  t.notOk(breaker.pendingClose, 'breaker should not be pending close');
+                  t.notOk(breaker.pendingClose,
+                    'breaker should not be pending close');
                   t.end();
                 })
                 .catch(t.fail);
@@ -653,8 +665,10 @@ test('CircuitBreaker fallback as a CircuitBreaker', t => {
 test('options.maxFailures should be deprecated', t => {
   const options = { maxFailures: 1 };
   const originalLog = console.error;
+  const expect = `options.maxFailures is deprecated. \
+Please use options.errorThresholdPercentage`;
   console.error = msg => {
-    t.equals(msg, 'options.maxFailures is deprecated. Please use options.errorThresholdPercentage');
+    t.equals(msg, expect);
     // restore console.error
     console.error = originalLog;
     t.end();
@@ -664,10 +678,13 @@ test('options.maxFailures should be deprecated', t => {
 
 test('rolling percentile enabled option defaults to true', t => {
   const breaker = cb(passFail);
-  t.equals(breaker.status.rollingPercentilesEnabled, true, 'rollingPercentilesEnabled should default to true');
-  t.equals(breaker.status.stats.latencyMean, 0, 'latencyMean is starts at 0 when rollingPercentilesEnabled is true');
+  t.equals(breaker.status.rollingPercentilesEnabled, true,
+    'rollingPercentilesEnabled should default to true');
+  t.equals(breaker.status.stats.latencyMean, 0,
+    'latencyMean is starts at 0 when rollingPercentilesEnabled is true');
   [0.0, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99, 0.995, 1].forEach(p => {
-    t.equals(breaker.status.stats.percentiles[p], 0, `${p} percentile should be 0 at the start`);
+    t.equals(breaker.status.stats.percentiles[p], 0,
+      `${p} percentile should be 0 at the start`);
   });
   t.end();
 });
@@ -675,10 +692,13 @@ test('rolling percentile enabled option defaults to true', t => {
 test('rolling percentile enabled option set to false', t => {
   const options = { rollingPercentilesEnabled: false };
   const breaker = cb(passFail, options);
-  t.equals(breaker.status.rollingPercentilesEnabled, false, 'rollingPercentilesEnabled set to false');
-  t.equals(breaker.status.stats.latencyMean, -1, 'latencyMean is -1 when rollingPercentilesEnabled is false');
+  t.equals(breaker.status.rollingPercentilesEnabled, false,
+    'rollingPercentilesEnabled set to false');
+  t.equals(breaker.status.stats.latencyMean, -1,
+    'latencyMean is -1 when rollingPercentilesEnabled is false');
   [0.0, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99, 0.995, 1].forEach(p => {
-    t.equals(breaker.status.stats.percentiles[p], -1, `${p} percentile should be -1 when rollingPercentilesEnabled is false`);
+    t.equals(breaker.status.stats.percentiles[p], -1,
+      `${p} percentile should be -1 when rollingPercentilesEnabled is false`);
   });
   t.end();
 });
@@ -722,7 +742,7 @@ test('Circuit Breaker timeout with semaphore released', t => {
   const breaker = cb(slowFunction, { timeout: 10, capacity: 2 });
 
   breaker.on('timeout', result => {
-    t.equal(breaker.semaphore.count, breaker.options.capacity, `semaphore count is: ${breaker.semaphore.count} and initial capacity is: ${breaker.options.capacity}`);
+    t.equal(breaker.semaphore.count, breaker.options.capacity);
     t.end();
   });
 
@@ -737,7 +757,8 @@ test('CircuitBreaker semaphore rate limiting', t => {
   breaker.fire(1000).catch(noop);
 
   breaker.fire(0).catch(err => {
-    t.equals(breaker.stats.semaphoreRejections, 1, 'Semaphore rejection status incremented');
+    t.equals(breaker.stats.semaphoreRejections, 1,
+      'Semaphore rejection status incremented');
     t.equals(err.code, 'ESEMLOCKED', 'Semaphore was locked');
     t.end();
   });

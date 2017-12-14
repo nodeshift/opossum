@@ -5,7 +5,8 @@
     "arrow-spacing": "error",
     "arrow-parens": ["error", "as-needed"],
     "arrow-body-style": ["error", "as-needed"],
-    "prefer-template": "error"
+    "prefer-template": "error",
+    "max-len": ["warn", { "code": 80 }]
   }
 
 }

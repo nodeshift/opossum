@@ -15,7 +15,7 @@
 
   /**
    * Creates a {@link CircuitBreaker} instance capable of executing `action`.
-   * @param action {function} The action to fire for this {@link CircuitBreaker} instance
+   * @param action {function} The action to fire for this {@link CircuitBreaker}
    * @param options {Object} Options for the {@link CircuitBreaker}
    * @param options.timeout {number} The time in milliseconds that action should
    * be allowed to execute before timing out. Default 10000 (10 seconds)

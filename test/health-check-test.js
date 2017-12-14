@@ -21,7 +21,8 @@ test('health-check-failed is emitted on failure', t => {
     t.equals(e.message, 'Too many tacos', 'health-check-failed emitted');
     t.end();
   });
-  circuit.healthCheck(healthChecker(_ => Promise.reject(new Error('Too many tacos'))), 10000);
+  circuit.healthCheck(
+    healthChecker(_ => Promise.reject(new Error('Too many tacos'))), 10000);
 });
 
 test('circuit opens on health check failure', t => {
@@ -31,7 +32,8 @@ test('circuit opens on health check failure', t => {
     t.ok(circuit.opened, 'circuit opened');
     t.end();
   });
-  circuit.healthCheck(healthChecker(_ => Promise.reject(new Error('Too many tacos'))), 10000);
+  circuit.healthCheck(
+    healthChecker(_ => Promise.reject(new Error('Too many tacos'))), 10000);
 });
 
 test('Health check function executes in the circuit breaker context', t => {
@@ -48,7 +50,7 @@ test('Health check function executes in the circuit breaker context', t => {
   }, 10000);
 });
 
-test('Health check function throws a TypeError if the interval duration is not a number', t => {
+test('healthCheck() throws TypeError if interval duration is NaN', t => {
   t.plan(2);
   const circuit = opossum(common.passFail);
   try {
@@ -56,12 +58,13 @@ test('Health check function throws a TypeError if the interval duration is not a
     t.fail('Circuit breaker did not throw TypeError');
   } catch (e) {
     t.equals(e.constructor, TypeError, 'throws TypeError');
-    t.equals(e.message, 'Health check interval must be a number', 'include correct message');
+    t.equals(e.message, 'Health check interval must be a number',
+      'include correct message');
     t.end();
   }
 });
 
-test('Health check function throws a TypeError if the function parameter is not a function', t => {
+test('healthCheck() throws TypeError if parameter is not a function', t => {
   t.plan(2);
   const circuit = opossum(common.passFail);
   try {
@@ -69,7 +72,8 @@ test('Health check function throws a TypeError if the function parameter is not 
     t.fail('Circuit breaker did not throw TypeError');
   } catch (e) {
     t.equals(e.constructor, TypeError, 'throws TypeError');
-    t.equals(e.message, 'Health check function must be a function', 'include correct message');
+    t.equals(e.message, 'Health check function must be a function',
+      'include correct message');
     t.end();
   }
 });

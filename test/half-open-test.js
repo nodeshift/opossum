@@ -15,21 +15,25 @@ test('When half-open, the circuit only allows one request through', t => {
   breaker.fire(1)
     .catch(e => t.equals(e, 'Failed after 1'))
     .then(() => {
-      t.ok(breaker.opened, 'breaker should be open after initial fire');
-      t.notOk(breaker.pendingClose, 'breaker should not be pending close after initial fire');
+      t.ok(breaker.opened, 'should be open after initial fire');
+      t.notOk(breaker.pendingClose,
+        'should not be pending close after initial fire');
     });
 
   // Fire again after reset timeout. should be half open
   setTimeout(() => {
-    t.ok(breaker.halfOpen, 'breaker should be halfOpen after timeout');
-    t.ok(breaker.pendingClose, 'breaker should be pending close after timeout');
+    t.ok(breaker.halfOpen, 'should be halfOpen after timeout');
+    t.ok(breaker.pendingClose, 'should be pending close after timeout');
     breaker
-      .fire(500) // fail after a long time, letting possibly other fire()s to occur
-      .catch(e => t.equals(e, 'Failed after 500', 'function should fail again'))
+      .fire(500) // fail after a long time, letting other fire()s occur
+      .catch(e => t.equals(e, 'Failed after 500', 'should fail again'))
       .then(() => {
-        t.ok(breaker.opened, 'breaker should be open again after long failing function');
-        t.notOk(breaker.halfOpen, 'breaker should not be halfOpen after long failing function');
-        t.notOk(breaker.pendingClose, 'breaker should not be pending close after long failing function');
+        t.ok(breaker.opened,
+          'should be open again after long failing function');
+        t.notOk(breaker.halfOpen,
+          'should not be halfOpen after long failing function');
+        t.notOk(breaker.pendingClose,
+          'should not be pending close after long failing func');
       });
     // fire the breaker again, and be sure it fails as expected
     breaker

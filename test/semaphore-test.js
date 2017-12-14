@@ -63,7 +63,8 @@ test('User code cannot change the lock count', t => {
   t.plan(3);
   const sem = Semaphore(1);
   t.equal(sem.count, 1, 'Semaphore starts with one lock');
-  t.throws(_ => (sem.count = 4), TypeError, 'Semaphore throws TypeError when user code attempts to change count');
+  t.throws(_ => (sem.count = 4), TypeError,
+    'Semaphore throws TypeError when user code attempts to change count');
   t.equal(sem.count, 1, 'Semaphore count is read only to user code');
   t.end();
 });
@@ -86,6 +87,7 @@ test('A user can test semaphore to see if a lock is available', t => {
   t.equals(sem.count, 0, 'test() acquires an available lock');
   t.equal(sem.test(), false, 'test() returns false when a lock is unavailable');
   sem.release();
-  t.equal(sem.test(), true, 'test() returns true when a lock is eventually released');
+  t.equal(sem.test(), true,
+    'test() returns true when a lock is eventually released');
   t.end();
 });
