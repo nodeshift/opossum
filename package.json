@@ -21,8 +21,7 @@
     "postpublish": "./publish-docs.sh",
     "prerelease": "npm test",
     "release": "standard-version -s",
-    "lint": "eslint test/*.js index.js lib/*.js",
-    "dependency-check": "szero . --ci"
+    "lint": "eslint test/*.js index.js lib/*.js"
   },
   "repository": {
     "type": "git",
@@ -63,7 +62,6 @@
     "nsp": "~3.1.0",
     "opener": "1.4.3",
     "standard-version": "4.3.0",
-    "szero": "^1.0.0",
     "tap-spec": "~4.1.1",
     "tape": "~4.8.0",
     "tape-run": "~3.0.0"
