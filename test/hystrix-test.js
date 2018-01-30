@@ -25,7 +25,6 @@ test('A circuit should provide stats to a hystrix compatible stream', t => {
     else if (obj.data.name === 'circuit two') circuitTwoStatsSeen = true;
   });
   circuitOne.fire(10).then(_ => circuitTwo.fire(10)).then(_ => {
-    console.log('checking');
     t.ok(circuitOneStatsSeen, 'circuit one stats seen');
     t.ok(circuitTwoStatsSeen, 'circuit two stats seen');
     t.end();
