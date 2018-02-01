@@ -45,6 +45,8 @@
    */
   circuitBreaker.promisify = require('./lib/promisify');
 
+  circuitBreaker.stats = require('./lib/hystrix-stats.js').stream;
+
   if (typeof window === 'object') {
     window[circuitBreaker.name] = circuitBreaker;
   }
