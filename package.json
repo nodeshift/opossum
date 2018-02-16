@@ -60,7 +60,7 @@
     "istanbul": "~0.4.5",
     "jsdoc": "3.5.5",
     "marked": "^0.3.9",
-    "nsp": "~3.1.0",
+    "nsp": "~3.2.0",
     "opener": "1.4.3",
     "standard-version": "4.3.0",
     "tap-spec": "~4.1.1",
