@@ -42,7 +42,7 @@
   "devDependencies": {
     "babel-plugin-transform-dead-code-elimination": "~2.2.2",
     "babel-plugin-transform-mangle-names": "~2.1.2",
-    "babel-plugin-transform-merge-sibling-variables": "6.8.6",
+    "babel-plugin-transform-merge-sibling-variables": "6.9.0",
     "babel-plugin-transform-minify-booleans": "6.8.3",
     "babel-plugin-transform-undefined-to-void": "6.8.3",
     "browserify": "~15.2.0",
