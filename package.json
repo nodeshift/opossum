@@ -20,7 +20,7 @@
     "postpublish": "./publish-docs.sh",
     "prerelease": "npm test",
     "release": "standard-version -s",
-    "lint": "eslint test/*.js index.js lib/*.js"
+    "lint": "eslint examples/*/*.js test/*.js index.js lib/*.js"
   },
   "repository": {
     "type": "git",

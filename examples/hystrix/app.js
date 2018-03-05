@@ -14,7 +14,7 @@ let delay = baseline;
 function flakeFunction () {
   return new Promise((resolve, reject) => {
     if (delay > 1000) {
-      return reject('Flakey Service is Flakey');
+      return reject(new Error('Flakey Service is Flakey'));
     }
 
     setTimeout(() => {
@@ -49,12 +49,12 @@ const circuit = circuitBreaker(flakeFunction, circuitBreakerOptions);
 circuit.fallback(fallback);
 
 // setup our SSE endpoint
-app.use('/hystrix.stream', require('./hystrix-stream.js')(circuitBreaker));
+app.use('/hystrix.stream', require('./hystrix-stream')(circuitBreaker));
 
 app.use('/', (request, response) => {
-  circuit.fire().then((result) => {
+  circuit.fire().then(result => {
     response.send(result);
-  }).catch((err) => {
+  }).catch(err => {
     response.send(err);
   });
 });

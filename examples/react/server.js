@@ -42,22 +42,21 @@ setInterval(() => {
   }
 }, 20000);
 
-server.start((err) => {
+server.start(err => {
   possibleError(err);
   console.log(`Server: ${server.info.uri}`);
   console.log('Endpoints:');
-  server.table().map((entry) => {
-    entry.table.map((route) => {
+  server.table().map(entry => {
+    entry.table.map(route => {
       console.log(`${route.method} ${route.path}`);
     });
   });
 });
 
-process.on('uncaughtException', (e) => {
+process.on('uncaughtException', e => {
   process._rawDebug(`Uncaught exception ${e}`);
 });
 
 function possibleError (err) {
   if (err) throw err;
 }
-
