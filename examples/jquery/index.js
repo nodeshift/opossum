@@ -12,13 +12,14 @@ server.connection({
 });
 
 // static file serving
-server.register(require('inert', (err) => possibleError(err)));
+server.register(require('inert', err => possibleError(err)));
 
 [ ['/', path.join(__dirname, 'index.html')],
   ['/app.js', path.join(__dirname, 'app.js')],
-  ['/jquery.js', path.join(__dirname, 'node_modules', 'jquery', 'dist', 'jquery.js')],
+  ['/jquery.js',
+    path.join(__dirname, 'node_modules', 'jquery', 'dist', 'jquery.js')],
   ['/opossum.js', path.join(__dirname, '..', '..', 'dist', 'opossum.js')]
-].map((entry) => {
+].map(entry => {
   server.route({
     method: 'GET',
     path: entry[0],
@@ -63,22 +64,21 @@ setInterval(() => {
   }
 }, 20000);
 
-server.start((err) => {
+server.start(err => {
   possibleError(err);
   console.log(`Server: ${server.info.uri}`);
   console.log('Endpoints:');
-  server.table().map((entry) => {
-    entry.table.map((route) => {
+  server.table().map(entry => {
+    entry.table.map(route => {
       console.log(`${route.method} ${route.path}`);
     });
   });
 });
 
-process.on('uncaughtException', (e) => {
+process.on('uncaughtException', e => {
   process._rawDebug(`Uncaught exception ${e}`);
 });
 
 function possibleError (err) {
   if (err) throw err;
 }
-

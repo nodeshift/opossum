@@ -3,7 +3,7 @@
 
 (function appInitialization () {
   $(() => {
-    $('#flakey').click(_ => circuit.fire().catch((e) => console.error(e)));
+    $('#flakey').click(_ => circuit.fire().catch(e => console.error(e)));
     $('.clear').click(_ => $('.clear').siblings('p').remove());
   });
 
@@ -18,12 +18,13 @@
 
   const circuit = circuitBreaker(_ => $.get(route), circuitBreakerOptions);
 
-  circuit.fallback(_ => ({ body: `${route} unavailable right now. Try later.` }));
+  circuit.fallback(_ =>
+    ({ body: `${route} unavailable right now. Try later.` }));
 
-  circuit.status.on('snapshot', (stats) => {
+  circuit.status.on('snapshot', stats => {
     const response = document.createElement('p');
     $(response).addClass('stats');
-    Object.keys(stats).forEach((key) => {
+    Object.keys(stats).forEach(key => {
       const p = document.createElement('p');
       p.append(`${key}: ${stats[key]}`);
       $(response).append(p);
@@ -33,7 +34,7 @@
   });
 
   circuit.on('success',
-    (result) => $(element).append(
+    result => $(element).append(
       makeNode(`SUCCESS: ${JSON.stringify(result)}`)));
 
   circuit.on('timeout',
@@ -57,7 +58,7 @@
       makeNode(`CLOSE: The breaker for ${route} has closed. Service OK.`)));
 
   circuit.on('fallback',
-    (data) => $(element).append(
+    data => $(element).append(
       makeNode(`FALLBACK: ${JSON.stringify(data)}`)));
 
   function makeNode (body) {
