@@ -6,8 +6,9 @@ module.exports = {
       './index.js' 
     ]
   },
+  mode: "production",
   output: {
-    filename: 'dist/opossum.js'
+    filename: 'opossum.js'
   },
   plugins: [
     new MinifyPlugin()
