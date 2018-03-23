@@ -4,6 +4,20 @@ const test = require('tape');
 const opossum = require('../');
 const { passFail } = require('./common');
 
+test('Defaults to enabled', t => {
+  t.plan(1);
+  const breaker = opossum(passFail);
+  t.equals(breaker.enabled, true);
+  t.end();
+});
+
+test('Accepts options.enabled', t => {
+  t.plan(1);
+  const breaker = opossum(passFail, { enabled: false });
+  t.equals(breaker.enabled, false);
+  t.end();
+});
+
 test('When disabled the circuit should always be closed', t => {
   t.plan(8);
   const options = {
