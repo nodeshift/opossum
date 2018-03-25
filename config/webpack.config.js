@@ -3,14 +3,14 @@ const MinifyPlugin = require('babel-minify-webpack-plugin');
 module.exports = {
   entry: {
     main: [
-      './index.js' 
+      './index.js'
     ]
   },
-  mode: "production",
+  mode: 'production',
   output: {
     filename: 'opossum.js'
   },
   plugins: [
     new MinifyPlugin()
   ]
-}
+};
