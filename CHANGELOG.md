@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/bucharest-gold/opossum/compare/v1.3.1...v1.4.0) (2018-03-26)
+
+
+### Bug Fixes
+
+* address sec vuln in marked coming from jsdoc ([224c6ef](https://github.com/bucharest-gold/opossum/commit/224c6ef))
+* security issue related to electron version ([#138](https://github.com/bucharest-gold/opossum/issues/138)) ([4739c62](https://github.com/bucharest-gold/opossum/commit/4739c62))
+
+
+### Features
+
+* add enable/disable for a circuit ([#160](https://github.com/bucharest-gold/opossum/issues/160)) ([016eba5](https://github.com/bucharest-gold/opossum/commit/016eba5))
+* allow multiple circuits to aggregate stats ([#140](https://github.com/bucharest-gold/opossum/issues/140)) ([ba71840](https://github.com/bucharest-gold/opossum/commit/ba71840))
+
+
+
 <a name="1.3.1"></a>
 ## [1.3.1](https://github.com/bucharest-gold/opossum/compare/v1.3.0...v1.3.1) (2017-12-14)
 
