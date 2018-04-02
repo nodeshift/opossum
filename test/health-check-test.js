@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const opossum = require('../');
+const opossum = require('..');
 const common = require('./common');
 
 test('Circuits accept a health check function', t => {
@@ -28,7 +28,7 @@ test('health-check-failed is emitted on failure', t => {
 test('circuit opens on health check failure', t => {
   t.plan(1);
   const circuit = opossum(common.passFail);
-  circuit.on('open', e => {
+  circuit.on('open', _ => {
     t.ok(circuit.opened, 'circuit opened');
     t.end();
   });
@@ -40,14 +40,15 @@ test('Health check function executes in the circuit breaker context', t => {
   t.plan(1);
   let called = false;
   const circuit = opossum(common.passFail);
-  circuit.healthCheck(function healthCheck () {
+  function healthCheck () {
     if (!called) {
       t.equal(this, circuit, 'health check executes in circuit context');
       t.end();
     }
     called = true;
     return Promise.resolve();
-  }, 10000);
+  }
+  circuit.healthCheck(healthCheck, 10000);
 });
 
 test('healthCheck() throws TypeError if interval duration is NaN', t => {
@@ -78,9 +79,13 @@ test('healthCheck() throws TypeError if parameter is not a function', t => {
   }
 });
 
-const healthChecker = func => _ => {
-  let called = false;
-  if (!called) return func();
-  called = true;
-  return Promise.resolve();
-};
+function healthChecker (func) {
+  return _ => {
+    let called = false;
+    if (!called) {
+      return func();
+    }
+    called = true;
+    return Promise.resolve();
+  };
+}

@@ -1,8 +1,17 @@
 'use strict';
 
+const cb = require('..');
 const browser = require('./browser/browser-tap');
 const test = require('tape');
-const cb = require('../');
+const common = require('./common');
+
+const noop = _ => {};
+const passFail = common.passFail;
+const slowFunction = common.slowFunction;
+const timedFunction = common.timedFunction;
+const nonPromise = common.nonPromise;
+const callbackFunction = common.callbackFunction;
+const failedCallbackFunction = common.failedCallbackFunction;
 
 browser.enable();
 
@@ -36,7 +45,7 @@ test('has a name based on the function name', t => {
 });
 
 test('accepts a name as an option', t => {
-  const breaker = cb(passFail, {name: 'tacoMachine'});
+  const breaker = cb(passFail, { name: 'tacoMachine' });
   t.equals(breaker.name, 'tacoMachine');
   t.end();
 });
@@ -49,13 +58,13 @@ test('uses UUID as a name when none is provided and the function is anonymoys',
   });
 
 test('accepts a group as an option', t => {
-  const breaker = cb(passFail, {group: 'tacoMachine'});
+  const breaker = cb(passFail, { group: 'tacoMachine' });
   t.equals(breaker.group, 'tacoMachine');
   t.end();
 });
 
 test('uses name as a group when no group is provided', t => {
-  const breaker = cb(passFail, {name: 'tacoMachine'});
+  const breaker = cb(passFail, { name: 'tacoMachine' });
   t.equals(breaker.group, 'tacoMachine');
   t.end();
 });
@@ -294,7 +303,9 @@ test('Returns self from fallback()', t => {
 
 test('CircuitBreaker emits failure when action throws', t => {
   t.plan(2);
-  const breaker = cb(() => { throw new Error('E_TOOMANYCHICKENTACOS'); });
+  const breaker = cb(_ => {
+    throw new Error('E_TOOMANYCHICKENTACOS');
+  });
   breaker.fire()
     .then(t.fail)
     .catch(e => {
@@ -306,7 +317,9 @@ test('CircuitBreaker emits failure when action throws', t => {
 
 test('CircuitBreaker executes fallback when an action throws', t => {
   t.plan(3);
-  const breaker = cb(() => { throw new Error('E_TOOMANYCHICKENTACOS'); })
+  const breaker = cb(() => {
+    throw new Error('E_TOOMANYCHICKENTACOS');
+  })
     .fallback(() => 'Fallback executed');
   breaker.fire()
     .then(result => {
@@ -416,7 +429,7 @@ test('CircuitBreaker status listeners', t => {
 
 test('CircuitBreaker fallback event', t => {
   t.plan(1);
-  const breaker = cb(passFail, {errorThresholdPercentage: 0});
+  const breaker = cb(passFail, { errorThresholdPercentage: 0 });
   breaker.fallback(x => x);
   breaker.on('fallback', value => {
     t.equal(value, -1, 'fallback value received');
@@ -468,7 +481,7 @@ test('CircuitBreaker events', t => {
     .then(() => {
       breaker.fire(-1)
         .then(t.fail)
-        .catch(e => {
+        .catch(_ => {
           t.equals(fired, 2, 'fire event fired');
           t.equals(success, 1, 'success event did not fire');
           t.equals(failures, 1, 'failure event fired');
@@ -481,7 +494,7 @@ test('CircuitBreaker events', t => {
         .then(() => {
           breaker.fire(10)
             .then(t.fail)
-            .catch(e => {
+            .catch(_ => {
               t.equals(fired, 3, 'fire event fired');
               t.equals(success, 1, 'success event did not fire');
               t.equals(failures, 1, 'failure event did not fire');
@@ -522,7 +535,7 @@ test('CircuitBreaker events', t => {
                     timeoutBreaker.on('timeout', () => timedOut++);
                     timeoutBreaker.fire().then(t.fail).catch(noop);
                   })
-                  .then(e => t.equals(timeout, 0, 'timeout event fired'))
+                  .then(_ => t.equals(timeout, 0, 'timeout event fired'))
                   .then(t.end);
               }));
         });
@@ -548,7 +561,7 @@ test('circuit halfOpen', t => {
       setTimeout(() => {
         t.ok(breaker.halfOpen, 'breaker should be halfOpen');
         t.ok(breaker.pendingClose, 'breaker should be pending close');
-        // breaker should be half open fail again should open the circuit
+        // Breaker should be half open fail again should open the circuit
         breaker
           .fire(-1)
           .catch(e => t.equals(e, 'Error: -1 is < 0',
@@ -561,7 +574,7 @@ test('circuit halfOpen', t => {
             setTimeout(() => {
               t.ok(breaker.halfOpen, 'breaker should be halfOpen again');
               t.ok(breaker.pendingClose, 'breaker should be pending close');
-              // breaker should be half open and it should allow the original
+              // Breaker should be half open and it should allow the original
               // function to be called, and it should pass this time.
               breaker
                 .fire(1)
@@ -669,7 +682,7 @@ test('options.maxFailures should be deprecated', t => {
 Please use options.errorThresholdPercentage`;
   console.error = msg => {
     t.equals(msg, expect);
-    // restore console.error
+    // Restore console.error
     console.error = originalLog;
     t.end();
   };
@@ -741,7 +754,7 @@ test('Circuit Breaker timeout with semaphore released', t => {
   t.plan(1);
   const breaker = cb(slowFunction, { timeout: 10, capacity: 2 });
 
-  breaker.on('timeout', result => {
+  breaker.on('timeout', _ => {
     t.equal(breaker.semaphore.count, breaker.options.capacity);
     t.end();
   });
@@ -753,7 +766,7 @@ test('CircuitBreaker semaphore rate limiting', t => {
   t.plan(2);
   const breaker = cb(timedFunction, { timeout: 300, capacity: 1 });
 
-  // fire once to acquire the semaphore and hold it for a long time
+  // Fire once to acquire the semaphore and hold it for a long time
   breaker.fire(1000).catch(noop);
 
   breaker.fire(0).catch(err => {
@@ -763,12 +776,3 @@ test('CircuitBreaker semaphore rate limiting', t => {
     t.end();
   });
 });
-
-const noop = _ => {};
-const common = require('./common');
-const passFail = common.passFail;
-const slowFunction = common.slowFunction;
-const timedFunction = common.timedFunction;
-const nonPromise = common.nonPromise;
-const callbackFunction = common.callbackFunction;
-const failedCallbackFunction = common.failedCallbackFunction;

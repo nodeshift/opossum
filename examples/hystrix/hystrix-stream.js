@@ -4,7 +4,7 @@ function hystrixStream (circuitBreaker) {
     response.writeHead(200, {
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache',
-      'Connection': 'keep-alive'});
+      Connection: 'keep-alive'});
     response.write('retry: 10000\n');
     response.write('event: connecttime\n');
 

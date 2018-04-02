@@ -1,7 +1,7 @@
 'use strict';
 /* global $ circuitBreaker */
 
-(function appInitialization () {
+(function () {
   $(() => {
     $('#flakey').click(_ => circuit.fire().catch(e => console.error(e)));
     $('.clear').click(_ => $('.clear').siblings('p').remove());
