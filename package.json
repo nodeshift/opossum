@@ -87,7 +87,8 @@
     "tape": "~4.9.0",
     "tape-run": "~4.0.0",
     "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.12"
+    "webpack-cli": "^2.0.12",
+    "xo": "~0.20.3"
   },
   "description": "A fail-fast circuit breaker for promises and callbacks",
   "keywords": [
@@ -97,8 +98,5 @@
     "breaker",
     "hystrix",
     "rate-limiting"
-  ],
-  "dependencies": {
-    "xo": "~0.20.3"
-  }
+  ]
 }
