@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const opossum = require('../');
+const opossum = require('..');
 const { timedFailingFunction } = require('./common');
 
 test('When half-open, the circuit only allows one request through', t => {
@@ -25,7 +25,7 @@ test('When half-open, the circuit only allows one request through', t => {
     t.ok(breaker.halfOpen, 'should be halfOpen after timeout');
     t.ok(breaker.pendingClose, 'should be pending close after timeout');
     breaker
-      .fire(500) // fail after a long time, letting other fire()s occur
+      .fire(500) // Fail after a long time, letting other fire()s occur
       .catch(e => t.equals(e, 'Failed after 500', 'should fail again'))
       .then(() => {
         t.ok(breaker.opened,
@@ -35,7 +35,7 @@ test('When half-open, the circuit only allows one request through', t => {
         t.notOk(breaker.pendingClose,
           'should not be pending close after long failing func');
       });
-    // fire the breaker again, and be sure it fails as expected
+    // Fire the breaker again, and be sure it fails as expected
     breaker
       .fire(1)
       .catch(e => t.equals(e.message, 'Breaker is open'));

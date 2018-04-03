@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const opossum = require('../');
+const opossum = require('..');
 const { passFail } = require('./common');
 
 test('Defaults to enabled', t => {
@@ -35,7 +35,7 @@ test('When disabled the circuit should always be closed', t => {
         'should not be pending close');
     })
     .then(() => {
-      breaker // fire and fail again
+      breaker // Fire and fail again
         .fire(-1)
         .catch(e => t.equals(e, 'Error: -1 is < 0'))
         .then(() => {
@@ -44,7 +44,7 @@ test('When disabled the circuit should always be closed', t => {
             'should not be pending close');
         });
     })
-    .then(() => { // reenable the circuit
+    .then(() => { // Reenable the circuit
       breaker.enable();
       breaker.fire(-1)
         .catch(e => t.equals(e, 'Error: -1 is < 0'))

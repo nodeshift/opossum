@@ -51,7 +51,8 @@
     window[circuitBreaker.name] = circuitBreaker;
   }
   if (typeof process === 'object') {
-    // we're in a node.js environment
-    module.exports = exports = circuitBreaker;
+    // We're in a node.js environment
+    exports = circuitBreaker;
+    module.exports = exports;
   }
 }).call();

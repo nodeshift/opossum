@@ -9,7 +9,11 @@
 function passFail (x) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      (x > 0) ? resolve(x) : reject(`Error: ${x} is < 0`);
+      if (x > 0) {
+        resolve(x);
+      } else {
+        reject(`Error: ${x} is < 0`);
+      }
     }, 100);
   });
 }
@@ -23,7 +27,7 @@ function slowFunction () {
 }
 
 function timedFunction (ms) {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     const timer = setTimeout(() => {
       resolve('done');
     }, ms);
@@ -56,7 +60,7 @@ function failedCallbackFunction () {
   Array.prototype.slice.call(arguments).pop()('Whoops!');
 }
 
-module.exports = exports = {
+exports = {
   passFail,
   slowFunction,
   timedFunction,
@@ -65,3 +69,4 @@ module.exports = exports = {
   failedCallbackFunction,
   nonPromise
 };
+module.exports = exports;

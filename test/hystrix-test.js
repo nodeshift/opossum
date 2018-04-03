@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const cb = require('../');
+const cb = require('..');
 const { passFail } = require('./common');
 
 test('A circuit should provide stats to a hystrix compatible stream', t => {
@@ -21,8 +21,11 @@ test('A circuit should provide stats to a hystrix compatible stream', t => {
   let circuitTwoStatsSeen = true;
   stream.on('data', blob => {
     const obj = JSON.parse(blob.substring(6));
-    if (obj.name === 'circuit one') circuitOneStatsSeen = true;
-    else if (obj.name === 'circuit two') circuitTwoStatsSeen = true;
+    if (obj.name === 'circuit one') {
+      circuitOneStatsSeen = true;
+    } else if (obj.name === 'circuit two') {
+      circuitTwoStatsSeen = true;
+    }
   });
   circuitOne.fire(10).then(_ => circuitTwo.fire(10)).then(_ => {
     t.ok(circuitOneStatsSeen, 'circuit one stats seen');
