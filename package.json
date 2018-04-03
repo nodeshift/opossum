@@ -20,7 +20,7 @@
     "postpublish": "./publish-docs.sh",
     "prerelease": "npm test",
     "release": "standard-version -s",
-    "lint": "npx xo index.js lib/*.js test/*.js"
+    "lint": "xo index.js lib/*.js test/*.js"
   },
   "xo": {
     "space": 2,
