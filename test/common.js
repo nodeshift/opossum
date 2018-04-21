@@ -56,6 +56,8 @@ function failedCallbackFunction () {
   Array.prototype.slice.call(arguments).pop()('Whoops!');
 }
 
+function identity (_) { return _; }
+
 module.exports = exports = {
   passFail,
   slowFunction,
@@ -63,5 +65,6 @@ module.exports = exports = {
   timedFailingFunction,
   callbackFunction,
   failedCallbackFunction,
-  nonPromise
+  nonPromise,
+  identity
 };
