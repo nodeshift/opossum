@@ -6,14 +6,6 @@ const cb = require('../');
 
 browser.enable();
 
-test('global namespace', t => {
-  const inBrowser = typeof window === 'object';
-  const globalExport = typeof circuitBreaker !== 'undefined';
-  t.ok((inBrowser && globalExport) ||
-      (!inBrowser && !globalExport), 'behaves correctly');
-  t.end();
-});
-
 test('api', t => {
   const breaker = cb(passFail);
   t.ok(breaker, 'CircuitBreaker');

@@ -2,5 +2,5 @@ node_modules
 docs
 coverage
 dist/*
-test/browser/browserified-tests.js
+test/browser/webpack-test.js
 *.log

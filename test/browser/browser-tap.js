@@ -1,5 +1,4 @@
 // for browser output
-// TODO: This is all pretty hackey
 const log = console.log;
 
 function enable () {
