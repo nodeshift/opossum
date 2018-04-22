@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const configs = ['opossum', 'opossum.min', 'browser-test']
   .map(key => generateConfig(key));
 
@@ -24,18 +25,25 @@ function generateConfig (name) {
   const mode = name.indexOf('min') > -1 ? 'production' : 'development';
   const config = {
     mode,
-    entry: './index.js',
+    entry: {
+      circuitBreaker: './index.js'
+    },
     output: {
       path: path.resolve(__dirname, '..', 'dist'),
       filename: `${name}.js`,
       sourceMapFilename: `${name}.map`,
-      library: 'opossum',
+      library: 'circuitBreaker',
       libraryTarget: 'umd'
     },
     node: {
-      process: false,
+      process: true,
       console: true
     },
+    plugins: [
+      new webpack.ProvidePlugin({
+        'circuitBreaker': 'opossum'
+      })
+    ],
     devtool: 'source-map'
   };
   return config;

@@ -1,5 +1,5 @@
 'use strict';
-/* global $ circuitBreaker */
+/* global $ window */
 
 (function appInitialization () {
   $(() => {
