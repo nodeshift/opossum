@@ -16,7 +16,7 @@ process.on('uncaughtException', e => {
 
 async function init (server) {
   // static file serving
-  await server.register(require('inert', err => possibleError(err)));
+  await server.register(require('inert'));
   server.route({
     method: 'GET',
     path: '/{param*}',
@@ -44,5 +44,4 @@ async function init (server) {
   server.table().map(route => {
     console.log(`${route.method} ${route.path}`);
   });
-};
-
+}

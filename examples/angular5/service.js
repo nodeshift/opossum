@@ -1,7 +1,6 @@
 'use strict';
 
 const Boom = require('boom');
-const path = require('path');
 
 // reset the delay every 10 seconds
 const baseline = 20;
