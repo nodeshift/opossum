@@ -75,8 +75,12 @@ fallback function will continue to be executed until the breaker is closed.
 ### Browser
 
 Opossum really shines in a browser. You can use it to guard against network
-failures in your AJAX calls. A browserified version of the module is available
-as a compressed file, or exploded in the `dist` folder.
+failures in your AJAX calls.
+
+We recommend using [webpack](https://webpack.js.org/) to bundle your applications,
+since it does not have the effect of polluting the `window` object with a global.
+However, if you need it, you can access a `circuitBreaker` function in the global
+namespace by doing something similar to what is shown in the below example.
 
 Here is an example using [hapi.js](hapijs.com). See the
 [examples](https://github.com/bucharest-gold/opossum/tree/master/examples/)
