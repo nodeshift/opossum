@@ -7,7 +7,7 @@ const configs = ['opossum', 'opossum.min', 'browser-test']
 configs.push({
   target: 'web',
   mode: 'development',
-  entry: './test/test.js',
+  entry: './test/browser/index.js',
   node: {
     fs: 'empty'
   },
