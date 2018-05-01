@@ -3,9 +3,11 @@
 // testing.
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-const base = path.join(__dirname, '..');
-
-const files = fs.readdirSync(base, 'utf-8');
-files.filter(f => f.endsWith('test.js')).map(f => require(path.join(base, f)));
+// We have to hard code the test file names because fs.readdirSync
+// and friends won't really work in a browser, now will they?
+require('../enable-disable-test');
+require('../half-open-test.js');
+require('../health-check-test.js');
+require('../hystrix-test.js');
+require('../semaphore-test.js');
+require('../test.js');
