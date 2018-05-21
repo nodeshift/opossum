@@ -82,7 +82,7 @@ since it does not have the effect of polluting the `window` object with a global
 However, if you need it, you can access a `circuitBreaker` function in the global
 namespace by doing something similar to what is shown in the below example.
 
-Here is an example using [hapi.js](hapijs.com). See the
+Here is an example using [hapi.js](https://hapijs.com). See the
 [examples](https://github.com/bucharest-gold/opossum/tree/master/examples/)
 folder for more detail.
 
