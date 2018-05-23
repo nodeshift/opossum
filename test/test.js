@@ -260,6 +260,18 @@ test('Executes fallback action, if one exists, when breaker is open', t => {
     });
 });
 
+test('Passes error as last argument to the fallback function', t => {
+  t.plan(1);
+  const fails = -1;
+  const breaker = circuit(passFail, { errorThresholdPercentage: 1 });
+  breaker.on('fallback', result => {
+    t.equals(result, `Error: ${fails} is < 0`, 'fallback received error as last parameter');
+    t.end();
+  });
+  breaker.fallback((x, e) => e);
+  breaker.fire(fails).catch(t.fail);
+});
+
 test('Passes arguments to the fallback function', t => {
   t.plan(1);
   const fails = -1;
