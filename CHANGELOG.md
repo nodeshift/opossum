@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/bucharest-gold/opossum/compare/v1.5.0...v1.6.0) (2018-05-24)
+
+
+### Features
+
+* pass error as parameter to fallback function ([#197](https://github.com/bucharest-gold/opossum/issues/197)) ([ae6c1cc](https://github.com/bucharest-gold/opossum/commit/ae6c1cc))
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/bucharest-gold/opossum/compare/v1.3.1...v1.5.0) (2018-04-25)
 
