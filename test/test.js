@@ -272,6 +272,24 @@ test('Passes error as last argument to the fallback function', t => {
   breaker.fire(fails).catch(t.fail);
 });
 
+test('Fallback is not called twice for the same execution when action fails after timing out', t => {
+  t.plan(1);
+
+  const actionDuration = 200;
+  const breaker = circuit(timedFailingFunction, { timeout: actionDuration / 2 });
+
+  breaker.fallback((ms, err) => {
+    t.ok(err);
+    return Promise.reject(err);
+  });
+
+  breaker.fire(actionDuration)
+    .catch((err) => noop(err));
+
+  // keep this test alive until action finishes
+  setTimeout(() => noop, actionDuration);
+});
+
 test('Passes arguments to the fallback function', t => {
   t.plan(1);
   const fails = -1;
@@ -774,6 +792,7 @@ const identity = common.identity;
 const passFail = common.passFail;
 const slowFunction = common.slowFunction;
 const timedFunction = common.timedFunction;
+const timedFailingFunction = common.timedFailingFunction;
 const nonPromise = common.nonPromise;
 const callbackFunction = common.callbackFunction;
 const failedCallbackFunction = common.failedCallbackFunction;
