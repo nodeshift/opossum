@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.7.0"></a>
+# [1.7.0](https://github.com/bucharest-gold/opossum/compare/v1.6.0...v1.7.0) (2018-06-06)
+
+
+### Bug Fixes
+
+* avoid calling fallback function twice ([#198](https://github.com/bucharest-gold/opossum/issues/198)) ([#201](https://github.com/bucharest-gold/opossum/issues/201)) ([b561a43](https://github.com/bucharest-gold/opossum/commit/b561a43))
+
+
+### Features
+
+* optional timeout ([#200](https://github.com/bucharest-gold/opossum/issues/200)) ([#202](https://github.com/bucharest-gold/opossum/issues/202)) ([7611d6f](https://github.com/bucharest-gold/opossum/commit/7611d6f))
+
+
+
 <a name="1.6.0"></a>
 # [1.6.0](https://github.com/bucharest-gold/opossum/compare/v1.5.0...v1.6.0) (2018-05-24)
 
