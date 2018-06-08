@@ -3,9 +3,10 @@ dist: trusty
 node_js:
   - "6"
   - "8"
-  - "9"
+  - "10"
+install: npm install
 before_install:
-  - if [ $(npm --version | cut -d'.' -f1) != "5" ] ; then npm install -g npm@5 ; fi
+  - if [ $(node --version | cut -d'.' -f1) == "6" ] ; then npm install -g npm@5 ; fi
   - npm install -g greenkeeper-lockfile@1
 before_script:
   - export DISPLAY=:99.0
