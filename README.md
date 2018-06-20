@@ -65,9 +65,11 @@ breaker.on('fallback', (result) => reportFallbackEvent(result));
 ```
 
 Once the circuit has opened, a timeout is set based on `options.resetTimeout`.
-When the `resetTimeout` expires, `opossum` will enter the `halfOpen` state and
-try the action again. If successful, the circuit will close and emit the `close`
-event.
+When the `resetTimeout` expires, `opossum` will enter the `halfOpen` state.
+Once in the `halfOpen` state, the next time the circuit is fired, the circuit's
+action will be executed again. If successful, the circuit will close and emit
+the `close` event. If the action fails or times out, it immediately re-enters
+the `open` state.
 
 When a fallback function is triggered, it's considered a failure, and the
 fallback function will continue to be executed until the breaker is closed.
