@@ -1,6 +1,6 @@
 {
   "name": "opossum",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "author": "Red Hat, Inc.",
   "license": "Apache-2.0",
   "scripts": {
@@ -50,7 +50,7 @@
     "tap-spec": "~5.0.0",
     "tape": "~4.9.0",
     "webpack": "~4.16.1",
-    "webpack-cli": "~3.0.3"
+    "webpack-cli": "~3.1.0"
   },
   "description": "A fail-fast circuit breaker for promises and callbacks",
   "keywords": [
