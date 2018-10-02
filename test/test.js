@@ -786,6 +786,12 @@ test('CircuitBreaker semaphore rate limiting', t => {
   });
 });
 
+test('CircuitBreaker default capacity', t => {
+  const breaker = circuit(passFail);
+  t.equals(breaker.options.capacity, Number.MAX_SAFE_INTEGER);
+  t.end();
+});
+
 const noop = _ => {};
 const common = require('./common');
 const identity = common.identity;
