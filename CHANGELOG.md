@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.8.0"></a>
+# [1.8.0](https://github.com/bucharest-gold/opossum/compare/v1.7.1...v1.8.0) (2018-10-02)
+
+
+### Bug Fixes
+
+* changed currentTime to number as specified in the docs ([e816f43](https://github.com/bucharest-gold/opossum/commit/e816f43))
+
+
+### Features
+
+* add options.allowWarmUp as a creation option ([#218](https://github.com/bucharest-gold/opossum/issues/218)) ([ff42d1b](https://github.com/bucharest-gold/opossum/commit/ff42d1b))
+* change default capacity from 10 to MAX_SAFE_INTEGER ([4a8b98b](https://github.com/bucharest-gold/opossum/commit/4a8b98b))
+
+
+
 <a name="1.7.1"></a>
 ## [1.7.1](https://github.com/bucharest-gold/opossum/compare/v1.7.0...v1.7.1) (2018-07-18)
 
