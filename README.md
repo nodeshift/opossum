@@ -21,8 +21,9 @@ on the web - search it! Fowler's blog post is one place to
 | License:        | Apache-2.0  |
 | Build:          | make  |
 | Documentation:  | https://bucharest-gold.github.io/opossum/ |
+| Typngs:         | https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/opossum
 | Issue tracker:  | https://github.com/bucharest-gold/opossum/issues  |
-| Engines:        | Node.js 8.x, 10.x
+| Engines:        | Node.js 8.x, 10.x |
 
 ## Usage
 
@@ -227,6 +228,12 @@ breaker.fire()
   .then(console.log) // logs 'foo'
   .catch(console.error);
 ```
+
+### Typings
+
+Typings are available [here](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/opossum).
+
+If you'd like to add them, run `npm install @types/opossum` in your project.
 
 ### Hystrix Metrics
 
