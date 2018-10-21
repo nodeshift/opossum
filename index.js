@@ -46,6 +46,11 @@ const defaults = {
  * allow before enabling the circuit. This can help in situations where no matter
  * what your `errorThresholdPercentage` is, if the first execution times out or
  * fails, the circuit immediately opens. Default: 0
+ * @param options.volumeThreshold {Number} the minimum number of requests within
+ * the rolling statistical window that must exist before the circuit breaker
+ * can open. This is similar to `options.allowWarmUp` in that no matter how many
+ * failures there are, if the number of requests within the statistical window
+ * does not exceed this threshold, the circuit will remain closed. Default: 0
  * @return a {@link CircuitBreaker} instance
  */
 function circuitBreaker (action, options) {
