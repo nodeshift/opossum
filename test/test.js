@@ -567,6 +567,7 @@ test('circuit halfOpen', t => {
       t.notOk(breaker.pendingClose, 'breaker should not be pending close');
     })
     .then(() => {
+      const timeout = options.resetTimeout * 1.3;
       setTimeout(() => {
         t.ok(breaker.halfOpen, 'breaker should be halfOpen');
         t.ok(breaker.pendingClose, 'breaker should be pending close');
@@ -595,9 +596,9 @@ test('circuit halfOpen', t => {
                   t.end();
                 })
                 .catch(t.fail);
-            }, options.resetTimeout * 1.1);
+            }, timeout);
           });
-      }, options.resetTimeout * 1.1);
+      }, timeout);
     });
 });
 
