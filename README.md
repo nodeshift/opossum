@@ -1,9 +1,9 @@
 # opossum
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/bucharest-gold/opossum.svg)](https://greenkeeper.io/)
-[![Build Status](https://travis-ci.org/bucharest-gold/opossum.svg?branch=master)](https://travis-ci.org/bucharest-gold/opossum)
+[![Greenkeeper badge](https://badges.greenkeeper.io/nodeshift/opossum.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/nodeshift/opossum.svg?branch=master)](https://travis-ci.org/nodeshift/opossum)
 [![Known Vulnerabilities](https://snyk.io/test/npm/opossum/badge.svg)](https://snyk.io/test/npm/opossum)
-[![dependencies Status](https://david-dm.org/bucharest-gold/opossum/status.svg)](https://david-dm.org/bucharest-gold/opossum)
+[![dependencies Status](https://david-dm.org/nodeshift/opossum/status.svg)](https://david-dm.org/nodeshift/opossum)
 
 [![NPM](https://nodei.co/npm/opossum.png)](https://npmjs.org/package/opossum)
 
@@ -20,10 +20,10 @@ on the web - search it! Fowler's blog post is one place to
 | --------------- | ------------- |
 | License:        | Apache-2.0  |
 | Build:          | make  |
-| Documentation:  | https://bucharest-gold.github.io/opossum/ |
+| Documentation:  | https://nodeshift.github.io/opossum/ |
 | Typngs:         | https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/opossum
-| Issue tracker:  | https://github.com/bucharest-gold/opossum/issues  |
-| Engines:        | Node.js 8.x, 10.x |
+| Issue tracker:  | https://github.com/nodeshift/opossum/issues  |
+| Engines:        | Node.js 8.x, 10.x, 11.x |
 
 ## Usage
 
@@ -86,7 +86,7 @@ However, if you need it, you can access a `circuitBreaker` function in the globa
 namespace by doing something similar to what is shown in the below example.
 
 Here is an example using [hapi.js](https://hapijs.com). See the
-[examples](https://github.com/bucharest-gold/opossum/tree/master/examples/)
+[examples](https://github.com/nodeshift/opossum/tree/master/examples/)
 folder for more detail.
 
 Include `opossum.js` in your HTML file.

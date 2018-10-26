@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/bucharest-gold/opossum.git"
+    "url": "git://github.com/nodeshift/opossum.git"
   },
   "files": [
     "package.json",
@@ -33,9 +33,9 @@
     "dist"
   ],
   "bugs": {
-    "url": "https://github.com/bucharest-gold/opossum/issues"
+    "url": "https://github.com/nodeshift/opossum/issues"
   },
-  "homepage": "https://github.com/bucharest-gold/opossum",
+  "homepage": "https://github.com/nodeshift/opossum",
   "devDependencies": {
     "http-server": "~0.11.0",
     "ink-docstrap": "~1.3.0",

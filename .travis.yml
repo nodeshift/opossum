@@ -4,6 +4,7 @@ node_js:
   - "6"
   - "8"
   - "10"
+  - "11"
 install: npm install
 before_install:
   - if [ $(node --version | cut -d'.' -f1) == "6" ] ; then npm install -g npm@5 ; fi
@@ -18,7 +19,5 @@ script:
   - make
 after_script:
   - greenkeeper-lockfile-upload
-notifications:
-  irc: "chat.freenode.net#bucharest-gold"
 after_success:
   - cat ./coverage/lcov.info | coveralls

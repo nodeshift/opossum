@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/bucharest-gold/opossum.git"
+    "url": "git://github.com/nodeshift/opossum.git"
   },
   "devDependencies": {
     "eslint": "~3.8.1",
@@ -30,8 +30,8 @@
     "jquery": "~3.1.1"
   },
   "bugs": {
-    "url": "https://github.com/bucharest-gold/opossum/issues"
+    "url": "https://github.com/nodeshift/opossum/issues"
   },
-  "homepage": "https://github.com/bucharest-gold/opossum#readme",
+  "homepage": "https://github.com/nodeshift/opossum#readme",
   "author": ""
 }

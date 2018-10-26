@@ -4,7 +4,7 @@
 
 ### Did you find a bug ?
 
-Open a [new issue](https://github.com/bucharest-gold/opossum/issues/new).
+Open a [new issue](https://github.com/nodeshift/opossum/issues/new).
 Be sure to include a title and clear description, with as much relevant information
 as possible. If you have a code sample that illustrates the problem that would be even better!
 
@@ -12,13 +12,13 @@ as possible. If you have a code sample that illustrates the problem that would b
 
 ### Fork
 
-Fork the project [on GitHub](https://github.com/bucharest-gold/opossum)
+Fork the project [on GitHub](https://github.com/nodeshift/opossum)
 and check out your copy locally.
 
 ```
 git clone git@github.com:username/opossum.git
 cd opossum
-git remote add upstream https://github.com/bucharest-gold/opossum.git
+git remote add upstream https://github.com/nodeshift/opossum.git
 ```
 
 ### Branch
@@ -90,6 +90,8 @@ These are mostly notes for myself.
 * Run standard-version: `npm run release`
 * Push to GitHub: `git push --follow-tags origin master`
 * Publish to npmjs.com: `npm publish`
-* Assuming all goes well, head over to https://github.com/bucharest-gold/opossum/releases and update the release with any relevant notes. The generated CHANGELOG.md file should be updated, so you can use it to document release changes.
+* Assuming all goes well, head over to https://github.com/nodeshift/opossum/releases
+  and update the release with any relevant notes. The generated CHANGELOG.md file should
+  be updated, so you can use it to document release changes.
 * Tweet, blog and otherwise promote your awesome success!
 
