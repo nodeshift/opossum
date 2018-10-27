@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.9.0"></a>
+# [1.9.0](https://github.com/nodeshift/opossum/compare/v1.8.0...v1.9.0) (2018-10-27)
+
+
+### Features
+
+* add options.volumeThreshold ([f9a720e](https://github.com/nodeshift/opossum/commit/f9a720e))
+
+
+
 <a name="1.8.0"></a>
 # [1.8.0](https://github.com/bucharest-gold/opossum/compare/v1.7.1...v1.8.0) (2018-10-02)
 
