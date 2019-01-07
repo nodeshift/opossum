@@ -8,6 +8,7 @@ test('Defaults to enabled', t => {
   t.plan(1);
   const breaker = opossum(passFail);
   t.equals(breaker.enabled, true);
+  breaker.shutdown();
   t.end();
 });
 
@@ -15,6 +16,7 @@ test('Accepts options.enabled', t => {
   t.plan(1);
   const breaker = opossum(passFail, { enabled: false });
   t.equals(breaker.enabled, false);
+  breaker.shutdown();
   t.end();
 });
 
@@ -50,6 +52,8 @@ test('When disabled the circuit should always be closed', t => {
         .catch(e => t.equals(e, 'Error: -1 is < 0'))
         .then(() => {
           t.ok(breaker.opened, 'should be closed');
-        });
+        })
+        .then(_ => breaker.shutdown())
+        .then(t.end);
     });
 });

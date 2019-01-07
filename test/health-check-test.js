@@ -9,6 +9,7 @@ test('Circuits accept a health check function', t => {
   const circuit = opossum(common.passFail);
   circuit.healthCheck(healthChecker(_ => {
     t.ok(true, 'function called');
+    circuit.shutdown();
     t.end();
     return Promise.resolve();
   }), 10000);
@@ -19,6 +20,7 @@ test('health-check-failed is emitted on failure', t => {
   const circuit = opossum(common.passFail);
   circuit.on('health-check-failed', e => {
     t.equals(e.message, 'Too many tacos', 'health-check-failed emitted');
+    circuit.shutdown();
     t.end();
   });
   circuit.healthCheck(
@@ -30,6 +32,7 @@ test('circuit opens on health check failure', t => {
   const circuit = opossum(common.passFail);
   circuit.on('open', e => {
     t.ok(circuit.opened, 'circuit opened');
+    circuit.shutdown();
     t.end();
   });
   circuit.healthCheck(
@@ -43,6 +46,7 @@ test('Health check function executes in the circuit breaker context', t => {
   circuit.healthCheck(function healthCheck () {
     if (!called) {
       t.equal(this, circuit, 'health check executes in circuit context');
+      circuit.shutdown();
       t.end();
     }
     called = true;
@@ -60,6 +64,7 @@ test('healthCheck() throws TypeError if interval duration is NaN', t => {
     t.equals(e.constructor, TypeError, 'throws TypeError');
     t.equals(e.message, 'Health check interval must be a number',
       'include correct message');
+    circuit.shutdown();
     t.end();
   }
 });
@@ -74,6 +79,7 @@ test('healthCheck() throws TypeError if parameter is not a function', t => {
     t.equals(e.constructor, TypeError, 'throws TypeError');
     t.equals(e.message, 'Health check function must be a function',
       'include correct message');
+    circuit.shutdown();
     t.end();
   }
 });
