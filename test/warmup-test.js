@@ -18,7 +18,9 @@ test('By default does not allow for warmup', t => {
       t.ok(breaker.opened, 'should be open after initial fire');
       t.notOk(breaker.pendingClose,
         'should not be pending close after initial fire');
-    });
+    })
+    .then(_ => breaker.shutdown())
+    .then(t.end);
 });
 
 test('Allows for warmup when option is provided', t => {
@@ -36,7 +38,9 @@ test('Allows for warmup when option is provided', t => {
       t.notOk(breaker.opened, 'should not be open after initial fire');
       t.notOk(breaker.pendingClose,
         'should not be pending close after initial fire');
-    });
+    })
+    .then(_ => breaker.shutdown())
+    .then(t.end);
 });
 
 test('Only warms up for rollingCountTimeout', t => {
@@ -59,6 +63,8 @@ test('Only warms up for rollingCountTimeout', t => {
     .then(() => {
       setTimeout(_ => {
         t.notOk(breaker.warmUp, 'Warmup should end after rollingCountTimeout');
+        breaker.shutdown();
+        t.end();
       }, 500);
     });
 });

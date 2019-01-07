@@ -18,18 +18,21 @@ test('api', t => {
   t.ok(breaker.options, 'CircuitBreaker.options');
   t.ok(breaker.hystrixStats, 'CircuitBreaker.hystrixStats');
   t.equals(breaker.action, passFail, 'CircuitBreaker.action');
+  breaker.shutdown();
   t.end();
 });
 
 test('has a name based on the function name', t => {
   const breaker = circuit(passFail);
   t.equals(breaker.name, passFail.name);
+  breaker.shutdown();
   t.end();
 });
 
 test('accepts a name as an option', t => {
   const breaker = circuit(passFail, {name: 'tacoMachine'});
   t.equals(breaker.name, 'tacoMachine');
+  breaker.shutdown();
   t.end();
 });
 
@@ -37,18 +40,21 @@ test('uses UUID as a name when none is provided and the function is anonymoys',
   t => {
     const breaker = circuit(identity);
     t.ok(breaker.name);
+    breaker.shutdown();
     t.end();
   });
 
 test('accepts a group as an option', t => {
   const breaker = circuit(passFail, {group: 'tacoMachine'});
   t.equals(breaker.group, 'tacoMachine');
+  breaker.shutdown();
   t.end();
 });
 
 test('uses name as a group when no group is provided', t => {
   const breaker = circuit(passFail, {name: 'tacoMachine'});
   t.equals(breaker.group, 'tacoMachine');
+  breaker.shutdown();
   t.end();
 });
 
@@ -59,6 +65,7 @@ test('Passes parameters to the circuit function', t => {
 
   breaker.fire(expected)
     .then(arg => t.equals(arg, expected, 'function parameters provided'))
+    .then(_ => breaker.shutdown())
     .then(t.end)
     .catch(t.fail);
 });
@@ -100,6 +107,7 @@ test('Using cache', t => {
               t.equals(arg, expected,
                 `cache hits:misses ${stats.cacheHits}:${stats.cacheMisses}`);
             })
+            // .then(_ => breaker.shutdown())
             .then(t.end)
             .catch(t.fail);
         });
@@ -115,6 +123,7 @@ test('Fails when the circuit function fails', t => {
     .catch(e => {
       t.equals(e, 'Error: -1 is < 0', 'expected error caught');
     })
+    .then(_ => breaker.shutdown())
     .then(t.end);
 });
 
@@ -130,6 +139,7 @@ test('Fails when the circuit function times out', t => {
       t.equals(e.message, expected, 'timeout message received');
       t.equals(e.code, expectedCode, 'ETIMEDOUT');
     })
+    .then(_ => breaker.shutdown())
     .then(t.end);
 });
 
@@ -139,6 +149,7 @@ test('Works with functions that do not return a promise', t => {
 
   breaker.fire()
     .then(arg => t.equals(arg, 'foo', 'non-Promise returns expected value'))
+    .then(_ => breaker.shutdown())
     .then(t.end)
     .catch(t.fail);
 });
@@ -149,6 +160,7 @@ test('Works with non-functions', t => {
 
   breaker.fire()
     .then(arg => t.equals(arg, 'foobar', 'expected raw value returns'))
+    .then(_ => breaker.shutdown())
     .then(t.end)
     .catch(t.fail);
 });
@@ -160,6 +172,7 @@ test('Works with callback functions', t => {
 
   breaker.fire(3, 4)
     .then(arg => t.equals(arg, 7, 'CircuitBreaker.promisify works'))
+    .then(_ => breaker.shutdown())
     .then(t.end)
     .catch(t.fail);
 });
@@ -172,6 +185,7 @@ test('Works with callback functions that fail', t => {
   breaker.fire(3, 4)
     .then(t.fail)
     .catch(e => t.equals(e, 'Whoops!', 'caught expected error'))
+    .then(_ => breaker.shutdown())
     .then(t.end);
 });
 
@@ -188,6 +202,7 @@ test('Breaker opens after a configurable number of failures', t => {
       breaker.fire(100)
         .then(t.fail)
         .catch(e => t.equals(e.message, 'Breaker is open', 'breaker opens'))
+        .then(_ => breaker.shutdown())
         .then(t.end);
     })
     .catch(t.fail);
@@ -206,6 +221,7 @@ test('Breaker resets after a configurable amount of time', t => {
       setTimeout(() => {
         breaker.fire(100)
           .then(arg => t.equals(arg, 100, 'breaker has reset'))
+          .then(_ => breaker.shutdown())
           .then(t.end);
       }, resetTimeout * 1.25);
     });
@@ -218,6 +234,7 @@ test('Breaker status reflects open state', t => {
   breaker.fire(-1)
     .then(t.fail)
     .catch(() => t.ok(breaker.status.window[0].isCircuitBreakerOpen))
+    .then(_ => breaker.shutdown())
     .then(t.end);
 });
 
@@ -237,6 +254,7 @@ test('Breaker resets for circuits with a fallback function', t => {
         .then(arg => {
           t.equals(arg, 100, 'breaker has reset');
         })
+        .then(_ => breaker.shutdown())
         .then(t.end)
         .catch(t.fail);
     }, resetTimeout * 1.25);
@@ -256,6 +274,7 @@ test('Executes fallback action, if one exists, when breaker is open', t => {
       // Now the breaker should be open. See if fallback fires.
       breaker.fire()
         .then(x => t.equals(x, expected, 'fallback action executes'))
+        .then(_ => breaker.shutdown())
         .then(t.end);
     });
 });
@@ -266,6 +285,7 @@ test('Passes error as last argument to the fallback function', t => {
   const breaker = circuit(passFail, { errorThresholdPercentage: 1 });
   breaker.on('fallback', result => {
     t.equals(result, `Error: ${fails} is < 0`, 'fallback received error as last parameter');
+    breaker.shutdown();
     t.end();
   });
   breaker.fallback((x, e) => e);
@@ -284,7 +304,8 @@ test('Fallback is not called twice for the same execution when action fails afte
   });
 
   breaker.fire(actionDuration)
-    .catch((err) => noop(err));
+    .catch((err) => noop(err))
+    .then(_ => breaker.shutdown());
 
   // keep this test alive until action finishes
   setTimeout(() => noop, actionDuration);
@@ -296,7 +317,7 @@ test('Passes arguments to the fallback function', t => {
   const breaker = circuit(passFail, { errorThresholdPercentage: 1 });
   breaker.on('fallback', result => {
     t.equals(result, fails, 'fallback received expected parameters');
-    t.end();
+    breaker.shutdown();
   });
   breaker.fallback(x => x);
   breaker.fire(fails).catch(t.fail);
@@ -304,11 +325,12 @@ test('Passes arguments to the fallback function', t => {
 
 test('Returns self from fallback()', t => {
   t.plan(1);
-  circuit(passFail, { errorThresholdPercentage: 1 })
-    .fallback(noop)
-    .fire(1)
+  const breaker = circuit(passFail, { errorThresholdPercentage: 1 });
+  breaker.fallback(noop);
+  breaker.fire(1)
     .then(result => {
       t.equals(result, 1, 'instance returned from fallback');
+      breaker.shutdown();
     })
     .then(t.end)
     .catch(t.fail);
@@ -322,6 +344,7 @@ test('CircuitBreaker emits failure when action throws', t => {
     .catch(e => {
       t.equals(breaker.status.stats.failures, 1, 'expected failure status');
       t.equals(e.message, 'E_TOOMANYCHICKENTACOS', 'expected error message');
+      breaker.shutdown();
       t.end();
     });
 });
@@ -337,6 +360,8 @@ test('CircuitBreaker executes fallback when an action throws', t => {
       t.equals(stats.fallbacks, 1, 'expected fallback status');
       t.equals(result, 'Fallback executed');
     })
+    .then(_ => breaker.shutdown())
+    .then(t.end)
     .catch(t.fail);
 });
 
@@ -350,7 +375,10 @@ test('CircuitBreaker emits failure when falling back', t => {
 
   breaker.fire(-1).then(result => {
     t.equals('fallback value', result, 'fallback value is correct');
-  }).catch(t.fail);
+  })
+    .then(_ => breaker.shutdown())
+    .then(t.end)
+    .catch(t.fail);
 });
 
 test('CircuitBreaker status', t => {
@@ -390,6 +418,7 @@ test('CircuitBreaker status', t => {
             })
             .catch(t.fail);
         })
+        .then(_ => breaker.shutdown())
         .catch(t.fail)
         .then(t.end);
     });
@@ -414,6 +443,7 @@ test('CircuitBreaker rolling counts', t => {
         const window = breaker.status.window;
         t.ok(window.length > 1);
         t.deepEqual(window[0].successes, 0, 'breaker reset stats');
+        breaker.shutdown();
         t.end();
       }, 300);
     });
@@ -433,7 +463,9 @@ test('CircuitBreaker status listeners', t => {
 
     breaker.status.removeAllListeners('snapshot');
   });
-  breaker.fire(10).then(_ => t.end());
+  breaker.fire(10)
+    .then(_ => breaker.shutdown())
+    .then(t.end);
 });
 
 test('CircuitBreaker fallback event', t => {
@@ -442,6 +474,7 @@ test('CircuitBreaker fallback event', t => {
   breaker.fallback(x => x);
   breaker.on('fallback', value => {
     t.equal(value, -1, 'fallback value received');
+    breaker.shutdown();
     t.end();
   });
   breaker.fire(-1);
@@ -545,6 +578,7 @@ test('CircuitBreaker events', t => {
                     timeoutBreaker.fire().then(t.fail).catch(noop);
                   })
                   .then(e => t.equals(timeout, 0, 'timeout event fired'))
+                  .then(_ => breaker.shutdown())
                   .then(t.end);
               }));
         });
@@ -593,6 +627,7 @@ test('circuit halfOpen', t => {
                   t.ok(breaker.closed, 'breaker should be closed');
                   t.notOk(breaker.pendingClose,
                     'breaker should not be pending close');
+                  breaker.shutdown();
                   t.end();
                 })
                 .catch(t.fail);
@@ -614,7 +649,7 @@ test('CircuitBreaker fallback as a rejected promise', t => {
 
   breaker.fire(input).then(t.fail).catch(e => {
     t.equals('nope', e.message);
-  }).then(t.end);
+  }).then(_ => breaker.shutdown()).then(t.end);
 });
 
 test('CircuitBreaker fallback event as a rejected promise', t => {
@@ -631,6 +666,7 @@ test('CircuitBreaker fallback event as a rejected promise', t => {
     result
       .then(t.fail)
       .catch(e => t.equals('nope', e.message))
+      .then(_ => breaker.shutdown())
       .then(t.end);
   });
 
@@ -650,6 +686,7 @@ test('CircuitBreaker fallback as a CircuitBreaker', t => {
 
   breaker.fire(input)
     .then(v => t.equals(v, input, 'Fallback value equals input'))
+    .then(_ => breaker.shutdown())
     .then(t.end);
 });
 
@@ -666,6 +703,7 @@ test('CircuitBreaker fallback as a CircuitBreaker that fails', t => {
 
   breaker.fire(input)
     .catch(e => t.equals(e, 'Error: -1 is < 0', 'Breaker should fail'))
+    .then(_ => breaker.shutdown())
     .then(t.end);
 });
 
@@ -682,6 +720,7 @@ test('CircuitBreaker fallback as a CircuitBreaker', t => {
 
   breaker.fire(input)
     .then(v => t.equals(v, input, 'Fallback value equals input'))
+    .then(_ => breaker.shutdown())
     .then(t.end);
 });
 
@@ -709,6 +748,7 @@ test('rolling percentile enabled option defaults to true', t => {
     t.equals(breaker.status.stats.percentiles[p], 0,
       `${p} percentile should be 0 at the start`);
   });
+  breaker.shutdown();
   t.end();
 });
 
@@ -723,6 +763,7 @@ test('rolling percentile enabled option set to false', t => {
     t.equals(breaker.status.stats.percentiles[p], -1,
       `${p} percentile should be -1 when rollingPercentilesEnabled is false`);
   });
+  breaker.shutdown();
   t.end();
 });
 
@@ -731,6 +772,7 @@ test('Circuit Breaker success event emits latency', t => {
   const breaker = circuit(passFail);
   breaker.on('success', (result, latencyTime) => {
     t.ok(latencyTime, 'second argument is the latency');
+    breaker.shutdown();
     t.end();
   });
 
@@ -742,6 +784,7 @@ test('Circuit Breaker failure event emits latency', t => {
   const breaker = circuit(passFail);
   breaker.on('failure', (result, latencyTime) => {
     t.ok(latencyTime, 'second argument is the latency');
+    breaker.shutdown();
     t.end();
   });
 
@@ -754,6 +797,7 @@ test('Circuit Breaker timeout event emits latency', t => {
 
   breaker.on('timeout', (result, latencyTime) => {
     t.ok(latencyTime, 'second argument is the latency');
+    breaker.shutdown();
     t.end();
   });
 
@@ -766,6 +810,7 @@ test('Circuit Breaker timeout with semaphore released', t => {
 
   breaker.on('timeout', result => {
     t.equal(breaker.semaphore.count, breaker.options.capacity);
+    breaker.shutdown();
     t.end();
   });
 
@@ -783,6 +828,7 @@ test('CircuitBreaker semaphore rate limiting', t => {
     t.equals(breaker.stats.semaphoreRejections, 1,
       'Semaphore rejection status incremented');
     t.equals(err.code, 'ESEMLOCKED', 'Semaphore was locked');
+    breaker.shutdown();
     t.end();
   });
 });
@@ -790,6 +836,7 @@ test('CircuitBreaker semaphore rate limiting', t => {
 test('CircuitBreaker default capacity', t => {
   const breaker = circuit(passFail);
   t.equals(breaker.options.capacity, Number.MAX_SAFE_INTEGER);
+  breaker.shutdown();
   t.end();
 });
 

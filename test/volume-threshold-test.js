@@ -18,7 +18,9 @@ test('By default does not have a volume threshold', t => {
       t.ok(breaker.opened, 'should be open after initial fire');
       t.notOk(breaker.pendingClose,
         'should not be pending close after initial fire');
-    });
+    })
+    .then(_ => breaker.shutdown())
+    .then(t.end);
 });
 
 test('Has a volume threshold before tripping when option is provided', t => {
@@ -54,6 +56,7 @@ test('Has a volume threshold before tripping when option is provided', t => {
               t.ok(breaker.opened,
                 'should be open after volume threshold has been reached');
             })
+            .then(breaker.shutdown())
             .then(t.end);
         });
     });

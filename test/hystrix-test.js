@@ -18,7 +18,7 @@ test('A circuit should provide stats to a hystrix compatible stream', t => {
   });
   const stream = circuitOne.hystrixStats.getHystrixStream();
   let circuitOneStatsSeen = false;
-  let circuitTwoStatsSeen = true;
+  let circuitTwoStatsSeen = false;
   stream.on('data', blob => {
     const obj = JSON.parse(blob.substring(6));
     if (obj.name === 'circuit one') circuitOneStatsSeen = true;

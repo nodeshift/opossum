@@ -34,10 +34,14 @@ test('When half-open, the circuit only allows one request through', t => {
           'should not be halfOpen after long failing function');
         t.notOk(breaker.pendingClose,
           'should not be pending close after long failing func');
-      });
-    // fire the breaker again, and be sure it fails as expected
-    breaker
-      .fire(1)
-      .catch(e => t.equals(e.message, 'Breaker is open'));
+      })
+      .then(_ => {
+        // fire the breaker again, and be sure it fails as expected
+        breaker
+          .fire(1)
+          .catch(e => t.equals(e.message, 'Breaker is open'));
+      })
+      .then(_ => breaker.shutdown())
+      .then(t.end);
   }, options.resetTimeout * 1.5);
 });
