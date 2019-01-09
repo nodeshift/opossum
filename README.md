@@ -51,6 +51,7 @@ breaker.fire(params)
   .then(console.log)
   .catch(console.error);
 ```
+
 ### Fallback
 
 You can also provide a fallback function that will be executed in the
@@ -242,3 +243,33 @@ A Hystrix Stream is available for use with a Hystrix Dashboard using the `circui
 This method returns a [Node.js Stream](https://nodejs.org/api/stream.html), which makes it easy to create an SSE stream that will be compliant with a Hystrix Dashboard.
 
 Additional Reading: [Hystrix Metrics Event Stream](https://github.com/Netflix/Hystrix/tree/master/hystrix-contrib/hystrix-metrics-event-stream), [Turbine](https://github.com/Netflix/Turbine/wiki), [Hystrix Dashboard](https://github.com/Netflix/Hystrix/wiki/Dashboard)
+
+## Troubleshooting
+
+You may run into issues related to too many listeners on an `EventEmitter` like this.
+
+```sh
+(node:25619) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 10 unpipe listeners added. Use emitter.setMaxListeners() to increase limit
+(node:25619) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 drain listeners added. Use emitter.setMaxListeners() to increase limit
+(node:25619) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 error listeners added. Use emitter.setMaxListeners() to increase limit
+(node:25619) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase limit
+(node:25619) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 finish listeners added. Use emitter.setMaxListeners() to increase limit
+```
+
+This typically occurs when you have created more than ten `CircuitBreaker` instances. This is due to the fact that every circuit created is adding a listener to the stream accessed via `circuit.stats.getHystrixStream()`, and the default `EventEmitter` listener limit is 10. In some cases, seeing this error might indicate a bug in client code, where many `CircuitBreaker`s are inadvertently being created. But there are legitimate scenarios where this may not be the case. For example, it could just be that you need more than 10 `CircuitBreaker`s in your app. That's ok.
+
+To get around the error, you can set the number of listeners on the stream.
+
+```js
+circuit.stats.getHystrixStream().setMaxListeners(100);
+```
+
+Or it could be that you have a large test suite which exercises some code that creates `CircuitBreaker`s and does so repeatedly. If the `CircuitBreaker` being created is only needed for the duration of the test, use `circuit.shutdown()` when the circuit is no longer in use to clean up all listeners.
+
+
+
+
+
+
+
+
