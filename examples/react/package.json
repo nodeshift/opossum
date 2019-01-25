@@ -19,10 +19,10 @@
   "author": "tiago fabre",
   "license": "ISC",
   "dependencies": {
-    "boom": "^4.2.0",
+    "boom": "^7.3.0",
     "concurrently": "^4.1.0",
-    "hapi": "^18.0.0",
+    "hapi": "~18.0.0",
     "url-parse": "^1.4.4",
-    "mime": "^1.4.1"
+    "mime": "^2.4.0"
   }
 }
