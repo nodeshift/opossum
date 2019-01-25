@@ -9,15 +9,15 @@ const server = Hapi.Server({
   port: 3000
 });
 
-async function start() {
+async function start () {
   // static file serving
   await server.register({ plugin: require('inert') });
 
   [ ['/', path.join(__dirname, 'index.html')],
-  ['/app.js', path.join(__dirname, 'app.js')],
-  ['/jquery.js',
-    path.join(__dirname, 'node_modules', 'jquery', 'dist', 'jquery.js')],
-  ['/opossum.js', path.join(__dirname, 'node_modules', 'opossum', 'dist', 'opossum.js')]
+    ['/app.js', path.join(__dirname, 'app.js')],
+    ['/jquery.js',
+      path.join(__dirname, 'node_modules', 'jquery', 'dist', 'jquery.js')],
+    ['/opossum.js', path.join(__dirname, 'node_modules', 'opossum', 'dist', 'opossum.js')]
   ].map(entry => {
     server.route({
       method: 'GET',
@@ -44,7 +44,7 @@ async function start() {
           delay = delay * 2;
           resolve({
             body: 'Flakey service response',
-            delay        })
+            delay });
         }, delay);
       });
     }
@@ -58,7 +58,6 @@ async function start() {
     }
   }, 20000);
 
-
   await server.start(err => {
     possibleError(err);
     console.log(`Server: ${server.info.uri}`);
@@ -69,7 +68,6 @@ async function start() {
       });
     });
   });
-  
 }
 
 process.on('uncaughtException', e => {

@@ -24,7 +24,7 @@ function serviceFactory (service) {
 // in process seneca
 seneca.use('service', {delay: 20});
 
-async function start() {
+async function start () {
   // static file serving
   await server.register({plugin: require('inert')});
 
@@ -65,7 +65,6 @@ async function start() {
   function possibleError (err) {
     if (err) throw err;
   }
-
 }
 
 start();

@@ -3,7 +3,6 @@ import circuitBreaker from 'opossum';
 import $ from 'jquery';
 
 class App extends Component {
-
   constructor () {
     super();
 
@@ -58,42 +57,42 @@ class App extends Component {
   render () {
     return (
 
-        <div className="App">
-          <h1>Opossum Circuit Breaker Example</h1>
+      <div className='App'>
+        <h1>Opossum Circuit Breaker Example</h1>
 
-          <p>
+        <p>
             When you click the button here, this simple app calls a flakey web service that takes longer and longer to respond. The app circuit breaker is configured to timeout after 500ms and execute a fallback command. Every 20 seconds, the flakey service is reset and the pattern is repeated.
-          </p>
-          <p>
+        </p>
+        <p>
             If more than 3 errors are observed by the circuit within a single timeout period, then it begins to fail fast, rejecting the network call outright and executing the fallback function.
-          </p>
-          <p>
+        </p>
+        <p>
              This should allow you to see all of the various events that occur when using a circuit breaker.
-          </p>
-          <p>
-            The <a href="/app.js">source code</a> for the application is relatively simple, and uses some basic jQuery capabilities to make the ajax calls and update the DOM accordingly.
-          </p>
-          <div className="row">
-            <button type="button" id="flakey" onClick={this.makeRequest}>
+        </p>
+        <p>
+            The <a href='/app.js'>source code</a> for the application is relatively simple, and uses some basic jQuery capabilities to make the ajax calls and update the DOM accordingly.
+        </p>
+        <div className='row'>
+          <button type='button' id='flakey' onClick={this.makeRequest}>
               Flakey Service
-            </button>
-          </div>
-
-          <div className="row" id="flakeyResponse">
-            <h2>FLAKEY RESPONSES</h2>
-            <span className="clear" onClick={this.clearNodes}>Click to clear</span>
-            {
-              this.state.requestState.map((element) => {
-                return (
-                  <p key={element.id} className={element.state.toLowerCase()}>
-                    <span>{ element.state}: </span>
-                    <span>{ element.body}</span>
-                  </p>
-                );
-              })
-            }
-          </div>
+          </button>
         </div>
+
+        <div className='row' id='flakeyResponse'>
+          <h2>FLAKEY RESPONSES</h2>
+          <span className='clear' onClick={this.clearNodes}>Click to clear</span>
+          {
+            this.state.requestState.map((element) => {
+              return (
+                <p key={element.id} className={element.state.toLowerCase()}>
+                  <span>{ element.state}: </span>
+                  <span>{ element.body}</span>
+                </p>
+              );
+            })
+          }
+        </div>
+      </div>
     );
   }
 }
