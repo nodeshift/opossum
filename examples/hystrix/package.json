@@ -6,8 +6,8 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "body-parser": "~1.16.0",
+    "body-parser": "^1.18.3",
     "debug": "~2.6.0",
-    "express": "~4.14.1"
+    "express": "^4.16.4"
   }
 }
