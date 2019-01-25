@@ -6,10 +6,10 @@
     "react-scripts": "2.1.3"
   },
   "dependencies": {
-    "browserify": "^13.1.0",
-    "jquery": "^3.1.1",
+    "browserify": "^16.2.3",
+    "jquery": "~3.3.1",
     "literalify": "^0.4.0",
-    "opossum": "^0.6.0",
+    "opossum": "^1.9.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-scripts": "^2.1.3"
