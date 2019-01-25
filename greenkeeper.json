@@ -1,0 +1,15 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "examples/angular5/package.json",
+        "examples/hystrix/package.json",
+        "examples/jquery/package.json",
+        "examples/react/client/package.json",
+        "examples/react/package.json",
+        "examples/seneca/package.json",
+        "package.json"
+      ]
+    }
+  }
+}
