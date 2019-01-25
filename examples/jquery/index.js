@@ -22,10 +22,7 @@ async function start() {
     server.route({
       method: 'GET',
       path: entry[0],
-      handler: (request, h) => {
-        console.error(`looking for ${entry[1]}`);
-        return h.file(entry[1])
-      }
+      handler: (request, h) => h.file(entry[1])
     });
   });
 

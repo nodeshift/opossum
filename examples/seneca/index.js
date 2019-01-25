@@ -6,7 +6,10 @@ const path = require('path');
 const seneca = require('seneca')();
 const opossum = require('opossum');
 
-const server = new Hapi.Server();
+const server = Hapi.Server({
+  host: 'localhost',
+  port: 3000
+});
 const circuit = opossum(serviceFactory({ name: 'flakeyService' }));
 
 function serviceFactory (service) {
@@ -21,55 +24,48 @@ function serviceFactory (service) {
 // in process seneca
 seneca.use('service', {delay: 20});
 
-server.connection({
-  host: 'localhost',
-  port: 3000
-});
+async function start() {
+  // static file serving
+  await server.register({plugin: require('inert')});
 
-// static file serving
-server.register(require('inert', err => possibleError(err)));
-
-[ ['/', path.join(__dirname, 'index.html')],
-  ['/app.js', path.join(__dirname, 'app.js')],
-  ['/jquery.js',
-    path.join(__dirname, 'node_modules', 'jquery', 'dist', 'jquery.js')],
-  ['/opossum.js', path.join(__dirname, '..', '..', 'dist', 'opossum.js')]
-].map(entry => {
-  server.route({
-    method: 'GET',
-    path: entry[0],
-    handler: {
-      file: {
-        path: entry[1],
-        confine: false
-      }
-    }
-  });
-});
-
-server.route({
-  method: 'GET',
-  path: '/flakeyService',
-  handler: function flakeyService (request, reply) {
-    reply(null, circuit.fire());
-  }
-});
-
-server.start(err => {
-  possibleError(err);
-  console.log(`Server: ${server.info.uri}`);
-  console.log('Endpoints:');
-  server.table().map(entry => {
-    entry.table.map(route => {
-      console.log(`${route.method} ${route.path}`);
+  [ ['/', path.join(__dirname, 'index.html')],
+    ['/app.js', path.join(__dirname, 'app.js')],
+    ['/jquery.js',
+      path.join(__dirname, 'node_modules', 'jquery', 'dist', 'jquery.js')],
+    ['/opossum.js', path.join(__dirname, 'node_modules', 'opossum', 'dist', 'opossum.js')]
+  ].map(entry => {
+    server.route({
+      method: 'GET',
+      path: entry[0],
+      handler: (request, h) => h.file(entry[1])
     });
   });
-});
 
-process.on('uncaughtException', e => {
-  process._rawDebug(`Uncaught exception ${e}`);
-});
+  server.route({
+    method: 'GET',
+    path: '/flakeyService',
+    handler: (request, h) => circuit.fire()
+  });
 
-function possibleError (err) {
-  if (err) throw err;
+  await server.start(err => {
+    possibleError(err);
+    console.log(`Server: ${server.info.uri}`);
+    console.log('Endpoints:');
+    server.table().map(entry => {
+      entry.table.map(route => {
+        console.log(`${route.method} ${route.path}`);
+      });
+    });
+  });
+
+  process.on('uncaughtException', e => {
+    process._rawDebug(`Uncaught exception ${e}`);
+  });
+
+  function possibleError (err) {
+    if (err) throw err;
+  }
+
 }
+
+start();

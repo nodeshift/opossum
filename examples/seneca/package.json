@@ -24,11 +24,12 @@
     "angular": "^1.6.0",
     "angular-route": "^1.6.0",
     "boom": "~4.2.0",
-    "bootstrap": "~3.3.7",
-    "hapi": "~16.0.1",
-    "inert": "~4.0.3",
+    "bootstrap": "^4.2.1",
+    "hapi": "^18.0.0",
+    "inert": "^5.1.2",
     "jquery": "~3.1.1",
-    "opossum": "~0.5.0",
+    "lodash": "^4.17.11",
+    "opossum": "^1.9.0",
     "seneca": "^3.8.0"
   },
   "bugs": {
