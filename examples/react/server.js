@@ -3,9 +3,7 @@
 const Hapi = require('hapi');
 const Boom = require('boom');
 
-const server = new Hapi.Server();
-
-server.connection({
+const server = Hapi.Server({
   host: 'localhost',
   port: 3001
 });
@@ -15,22 +13,23 @@ let delay = baseline;
 server.route({
   method: 'GET',
   path: '/flakeyService',
-  handler: function flakeyService (request, reply) {
+  handler: function flakeyService (request, h) {
     console.log('Flakey service delay', delay);
     // if we're really slowing down, just reply with an error
     if (delay > 1000) {
       console.log('Long delay encountered, returning Error 423 (Locked)');
-      return reply(Boom.locked('Flakey service is flakey'));
+      return Boom.locked('Flakey service is flakey');
     }
-    const response = reply({
-      body: 'Flakey service response',
-      delay
-    }, delay).hold();
-    setTimeout(() => {
-      console.log('Replying with flakey response after delay of', delay);
-      delay = delay * 2;
-      response.send();
-    }, delay);
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log('Replying with flakey response after delay of', delay);
+        delay = delay * 2;
+        resolve({
+          body: 'Flakey service response',
+          delay
+        });
+      }, delay);
+    });
   }
 });
 

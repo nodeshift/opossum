@@ -20,8 +20,8 @@
   "license": "ISC",
   "dependencies": {
     "boom": "^4.2.0",
-    "concurrently": "^3.1.0",
-    "hapi": "^16.1.0",
+    "concurrently": "^4.1.0",
+    "hapi": "^18.0.0",
     "url-parse": "^1.4.4",
     "mime": "^1.4.1"
   }
