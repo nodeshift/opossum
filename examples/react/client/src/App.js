@@ -7,7 +7,7 @@ class App extends Component {
     super();
 
     // state
-    this.state = {requestState: []};
+    this.state = { requestState: [] };
 
     // binds
     this.makeRequest = this.makeRequest.bind(this);
@@ -24,30 +24,30 @@ class App extends Component {
     this.circuit.fallback(() =>
       ({ body: `${this.route} unavailable right now. Try later.` }));
     this.circuit.on('success', (result) =>
-      this.makeNode({state: `SUCCESS`, body: `${JSON.stringify(result)}`}));
+      this.makeNode({ state: `SUCCESS`, body: `${JSON.stringify(result)}` }));
     this.circuit.on('timeout', () =>
-      this.makeNode({state: `TIMEOUT`, body: `${this.route} is taking too long to respond.`}));
+      this.makeNode({ state: `TIMEOUT`, body: `${this.route} is taking too long to respond.` }));
     this.circuit.on('reject', () =>
-      this.makeNode({state: `REJECTED`, body: `The breaker for ${this.route} is open. Failing fast.`}));
+      this.makeNode({ state: `REJECTED`, body: `The breaker for ${this.route} is open. Failing fast.` }));
     this.circuit.on('open', () =>
-      this.makeNode({state: `OPEN`, body: `The breaker for ${this.route} just opened.`}));
+      this.makeNode({ state: `OPEN`, body: `The breaker for ${this.route} just opened.` }));
     this.circuit.on('halfOpen', () =>
-      this.makeNode({state: `HALF_OPEN`, body: `The breaker for ${this.route} is half open.`}));
+      this.makeNode({ state: `HALF_OPEN`, body: `The breaker for ${this.route} is half open.` }));
     this.circuit.on('close', () =>
-      this.makeNode({state: `CLOSE`, body: `The breaker for ${this.route} has closed. Service OK.`}));
+      this.makeNode({ state: `CLOSE`, body: `The breaker for ${this.route} has closed. Service OK.` }));
     this.circuit.on('fallback', (data) =>
-      this.makeNode({state: `FALLBACK`, body: `${JSON.stringify(data)}`}));
+      this.makeNode({ state: `FALLBACK`, body: `${JSON.stringify(data)}` }));
   }
 
   clearNodes (event) {
-    this.setState({requestState: []});
+    this.setState({ requestState: [] });
   }
 
   makeNode (event) {
     let list = this.state.requestState;
     event.id = list.length++;
     list.push(event);
-    this.setState({requestState: list});
+    this.setState({ requestState: list });
   }
 
   makeRequest (event) {

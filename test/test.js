@@ -30,7 +30,7 @@ test('has a name based on the function name', t => {
 });
 
 test('accepts a name as an option', t => {
-  const breaker = circuit(passFail, {name: 'tacoMachine'});
+  const breaker = circuit(passFail, { name: 'tacoMachine' });
   t.equals(breaker.name, 'tacoMachine');
   breaker.shutdown();
   t.end();
@@ -45,14 +45,14 @@ test('uses UUID as a name when none is provided and the function is anonymoys',
   });
 
 test('accepts a group as an option', t => {
-  const breaker = circuit(passFail, {group: 'tacoMachine'});
+  const breaker = circuit(passFail, { group: 'tacoMachine' });
   t.equals(breaker.group, 'tacoMachine');
   breaker.shutdown();
   t.end();
 });
 
 test('uses name as a group when no group is provided', t => {
-  const breaker = circuit(passFail, {name: 'tacoMachine'});
+  const breaker = circuit(passFail, { name: 'tacoMachine' });
   t.equals(breaker.group, 'tacoMachine');
   breaker.shutdown();
   t.end();
@@ -470,7 +470,7 @@ test('CircuitBreaker status listeners', t => {
 
 test('CircuitBreaker fallback event', t => {
   t.plan(1);
-  const breaker = circuit(passFail, {errorThresholdPercentage: 0});
+  const breaker = circuit(passFail, { errorThresholdPercentage: 0 });
   breaker.fallback(x => x);
   breaker.on('fallback', value => {
     t.equal(value, -1, 'fallback value received');

@@ -22,11 +22,11 @@ function serviceFactory (service) {
 }
 
 // in process seneca
-seneca.use('service', {delay: 20});
+seneca.use('service', { delay: 20 });
 
 async function start () {
   // static file serving
-  await server.register({plugin: require('inert')});
+  await server.register({ plugin: require('inert') });
 
   [ ['/', path.join(__dirname, 'index.html')],
     ['/app.js', path.join(__dirname, 'app.js')],
