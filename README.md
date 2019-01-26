@@ -266,10 +266,3 @@ circuit.stats.getHystrixStream().setMaxListeners(100);
 
 Or it could be that you have a large test suite which exercises some code that creates `CircuitBreaker`s and does so repeatedly. If the `CircuitBreaker` being created is only needed for the duration of the test, use `circuit.shutdown()` when the circuit is no longer in use to clean up all listeners.
 
-
-
-
-
-
-
-
