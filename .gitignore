@@ -4,3 +4,5 @@ coverage
 dist/*
 test/browser/webpack-test.js
 *.log
+.vscode
+.nyc_output
