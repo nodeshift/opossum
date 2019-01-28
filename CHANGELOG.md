@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.10.0"></a>
+# [1.10.0](https://github.com/nodeshift/opossum/compare/v1.9.0...v1.10.0) (2019-01-28)
+
+
+### Features
+
+* add circuit.shutdown() to shut a circuit down ([e14796c](https://github.com/nodeshift/opossum/commit/e14796c))
+
+
+
 <a name="1.9.0"></a>
 # [1.9.0](https://github.com/nodeshift/opossum/compare/v1.8.0...v1.9.0) (2018-10-27)
 
