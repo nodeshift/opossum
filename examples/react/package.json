@@ -21,7 +21,7 @@
   "dependencies": {
     "boom": "^7.3.0",
     "concurrently": "^4.1.0",
-    "hapi": "~18.0.0",
+    "hapi": "~18.1.0",
     "url-parse": "^1.4.4",
     "mime": "^2.4.0"
   }
