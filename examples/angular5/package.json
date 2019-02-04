@@ -26,7 +26,7 @@
     "boom": "^7.3.0",
     "bootstrap": "~4.2.1",
     "core-js": "^2.6.3",
-    "hapi": "~18.0.0",
+    "hapi": "~18.1.0",
     "hoek": "^6.1.2",
     "https-proxy-agent": "^2.2.1",
     "inert": "~5.1.0",
