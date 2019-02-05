@@ -42,7 +42,7 @@
     "jsdoc": "3.5.5",
     "marked": "~0.6.0",
     "moment": "~2.24.0",
-    "nyc": "~13.1.0",
+    "nyc": "~13.2.0",
     "opener": "1.5.1",
     "semistandard": "~13.0.1",
     "standard-version": "4.4.0",
