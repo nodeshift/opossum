@@ -47,7 +47,7 @@
     "semistandard": "~13.0.1",
     "standard-version": "4.4.0",
     "tap-spec": "~5.0.0",
-    "tape": "~4.9.0",
+    "tape": "~4.10.0",
     "webpack": "~4.29.0",
     "webpack-cli": "~3.2.1"
   },
