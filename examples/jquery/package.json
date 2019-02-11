@@ -24,7 +24,7 @@
     "angular": "^1.6.0",
     "angular-route": "^1.6.0",
     "boom": "^7.3.0",
-    "bootstrap": "~4.2.1",
+    "bootstrap": "~4.3.0",
     "hapi": "~18.0.0",
     "inert": "^5.1.2",
     "jquery": "~3.3.1",
