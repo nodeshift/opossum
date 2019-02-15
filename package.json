@@ -45,7 +45,7 @@
     "nyc": "~13.1.0",
     "opener": "1.5.1",
     "semistandard": "~13.0.1",
-    "standard-version": "4.4.0",
+    "standard-version": "5.0.0",
     "tap-spec": "~5.0.0",
     "tape": "~4.9.0",
     "webpack": "~4.29.0",
