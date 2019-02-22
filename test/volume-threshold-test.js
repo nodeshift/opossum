@@ -61,3 +61,39 @@ test('Has a volume threshold before tripping when option is provided', t => {
         });
     });
 });
+
+// TODO: This test is a little flakey and depends on the machine
+// where the test is running to be reasonably fast due to timeouts
+test('volume threshold does not affect halfOpen state', t => {
+  t.plan(5);
+  const options = {
+    errorThresholdPercentage: 1,
+    resetTimeout: 300,
+    rollingCountTimeout: 300,
+    volumeThreshold: 2
+  };
+
+  const breaker = opossum(passFail, options);
+  breaker.fire(-1)
+    .then(t.fail)
+    .catch(_ => {
+      t.ok(breaker.closed, 'breaker should still be open after one failure');
+      breaker.fire(-1)
+        .then(t.fail)
+        .catch(e => {
+          t.ok(breaker.opened, 'breaker should be open');
+        }).then(_ => {
+          setTimeout(_ => { // ensure that we have entered the halfOpen state
+            t.ok(breaker.halfOpen, 'breaker should be in halfOpen state');
+            t.ok(breaker.stats.fires === 0, 'statistical window should be cleared');
+            // now fail again and ensure that we reenter the open state
+            breaker.fire(-1)
+              .then(t.fail)
+              .catch(_ => {
+                t.ok(breaker.opened, 'breaker should be in the open state');
+              })
+              .then(_ => t.end());
+          }, options.resetTimeout * 1.5);
+        });
+    });
+});
