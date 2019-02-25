@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.1](https://github.com/nodeshift/opossum/compare/v1.10.0...v1.10.1) (2019-02-25)
+
+
+### Bug Fixes
+
+* eliminates a bug where the circuit could remain halfOpen forever ([0039ee1](https://github.com/nodeshift/opossum/commit/0039ee1))
+
+
+
 <a name="1.10.0"></a>
 # [1.10.0](https://github.com/nodeshift/opossum/compare/v1.9.0...v1.10.0) (2019-01-28)
 
