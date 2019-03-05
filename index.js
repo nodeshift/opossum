@@ -51,6 +51,12 @@ const defaults = {
  * can open. This is similar to `options.allowWarmUp` in that no matter how many
  * failures there are, if the number of requests within the statistical window
  * does not exceed this threshold, the circuit will remain closed. Default: 0
+ * @param options.errorFilter {Function} an optional function that will be
+ * called when the circuit's function fails (returns a rejected Promise). If
+ * this function returns truthy, the circuit's failure statistics will not be
+ * incremented. This is useful, for example, when you don't want HTTP 404 to
+ * trip the circuit, but still want to handle it as a failure case.
+
  * @return a {@link CircuitBreaker} instance
  */
 function circuitBreaker (action, options) {
