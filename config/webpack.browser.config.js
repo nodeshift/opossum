@@ -1,12 +1,37 @@
 const path = require('path');
 const webpack = require('webpack');
-const configs = ['opossum', 'opossum.min']
+const configs = ['opossum', 'opossum.min', 'browser-test']
   .map(key => generateConfig(key));
+
+// add a webpack for tests
+configs.push({
+  target: 'web',
+  mode: 'development',
+  entry: './test/browser/index.js',
+  node: {
+    fs: 'empty'
+  },
+  output: {
+    path: path.resolve(__dirname, '..', 'test', 'browser'),
+    filename: 'webpack-test.js'
+  },
+  resolve: {
+    modules: ['node_modules'],
+    extensions: ['*', '.js']
+  },
+  plugins: [
+    new webpack.IgnorePlugin(/prom-client/),
+    new webpack.DefinePlugin({
+      'process.env': {
+        WEB: JSON.stringify('web')
+      }
+    })
+  ]
+});
 
 function generateConfig (name) {
   const mode = name.indexOf('min') > -1 ? 'production' : 'development';
   const config = {
-    target: 'node',
     mode,
     entry: {
       circuitBreaker: './index.js'
@@ -23,8 +48,14 @@ function generateConfig (name) {
       console: true
     },
     plugins: [
+      new webpack.IgnorePlugin(/prom-client/),
       new webpack.ProvidePlugin({
         'circuitBreaker': 'opossum'
+      }),
+      new webpack.DefinePlugin({
+        'process.env': {
+          WEB: JSON.stringify('web')
+        }
       })
     ],
     devtool: 'source-map'

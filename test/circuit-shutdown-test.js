@@ -9,7 +9,7 @@ const passFail = require('./common').passFail;
 test('EventEmitter max listeners', t => {
   let i = 100;
   while (--i >= 0) {
-    const breaker = circuit(passFail);
+    const breaker = circuit(passFail, { name: `passFail${i}` });
     breaker.fire(1);
     breaker.shutdown(); // required for cleanup
   }

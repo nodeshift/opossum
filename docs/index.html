@@ -147,6 +147,12 @@
                       </a></li>
                       
                       <li><a
+                        href='#circuitbreakermetrics'
+                        class='regular pre-open'>
+                        #metrics
+                      </a></li>
+                      
+                      <li><a
                         href='#circuitbreakerenabled'
                         class='regular pre-open'>
                         #enabled
@@ -300,9 +306,9 @@
               
                 
                 <li><a
-                  href='#eventcircuitbreakersemaphore-locked'
+                  href='#eventcircuitbreakersemaphorelocked'
                   class="">
-                  CircuitBreaker#semaphore-locked
+                  CircuitBreaker#semaphoreLocked
                   
                 </a>
                 
@@ -310,9 +316,9 @@
               
                 
                 <li><a
-                  href='#eventcircuitbreakerhealth-check-failed'
+                  href='#eventcircuitbreakerhealthcheckfailed'
                   class="">
-                  CircuitBreaker#health-check-failed
+                  CircuitBreaker#healthCheckFailed
                   
                 </a>
                 
@@ -587,8 +593,8 @@ Here are the events you can listen for.</p>
 <li><code>close</code> - emitted when the breaker state changes to <code>closed</code></li>
 <li><code>halfOpen</code> - emitted when the breaker state changes to <code>halfOpen</code></li>
 <li><code>fallback</code> - emitted when the breaker has a fallback function and executes it</li>
-<li><code>semaphore-locked</code> - emitted when the breaker is at capacity and cannot execute the request</li>
-<li><code>health-check-failed</code> - emitted when a user-supplied health check function returns a rejected promise</li>
+<li><code>semaphoreLocked</code> - emitted when the breaker is at capacity and cannot execute the request</li>
+<li><code>healthCheckFailed</code> - emitted when a user-supplied health check function returns a rejected promise</li>
 </ul>
 <p>Handling events gives a greater level of control over your application behavior.</p>
 <pre class='hljs'><span class="hljs-keyword">const</span> circuit = circuitBreaker(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> $.<span class="hljs-keyword">get</span>(route), circuitBreakerOptions);
@@ -1932,6 +1938,58 @@ circuit will fail, returning a rejected promise.</p>
       </div>
     </div>
   
+    <div class='border-bottom' id='circuitbreakermetrics'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>metrics</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Get the prometheus metrics for this circuit</p>
+
+    <div class='pre p1 fill-light mt0'>metrics</div>
+  
+    <p>
+      Type:
+      PrometheusMetrics
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
     <div class='border-bottom' id='circuitbreakerenabled'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -2965,8 +3023,8 @@ the cache, but the cache option is enabled.</p>
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='eventcircuitbreakersemaphore-locked'>
-      CircuitBreaker#semaphore-locked
+    <h3 class='fl m0' id='eventcircuitbreakersemaphorelocked'>
+      CircuitBreaker#semaphoreLocked
     </h3>
     
     
@@ -2976,7 +3034,7 @@ the cache, but the cache option is enabled.</p>
   <p>Emitted when the rate limit has been reached and there
 are no more locks to be obtained.</p>
 
-    <div class='pre p1 fill-light mt0'>CircuitBreaker#semaphore-locked</div>
+    <div class='pre p1 fill-light mt0'>CircuitBreaker#semaphoreLocked</div>
   
     <p>
       Type:
@@ -3019,8 +3077,8 @@ are no more locks to be obtained.</p>
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='eventcircuitbreakerhealth-check-failed'>
-      CircuitBreaker#health-check-failed
+    <h3 class='fl m0' id='eventcircuitbreakerhealthcheckfailed'>
+      CircuitBreaker#healthCheckFailed
     </h3>
     
     
@@ -3030,7 +3088,7 @@ are no more locks to be obtained.</p>
   <p>Emitted with the user-supplied health check function
 returns a rejected promise.</p>
 
-    <div class='pre p1 fill-light mt0'>CircuitBreaker#health-check-failed</div>
+    <div class='pre p1 fill-light mt0'>CircuitBreaker#healthCheckFailed</div>
   
     <p>
       Type:
