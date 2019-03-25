@@ -3,6 +3,11 @@
   "version": "1.11.0",
   "author": "Red Hat, Inc.",
   "license": "Apache-2.0",
+  "support": {
+    "target": "LTS",
+    "response": "REGULAR-7",
+    "backing": "COMPANY"
+  },
   "scripts": {
     "prebuild": "npm run lint",
     "build": "npm run build:browser && npm run build:docs",
