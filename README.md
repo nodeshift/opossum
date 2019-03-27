@@ -1,5 +1,6 @@
 # opossum
 
+[![CircleCI](https://circleci.com/gh/nodeshift/opossum/tree/master.svg?style=svg&circle-token=0742302baa8c95cef354997ea52a383d3d078ff1)](https://circleci.com/gh/nodeshift/opossum/tree/master)
 [![Greenkeeper badge](https://badges.greenkeeper.io/nodeshift/opossum.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/nodeshift/opossum.svg?branch=master)](https://travis-ci.org/nodeshift/opossum)
 [![Known Vulnerabilities](https://snyk.io/test/npm/opossum/badge.svg)](https://snyk.io/test/npm/opossum)
