@@ -40,7 +40,7 @@ jobs:
 
 workflows:
   version: 2
-  node8:
+  test_node_versions:
     jobs:
       - node8
       - node10
