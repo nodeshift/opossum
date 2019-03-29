@@ -19,11 +19,11 @@
     "test:headless": "node test/browser/webpack-test.js",
     "test:browser": "opener http://localhost:9007/test/browser/index.html && http-server . -p 9007",
     "test:coverage": "nyc tape test/*.js | tap-spec",
-    "prepare": "npm audit && npm run build:browser",
+    "prepare": "npm run build:browser",
     "postpublish": "./publish-docs.sh",
     "prerelease": "npm test",
     "release": "standard-version -s",
-    "lint": "semistandard examples/*/*.js test/*.js index.js lib/*.js"
+    "lint": "semistandard test/*.js index.js lib/*.js"
   },
   "repository": {
     "type": "git",

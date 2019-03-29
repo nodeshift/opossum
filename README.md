@@ -88,8 +88,8 @@ However, if you need it, you can access a `circuitBreaker` function in the globa
 namespace by doing something similar to what is shown in the below example.
 
 Here is an example using [hapi.js](https://hapijs.com). See the
-[examples](https://github.com/nodeshift/opossum/tree/master/examples/)
-folder for more detail.
+[opossum-examples](https://github.com/nodeshift-starters/opossum-examples/)
+repository for more detail.
 
 Include `opossum.js` in your HTML file.
 
