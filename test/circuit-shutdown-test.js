@@ -17,11 +17,17 @@ test('EventEmitter max listeners', t => {
 });
 
 test('Circuit shuts down properly', t => {
-  t.plan(3);
+  t.plan(5);
   const breaker = circuit(passFail);
   t.ok(breaker.fire(1), 'breaker is active');
   breaker.shutdown();
   t.ok(breaker.isShutdown, 'breaker is shutdown');
   t.notOk(breaker.enabled, 'breaker has been disabled');
-  t.end();
+  breaker.fire(1)
+    .then(t.fail)
+    .catch(err => {
+      t.equals('ESHUTDOWN', err.code);
+      t.equals('The circuit has been shutdown.', err.message);
+      t.end();
+    });
 });
