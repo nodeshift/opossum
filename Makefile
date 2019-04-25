@@ -1,5 +1,4 @@
 ci:
-	npm install
 	npm run test:ci
 
 clean:
