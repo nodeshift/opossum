@@ -1,5 +1,6 @@
 ci:
 	npm run lint
+	npm run build:docs
 	npm run build:browser
 	npm run test:ci
 
