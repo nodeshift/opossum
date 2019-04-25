@@ -1,9 +1,7 @@
 ci:
-	npm run lint
-	npm run build:browser
 	npm run test:ci
 
 clean:
-	rm -rf node_modules dist/*.js test/browser/browserified-tests.js
+	rm -rf node_modules dist/*.js test/browser/webpack-test.js
 
 .PHONY: ci
