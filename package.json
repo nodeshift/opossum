@@ -12,7 +12,9 @@
     "prebuild": "npm run lint",
     "build": "npm run build:browser && npm run build:docs",
     "build:browser": "webpack --config=config/webpack.config.js",
-    "build:docs": "documentation build index.js -f html -o docs --config documentation.yml",
+    "build:docs": "npm run build:docs:html && npm run build:docs:markdown",
+    "build:docs:html": "documentation build index.js -f html -o docs --config documentation.yml",
+    "build:docs:markdown": "documentation build index.js -f md -o docs/opossum.md",
     "pretest": "npm run lint",
     "test": "npm run test:coverage",
     "test:ci": "npm run build && npm run test:headless && npm run test:coverage",
@@ -33,12 +35,13 @@
     "LICENSE",
     "index.js",
     "lib",
-    "dist"
+    "dist",
+    "doc/opossum.md"
   ],
   "bugs": {
     "url": "https://github.com/nodeshift/opossum/issues"
   },
-  "homepage": "https://github.com/nodeshift/opossum",
+  "homepage": "https://nodeshift.dev/opossum",
   "devDependencies": {
     "documentation": "^10.0.0",
     "http-server": "~0.11.0",
