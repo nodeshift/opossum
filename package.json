@@ -16,14 +16,15 @@
     "build:docs:html": "documentation build index.js -f html -o docs --config documentation.yml",
     "build:docs:markdown": "documentation build index.js -f md -o docs/opossum.md",
     "pretest": "npm run lint",
-    "test": "npm run test:coverage",
-    "test:ci": "npm run build && npm run test:headless && npm run test:coverage",
+    "test": "nyc tape test/*.js | tap-spec",
     "test:headless": "node test/browser/webpack-test.js",
     "test:browser": "opener http://localhost:9007/test/browser/index.html && http-server . -p 9007",
-    "test:coverage": "nyc tape test/*.js | tap-spec",
+    "coverage": "nyc report && nyc report --reporter=text-lcov | coveralls",
+    "ci": "npm run build && npm run test && npm run test:headless && npm run coverage",
     "prerelease": "npm run test:ci",
     "release": "standard-version -s",
-    "lint": "semistandard test/*.js index.js lib/*.js"
+    "lint": "semistandard test/*.js index.js lib/*.js",
+    "clean": "rm -rf node_modules dist/*.js test/browser/webpack-test.js"
   },
   "repository": {
     "type": "git",
@@ -43,6 +44,7 @@
   },
   "homepage": "https://nodeshift.dev/opossum",
   "devDependencies": {
+    "coveralls": "^3.0.3",
     "documentation": "^10.0.0",
     "http-server": "~0.11.0",
     "nyc": "~14.0.0",
