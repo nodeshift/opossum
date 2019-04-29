@@ -23,7 +23,7 @@
     "ci": "npm run build && npm run test && npm run test:headless && npm run coverage",
     "prerelease": "npm run test:ci",
     "release": "standard-version -s",
-    "lint": "semistandard test/*.js index.js lib/*.js",
+    "lint": "standardx test/*.js index.js lib/*.js",
     "clean": "rm -rf node_modules dist/*.js test/browser/webpack-test.js"
   },
   "repository": {
@@ -49,8 +49,8 @@
     "http-server": "~0.11.0",
     "nyc": "~14.0.0",
     "opener": "1.5.1",
-    "semistandard": "~13.0.1",
     "standard-version": "5.0.2",
+    "standardx": "^3.0.1",
     "tap-spec": "~5.0.0",
     "tape": "~4.10.1",
     "webpack": "~4.29.0",

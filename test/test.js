@@ -212,7 +212,8 @@ test('Breaker resets after a configurable amount of time', t => {
   t.plan(1);
   const fails = -1;
   const resetTimeout = 100;
-  const breaker = circuit(passFail, { errorThresholdPercentage: 1, resetTimeout });
+  const breaker = circuit(passFail,
+    { errorThresholdPercentage: 1, resetTimeout });
 
   breaker.fire(fails)
     .catch(() => {
@@ -242,7 +243,8 @@ test('Breaker resets for circuits with a fallback function', t => {
   t.plan(2);
   const fails = -1;
   const resetTimeout = 100;
-  const breaker = circuit(passFail, { errorThresholdPercentage: 1, resetTimeout });
+  const breaker = circuit(passFail,
+    { errorThresholdPercentage: 1, resetTimeout });
   breaker.fallback(x => x * 2);
 
   breaker.on('fallback', result => {
@@ -284,7 +286,8 @@ test('Passes error as last argument to the fallback function', t => {
   const fails = -1;
   const breaker = circuit(passFail, { errorThresholdPercentage: 1 });
   breaker.on('fallback', result => {
-    t.equals(result, `Error: ${fails} is < 0`, 'fallback received error as last parameter');
+    t.equals(result,
+      `Error: ${fails} is < 0`, 'fallback received error as last parameter');
     breaker.shutdown();
     t.end();
   });
@@ -292,11 +295,12 @@ test('Passes error as last argument to the fallback function', t => {
   breaker.fire(fails).catch(t.fail);
 });
 
-test('Fallback is not called twice for the same execution when action fails after timing out', t => {
+test('Fallback called once for the same execution when timing out', t => {
   t.plan(1);
 
   const actionDuration = 200;
-  const breaker = circuit(timedFailingFunction, { timeout: actionDuration / 2 });
+  const breaker = circuit(timedFailingFunction,
+    { timeout: actionDuration / 2 });
 
   breaker.fallback((ms, err) => {
     t.ok(err);
@@ -304,7 +308,7 @@ test('Fallback is not called twice for the same execution when action fails afte
   });
 
   breaker.fire(actionDuration)
-    .catch((err) => noop(err))
+    .catch(err => noop(err))
     .then(_ => breaker.shutdown());
 
   // keep this test alive until action finishes
@@ -808,7 +812,7 @@ test('Circuit Breaker timeout with semaphore released', t => {
   t.plan(1);
   const breaker = circuit(slowFunction, { timeout: 10, capacity: 2 });
 
-  breaker.on('timeout', result => {
+  breaker.on('timeout', _ => {
     t.equal(breaker.semaphore.count, breaker.options.capacity);
     breaker.shutdown();
     t.end();

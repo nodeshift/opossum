@@ -6,6 +6,7 @@
  */
 
 /* eslint prefer-promise-reject-errors: "off" */
+
 function passFail (x) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -17,6 +18,7 @@ function passFail (x) {
 /**
  * A function returning a promise that resolves
  * after 1 second.
+ * @return {Promise<string>} always returns a promise that resolves 'done'
  */
 function slowFunction () {
   return timedFunction(10000);

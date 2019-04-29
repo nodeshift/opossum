@@ -45,9 +45,9 @@ test('Has a volume threshold before tripping when option is provided', t => {
         .then(t.fail)
         .catch(e => {
           t.notOk(breaker.opened,
-            'should not be open before volume threshold has been reached');
+            'not open before volume threshold has been reached');
           t.notOk(breaker.pendingClose,
-            'should not be pending close before volume threshold has been reached');
+            'not pending close before volume threshold has been reached');
         })
         .then(_ => {
           breaker.fire(-1)
@@ -85,7 +85,7 @@ test('volume threshold does not affect halfOpen state', t => {
         }).then(_ => {
           setTimeout(_ => { // ensure that we have entered the halfOpen state
             t.ok(breaker.halfOpen, 'breaker should be in halfOpen state');
-            t.ok(breaker.stats.fires === 0, 'statistical window should be cleared');
+            t.ok(breaker.stats.fires === 0, 'statistical window cleared');
             // now fail again and ensure that we reenter the open state
             breaker.fire(-1)
               .then(t.fail)

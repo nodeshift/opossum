@@ -52,7 +52,6 @@ test('Increments failure stats if no filter is provided', t => {
     .then(t.fail)
     .catch(err => {
       t.equal(err.statusCode, 500);
-      console.log(breaker.stats);
       t.equal(breaker.stats.failures, 1);
       t.ok(breaker.open);
       t.end();

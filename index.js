@@ -15,34 +15,37 @@ const defaults = {
  * @param {Object} options Options for the {@link CircuitBreaker}
  * @param {Number} options.timeout The time in milliseconds that action should
  * be allowed to execute before timing out. Default 10000 (10 seconds)
- * @param {Number} options.maxFailures The number of times the circuit can fail before
- * opening. Default 10.
- * @param {Number} options.resetTimeout The time in milliseconds to wait before setting
- * the breaker to `halfOpen` state, and trying the action again.
- * @param {Number} options.rollingCountTimeout Sets the duration of the statistical rolling
- * window, in milliseconds. This is how long Opossum keeps metrics for the circuit
- * breaker to use and for publishing. Default: 10000
- * @param {Number} options.rollingCountBuckets Sets the number of buckets the rolling
- * statistical window is divided into. So, if options.rollingCountTimeout is
- * 10000, and options.rollingCountBuckets is 10, then the statistical window will
- * be 1000 1 second snapshots in the statistical window. Default: 10
+ * @param {Number} options.maxFailures The number of times the circuit can fail
+ * before opening. Default 10.
+ * @param {Number} options.resetTimeout The time in milliseconds to wait before
+ * setting the breaker to `halfOpen` state, and trying the action again.
+ * @param {Number} options.rollingCountTimeout Sets the duration of the
+ * statistical rolling window, in milliseconds. This is how long Opossum keeps
+ * metrics for the circuit breaker to use and for publishing. Default: 10000
+ * @param {Number} options.rollingCountBuckets Sets the number of buckets the
+ * rolling statistical window is divided into. So, if
+ * options.rollingCountTimeout is 10000, and options.rollingCountBuckets is 10,
+ * then the statistical window will be 1000 1 second snapshots in the
+ * statistical window. Default: 10
  * @param {String} options.name the circuit name to use when reporting stats
- * @param {boolean} options.rollingPercentilesEnabled This property indicates whether
- * execution latencies should be tracked and calculated as percentiles. If they
- * are disabled, all summary statistics (mean, percentiles) are returned as -1.
- * Default: false
- * @param {Number} options.capacity the number of concurrent requests allowed. If the number
- * currently executing function calls is equal to options.capacity, further calls
- * to `fire()` are rejected until at least one of the current requests completes.
- * @param {Number} options.errorThresholdPercentage the error percentage at which to open the
- * circuit and start short-circuiting requests to fallback.
- * @param {boolean} options.enabled whether this circuit is enabled upon construction. Default: true
+ * @param {boolean} options.rollingPercentilesEnabled This property indicates
+ * whether execution latencies should be tracked and calculated as percentiles.
+ * If they are disabled, all summary statistics (mean, percentiles) are
+ * returned as -1. Default: false
+ * @param {Number} options.capacity the number of concurrent requests allowed.
+ * If the number currently executing function calls is equal to
+ * options.capacity, further calls to `fire()` are rejected until at least one
+ * of the current requests completes.
+ * @param {Number} options.errorThresholdPercentage the error percentage at
+ * which to open the circuit and start short-circuiting requests to fallback.
+ * @param {boolean} options.enabled whether this circuit is enabled upon
+ * construction. Default: true
  * @param {boolean} options.allowWarmUp determines whether to allow failures
  * without opening the circuit during a brief warmup period (this is the
  * `rollingCountDuration` property). Default: false
- * allow before enabling the circuit. This can help in situations where no matter
- * what your `errorThresholdPercentage` is, if the first execution times out or
- * fails, the circuit immediately opens. Default: 0
+ * allow before enabling the circuit. This can help in situations where no
+ * matter what your `errorThresholdPercentage` is, if the first execution
+ * times out or fails, the circuit immediately opens. Default: 0
  * @param {Number} options.volumeThreshold the minimum number of requests within
  * the rolling statistical window that must exist before the circuit breaker
  * can open. This is similar to `options.allowWarmUp` in that no matter how many
@@ -68,7 +71,6 @@ function factory (action, options) {
  * @function factory.promisify
  *
  * @param {Function} action A Node.js-like asynchronous function
- * @return {Function} The `action` wrapped in a promise API.
  * @example
  *     const fs = require('fs');
  *     const readFilePromised = circuitBreaker.promisify(fs.readFile);

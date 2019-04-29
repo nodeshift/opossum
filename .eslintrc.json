@@ -1,5 +1,9 @@
 {
-  "extends": "semistandard",
+  "extends": "eslint:recommended",
+  "env": {
+    "es6": true,
+    "node": true
+  },
   "rules": {
     "standard/no-callback-literal": "off",
     "arrow-spacing": "error",
@@ -7,6 +11,12 @@
     "arrow-body-style": ["error", "as-needed"],
     "prefer-template": "error",
     "max-len": ["warn", { "code": 80 }],
+    "no-unused-vars": ["warn", {
+      "argsIgnorePattern": "^_$|^e$|^reject$|^resolve$"
+    }],
+    "no-console": ["error", {
+      "allow": ["warn", "error"]
+    }],
     "valid-jsdoc": "error"
   }
 
