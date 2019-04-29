@@ -1,3 +1,5 @@
+/* eslint no-console: "off" */
+/* eslint-env browser */
 // for browser output
 const log = console.log;
 

@@ -2,7 +2,7 @@
 
 ## Issue contributions
 
-### Did you find a bug ?
+### Did you find a bug?
 
 Open a [new issue](https://github.com/nodeshift/opossum/issues/new).
 Be sure to include a title and clear description, with as much relevant information

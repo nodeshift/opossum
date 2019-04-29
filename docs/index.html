@@ -743,8 +743,8 @@ be allowed to execute before timing out. Default 10000 (10 seconds)
                 <tr>
   <td class='break-word'><span class='code bold'>options.maxFailures</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
   </td>
-  <td class='break-word'><span>The number of times the circuit can fail before
-opening. Default 10.
+  <td class='break-word'><span>The number of times the circuit can fail
+before opening. Default 10.
 </span></td>
 </tr>
 
@@ -753,8 +753,8 @@ opening. Default 10.
                 <tr>
   <td class='break-word'><span class='code bold'>options.resetTimeout</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
   </td>
-  <td class='break-word'><span>The time in milliseconds to wait before setting
-the breaker to 
+  <td class='break-word'><span>The time in milliseconds to wait before
+setting the breaker to 
 <code>halfOpen</code>
  state, and trying the action again.
 </span></td>
@@ -765,9 +765,9 @@ the breaker to
                 <tr>
   <td class='break-word'><span class='code bold'>options.rollingCountTimeout</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
   </td>
-  <td class='break-word'><span>Sets the duration of the statistical rolling
-window, in milliseconds. This is how long Opossum keeps metrics for the circuit
-breaker to use and for publishing. Default: 10000
+  <td class='break-word'><span>Sets the duration of the
+statistical rolling window, in milliseconds. This is how long Opossum keeps
+metrics for the circuit breaker to use and for publishing. Default: 10000
 </span></td>
 </tr>
 
@@ -776,10 +776,11 @@ breaker to use and for publishing. Default: 10000
                 <tr>
   <td class='break-word'><span class='code bold'>options.rollingCountBuckets</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
   </td>
-  <td class='break-word'><span>Sets the number of buckets the rolling
-statistical window is divided into. So, if options.rollingCountTimeout is
-10000, and options.rollingCountBuckets is 10, then the statistical window will
-be 1000 1 second snapshots in the statistical window. Default: 10
+  <td class='break-word'><span>Sets the number of buckets the
+rolling statistical window is divided into. So, if
+options.rollingCountTimeout is 10000, and options.rollingCountBuckets is 10,
+then the statistical window will be 1000 1 second snapshots in the
+statistical window. Default: 10
 </span></td>
 </tr>
 
@@ -797,10 +798,10 @@ be 1000 1 second snapshots in the statistical window. Default: 10
                 <tr>
   <td class='break-word'><span class='code bold'>options.rollingPercentilesEnabled</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
   </td>
-  <td class='break-word'><span>This property indicates whether
-execution latencies should be tracked and calculated as percentiles. If they
-are disabled, all summary statistics (mean, percentiles) are returned as -1.
-Default: false
+  <td class='break-word'><span>This property indicates
+whether execution latencies should be tracked and calculated as percentiles.
+If they are disabled, all summary statistics (mean, percentiles) are
+returned as -1. Default: false
 </span></td>
 </tr>
 
@@ -809,11 +810,12 @@ Default: false
                 <tr>
   <td class='break-word'><span class='code bold'>options.capacity</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
   </td>
-  <td class='break-word'><span>the number of concurrent requests allowed. If the number
-currently executing function calls is equal to options.capacity, further calls
-to 
+  <td class='break-word'><span>the number of concurrent requests allowed.
+If the number currently executing function calls is equal to
+options.capacity, further calls to 
 <code>fire()</code>
- are rejected until at least one of the current requests completes.
+ are rejected until at least one
+of the current requests completes.
 </span></td>
 </tr>
 
@@ -822,8 +824,8 @@ to
                 <tr>
   <td class='break-word'><span class='code bold'>options.errorThresholdPercentage</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
   </td>
-  <td class='break-word'><span>the error percentage at which to open the
-circuit and start short-circuiting requests to fallback.
+  <td class='break-word'><span>the error percentage at
+which to open the circuit and start short-circuiting requests to fallback.
 </span></td>
 </tr>
 
@@ -832,7 +834,8 @@ circuit and start short-circuiting requests to fallback.
                 <tr>
   <td class='break-word'><span class='code bold'>options.enabled</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
   </td>
-  <td class='break-word'><span>whether this circuit is enabled upon construction. Default: true
+  <td class='break-word'><span>whether this circuit is enabled upon
+construction. Default: true
 </span></td>
 </tr>
 
@@ -846,11 +849,11 @@ without opening the circuit during a brief warmup period (this is the
 
 <code>rollingCountDuration</code>
  property). Default: false
-allow before enabling the circuit. This can help in situations where no matter
-what your 
+allow before enabling the circuit. This can help in situations where no
+matter what your 
 <code>errorThresholdPercentage</code>
- is, if the first execution times out or
-fails, the circuit immediately opens. Default: 0
+ is, if the first execution
+times out or fails, the circuit immediately opens. Default: 0
 </span></td>
 </tr>
 
@@ -940,7 +943,7 @@ and which executes that function, passing as parameters <code>err</code> and <co
 creates an action that returns a promise which resolves when the function's
 callback is executed.</p>
 
-    <div class='pre p1 fill-light mt0'>factory.promisify(action: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></div>
+    <div class='pre p1 fill-light mt0'>factory.promisify(action: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</div>
   
   
 
@@ -969,16 +972,6 @@ callback is executed.</p>
 
   
 
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></code>:
-        The 
-<code>action</code>
- wrapped in a promise API.
-
-      
-    
   
 
   
@@ -3252,7 +3245,7 @@ is determined by dividing the <code>rollingCountTimeout</code> by
                 <tr>
   <td class='break-word'><span class='code bold'>options.rollingCountBuckets</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
   </td>
-  <td class='break-word'><span>the number of buckets in the window
+  <td class='break-word'><span>number of buckets in the window
 </span></td>
 </tr>
 
@@ -3270,7 +3263,8 @@ is determined by dividing the <code>rollingCountTimeout</code> by
                 <tr>
   <td class='break-word'><span class='code bold'>options.rollingPercentilesEnabled</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></code>
   </td>
-  <td class='break-word'><span>whether to calculate percentiles
+  <td class='break-word'><span>whether to calculate
+percentiles
 </span></td>
 </tr>
 
