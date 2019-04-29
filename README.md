@@ -151,17 +151,17 @@ $(() => {
 A `CircuitBreaker` will emit events for important things that occur.
 Here are the events you can listen for.
 
-* `fire` - emitted when the breaker is fired.
-* `reject` - emitted when the breaker is open (or halfOpen).
-* `timeout` - emitted when the breaker action times out.
-* `success` - emitted when the breaker action completes successfully
-* `failure` - emitted when the breaker action fails, called with the error
-* `open` - emitted when the breaker state changes to `open`
-* `close` - emitted when the breaker state changes to `closed`
-* `halfOpen` - emitted when the breaker state changes to `halfOpen`
-* `fallback` - emitted when the breaker has a fallback function and executes it
-* `semaphore-locked` - emitted when the breaker is at capacity and cannot execute the request
-* `health-check-failed` - emitted when a user-supplied health check function returns a rejected promise
+  * `fire` - emitted when the breaker is fired.
+  * `reject` - emitted when the breaker is open (or halfOpen).
+  * `timeout` - emitted when the breaker action times out.
+  * `success` - emitted when the breaker action completes successfully
+  * `failure` - emitted when the breaker action fails, called with the error
+  * `open` - emitted when the breaker state changes to `open`
+  * `close` - emitted when the breaker state changes to `closed`
+  * `halfOpen` - emitted when the breaker state changes to `halfOpen`
+  * `fallback` - emitted when the breaker has a fallback function and executes it
+  * `semaphore-locked` - emitted when the breaker is at capacity and cannot execute the request
+  * `health-check-failed` - emitted when a user-supplied health check function returns a rejected promise
 
 Handling events gives a greater level of control over your application behavior.
 
@@ -265,4 +265,3 @@ circuit.stats.getHystrixStream().setMaxListeners(100);
 ```
 
 Or it could be that you have a large test suite which exercises some code that creates `CircuitBreaker`s and does so repeatedly. If the `CircuitBreaker` being created is only needed for the duration of the test, use `circuit.shutdown()` when the circuit is no longer in use to clean up all listeners.
-

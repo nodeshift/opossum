@@ -7,8 +7,8 @@ Please provide as much information as possible.
 3. Steps to recreate the issue
 -->
 
-**Node.js Version:**
+## Node.js Version:
 
-**Operating System:**
+## Operating System:
 
-**Steps to Produce Error:**
+## Steps to Produce Error:

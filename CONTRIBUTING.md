@@ -34,10 +34,10 @@ git checkout -b my-contrib-branch
 Writing good commit logs is important. A commit log should describe what
 changed and why. Follow these guidelines when writing one:
 
-1. The first line should be 50 characters or less and contain a short
-   description of the change.
-2. Keep the second line blank.
-3. Wrap all other lines at 72 columns.
+  1. The first line should be 50 characters or less and contain a short
+    description of the change.
+  2. Keep the second line blank.
+  3. Wrap all other lines at 72 columns.
 
 Example of commit message:
 
@@ -86,12 +86,11 @@ Click the 'Pull Request' button and fill out the form.
 
 These are mostly notes for myself.
 
-* Make sure everything works: `make clean && npm install && make ci`
-* Run standard-version: `npm run release`
-* Push to GitHub: `git push --follow-tags origin master`
-* Publish to npmjs.com: `npm publish`
-* Assuming all goes well, head over to https://github.com/nodeshift/opossum/releases
-  and update the release with any relevant notes. The generated CHANGELOG.md file should
-  be updated, so you can use it to document release changes.
-* Tweet, blog and otherwise promote your awesome success!
-
+  * Make sure everything works: `make clean && npm install && make ci`
+  * Run standard-version: `npm run release`
+  * Push to GitHub: `git push --follow-tags origin master`
+  * Publish to npmjs.com: `npm publish`
+  * Assuming all goes well, head over to https://github.com/nodeshift/opossum/releases
+    and update the release with any relevant notes. The generated CHANGELOG.md file should
+    be updated, so you can use it to document release changes.
+  * Tweet, blog and otherwise promote your awesome success!
