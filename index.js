@@ -77,8 +77,17 @@ function factory (action, options) {
  *     const breaker = circuitBreaker(readFilePromised);
  */
 factory.promisify = require('./lib/promisify');
-
-factory.stats = require('./lib/hystrix-stats').stream;
+let warningIssued = false;
+Object.defineProperty(factory, 'stats', {
+  get: _ => {
+    if (!warningIssued) {
+      warningIssued = true;
+      console.warn(`WARNING: Hystrics stats are deprecated
+      See: https://github.com/Netflix/Hystrix#dashboard`)
+    }
+    return require('./lib/hystrix-stats').stream;
+  }
+});
 
 module.exports = exports = factory;
 // Allow use of default import syntax in TypeScript

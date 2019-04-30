@@ -4,6 +4,12 @@ const test = require('tape');
 const cb = require('../');
 const { passFail } = require('./common');
 
+test('A circuit stats should be available on the creator function', t => {
+  t.plan(1);
+  t.ok(cb.stats);
+  t.end();
+});
+
 test('A circuit should provide stats to a hystrix compatible stream', t => {
   t.plan(2);
   const circuitOne = cb(passFail, {
