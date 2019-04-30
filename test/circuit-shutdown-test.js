@@ -8,8 +8,9 @@ const passFail = require('./common').passFail;
 // chew up memory
 test('EventEmitter max listeners', t => {
   let i = 100;
-  while (--i >= 0) {
-    const breaker = circuit(passFail);
+  while (i > 0) {
+    --i;
+    const breaker = circuit(passFail, { name: `passFail${i}` });
     breaker.fire(1);
     breaker.shutdown(); // required for cleanup
   }
