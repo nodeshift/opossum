@@ -1,6 +1,7 @@
 # opossum [![CircleCI](https://circleci.com/gh/nodeshift/opossum/tree/master.svg?style=svg&circle-token=0742302baa8c95cef354997ea52a383d3d078ff1)](https://circleci.com/gh/nodeshift/opossum/tree/master)
 
-[![Coverage Status](https://coveralls.io/repos/github/nodeshift/opossum/badge.svg)](https://coveralls.io/github/nodeshift/opossum)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/03f9af1e697743edbe91f8d29831a75d)](https://www.codacy.com/app/nodeshift/opossum?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nodeshift/opossum&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/03f9af1e697743edbe91f8d29831a75d)](https://www.codacy.com/app/nodeshift/opossum?utm_source=github.com&utm_medium=referral&utm_content=nodeshift/opossum&utm_campaign=Badge_Coverage)
 [![Greenkeeper badge](https://badges.greenkeeper.io/nodeshift/opossum.svg)](https://greenkeeper.io/)
 [![Known Vulnerabilities](https://snyk.io/test/npm/opossum/badge.svg)](https://snyk.io/test/npm/opossum)
 [![dependencies Status](https://david-dm.org/nodeshift/opossum/status.svg)](https://david-dm.org/nodeshift/opossum)
