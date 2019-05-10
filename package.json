@@ -47,7 +47,7 @@
     "codacy-coverage": "^3.4.0",
     "coveralls": "^3.0.3",
     "documentation": "^10.0.0",
-    "nyc": "~14.0.0",
+    "nyc": "~14.1.1",
     "opener": "1.5.1",
     "serve": "^11.0.0",
     "standard-version": "5.0.2",
