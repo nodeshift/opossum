@@ -21,7 +21,7 @@
     "test:browser": "opener http://localhost:9007/test/browser/index.html && serve . -p 9007",
     "coverage": "nyc report && if [ $CODACY_PROJECT_TOKEN'' != '' ] ; then nyc report --reporter=text-lcov | codacy-coverage; fi",
     "ci": "npm run build && npm run test && npm run test:headless && npm run coverage",
-    "prerelease": "npm run test:ci",
+    "prerelease": "npm run ci",
     "release": "standard-version -s",
     "lint": "standardx test/*.js index.js lib/*.js test/*/*.js",
     "clean": "rm -rf node_modules dist/*.js test/browser/webpack-test.js"
