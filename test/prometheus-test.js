@@ -6,43 +6,47 @@ const { passFail } = require('./common');
 
 test('A circuit provides prometheus metrics when not in a web env', t => {
   t.plan(1);
-  const circuit = cb(passFail);
+  const circuit = cb(passFail, {usePrometheus: true});
   t.ok(process.env.WEB ? circuit.metrics : !!circuit.metrics);
+  circuit.metrics.clear();
   t.end();
 });
 
 // All of the additional tests only make sense when running in a Node.js context
 if (!process.env.WEB) {
   test('Circuit fire/success/failure are counted', t => {
-    const circuit = cb(passFail);
-    const fire = /passFail_\d+_circuit_fire 2/;
-    const success = /passFail_\d+_circuit_success 1/;
-    const failure = /passFail_\d+_circuit_failure 1/;
+    const circuit = cb(passFail, {usePrometheus: true});
+    const fire = /passFail__circuit_fire 2/;
+    const success = /passFail__circuit_success 1/;
+    const failure = /passFail__circuit_failure 1/;
     t.plan(3);
     circuit.fire(1)
       .then(_ => circuit.fire(-1))
       .catch(_ => {
         const metrics = circuit.metrics.metrics;
+        process.stdout.write(metrics);
         t.ok(fire.test(metrics), fire);
         t.ok(success.test(metrics), success);
         t.ok(failure.test(metrics), failure);
+        circuit.metrics.clear();
         t.end();
       });
   });
 
   test('Metrics are enabled for all circuit events', t => {
-    const circuit = cb(passFail);
+    const circuit = cb(passFail, {usePrometheus: true});
     const metrics = circuit.metrics.metrics;
     t.plan(circuit.eventNames().length);
     for (let name of circuit.eventNames()) {
-      const match = new RegExp(`passFail_\\d+_circuit_${name}`);
+      const match = new RegExp(`passFail__circuit_${name}`);
       t.ok(match.test(metrics), name);
     }
+    circuit.metrics.clear();
     t.end();
   });
 
   test('Default prometheus metrics are enabled', t => {
-    const circuit = cb(passFail);
+    const circuit = cb(passFail, {usePrometheus: true});
     const metrics = circuit.metrics.metrics;
     const names = [
       'process_cpu_seconds_total',
@@ -55,14 +59,15 @@ if (!process.env.WEB) {
     ];
     t.plan(names.length);
     for (let name of names) {
-      const match = new RegExp(`passFail_\\d+_${name}`);
+      const match = new RegExp(`passFail__${name}`);
       t.ok(match.test(metrics), name);
     }
+    circuit.metrics.clear();
     t.end();
   });
 
   test('Node.js specific metrics are enabled', t => {
-    const circuit = cb(passFail);
+    const circuit = cb(passFail, {usePrometheus: true});
     const metrics = circuit.metrics.metrics;
     const names = [
       'nodejs_eventloop_lag',
@@ -78,9 +83,10 @@ if (!process.env.WEB) {
     ];
     t.plan(names.length);
     for (let name of names) {
-      const match = new RegExp(`passFail_\\d+_${name}`);
+      const match = new RegExp(`passFail__${name}`);
       t.ok(match.test(metrics), name);
     }
+    circuit.metrics.clear();
     t.end();
   });
 }
