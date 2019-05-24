@@ -12,13 +12,22 @@ test('A circuit provides prometheus metrics when not in a web env', t => {
   t.end();
 });
 
+test('Does not load Prometheus when the option is not provided', t => {
+  t.plan(1);
+  const circuit = cb(passFail);
+  t.ok(!circuit.metrics);
+  circuit.shutdown();
+  t.end();
+});
+
+
 // All of the additional tests only make sense when running in a Node.js context
 if (!process.env.WEB) {
   test('Circuit fire/success/failure are counted', t => {
     const circuit = cb(passFail, {usePrometheus: true});
-    const fire = /passFail__circuit_fire 2/;
-    const success = /passFail__circuit_success 1/;
-    const failure = /passFail__circuit_failure 1/;
+    const fire = /circuit_passFail_fire 2/;
+    const success = /circuit_passFail_success 1/;
+    const failure = /circuit_passFail_failure 1/;
     t.plan(3);
     circuit.fire(1)
       .then(_ => circuit.fire(-1))
@@ -38,7 +47,7 @@ if (!process.env.WEB) {
     const metrics = circuit.metrics.metrics;
     t.plan(circuit.eventNames().length);
     for (let name of circuit.eventNames()) {
-      const match = new RegExp(`passFail__circuit_${name}`);
+      const match = new RegExp(`circuit_passFail_${name}`);
       t.ok(match.test(metrics), name);
     }
     circuit.metrics.clear();
@@ -59,7 +68,7 @@ if (!process.env.WEB) {
     ];
     t.plan(names.length);
     for (let name of names) {
-      const match = new RegExp(`passFail__${name}`);
+      const match = new RegExp(`circuit_passFail_${name}`);
       t.ok(match.test(metrics), name);
     }
     circuit.metrics.clear();
@@ -83,7 +92,7 @@ if (!process.env.WEB) {
     ];
     t.plan(names.length);
     for (let name of names) {
-      const match = new RegExp(`passFail__${name}`);
+      const match = new RegExp(`circuit_passFail_${name}`);
       t.ok(match.test(metrics), name);
     }
     circuit.metrics.clear();
