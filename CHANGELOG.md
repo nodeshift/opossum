@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/nodeshift/opossum/compare/v1.11.1...v2.0.0) (2019-06-05)
+
+
+### Build System
+
+* use node 12 on ci/cd in addition to 8 and 10 ([93f8008](https://github.com/nodeshift/opossum/commit/93f8008))
+
+
+### Features
+
+* prometheus client integration ([282b467](https://github.com/nodeshift/opossum/commit/282b467))
+
+
+
 ### [1.11.1](https://github.com/nodeshift/opossum/compare/v1.11.0...v1.11.1) (2019-05-22)
 
 
