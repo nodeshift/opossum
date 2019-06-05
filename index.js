@@ -15,10 +15,11 @@ const defaults = {
  * @param {Object} options Options for the {@link CircuitBreaker}
  * @param {Number} options.timeout The time in milliseconds that action should
  * be allowed to execute before timing out. Default 10000 (10 seconds)
- * @param {Number} options.maxFailures The number of times the circuit can fail
- * before opening. Default 10.
+ * @param {Number} options.maxFailures (Deprecated) The number of times the
+ * circuit can fail before opening. Default 10.
  * @param {Number} options.resetTimeout The time in milliseconds to wait before
  * setting the breaker to `halfOpen` state, and trying the action again.
+ * Default: 30000 (30 seconds)
  * @param {Number} options.rollingCountTimeout Sets the duration of the
  * statistical rolling window, in milliseconds. This is how long Opossum keeps
  * metrics for the circuit breaker to use and for publishing. Default: 10000
@@ -27,7 +28,8 @@ const defaults = {
  * options.rollingCountTimeout is 10000, and options.rollingCountBuckets is 10,
  * then the statistical window will be 1000 1 second snapshots in the
  * statistical window. Default: 10
- * @param {String} options.name the circuit name to use when reporting stats
+ * @param {String} options.name the circuit name to use when reporting stats.
+ * Default: the name of the function this circuit controls.
  * @param {boolean} options.rollingPercentilesEnabled This property indicates
  * whether execution latencies should be tracked and calculated as percentiles.
  * If they are disabled, all summary statistics (mean, percentiles) are
@@ -35,9 +37,10 @@ const defaults = {
  * @param {Number} options.capacity the number of concurrent requests allowed.
  * If the number currently executing function calls is equal to
  * options.capacity, further calls to `fire()` are rejected until at least one
- * of the current requests completes.
+ * of the current requests completes. Default: `Number.MAX_SAFE_INTEGER`.
  * @param {Number} options.errorThresholdPercentage the error percentage at
  * which to open the circuit and start short-circuiting requests to fallback.
+ * Default: 50
  * @param {boolean} options.enabled whether this circuit is enabled upon
  * construction. Default: true
  * @param {boolean} options.allowWarmUp determines whether to allow failures
