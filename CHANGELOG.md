@@ -14,6 +14,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 * prometheus client integration ([282b467](https://github.com/nodeshift/opossum/commit/282b467))
 
+### Breaking Changes
+
+* `health-check-failed` and `semaphore-locked` events have been changed to `healthCheckFailed` and `semaphoreLocked` respectively
 
 
 ### [1.11.1](https://github.com/nodeshift/opossum/compare/v1.11.0...v1.11.1) (2019-05-22)
