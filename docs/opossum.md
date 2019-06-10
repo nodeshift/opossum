@@ -22,41 +22,42 @@
     -   [status][18]
     -   [stats][19]
     -   [hystrixStats][20]
-    -   [enabled][21]
-    -   [warmUp][22]
-    -   [volumeThreshold][23]
-    -   [fallback][24]
-        -   [Parameters][25]
-    -   [fire][26]
-    -   [clearCache][27]
-    -   [healthCheck][28]
-        -   [Parameters][29]
-    -   [enable][30]
-    -   [disable][31]
--   [CircuitBreaker#halfOpen][32]
--   [CircuitBreaker#close][33]
--   [CircuitBreaker#open][34]
--   [CircuitBreaker#fire][35]
--   [CircuitBreaker#cacheHit][36]
--   [CircuitBreaker#cacheMiss][37]
--   [CircuitBreaker#reject][38]
--   [CircuitBreaker#timeout][39]
--   [CircuitBreaker#success][40]
--   [CircuitBreaker#semaphore-locked][41]
--   [CircuitBreaker#health-check-failed][42]
--   [CircuitBreaker#fallback][43]
--   [CircuitBreaker#failure][44]
--   [Status][45]
-    -   [Parameters][46]
-    -   [Examples][47]
-    -   [stats][48]
-    -   [window][49]
--   [Status#snapshot][50]
--   [HystrixStats][51]
-    -   [Parameters][52]
-    -   [Examples][53]
-    -   [getHystrixStream][54]
-    -   [shutdown][55]
+    -   [metrics][21]
+    -   [enabled][22]
+    -   [warmUp][23]
+    -   [volumeThreshold][24]
+    -   [fallback][25]
+        -   [Parameters][26]
+    -   [fire][27]
+    -   [clearCache][28]
+    -   [healthCheck][29]
+        -   [Parameters][30]
+    -   [enable][31]
+    -   [disable][32]
+-   [CircuitBreaker#halfOpen][33]
+-   [CircuitBreaker#close][34]
+-   [CircuitBreaker#open][35]
+-   [CircuitBreaker#fire][36]
+-   [CircuitBreaker#cacheHit][37]
+-   [CircuitBreaker#cacheMiss][38]
+-   [CircuitBreaker#reject][39]
+-   [CircuitBreaker#timeout][40]
+-   [CircuitBreaker#success][41]
+-   [CircuitBreaker#semaphoreLocked][42]
+-   [CircuitBreaker#healthCheckFailed][43]
+-   [CircuitBreaker#fallback][44]
+-   [CircuitBreaker#failure][45]
+-   [Status][46]
+    -   [Parameters][47]
+    -   [Examples][48]
+    -   [stats][49]
+    -   [window][50]
+-   [Status#snapshot][51]
+-   [HystrixStats][52]
+    -   [Parameters][53]
+    -   [Examples][54]
+    -   [getHystrixStream][55]
+    -   [shutdown][56]
 
 ## factory
 
@@ -64,53 +65,53 @@ Creates a [CircuitBreaker][6] instance capable of executing `action`.
 
 ### Parameters
 
--   `action` **[Function][56]** The action to fire for this [CircuitBreaker][6]
--   `options` **[Object][57]** Options for the [CircuitBreaker][6]
-    -   `options.timeout` **[Number][58]** The time in milliseconds that action should
+-   `action` **[Function][57]** The action to fire for this [CircuitBreaker][6]
+-   `options` **[Object][58]** Options for the [CircuitBreaker][6]
+    -   `options.timeout` **[Number][59]** The time in milliseconds that action should
         be allowed to execute before timing out. Default 10000 (10 seconds)
-    -   `options.maxFailures` **[Number][58]** The number of times the circuit can fail
+    -   `options.maxFailures` **[Number][59]** The number of times the circuit can fail
         before opening. Default 10.
-    -   `options.resetTimeout` **[Number][58]** The time in milliseconds to wait before
+    -   `options.resetTimeout` **[Number][59]** The time in milliseconds to wait before
         setting the breaker to `halfOpen` state, and trying the action again.
-    -   `options.rollingCountTimeout` **[Number][58]** Sets the duration of the
+    -   `options.rollingCountTimeout` **[Number][59]** Sets the duration of the
         statistical rolling window, in milliseconds. This is how long Opossum keeps
         metrics for the circuit breaker to use and for publishing. Default: 10000
-    -   `options.rollingCountBuckets` **[Number][58]** Sets the number of buckets the
+    -   `options.rollingCountBuckets` **[Number][59]** Sets the number of buckets the
         rolling statistical window is divided into. So, if
         options.rollingCountTimeout is 10000, and options.rollingCountBuckets is 10,
         then the statistical window will be 1000 1 second snapshots in the
         statistical window. Default: 10
-    -   `options.name` **[String][59]** the circuit name to use when reporting stats
-    -   `options.rollingPercentilesEnabled` **[boolean][60]** This property indicates
+    -   `options.name` **[String][60]** the circuit name to use when reporting stats
+    -   `options.rollingPercentilesEnabled` **[boolean][61]** This property indicates
         whether execution latencies should be tracked and calculated as percentiles.
         If they are disabled, all summary statistics (mean, percentiles) are
         returned as -1. Default: false
-    -   `options.capacity` **[Number][58]** the number of concurrent requests allowed.
+    -   `options.capacity` **[Number][59]** the number of concurrent requests allowed.
         If the number currently executing function calls is equal to
         options.capacity, further calls to `fire()` are rejected until at least one
         of the current requests completes.
-    -   `options.errorThresholdPercentage` **[Number][58]** the error percentage at
+    -   `options.errorThresholdPercentage` **[Number][59]** the error percentage at
         which to open the circuit and start short-circuiting requests to fallback.
-    -   `options.enabled` **[boolean][60]** whether this circuit is enabled upon
+    -   `options.enabled` **[boolean][61]** whether this circuit is enabled upon
         construction. Default: true
-    -   `options.allowWarmUp` **[boolean][60]** determines whether to allow failures
+    -   `options.allowWarmUp` **[boolean][61]** determines whether to allow failures
         without opening the circuit during a brief warmup period (this is the
         `rollingCountDuration` property). Default: false
         allow before enabling the circuit. This can help in situations where no
         matter what your `errorThresholdPercentage` is, if the first execution
         times out or fails, the circuit immediately opens. Default: 0
-    -   `options.volumeThreshold` **[Number][58]** the minimum number of requests within
+    -   `options.volumeThreshold` **[Number][59]** the minimum number of requests within
         the rolling statistical window that must exist before the circuit breaker
         can open. This is similar to `options.allowWarmUp` in that no matter how many
         failures there are, if the number of requests within the statistical window
         does not exceed this threshold, the circuit will remain closed. Default: 0
-    -   `options.errorFilter` **[Function][56]** an optional function that will be
+    -   `options.errorFilter` **[Function][57]** an optional function that will be
         called when the circuit's function fails (returns a rejected Promise). If
         this function returns truthy, the circuit's failure statistics will not be
         incremented. This is useful, for example, when you don't want HTTP 404 to
         trip the circuit, but still want to handle it as a failure case.
 
-Returns **[CircuitBreaker][61]** a newly created [CircuitBreaker][6] instance
+Returns **[CircuitBreaker][62]** a newly created [CircuitBreaker][6] instance
 
 ## factory.promisify
 
@@ -121,7 +122,7 @@ callback is executed.
 
 ### Parameters
 
--   `action` **[Function][56]** A Node.js-like asynchronous function
+-   `action` **[Function][57]** A Node.js-like asynchronous function
 
 ### Examples
 
@@ -139,46 +140,46 @@ Constructs a [CircuitBreaker][6].
 
 ### Parameters
 
--   `action` **[Function][56]** The action to fire for this [CircuitBreaker][6]
--   `options` **[Object][57]** Options for the [CircuitBreaker][6]
-    -   `options.timeout` **[Number][58]** The time in milliseconds that action should
+-   `action` **[Function][57]** The action to fire for this [CircuitBreaker][6]
+-   `options` **[Object][58]** Options for the [CircuitBreaker][6]
+    -   `options.timeout` **[Number][59]** The time in milliseconds that action should
         be allowed to execute before timing out. Default 10000 (10 seconds)
-    -   `options.maxFailures` **[Number][58]** The number of times the circuit can fail
+    -   `options.maxFailures` **[Number][59]** The number of times the circuit can fail
         before opening. Default 10.
-    -   `options.resetTimeout` **[Number][58]** The time in milliseconds to wait before
+    -   `options.resetTimeout` **[Number][59]** The time in milliseconds to wait before
         setting the breaker to `halfOpen` state, and trying the action again.
-    -   `options.rollingCountTimeout` **[Number][58]** Sets the duration of the
+    -   `options.rollingCountTimeout` **[Number][59]** Sets the duration of the
         statistical rolling window, in milliseconds. This is how long Opossum keeps
         metrics for the circuit breaker to use and for publishing. Default: 10000
-    -   `options.rollingCountBuckets` **[Number][58]** Sets the number of buckets the
+    -   `options.rollingCountBuckets` **[Number][59]** Sets the number of buckets the
         statistical window is divided into. So, if options.rollingCountTimeout is
         10000, and options.rollingCountBuckets is 10, the statistical window will
         be 1000 1 second snapshots in the statistical window. Default: 10
-    -   `options.name` **[String][59]** the circuit name to use when reporting stats
-    -   `options.rollingPercentilesEnabled` **[boolean][60]** indicates whether
+    -   `options.name` **[String][60]** the circuit name to use when reporting stats
+    -   `options.rollingPercentilesEnabled` **[boolean][61]** indicates whether
         execution latencies should be tracked and calculated as percentiles. If they
         are disabled, all summary statistics (mean, percentiles) are returned as -1.
         Default: false
-    -   `options.capacity` **[Number][58]** the number of concurrent requests allowed.
+    -   `options.capacity` **[Number][59]** the number of concurrent requests allowed.
         If the number currently executing functions is equal to options.capacity,
         further calls to `fire()` are rejected until at least one of the current
         requests completes.
-    -   `options.errorThresholdPercentage` **[Number][58]** the error percentage at
+    -   `options.errorThresholdPercentage` **[Number][59]** the error percentage at
         which to open the circuit and start short-circuiting requests to fallback.
-    -   `options.enabled` **[boolean][60]** whether this circuit is enabled upon
+    -   `options.enabled` **[boolean][61]** whether this circuit is enabled upon
         construction. Default: true
-    -   `options.allowWarmUp` **[boolean][60]** determines whether to allow failures
+    -   `options.allowWarmUp` **[boolean][61]** determines whether to allow failures
         without opening the circuit during a brief warmup period (this is the
         `rollingCountDuration` property). Default: false
         allow before enabling the circuit. This can help in situations where no
         matter what your `errorThresholdPercentage` is, if the first execution times
         out or fails, the circuit immediately opens. Default: 0
-    -   `options.volumeThreshold` **[Number][58]** the minimum number of requests within
+    -   `options.volumeThreshold` **[Number][59]** the minimum number of requests within
         the rolling statistical window that must exist before the circuit breaker
         can open. This is similar to `options.allowWarmUp` in that no matter how many
         failures there are, if the number of requests within the statistical window
         does not exceed this threshold, the circuit will remain closed. Default: 0
-    -   `options.errorFilter` **[Function][56]** an optional function that will be
+    -   `options.errorFilter` **[Function][57]** an optional function that will be
         called when the circuit's function fails (returns a rejected Promise). If
         this function returns truthy, the circuit's failure statistics will not be
         incremented. This is useful, for example, when you don't want HTTP 404 to
@@ -209,49 +210,49 @@ Returns **void**
 
 Determines if the circuit has been shutdown.
 
-Type: [Boolean][60]
+Type: [Boolean][61]
 
 ### name
 
 Gets the name of this circuit
 
-Type: [String][59]
+Type: [String][60]
 
 ### group
 
 Gets the name of this circuit group
 
-Type: [String][59]
+Type: [String][60]
 
 ### pendingClose
 
 Gets whether this cicruit is in the `pendingClosed` state
 
-Type: [Boolean][60]
+Type: [Boolean][61]
 
 ### closed
 
 True if the circuit is currently closed. False otherwise.
 
-Type: [Boolean][60]
+Type: [Boolean][61]
 
 ### opened
 
 True if the circuit is currently opened. False otherwise.
 
-Type: [Boolean][60]
+Type: [Boolean][61]
 
 ### halfOpen
 
 True if the circuit is currently half opened. False otherwise.
 
-Type: [Boolean][60]
+Type: [Boolean][61]
 
 ### status
 
 The current [Status][18] of this [CircuitBreaker][6]
 
-Type: [Status][62]
+Type: [Status][63]
 
 ### stats
 
@@ -259,31 +260,37 @@ Type: [Status][62]
 
 Get the current stats for the circuit.
 
-Type: [Object][57]
+Type: [Object][58]
 
 ### hystrixStats
 
 Get the hystrixStats.
 
-Type: [HystrixStats][63]
+Type: [HystrixStats][64]
+
+### metrics
+
+Get the prometheus metrics for this circuit
+
+Type: PrometheusMetrics
 
 ### enabled
 
 Gets whether the circuit is enabled or not
 
-Type: [Boolean][60]
+Type: [Boolean][61]
 
 ### warmUp
 
 Gets whether the circuit is currently in warm up phase
 
-Type: [Boolean][60]
+Type: [Boolean][61]
 
 ### volumeThreshold
 
 Gets the volume threshold for this circuit
 
-Type: [Boolean][60]
+Type: [Boolean][61]
 
 ### fallback
 
@@ -294,10 +301,10 @@ a rejected Promise.
 
 #### Parameters
 
--   `func` **([Function][56] \| [CircuitBreaker][61])** the fallback function to execute
+-   `func` **([Function][57] \| [CircuitBreaker][62])** the fallback function to execute
     when the breaker has opened or when a timeout or error occurs.
 
-Returns **[CircuitBreaker][61]** this
+Returns **[CircuitBreaker][62]** this
 
 ### fire
 
@@ -306,7 +313,7 @@ returned promise will be rejected. If the action succeeds, the promise will
 resolve with the resolved value from action. If a fallback function was
 provided, it will be invoked in the event of any failure or timeout.
 
-Returns **[Promise][64]&lt;any>** promise resolves with the circuit function's return
+Returns **[Promise][65]&lt;any>** promise resolves with the circuit function's return
 value on success or is rejected on failure of the action.
 
 ### clearCache
@@ -329,12 +336,12 @@ circuit breaker itself.
 
 #### Parameters
 
--   `func` **[Function][56]** a health check function which returns a promise.
--   `interval` **[Number][58]?** the amount of time between calls to the health
+-   `func` **[Function][57]** a health check function which returns a promise.
+-   `interval` **[Number][59]?** the amount of time between calls to the health
     check function. Default: 5000 (5 seconds)
 
 
--   Throws **[TypeError][65]** if `interval` is supplied but not a number
+-   Throws **[TypeError][66]** if `interval` is supplied but not a number
 
 Returns **void** 
 
@@ -359,7 +366,7 @@ Emitted after `options.resetTimeout` has elapsed, allowing for
 a single attempt to call the service again. If that attempt is
 successful, the circuit will be closed. Otherwise it remains open.
 
-Type: [Number][58]
+Type: [Number][59]
 
 ## CircuitBreaker#close
 
@@ -390,14 +397,14 @@ the cache, but the cache option is enabled.
 
 Emitted when the circuit breaker is open and failing fast
 
-Type: [Error][66]
+Type: [Error][67]
 
 ## CircuitBreaker#timeout
 
 Emitted when the circuit breaker action takes longer than
 `options.timeout`
 
-Type: [Error][66]
+Type: [Error][67]
 
 ## CircuitBreaker#success
 
@@ -405,19 +412,19 @@ Emitted when the circuit breaker action succeeds
 
 Type: any
 
-## CircuitBreaker#semaphore-locked
+## CircuitBreaker#semaphoreLocked
 
 Emitted when the rate limit has been reached and there
 are no more locks to be obtained.
 
-Type: [Error][66]
+Type: [Error][67]
 
-## CircuitBreaker#health-check-failed
+## CircuitBreaker#healthCheckFailed
 
 Emitted with the user-supplied health check function
 returns a rejected promise.
 
-Type: [Error][66]
+Type: [Error][67]
 
 ## CircuitBreaker#fallback
 
@@ -429,7 +436,7 @@ Type: any
 
 Emitted when the circuit breaker action fails
 
-Type: [Error][66]
+Type: [Error][67]
 
 ## Status
 
@@ -454,10 +461,10 @@ is determined by dividing the `rollingCountTimeout` by
 
 ### Parameters
 
--   `options` **[Object][57]** for the status window
-    -   `options.rollingCountBuckets` **[Number][58]** number of buckets in the window
-    -   `options.rollingCountTimeout` **[Number][58]** the duration of the window
-    -   `options.rollingPercentilesEnabled` **[Boolean][60]** whether to calculate
+-   `options` **[Object][58]** for the status window
+    -   `options.rollingCountBuckets` **[Number][59]** number of buckets in the window
+    -   `options.rollingCountTimeout` **[Number][59]** the duration of the window
+    -   `options.rollingPercentilesEnabled` **[Boolean][61]** whether to calculate
         percentiles
 
 ### Examples
@@ -479,20 +486,20 @@ circuit.status.window;
 
 Get the cumulative stats for the current window
 
-Type: [Object][57]
+Type: [Object][58]
 
 ### window
 
 Gets the stats window as an array of time-sliced objects.
 
-Type: [Array][67]
+Type: [Array][68]
 
 ## Status#snapshot
 
 Emitted at each time-slice. Listeners for this
 event will receive a cumulative snapshot of the current status window.
 
-Type: [Object][57]
+Type: [Object][58]
 
 ## HystrixStats
 
@@ -503,13 +510,13 @@ A HystrixStats instance is created for every [CircuitBreaker][6]
 and does not typically need to be created by a user.
 
 A HystrixStats instance will listen for all events on the
-[Status#snapshot][68]
+[Status#snapshot][69]
 and format the data to the proper Hystrix format.
 Making it easy to construct an Event Stream for a client
 
 ### Parameters
 
--   `the` **[CircuitBreaker][61]** circuit breaker
+-   `the` **[CircuitBreaker][62]** circuit breaker
 
 ### Examples
 
@@ -573,98 +580,100 @@ Returns **void**
 
 [20]: #hystrixstats
 
-[21]: #enabled
+[21]: #metrics
 
-[22]: #warmup
+[22]: #enabled
 
-[23]: #volumethreshold
+[23]: #warmup
 
-[24]: #fallback
+[24]: #volumethreshold
 
-[25]: #parameters-3
+[25]: #fallback
 
-[26]: #fire
+[26]: #parameters-3
 
-[27]: #clearcache
+[27]: #fire
 
-[28]: #healthcheck
+[28]: #clearcache
 
-[29]: #parameters-4
+[29]: #healthcheck
 
-[30]: #enable
+[30]: #parameters-4
 
-[31]: #disable
+[31]: #enable
 
-[32]: #circuitbreakerhalfopen
+[32]: #disable
 
-[33]: #circuitbreakerclose
+[33]: #circuitbreakerhalfopen
 
-[34]: #circuitbreakeropen
+[34]: #circuitbreakerclose
 
-[35]: #circuitbreakerfire
+[35]: #circuitbreakeropen
 
-[36]: #circuitbreakercachehit
+[36]: #circuitbreakerfire
 
-[37]: #circuitbreakercachemiss
+[37]: #circuitbreakercachehit
 
-[38]: #circuitbreakerreject
+[38]: #circuitbreakercachemiss
 
-[39]: #circuitbreakertimeout
+[39]: #circuitbreakerreject
 
-[40]: #circuitbreakersuccess
+[40]: #circuitbreakertimeout
 
-[41]: #circuitbreakersemaphore-locked
+[41]: #circuitbreakersuccess
 
-[42]: #circuitbreakerhealth-check-failed
+[42]: #circuitbreakersemaphorelocked
 
-[43]: #circuitbreakerfallback
+[43]: #circuitbreakerhealthcheckfailed
 
-[44]: #circuitbreakerfailure
+[44]: #circuitbreakerfallback
 
-[45]: #status-1
+[45]: #circuitbreakerfailure
 
-[46]: #parameters-5
+[46]: #status-1
 
-[47]: #examples-1
+[47]: #parameters-5
 
-[48]: #stats-1
+[48]: #examples-1
 
-[49]: #window
+[49]: #stats-1
 
-[50]: #statussnapshot
+[50]: #window
 
-[51]: #hystrixstats-1
+[51]: #statussnapshot
 
-[52]: #parameters-6
+[52]: #hystrixstats-1
 
-[53]: #examples-2
+[53]: #parameters-6
 
-[54]: #gethystrixstream
+[54]: #examples-2
 
-[55]: #shutdown-1
+[55]: #gethystrixstream
 
-[56]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[56]: #shutdown-1
 
-[57]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[57]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
-[58]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[58]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[59]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[59]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
-[60]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[60]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[61]: #circuitbreaker
+[61]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
-[62]: #status
+[62]: #circuitbreaker
 
-[63]: #hystrixstats
+[63]: #status
 
-[64]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[64]: #hystrixstats
 
-[65]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypeError
+[65]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
-[66]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error
+[66]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypeError
 
-[67]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[67]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error
 
-[68]: Status#snapshot
+[68]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+[69]: Status#snapshot

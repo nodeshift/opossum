@@ -1,6 +1,6 @@
 {
   "name": "opossum",
-  "version": "1.11.0",
+  "version": "2.0.0",
   "author": "Red Hat, Inc.",
   "license": "Apache-2.0",
   "support": {
@@ -10,8 +10,9 @@
   },
   "scripts": {
     "prebuild": "npm run lint",
-    "build": "npm run build:browser && npm run build:docs",
-    "build:browser": "webpack --config=config/webpack.config.js",
+    "build": "npm run build:browser && npm run build:node && npm run build:docs",
+    "build:node": "webpack --config=config/webpack.config.js",
+    "build:browser": "webpack --config=config/webpack.browser.config.js",
     "build:docs": "npm run build:docs:html && npm run build:docs:markdown",
     "build:docs:html": "documentation build index.js -f html -o docs --config documentation.yml",
     "build:docs:markdown": "documentation build index.js -f md -o docs/opossum.md",
@@ -21,7 +22,7 @@
     "test:browser": "opener http://localhost:9007/test/browser/index.html && serve . -p 9007",
     "coverage": "nyc report && if [ $CODACY_PROJECT_TOKEN'' != '' ] ; then nyc report --reporter=text-lcov | codacy-coverage; fi",
     "ci": "npm run build && npm run test && npm run test:headless && npm run coverage",
-    "prerelease": "npm run test:ci",
+    "prerelease": "npm run ci",
     "release": "standard-version -s",
     "lint": "standardx test/*.js index.js lib/*.js test/*/*.js",
     "clean": "rm -rf node_modules dist/*.js test/browser/webpack-test.js"
@@ -46,15 +47,15 @@
   "devDependencies": {
     "codacy-coverage": "^3.4.0",
     "coveralls": "^3.0.3",
-    "documentation": "^10.0.0",
+    "documentation": "^11.0.0",
     "nyc": "~14.1.1",
     "opener": "1.5.1",
     "serve": "^11.0.0",
-    "standard-version": "5.0.2",
+    "standard-version": "6.0.1",
     "standardx": "^3.0.1",
     "tap-spec": "~5.0.0",
     "tape": "~4.10.1",
-    "webpack": "~4.30.0",
+    "webpack": "~4.33.0",
     "webpack-cli": "~3.3.0"
   },
   "description": "A fail-fast circuit breaker for promises and callbacks",
@@ -66,5 +67,8 @@
     "breaker",
     "hystrix",
     "rate-limiting"
-  ]
+  ],
+  "dependencies": {
+    "prom-client": "^11.2.1"
+  }
 }

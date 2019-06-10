@@ -1,6 +1,47 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [2.0.0](https://github.com/nodeshift/opossum/compare/v1.11.1...v2.0.0) (2019-06-05)
+
+
+### Build System
+
+* use node 12 on ci/cd in addition to 8 and 10 ([93f8008](https://github.com/nodeshift/opossum/commit/93f8008))
+
+
+### Features
+
+* prometheus client integration ([282b467](https://github.com/nodeshift/opossum/commit/282b467))
+
+### Breaking Changes
+
+* `health-check-failed` and `semaphore-locked` events have been changed to `healthCheckFailed` and `semaphoreLocked` respectively
+
+
+### [1.11.1](https://github.com/nodeshift/opossum/compare/v1.11.0...v1.11.1) (2019-05-22)
+
+
+### Build System
+
+* don't fail coverage from untrusted forks ([194e18d](https://github.com/nodeshift/opossum/commit/194e18d))
+* remove travis-ci now that circleci is good ([9756bf5](https://github.com/nodeshift/opossum/commit/9756bf5))
+* rename the workflow to test_node_versions in circleci ([c7cc277](https://github.com/nodeshift/opossum/commit/c7cc277))
+* set circleci to ignore gh-pages branch ([23e1384](https://github.com/nodeshift/opossum/commit/23e1384))
+* set up coveralls (again); remove Makefile ([d099b45](https://github.com/nodeshift/opossum/commit/d099b45))
+* switch to standardx for linting ([4967736](https://github.com/nodeshift/opossum/commit/4967736))
+* try circleci for continuous integration ([1a77f3a](https://github.com/nodeshift/opossum/commit/1a77f3a))
+* try workflows for multiple version builds ([5e9e6c8](https://github.com/nodeshift/opossum/commit/5e9e6c8))
+* use codacy for coverage instead of coveralls ([e359ab9](https://github.com/nodeshift/opossum/commit/e359ab9))
+
+
+### Tests
+
+* generate browser/headless test suite ([2d24b35](https://github.com/nodeshift/opossum/commit/2d24b35))
+* improve circuit.shutdown() test ([6841abc](https://github.com/nodeshift/opossum/commit/6841abc))
+* switch to serve instead of http-server for browser tests ([50ccab7](https://github.com/nodeshift/opossum/commit/50ccab7))
+
+
 
 # [1.11.0](https://github.com/nodeshift/opossum/compare/v1.10.1...v1.11.0) (2019-03-14)
 

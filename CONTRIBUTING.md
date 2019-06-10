@@ -86,8 +86,8 @@ Click the 'Pull Request' button and fill out the form.
 
 These are mostly notes for myself.
 
-  * Make sure everything works: `make clean && npm install && make ci`
-  * Run standard-version: `npm run release`
+  * Be sure you are starting from a clean slate: `npm clean && npm install`
+  * Run standard-version: `npm run release` - this will run the `ci` task
   * Push to GitHub: `git push --follow-tags origin master`
   * Publish to npmjs.com: `npm publish`
   * Assuming all goes well, head over to https://github.com/nodeshift/opossum/releases

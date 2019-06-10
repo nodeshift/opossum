@@ -15,11 +15,11 @@ test('Circuits accept a health check function', t => {
   }), 10000);
 });
 
-test('health-check-failed is emitted on failure', t => {
+test('healthCheckFailed is emitted on failure', t => {
   t.plan(1);
   const circuit = opossum(common.passFail);
-  circuit.on('health-check-failed', e => {
-    t.equals(e.message, 'Too many tacos', 'health-check-failed emitted');
+  circuit.on('healthCheckFailed', e => {
+    t.equals(e.message, 'Too many tacos', 'healthCheckFailed emitted');
     circuit.shutdown();
     t.end();
   });

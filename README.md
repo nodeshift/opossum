@@ -24,7 +24,7 @@ on the web - search it! Fowler's blog post is one place to
 | Documentation:  | https://nodeshift.dev/opossum/ |
 | Typngs:         | https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/opossum
 | Issue tracker:  | https://github.com/nodeshift/opossum/issues  |
-| Engines:        | Node.js 8.x, 10.x, 11.x |
+| Engines:        | Node.js 8.x, 10.x, 11.x, 12.x |
 
 ## Usage
 
@@ -161,8 +161,8 @@ Here are the events you can listen for.
   * `close` - emitted when the breaker state changes to `closed`
   * `halfOpen` - emitted when the breaker state changes to `halfOpen`
   * `fallback` - emitted when the breaker has a fallback function and executes it
-  * `semaphore-locked` - emitted when the breaker is at capacity and cannot execute the request
-  * `health-check-failed` - emitted when a user-supplied health check function returns a rejected promise
+  * `semaphoreLocked` - emitted when the breaker is at capacity and cannot execute the request
+  * `healthCheckFailed` - emitted when a user-supplied health check function returns a rejected promise
 
 Handling events gives a greater level of control over your application behavior.
 
