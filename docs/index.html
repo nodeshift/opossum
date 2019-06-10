@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>opossum 1.11.0 | Documentation</title>
+  <title>opossum 2.0.0 | Documentation</title>
   <meta name='description' content='A fail-fast circuit breaker for promises and callbacks'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet' />
@@ -15,7 +15,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>opossum</h3>
-          <div class='mb1'><code>1.11.0</code></div>
+          <div class='mb1'><code>2.0.0</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -484,7 +484,7 @@ on the web - search it! Fowler's blog post is one place to
 </tr>
 <tr>
 <td>Engines:</td>
-<td>Node.js 8.x, 10.x, 11.x</td>
+<td>Node.js 8.x, 10.x, 11.x, 12.x</td>
 </tr>
 </tbody>
 </table>
@@ -750,8 +750,8 @@ be allowed to execute before timing out. Default 10000 (10 seconds)
                 <tr>
   <td class='break-word'><span class='code bold'>options.maxFailures</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
   </td>
-  <td class='break-word'><span>The number of times the circuit can fail
-before opening. Default 10.
+  <td class='break-word'><span>(Deprecated) The number of times the
+circuit can fail before opening. Default 10.
 </span></td>
 </tr>
 
@@ -764,6 +764,7 @@ before opening. Default 10.
 setting the breaker to 
 <code>halfOpen</code>
  state, and trying the action again.
+Default: 30000 (30 seconds)
 </span></td>
 </tr>
 
@@ -796,7 +797,8 @@ statistical window. Default: 10
                 <tr>
   <td class='break-word'><span class='code bold'>options.name</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>
   </td>
-  <td class='break-word'><span>the circuit name to use when reporting stats
+  <td class='break-word'><span>the circuit name to use when reporting stats.
+Default: the name of the function this circuit controls.
 </span></td>
 </tr>
 
@@ -822,7 +824,9 @@ If the number currently executing function calls is equal to
 options.capacity, further calls to 
 <code>fire()</code>
  are rejected until at least one
-of the current requests completes.
+of the current requests completes. Default: 
+<code>Number.MAX_SAFE_INTEGER</code>
+.
 </span></td>
 </tr>
 
@@ -833,6 +837,7 @@ of the current requests completes.
   </td>
   <td class='break-word'><span>the error percentage at
 which to open the circuit and start short-circuiting requests to fallback.
+Default: 50
 </span></td>
 </tr>
 
@@ -1086,8 +1091,8 @@ be allowed to execute before timing out. Default 10000 (10 seconds)
                 <tr>
   <td class='break-word'><span class='code bold'>options.maxFailures</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
   </td>
-  <td class='break-word'><span>The number of times the circuit can fail
-before opening. Default 10.
+  <td class='break-word'><span>(Deprecated) The number of times the
+circuit can fail before opening. Default 10.
 </span></td>
 </tr>
 
@@ -1100,6 +1105,7 @@ before opening. Default 10.
 setting the breaker to 
 <code>halfOpen</code>
  state, and trying the action again.
+Default: 30000 (30 seconds)
 </span></td>
 </tr>
 
@@ -1120,9 +1126,10 @@ metrics for the circuit breaker to use and for publishing. Default: 10000
   <td class='break-word'><span class='code bold'>options.rollingCountBuckets</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
   </td>
   <td class='break-word'><span>Sets the number of buckets the
-statistical window is divided into. So, if options.rollingCountTimeout is
-10000, and options.rollingCountBuckets is 10, the statistical window will
-be 1000 1 second snapshots in the statistical window. Default: 10
+rolling statistical window is divided into. So, if
+options.rollingCountTimeout is 10000, and options.rollingCountBuckets is 10,
+then the statistical window will be 1000 1 second snapshots in the
+statistical window. Default: 10
 </span></td>
 </tr>
 
@@ -1131,7 +1138,8 @@ be 1000 1 second snapshots in the statistical window. Default: 10
                 <tr>
   <td class='break-word'><span class='code bold'>options.name</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>
   </td>
-  <td class='break-word'><span>the circuit name to use when reporting stats
+  <td class='break-word'><span>the circuit name to use when reporting stats.
+Default: the name of the function this circuit controls.
 </span></td>
 </tr>
 
@@ -1140,10 +1148,10 @@ be 1000 1 second snapshots in the statistical window. Default: 10
                 <tr>
   <td class='break-word'><span class='code bold'>options.rollingPercentilesEnabled</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
   </td>
-  <td class='break-word'><span>indicates whether
-execution latencies should be tracked and calculated as percentiles. If they
-are disabled, all summary statistics (mean, percentiles) are returned as -1.
-Default: false
+  <td class='break-word'><span>This property indicates
+whether execution latencies should be tracked and calculated as percentiles.
+If they are disabled, all summary statistics (mean, percentiles) are
+returned as -1. Default: false
 </span></td>
 </tr>
 
@@ -1153,11 +1161,13 @@ Default: false
   <td class='break-word'><span class='code bold'>options.capacity</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
   </td>
   <td class='break-word'><span>the number of concurrent requests allowed.
-If the number currently executing functions is equal to options.capacity,
-further calls to 
+If the number currently executing function calls is equal to
+options.capacity, further calls to 
 <code>fire()</code>
- are rejected until at least one of the current
-requests completes.
+ are rejected until at least one
+of the current requests completes. Default: 
+<code>Number.MAX_SAFE_INTEGER</code>
+.
 </span></td>
 </tr>
 
@@ -1168,6 +1178,7 @@ requests completes.
   </td>
   <td class='break-word'><span>the error percentage at
 which to open the circuit and start short-circuiting requests to fallback.
+Default: 50
 </span></td>
 </tr>
 
@@ -1194,8 +1205,8 @@ without opening the circuit during a brief warmup period (this is the
 allow before enabling the circuit. This can help in situations where no
 matter what your 
 <code>errorThresholdPercentage</code>
- is, if the first execution times
-out or fails, the circuit immediately opens. Default: 0
+ is, if the first execution
+times out or fails, the circuit immediately opens. Default: 0
 </span></td>
 </tr>
 
