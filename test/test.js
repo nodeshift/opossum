@@ -799,7 +799,7 @@ test('Circuit Breaker failure event emits function parameters', t => {
   t.plan(6);
   const breaker = circuit(passFail);
   breaker.on('failure', (result, latencyTime, args) => {
-    t.ok(args, 'third argument is the latency');
+    t.ok(args, 'third argument is the function args');
     t.equal(Array.isArray(args), true, 'The args parameter is an array');
     t.equal(args[0], -1, 'this is the first argument');
     t.equal(args[1].arg1, 'arg1', 'this is the second argument object');
