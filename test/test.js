@@ -795,6 +795,23 @@ test('Circuit Breaker failure event emits latency', t => {
   breaker.fire(-1).catch(noop);
 });
 
+test('Circuit Breaker failure event emits function parameters', t => {
+  t.plan(6);
+  const breaker = circuit(passFail);
+  breaker.on('failure', (result, latencyTime, args) => {
+    t.ok(args, 'third argument is the function args');
+    t.equal(Array.isArray(args), true, 'The args parameter is an array');
+    t.equal(args[0], -1, 'this is the first argument');
+    t.equal(args[1].arg1, 'arg1', 'this is the second argument object');
+    t.equal(args[1].arg2, 'arg2', 'this is the second argument object');
+    t.equal(args[2][0], '1', 'this is the third argument');
+    breaker.shutdown();
+    t.end();
+  });
+
+  breaker.fire(-1, { arg1: 'arg1', arg2: 'arg2' }, ['1', '2']).catch(noop);
+});
+
 test('Circuit Breaker timeout event emits latency', t => {
   t.plan(1);
   const breaker = circuit(slowFunction, { timeout: 10 });
@@ -806,6 +823,24 @@ test('Circuit Breaker timeout event emits latency', t => {
   });
 
   breaker.fire(-1).catch(noop);
+});
+
+test('Circuit Breaker timeout event emits function parameters', t => {
+  t.plan(6);
+  const breaker = circuit(slowFunction, { timeout: 10 });
+
+  breaker.on('timeout', (result, latencyTime, args) => {
+    t.ok(args, 'third argument is the function args');
+    t.equal(Array.isArray(args), true, 'The args parameter is an array');
+    t.equal(args[0], -1, 'this is the first argument');
+    t.equal(args[1].arg1, 'arg1', 'this is the second argument object');
+    t.equal(args[1].arg2, 'arg2', 'this is the second argument object');
+    t.equal(args[2][0], '1', 'this is the third argument');
+    breaker.shutdown();
+    t.end();
+  });
+
+  breaker.fire(-1, {arg1: 'arg1', arg2: 'arg2'}, ['1', '2']).catch(noop);
 });
 
 test('Circuit Breaker timeout with semaphore released', t => {
