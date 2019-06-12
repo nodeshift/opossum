@@ -237,7 +237,31 @@ Typings are available [here](https://github.com/DefinitelyTyped/DefinitelyTyped/
 
 If you'd like to add them, run `npm install @types/opossum` in your project.
 
-### Hystrix Metrics
+### Metrics
+
+#### Prometheus
+Provide `{ usePrometheus: true }` in the options when creating a circuit to produce
+metrics that are consumable by Prometheus. These metrics include information about
+the circuit itself, for example how many times it has opened, as well as general Node.js
+statistics, for example event loop lag. To get consolidated metrics for all circuits in your
+application, use the `metrics()` function on the factory. 
+
+```js
+const opossum = require('opossum');
+
+// create a circuit
+const circuit = opossum(functionThatMightFail, { usePrometheus: true });
+
+// In an express app, expose the metrics to the Prometheus server
+app.use('/metrics', (req, res) => {
+  res.type('text/plain');
+  res.send(opossum.metrics());
+});
+```
+
+#### Hystrix
+
+**NOTE: Hystrix metrics are deprecated**
 
 A Hystrix Stream is available for use with a Hystrix Dashboard using the `circuitBreaker.hystrixStats.getHystrixStream` method.
 

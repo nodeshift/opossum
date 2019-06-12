@@ -4,6 +4,12 @@ const test = require('tape');
 const cb = require('../');
 const { passFail } = require('./common');
 
+test('Factory metrics func does not fail if no circuits yet', t => {
+  t.plan(1);
+  t.equal(cb.metrics(), undefined);
+  t.end();
+});
+
 test('A circuit provides prometheus metrics when not in a web env', t => {
   t.plan(1);
   const circuit = cb(passFail, {usePrometheus: true});
@@ -30,7 +36,6 @@ test('The factory function provides access to metrics for all circuits', t => {
   t.ok(/circuit_bob_/.test(cb.metrics()));
   t.end();
 });
-
 
 // All of the additional tests only make sense when running in a Node.js context
 if (!process.env.WEB) {

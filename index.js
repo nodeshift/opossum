@@ -91,8 +91,11 @@ factory.promisify = require('./lib/promisify');
  * @return {String} the metrics for all circuits
  */
 factory.metrics = function metrics() {
+  // Just get the metrics for the last circuit that was created
+  // since prom-client is additive
   const lastCircuit = circuits[circuits.length - 1];
-  if (lastCircuit.metrics) return lastCircuit.metrics.metrics;
+  if (lastCircuit && lastCircuit.metrics)
+    return lastCircuit.metrics.metrics;
 }
 
 let warningIssued = false;

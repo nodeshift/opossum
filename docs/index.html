@@ -56,6 +56,16 @@
               
                 
                 <li><a
+                  href='#factorymetrics'
+                  class="">
+                  factory.metrics
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#circuitbreaker'
                   class=" toggle-sibling">
                   CircuitBreaker
@@ -654,7 +664,25 @@ breaker.fire()
 <h3>Typings</h3>
 <p>Typings are available <a href="https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/opossum">here</a>.</p>
 <p>If you'd like to add them, run <code>npm install @types/opossum</code> in your project.</p>
-<h3>Hystrix Metrics</h3>
+<h3>Metrics</h3>
+<h4>Prometheus</h4>
+<p>Provide <code>{ usePrometheus: true }</code> in the options when creating a circuit to produce
+metrics that are consumable by Prometheus. These metrics include information about
+the circuit itself, for example how many times it has opened, as well as general Node.js
+statistics, for example event loop lag. To get consolidated metrics for all circuits in your
+application, use the <code>metrics()</code> function on the factory. </p>
+<pre class='hljs'><span class="hljs-keyword">const</span> opossum = <span class="hljs-built_in">require</span>(<span class="hljs-string">'opossum'</span>);
+
+<span class="hljs-comment">// create a circuit</span>
+<span class="hljs-keyword">const</span> circuit = opossum(functionThatMightFail, { <span class="hljs-attr">usePrometheus</span>: <span class="hljs-literal">true</span> });
+
+<span class="hljs-comment">// In an express app, expose the metrics to the Prometheus server</span>
+app.use(<span class="hljs-string">'/metrics'</span>, (req, res) =&gt; {
+  res.type(<span class="hljs-string">'text/plain'</span>);
+  res.send(opossum.metrics());
+});</pre>
+<h4>Hystrix</h4>
+<p><strong>NOTE: Hystrix metrics are deprecated</strong></p>
 <p>A Hystrix Stream is available for use with a Hystrix Dashboard using the <code>circuitBreaker.hystrixStats.getHystrixStream</code> method.</p>
 <p>This method returns a <a href="https://nodejs.org/api/stream.html">Node.js Stream</a>, which makes it easy to create an SSE stream that will be compliant with a Hystrix Dashboard.</p>
 <p>Additional Reading: <a href="https://github.com/Netflix/Hystrix/tree/master/hystrix-contrib/hystrix-metrics-event-stream">Hystrix Metrics Event Stream</a>, <a href="https://github.com/Netflix/Turbine/wiki">Turbine</a>, <a href="https://github.com/Netflix/Hystrix/wiki/Dashboard">Hystrix Dashboard</a></p>
@@ -996,6 +1024,62 @@ callback is executed.</p>
     <span class="hljs-keyword">const</span> readFilePromised = circuitBreaker.promisify(fs.readFile);
     <span class="hljs-keyword">const</span> breaker = circuitBreaker(readFilePromised);</pre>
     
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='factorymetrics'>
+      factory.metrics
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Get the Prometheus metrics for all circuits.</p>
+
+    <div class='pre p1 fill-light mt0'>factory.metrics(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>:
+        the metrics for all circuits
+
+      
+    
+  
+
+  
+
   
 
   
