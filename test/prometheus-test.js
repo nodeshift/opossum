@@ -20,6 +20,17 @@ test('Does not load Prometheus when the option is not provided', t => {
   t.end();
 });
 
+test('The factory function provides access to metrics for all circuits', t => {
+  t.plan(4);
+  const c1 = cb(passFail, { usePrometheus: true, name: 'fred' });
+  const c2 = cb(passFail, { usePrometheus: true, name: 'bob' });
+  t.equal(c1.name, 'fred');
+  t.equal(c2.name, 'bob');
+  t.ok(/circuit_fred_/.test(cb.metrics()));
+  t.ok(/circuit_bob_/.test(cb.metrics()));
+  t.end();
+});
+
 
 // All of the additional tests only make sense when running in a Node.js context
 if (!process.env.WEB) {
