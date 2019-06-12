@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/nodeshift/opossum/compare/v2.0.0...v2.1.0) (2019-06-12)
+
+
+### Features
+
+* add function to get metrics for all circuits ([#328](https://github.com/nodeshift/opossum/issues/328)) ([ff29f2e](https://github.com/nodeshift/opossum/commit/ff29f2e))
+* Add original function parameters to the failure and timeout events ([#326](https://github.com/nodeshift/opossum/issues/326)) ([f8918c4](https://github.com/nodeshift/opossum/commit/f8918c4)), closes [#324](https://github.com/nodeshift/opossum/issues/324)
+
+
+
 ## [2.0.0](https://github.com/nodeshift/opossum/compare/v1.11.1...v2.0.0) (2019-06-05)
 
 
