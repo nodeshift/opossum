@@ -21,9 +21,11 @@ test('Does not load Prometheus when the option is not provided', t => {
 });
 
 test('The factory function provides access to metrics for all circuits', t => {
-  t.plan(2);
+  t.plan(4);
   const c1 = cb(passFail, { usePrometheus: true, name: 'fred' });
   const c2 = cb(passFail, { usePrometheus: true, name: 'bob' });
+  t.equal(c1.name, 'fred');
+  t.equal(c2.name, 'bob');
   t.ok(/circuit_fred_/.test(cb.metrics()));
   t.ok(/circuit_bob_/.test(cb.metrics()));
   t.end();
