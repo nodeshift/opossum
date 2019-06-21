@@ -10,9 +10,8 @@
   },
   "scripts": {
     "prebuild": "npm run lint",
-    "build": "npm run build:browser && npm run build:node && npm run build:docs",
-    "build:node": "webpack --config=config/webpack.config.js",
-    "build:browser": "webpack --config=config/webpack.browser.config.js",
+    "build": "./test/browser/generate-index.sh && npm run build:browser && npm run build:docs",
+    "build:browser": "webpack --config=config/webpack.config.js",
     "build:docs": "npm run build:docs:html && npm run build:docs:markdown",
     "build:docs:html": "documentation build index.js -f html -o docs --config documentation.yml",
     "build:docs:markdown": "documentation build index.js -f md -o docs/opossum.md",

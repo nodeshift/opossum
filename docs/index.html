@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>opossum 2.0.0 | Documentation</title>
+  <title>opossum 2.1.0 | Documentation</title>
   <meta name='description' content='A fail-fast circuit breaker for promises and callbacks'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet' />
@@ -15,7 +15,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>opossum</h3>
-          <div class='mb1'><code>2.0.0</code></div>
+          <div class='mb1'><code>2.1.0</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -680,6 +680,23 @@ application, use the <code>metrics()</code> function on the factory. </p>
 app.use(<span class="hljs-string">'/metrics'</span>, (req, res) =&gt; {
   res.type(<span class="hljs-string">'text/plain'</span>);
   res.send(opossum.metrics());
+});</pre>
+<p>The <code>prometheusRegistry</code> option allows to provide a existing
+<a href="https://github.com/siimon/prom-client">prom-client</a> registry.
+The metrics about the circuit will be added to the provided registry instead
+of the global registry.
+The <a href="https://github.com/siimon/prom-client#default-metrics">default metrics</a>
+will not be added to the provided registry.</p>
+<pre class='hljs'><span class="hljs-keyword">const</span> opossum = <span class="hljs-built_in">require</span>(<span class="hljs-string">'opossum'</span>);
+<span class="hljs-keyword">const</span> { Registry } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'prom-client'</span>);
+
+<span class="hljs-comment">// Create a registry</span>
+<span class="hljs-keyword">const</span> prometheusRegistry = <span class="hljs-keyword">new</span> Registry();
+
+<span class="hljs-comment">// create a circuit</span>
+<span class="hljs-keyword">const</span> circuit = opossum(functionThatMightFail, {
+  <span class="hljs-attr">usePrometheus</span>: <span class="hljs-literal">true</span>,
+  prometheusRegistry
 });</pre>
 <h4>Hystrix</h4>
 <p><strong>NOTE: Hystrix metrics are deprecated</strong></p>

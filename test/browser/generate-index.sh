@@ -2,7 +2,9 @@
 
 echo $PWD
 
-file_list=$(ls -1 test/*.js)
+cd test
+file_list=$(ls -1 --ignore="*prometheus*" | grep .js)
+cd ..
 requires=""
 
 for f in $file_list ; do
