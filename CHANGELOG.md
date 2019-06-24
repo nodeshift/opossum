@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/nodeshift/opossum/compare/v2.1.0...v2.2.0) (2019-06-24)
+
+
+### Bug Fixes
+
+* ensure that including dist/opossum.js works ([#341](https://github.com/nodeshift/opossum/issues/341)) ([873deb5](https://github.com/nodeshift/opossum/commit/873deb5)), closes [/github.com/lance/elizabethan-insults/commit/ebabdf359c54090cfde31a06ad09576eeba82488#diff-23fce1009af5652674e09470cda3c008R9](https://github.com/nodeshift/opossum/issues/diff-23fce1009af5652674e09470cda3c008R9)
+
+
+### Features
+
+* add prometheusRegistry option ([#332](https://github.com/nodeshift/opossum/issues/332)) ([0056cdc](https://github.com/nodeshift/opossum/commit/0056cdc))
+
+
+
 ## [2.1.0](https://github.com/nodeshift/opossum/compare/v2.0.0...v2.1.0) (2019-06-12)
 
 
