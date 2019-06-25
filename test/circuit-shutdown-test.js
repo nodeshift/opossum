@@ -31,3 +31,26 @@ test('Circuit shuts down properly', t => {
       t.end();
     });
 });
+
+test('A list of non-shutdown circuits is maintained', t => {
+  function expectCount(iterator, count) {
+    // eslint-disable-next-line no-empty-pattern
+    for (let {} of iterator) count--;
+    return count === 0;
+  }
+
+  t.ok(expectCount(circuit.circuits(), 0));
+
+  const c1 = circuit(passFail);
+  const c2 = circuit(passFail);
+
+  t.ok(expectCount(circuit.circuits(), 2));
+
+  c2.shutdown();
+  t.ok(expectCount(circuit.circuits(), 1));
+
+  c1.shutdown();
+  t.ok(expectCount(circuit.circuits(), 0));
+
+  t.end();
+});
