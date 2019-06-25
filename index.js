@@ -64,10 +64,9 @@ const defaults = {
  * @return {CircuitBreaker} a newly created {@link CircuitBreaker} instance
  */
 function factory (action, options) {
-  const circuit = new CircuitBreaker(action,
+  lastCircuit = new CircuitBreaker(action,
     Object.assign({}, defaults, options));
-  lastCircuit = circuit;
-  return circuit;
+  return lastCircuit;
 }
 
 /**
