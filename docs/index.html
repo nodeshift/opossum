@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>opossum 2.1.0 | Documentation</title>
+  <title>opossum 2.2.0 | Documentation</title>
   <meta name='description' content='A fail-fast circuit breaker for promises and callbacks'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet' />
@@ -15,7 +15,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>opossum</h3>
-          <div class='mb1'><code>2.1.0</code></div>
+          <div class='mb1'><code>2.2.0</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -66,6 +66,16 @@
               
                 
                 <li><a
+                  href='#factorycircuits'
+                  class="">
+                  factory.circuits
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#circuitbreaker'
                   class=" toggle-sibling">
                   CircuitBreaker
@@ -73,6 +83,17 @@
                 </a>
                 
                 <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#circuitbreakercircuits'
+                        class='regular pre-open'>
+                        .circuits
+                      </a></li>
+                    
+                    </ul>
                   
                   
                     <ul class='list-reset py1-ul pl1'>
@@ -1089,7 +1110,69 @@ callback is executed.</p>
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>:
-        the metrics for all circuits
+        the metrics for all circuits or
+undefined if no circuits have been created
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='factorycircuits'>
+      factory.circuits
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Get an <code>Iterator</code> object containing all
+circuits that have been created but not subsequently shut down.</p>
+
+    <div class='pre p1 fill-light mt0'>factory.circuits(): Iterator</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>Iterator</code>:
+        an 
+<code>
+Iterator
+</code>
+ of all available circuits
 
       
     
@@ -1356,6 +1439,70 @@ trip the circuit, but still want to handle it as a failure case.
   
 
   
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='circuitbreakercircuits'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>circuits()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Gets a Set iterator of all active circuits. If a circuit
+has been created, but subsequently shut down, it will not
+be included in the Set iterator.</p>
+
+    <div class='pre p1 fill-light mt0'>circuits(): Iterator</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>Iterator</code>:
+        an Iterator object containing a reference
+to all {CircuitBreaker} instances that have been created.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
 
   
 

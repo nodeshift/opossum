@@ -1,7 +1,7 @@
 'use strict';
 
 const CircuitBreaker = require('./lib/circuit');
-const circuits = [];
+let lastCircuit;
 
 const defaults = {
   timeout: 10000, // 10 seconds
@@ -64,10 +64,9 @@ const defaults = {
  * @return {CircuitBreaker} a newly created {@link CircuitBreaker} instance
  */
 function factory (action, options) {
-  const circuit = new CircuitBreaker(action,
+  lastCircuit = new CircuitBreaker(action,
     Object.assign({}, defaults, options));
-  circuits.push(circuit);
-  return circuit;
+  return lastCircuit;
 }
 
 /**
@@ -88,14 +87,13 @@ factory.promisify = require('./lib/promisify');
 /**
  * Get the Prometheus metrics for all circuits.
  * @function factory.metrics
- * @return {String} the metrics for all circuits
+ * @return {String} the metrics for all circuits or
+ * undefined if no circuits have been created
  */
 factory.metrics = function metrics() {
   // Just get the metrics for the last circuit that was created
   // since prom-client is additive
-  const lastCircuit = circuits[circuits.length - 1];
-  if (lastCircuit && lastCircuit.metrics)
-    return lastCircuit.metrics.metrics;
+  if (lastCircuit && lastCircuit.metrics) return lastCircuit.metrics.metrics;
 }
 
 let warningIssued = false;
@@ -110,6 +108,14 @@ Object.defineProperty(factory, 'stats', {
   }
 });
 
+/**
+ * Get an <code>Iterator</code> object containing all
+ * circuits that have been created but not subsequently shut down.
+ * @function factory.circuits
+ * @return {Iterator} an <code>Iterator</code> of all available circuits
+ */
+factory.circuits = CircuitBreaker.circuits;
+  
 module.exports = exports = factory;
 // Allow use of default import syntax in TypeScript
 module.exports.default = factory;

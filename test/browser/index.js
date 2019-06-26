@@ -6,7 +6,6 @@ require('../enable-disable-test.js');
 require('../error-filter-test.js');
 require('../half-open-test.js');
 require('../health-check-test.js');
-require('../hystrix-order-test.js');
 require('../hystrix-test.js');
 require('../semaphore-test.js');
 require('../test.js');
