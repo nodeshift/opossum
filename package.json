@@ -22,9 +22,15 @@
     "coverage": "nyc report && if [ $CODACY_PROJECT_TOKEN'' != '' ] ; then nyc report --reporter=text-lcov | codacy-coverage; fi",
     "ci": "npm run build && npm run test && npm run test:headless && npm run coverage",
     "prerelease": "npm run ci",
-    "release": "standard-version -s",
+    "release": "standard-version -s -a",
     "lint": "standardx test/*.js index.js lib/*.js test/*/*.js",
     "clean": "rm -rf node_modules dist/*.js test/browser/webpack-test.js"
+  },
+  "standard-version": {
+    "scripts": {
+      "postbump": "npm run build:docs",
+      "precommit": "git add docs/"
+    }
   },
   "repository": {
     "type": "git",
