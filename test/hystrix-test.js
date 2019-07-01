@@ -2,13 +2,8 @@
 
 const test = require('tape');
 const cb = require('../');
+const HystrixStats = cb.HystrixStats;
 const { passFail } = require('./common');
-
-test('A circuit stats should be available on the creator function', t => {
-  t.plan(1);
-  t.ok(cb.stats);
-  t.end();
-});
 
 test('A circuit should provide stats to a hystrix compatible stream', t => {
   t.plan(2);
@@ -22,7 +17,8 @@ test('A circuit should provide stats to a hystrix compatible stream', t => {
     rollingCountBuckets: 1,
     name: 'circuit two'
   });
-  const stream = circuitOne.hystrixStats.getHystrixStream();
+  const hystrixStats = new HystrixStats([circuitOne, circuitTwo]);
+  const stream = hystrixStats.getHystrixStream();
   let circuitOneStatsSeen = false;
   let circuitTwoStatsSeen = false;
   stream.on('data', blob => {
