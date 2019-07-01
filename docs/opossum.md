@@ -177,9 +177,6 @@ Constructs a [CircuitBreaker][4].
         this function returns truthy, the circuit's failure statistics will not be
         incremented. This is useful, for example, when you don't want HTTP 404 to
         trip the circuit, but still want to handle it as a failure case.
-    -   `options.plugins` **[Array][61]** provide a plugin for this particular circuit.
-        The plugin will be appended to the list of global plugins defined by 
-        [factory#use][62] and be unique to this circuit breaker.
 
 ### close
 
@@ -248,7 +245,7 @@ Type: [Boolean][59]
 
 The current [Status][16] of this [CircuitBreaker][4]
 
-Type: [Status][63]
+Type: [Status][61]
 
 ### stats
 
@@ -297,7 +294,7 @@ returned promise will be rejected. If the action succeeds, the promise will
 resolve with the resolved value from action. If a fallback function was
 provided, it will be invoked in the event of any failure or timeout.
 
-Returns **[Promise][64]&lt;any>** promise resolves with the circuit function's return
+Returns **[Promise][62]&lt;any>** promise resolves with the circuit function's return
 value on success or is rejected on failure of the action.
 
 ### clearCache
@@ -325,7 +322,7 @@ circuit breaker itself.
     check function. Default: 5000 (5 seconds)
 
 
--   Throws **[TypeError][65]** if `interval` is supplied but not a number
+-   Throws **[TypeError][63]** if `interval` is supplied but not a number
 
 Returns **void** 
 
@@ -394,14 +391,14 @@ the cache, but the cache option is enabled.
 
 Emitted when the circuit breaker is open and failing fast
 
-Type: [Error][66]
+Type: [Error][64]
 
 ## CircuitBreaker#timeout
 
 Emitted when the circuit breaker action takes longer than
 `options.timeout`
 
-Type: [Error][66]
+Type: [Error][64]
 
 ## CircuitBreaker#success
 
@@ -414,14 +411,14 @@ Type: any
 Emitted when the rate limit has been reached and there
 are no more locks to be obtained.
 
-Type: [Error][66]
+Type: [Error][64]
 
 ## CircuitBreaker#healthCheckFailed
 
 Emitted with the user-supplied health check function
 returns a rejected promise.
 
-Type: [Error][66]
+Type: [Error][64]
 
 ## CircuitBreaker#fallback
 
@@ -433,7 +430,7 @@ Type: any
 
 Emitted when the circuit breaker action fails
 
-Type: [Error][66]
+Type: [Error][64]
 
 ## Status
 
@@ -489,7 +486,7 @@ Type: [Object][56]
 
 Gets the stats window as an array of time-sliced objects.
 
-Type: [Array][61]
+Type: [Array][65]
 
 ## Status#snapshot
 
@@ -507,7 +504,7 @@ A HystrixStats instance is created for every [CircuitBreaker][4]
 and does not typically need to be created by a user.
 
 A HystrixStats instance will listen for all events on the
-[Status#snapshot][67]
+[Status#snapshot][66]
 and format the data to the proper Hystrix format.
 Making it easy to construct an Event Stream for a client
 
@@ -657,16 +654,14 @@ Returns **void**
 
 [60]: #circuitbreaker
 
-[61]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[61]: #status
 
-[62]: factory#use
+[62]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
-[63]: #status
+[63]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypeError
 
-[64]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[64]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error
 
-[65]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypeError
+[65]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-[66]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error
-
-[67]: Status#snapshot
+[66]: Status#snapshot
