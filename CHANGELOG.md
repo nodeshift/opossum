@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/nodeshift/opossum/compare/v2.2.0...v2.3.0) (2019-07-01)
+
+
+### Features
+
+* provide an Iterator of all active circuits ([#344](https://github.com/nodeshift/opossum/issues/344)) ([13616b0](https://github.com/nodeshift/opossum/commit/13616b0))
+
+
+
 ## [2.2.0](https://github.com/nodeshift/opossum/compare/v2.1.0...v2.2.0) (2019-06-24)
 
 
