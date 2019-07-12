@@ -70,21 +70,6 @@ function factory (action, options) {
 }
 
 /**
- * Given a function that receives a callback as its last argument,
- * and which executes that function, passing as parameters `err` and `result`,
- * creates an action that returns a promise which resolves when the function's
- * callback is executed.
- * @function factory.promisify
- *
- * @param {Function} action A Node.js-like asynchronous function
- * @example
- *     const fs = require('fs');
- *     const readFilePromised = circuitBreaker.promisify(fs.readFile);
- *     const breaker = circuitBreaker(readFilePromised);
- */
-factory.promisify = require('./lib/promisify');
-
-/**
  * Get the Prometheus metrics for all circuits.
  * @function factory.metrics
  * @return {String} the metrics for all circuits or
@@ -115,7 +100,7 @@ Object.defineProperty(factory, 'stats', {
  * @return {Iterator} an <code>Iterator</code> of all available circuits
  */
 factory.circuits = CircuitBreaker.circuits;
-  
+
 module.exports = exports = factory;
 // Allow use of default import syntax in TypeScript
 module.exports.default = factory;
