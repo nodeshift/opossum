@@ -205,14 +205,15 @@ circuit.on('fallback',
 The `opossum` API returns a `Promise` from `CircuitBreaker.fire()`.
 But your circuit action - the async function that might fail -
 doesn't have to return a promise. You can easily turn Node.js style
-callback functions into something `opossum` understands by using
-`circuitBreaker.promisify()`.
+callback functions into something `opossum` understands by using the built in
+Node core utility function `util.promisify()` .
 
 ```javascript
 const fs = require('fs');
+const { promisify } = require('util');
 const circuitBreaker = require('opossum');
 
-const readFile = circuitBreaker.promisify(fs.readFile);
+const readFile = promisify(fs.readFile);
 const breaker = circuitBreaker(readFile, options);
 
 breaker.fire('./package.json', 'utf-8')

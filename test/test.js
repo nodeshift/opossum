@@ -2,6 +2,7 @@
 
 const browser = require('./browser/browser-tap');
 const test = require('tape');
+const {promisify} = require('util');
 const circuit = require('../');
 
 browser.enable();
@@ -9,7 +10,6 @@ browser.enable();
 test('api', t => {
   const breaker = circuit(passFail);
   t.ok(breaker, 'CircuitBreaker');
-  t.ok(circuit.promisify, 'CircuitBreaker.promisify');
   t.ok(breaker.fire, 'CircuitBreaker.fire');
   t.notOk(breaker.opened, 'CircuitBreaker.opened');
   t.notOk(breaker.halfOpen, 'CircuitBreaker.halfOpen');
@@ -167,11 +167,11 @@ test('Works with non-functions', t => {
 
 test('Works with callback functions', t => {
   t.plan(1);
-  const promisified = circuit.promisify(callbackFunction);
+  const promisified = promisify(callbackFunction);
   const breaker = circuit(promisified);
 
   breaker.fire(3, 4)
-    .then(arg => t.equals(arg, 7, 'CircuitBreaker.promisify works'))
+    .then(arg => t.equals(arg, 7, 'Works with a Promisified Callback'))
     .then(_ => breaker.shutdown())
     .then(t.end)
     .catch(t.fail);
@@ -179,7 +179,7 @@ test('Works with callback functions', t => {
 
 test('Works with callback functions that fail', t => {
   t.plan(1);
-  const promisified = circuit.promisify(failedCallbackFunction);
+  const promisified = promisify(failedCallbackFunction);
   const breaker = circuit(promisified);
 
   breaker.fire(3, 4)
