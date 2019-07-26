@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>opossum 2.3.0 | Documentation</title>
+  <title>opossum 3.0.0 | Documentation</title>
   <meta name='description' content='A fail-fast circuit breaker for promises and callbacks'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet' />
@@ -15,7 +15,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>opossum</h3>
-          <div class='mb1'><code>2.3.0</code></div>
+          <div class='mb1'><code>3.0.0</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -39,16 +39,6 @@
                   href='#factory'
                   class="">
                   factory
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#factorypromisify'
-                  class="">
-                  factory.promisify
                   
                 </a>
                 
@@ -664,12 +654,13 @@ circuit.on(<span class="hljs-string">'fallback'</span>,
 <p>The <code>opossum</code> API returns a <code>Promise</code> from <code>CircuitBreaker.fire()</code>.
 But your circuit action - the async function that might fail -
 doesn't have to return a promise. You can easily turn Node.js style
-callback functions into something <code>opossum</code> understands by using
-<code>circuitBreaker.promisify()</code>.</p>
+callback functions into something <code>opossum</code> understands by using the built in
+Node core utility function <code>util.promisify()</code> .</p>
 <pre class='hljs'><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+<span class="hljs-keyword">const</span> { promisify } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
 <span class="hljs-keyword">const</span> circuitBreaker = <span class="hljs-built_in">require</span>(<span class="hljs-string">'opossum'</span>);
 
-<span class="hljs-keyword">const</span> readFile = circuitBreaker.promisify(fs.readFile);
+<span class="hljs-keyword">const</span> readFile = promisify(fs.readFile);
 <span class="hljs-keyword">const</span> breaker = circuitBreaker(readFile, options);
 
 breaker.fire(<span class="hljs-string">'./package.json'</span>, <span class="hljs-string">'utf-8'</span>)
@@ -989,79 +980,6 @@ trip the circuit, but still want to handle it as a failure case.
 
   
 
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='factorypromisify'>
-      factory.promisify
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Given a function that receives a callback as its last argument,
-and which executes that function, passing as parameters <code>err</code> and <code>result</code>,
-creates an action that returns a promise which resolves when the function's
-callback is executed.</p>
-
-    <div class='pre p1 fill-light mt0'>factory.promisify(action: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>action</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
-	    A Node.js-like asynchronous function
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
-    <span class="hljs-keyword">const</span> readFilePromised = circuitBreaker.promisify(fs.readFile);
-    <span class="hljs-keyword">const</span> breaker = circuitBreaker(readFilePromised);</pre>
-    
   
 
   

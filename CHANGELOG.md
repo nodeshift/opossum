@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/nodeshift/opossum/compare/v2.3.0...v3.0.0) (2019-07-26)
+
+
+### src
+
+* Remove the Promisify function ([#354](https://github.com/nodeshift/opossum/issues/354)) ([86a6154](https://github.com/nodeshift/opossum/commit/86a6154)), closes [#352](https://github.com/nodeshift/opossum/issues/352)
+
+
+### BREAKING CHANGES
+
+* Remove the Promisify function from the CircuitBreaker factory
+
+* Node has its own built-in promisify function that can be used instead.
+
+
+
 ## [2.3.0](https://github.com/nodeshift/opossum/compare/v2.2.0...v2.3.0) (2019-07-01)
 
 
