@@ -73,12 +73,6 @@ function factory(action, options) {
  * @return {Iterator} an <code>Iterator</code> of all available circuits
  */
 factory.circuits = CircuitBreaker.circuits;
-
-if (!process.env.WEB) {
-  // eslint-disable-next-line max-len
-  factory.PrometheusMetrics = require('./lib/plugins/prometheus/prometheus-metrics');
-}
-factory.HystrixStats = require('./lib/plugins/hystrix/hystrix-stats');
   
 module.exports = exports = factory;
 // Allow use of default import syntax in TypeScript

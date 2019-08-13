@@ -241,55 +241,15 @@ If you'd like to add them, run `npm install @types/opossum` in your project.
 ### Metrics
 
 #### Prometheus
-Provide `{ usePrometheus: true }` in the options when creating a circuit to produce
-metrics that are consumable by Prometheus. These metrics include information about
-the circuit itself, for example how many times it has opened, as well as general Node.js
-statistics, for example event loop lag. To get consolidated metrics for all circuits in your
-application, use the `metrics()` function on the factory. 
+The [`opossum-prometheus`](https://github.com/nodeshift/opossum-prometheus) module
+can be used to produce metrics that are consumable by Prometheus.
+These metrics include information about the circuit itself, for example how many
+times it has opened, as well as general Node.js statistics, for example event loop lag.
 
-```js
-const opossum = require('opossum');
-
-// create a circuit
-const circuit = opossum(functionThatMightFail, { usePrometheus: true });
-
-// In an express app, expose the metrics to the Prometheus server
-app.use('/metrics', (req, res) => {
-  res.type('text/plain');
-  res.send(opossum.metrics());
-});
-```
-
-The `prometheusRegistry` option allows to provide a existing 
-[prom-client](https://github.com/siimon/prom-client) registry. 
-The metrics about the circuit will be added to the provided registry instead 
-of the global registry.
-The [default metrics](https://github.com/siimon/prom-client#default-metrics) 
-will not be added to the provided registry.
-
-```js
-const opossum = require('opossum');
-const { Registry } = require('prom-client');
-
-// Create a registry
-const prometheusRegistry = new Registry();
-
-// create a circuit
-const circuit = opossum(functionThatMightFail, {
-  usePrometheus: true,
-  prometheusRegistry
-});
-```
 
 #### Hystrix
-
-**NOTE: Hystrix metrics are deprecated**
-
-A Hystrix Stream is available for use with a Hystrix Dashboard using the `circuitBreaker.hystrixStats.getHystrixStream` method.
-
-This method returns a [Node.js Stream](https://nodejs.org/api/stream.html), which makes it easy to create an SSE stream that will be compliant with a Hystrix Dashboard.
-
-Additional Reading: [Hystrix Metrics Event Stream](https://github.com/Netflix/Hystrix/tree/master/hystrix-contrib/hystrix-metrics-event-stream), [Turbine](https://github.com/Netflix/Turbine/wiki), [Hystrix Dashboard](https://github.com/Netflix/Hystrix/wiki/Dashboard)
+The [`opossum-hystrix`](https://github.com/nodeshift/opossum-hystrix) module can
+be used to produce metrics that are consumable by the Hystrix Dashboard.
 
 ## Troubleshooting
 
@@ -303,7 +263,7 @@ You may run into issues related to too many listeners on an `EventEmitter` like 
 (node:25619) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 finish listeners added. Use emitter.setMaxListeners() to increase limit
 ```
 
-This typically occurs when you have created more than ten `CircuitBreaker` instances. This is due to the fact that every circuit created is adding a listener to the stream accessed via `circuit.stats.getHystrixStream()`, and the default `EventEmitter` listener limit is 10. In some cases, seeing this error might indicate a bug in client code, where many `CircuitBreaker`s are inadvertently being created. But there are legitimate scenarios where this may not be the case. For example, it could just be that you need more than 10 `CircuitBreaker`s in your app. That's ok.
+In some cases, seeing this error might indicate a bug in client code, where many `CircuitBreaker`s are inadvertently being created. But there are legitimate scenarios where this may not be the case. For example, it could just be that you need more than 10 `CircuitBreaker`s in your app. That's ok.
 
 To get around the error, you can set the number of listeners on the stream.
 
