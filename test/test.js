@@ -190,7 +190,8 @@ test('Works with callback functions that fail', t => {
 
 test('Breaker opens after a configurable number of failures', t => {
   t.plan(2);
-  const breaker = new CircuitBreaker(passFail, { errorThresholdPercentage: 10 });
+  const breaker = new CircuitBreaker(passFail,
+    { errorThresholdPercentage: 10 });
 
   breaker.fire(-1)
     .then(t.fail)
@@ -341,7 +342,8 @@ test('Returns self from fallback()', t => {
 
 test('CircuitBreaker emits failure when action throws', t => {
   t.plan(2);
-  const breaker = new CircuitBreaker(() => { throw new Error('E_TOOMANYCHICKENTACOS'); });
+  const breaker = new CircuitBreaker(
+    () => { throw new Error('E_TOOMANYCHICKENTACOS'); });
   breaker.fire()
     .then(t.fail)
     .catch(e => {
@@ -354,7 +356,8 @@ test('CircuitBreaker emits failure when action throws', t => {
 
 test('CircuitBreaker executes fallback when an action throws', t => {
   t.plan(3);
-  const breaker = new CircuitBreaker(() => { throw new Error('E_TOOMANYCHICKENTACOS'); })
+  const breaker = new CircuitBreaker(
+    () => { throw new Error('E_TOOMANYCHICKENTACOS'); })
     .fallback(() => 'Fallback executed');
   breaker.fire()
     .then(result => {
@@ -575,7 +578,8 @@ test('CircuitBreaker events', t => {
                     t.equals(timeout, 0, 'timeout event did not fire');
                   })
                   .then(() => {
-                    const timeoutBreaker = new CircuitBreaker(slowFunction, options);
+                    const timeoutBreaker = new CircuitBreaker(slowFunction,
+                      options);
                     let timedOut = false;
                     timeoutBreaker.on('timeout', () => timedOut++);
                     timeoutBreaker.fire().then(t.fail).catch(noop);
@@ -844,7 +848,8 @@ test('Circuit Breaker timeout event emits function parameters', t => {
 
 test('Circuit Breaker timeout with semaphore released', t => {
   t.plan(1);
-  const breaker = new CircuitBreaker(slowFunction, { timeout: 10, capacity: 2 });
+  const breaker = new CircuitBreaker(slowFunction,
+    { timeout: 10, capacity: 2 });
 
   breaker.on('timeout', _ => {
     t.equal(breaker.semaphore.count, breaker.options.capacity);
@@ -857,7 +862,8 @@ test('Circuit Breaker timeout with semaphore released', t => {
 
 test('CircuitBreaker semaphore rate limiting', t => {
   t.plan(2);
-  const breaker = new CircuitBreaker(timedFunction, { timeout: 300, capacity: 1 });
+  const breaker = new CircuitBreaker(timedFunction,
+    { timeout: 300, capacity: 1 });
 
   // fire once to acquire the semaphore and hold it for a long time
   breaker.fire(1000).catch(noop);

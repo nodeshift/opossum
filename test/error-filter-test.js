@@ -47,7 +47,8 @@ test('Increments failure stats if errorFilter returns false', t => {
 
 test('Increments failure stats if no filter is provided', t => {
   t.plan(3);
-  const breaker = new CircuitBreaker(mightFail, { errorThresholdPercentage: 1 });
+  const breaker = new CircuitBreaker(mightFail,
+    { errorThresholdPercentage: 1 });
   breaker.fire(500)
     .then(t.fail)
     .catch(err => {
