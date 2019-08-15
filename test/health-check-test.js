@@ -1,12 +1,12 @@
 'use strict';
 
 const test = require('tape');
-const opossum = require('../');
+const CircuitBreaker = require('../');
 const common = require('./common');
 
 test('Circuits accept a health check function', t => {
   t.plan(1);
-  const circuit = opossum(common.passFail);
+  const circuit = new CircuitBreaker(common.passFail);
   circuit.healthCheck(healthChecker(_ => {
     t.ok(true, 'function called');
     circuit.shutdown();
@@ -17,7 +17,7 @@ test('Circuits accept a health check function', t => {
 
 test('healthCheckFailed is emitted on failure', t => {
   t.plan(1);
-  const circuit = opossum(common.passFail);
+  const circuit = new CircuitBreaker(common.passFail);
   circuit.on('healthCheckFailed', e => {
     t.equals(e.message, 'Too many tacos', 'healthCheckFailed emitted');
     circuit.shutdown();
@@ -29,7 +29,7 @@ test('healthCheckFailed is emitted on failure', t => {
 
 test('circuit opens on health check failure', t => {
   t.plan(1);
-  const circuit = opossum(common.passFail);
+  const circuit = new CircuitBreaker(common.passFail);
   circuit.on('open', e => {
     t.ok(circuit.opened, 'circuit opened');
     circuit.shutdown();
@@ -42,7 +42,7 @@ test('circuit opens on health check failure', t => {
 test('Health check function executes in the circuit breaker context', t => {
   t.plan(1);
   let called = false;
-  const circuit = opossum(common.passFail);
+  const circuit = new CircuitBreaker(common.passFail);
   circuit.healthCheck(function healthCheck () {
     if (!called) {
       t.equal(this, circuit, 'health check executes in circuit context');
@@ -56,7 +56,7 @@ test('Health check function executes in the circuit breaker context', t => {
 
 test('healthCheck() throws TypeError if interval duration is NaN', t => {
   t.plan(2);
-  const circuit = opossum(common.passFail);
+  const circuit = new CircuitBreaker(common.passFail);
   try {
     circuit.healthCheck(_ => {}, 'Biscuits and gravy');
     t.fail('Circuit breaker did not throw TypeError');
@@ -71,7 +71,7 @@ test('healthCheck() throws TypeError if interval duration is NaN', t => {
 
 test('healthCheck() throws TypeError if parameter is not a function', t => {
   t.plan(2);
-  const circuit = opossum(common.passFail);
+  const circuit = new CircuitBreaker(common.passFail);
   try {
     circuit.healthCheck('Biscuits and gravy');
     t.fail('Circuit breaker did not throw TypeError');

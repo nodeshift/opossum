@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const circuit = require('..');
+const CircuitBreaker = require('..');
 const passFail = require('./common').passFail;
 
 // tests that we are not leaving listeners open to
@@ -9,7 +9,7 @@ const passFail = require('./common').passFail;
 test('EventEmitter max listeners', t => {
   let i = 100;
   while (--i >= 0) {
-    const breaker = circuit(passFail, { name: `passFail${i}` });
+    const breaker = new CircuitBreaker(passFail, { name: `passFail${i}` });
     breaker.fire(1);
     breaker.shutdown(); // required for cleanup
   }
@@ -18,7 +18,7 @@ test('EventEmitter max listeners', t => {
 
 test('Circuit shuts down properly', t => {
   t.plan(5);
-  const breaker = circuit(passFail);
+  const breaker = new CircuitBreaker(passFail);
   t.ok(breaker.fire(1), 'breaker is active');
   breaker.shutdown();
   t.ok(breaker.isShutdown, 'breaker is shutdown');
@@ -39,18 +39,18 @@ test('A list of non-shutdown circuits is maintained', t => {
     return count === 0;
   }
 
-  t.ok(expectCount(circuit.circuits(), 0));
+  t.ok(expectCount(CircuitBreaker.circuits(), 0));
 
-  const c1 = circuit(passFail);
-  const c2 = circuit(passFail);
+  const c1 = new CircuitBreaker(passFail);
+  const c2 = new CircuitBreaker(passFail);
 
-  t.ok(expectCount(circuit.circuits(), 2));
+  t.ok(expectCount(CircuitBreaker.circuits(), 2));
 
   c2.shutdown();
-  t.ok(expectCount(circuit.circuits(), 1));
+  t.ok(expectCount(CircuitBreaker.circuits(), 1));
 
   c1.shutdown();
-  t.ok(expectCount(circuit.circuits(), 0));
+  t.ok(expectCount(CircuitBreaker.circuits(), 0));
 
   t.end();
 });

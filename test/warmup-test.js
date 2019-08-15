@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const opossum = require('../');
+const CircuitBreaker = require('../');
 const { passFail } = require('./common');
 
 test('By default does not allow for warmup', t => {
@@ -11,7 +11,7 @@ test('By default does not allow for warmup', t => {
     resetTimeout: 100
   };
 
-  const breaker = opossum(passFail, options);
+  const breaker = new CircuitBreaker(passFail, options);
   breaker.fire(-1)
     .catch(e => t.equals(e, 'Error: -1 is < 0'))
     .then(() => {
@@ -31,7 +31,7 @@ test('Allows for warmup when option is provided', t => {
     allowWarmUp: true
   };
 
-  const breaker = opossum(passFail, options);
+  const breaker = new CircuitBreaker(passFail, options);
   breaker.fire(-1)
     .catch(e => t.equals(e, 'Error: -1 is < 0'))
     .then(() => {
@@ -52,7 +52,7 @@ test('Only warms up for rollingCountTimeout', t => {
     rollingCountTimeout: 500
   };
 
-  const breaker = opossum(passFail, options);
+  const breaker = new CircuitBreaker(passFail, options);
   breaker.fire(-1)
     .catch(e => t.equals(e, 'Error: -1 is < 0'))
     .then(() => {

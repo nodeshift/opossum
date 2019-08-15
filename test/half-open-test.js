@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const opossum = require('../');
+const CircuitBreaker = require('../');
 const { timedFailingFunction } = require('./common');
 
 test('When half-open, the circuit only allows one request through', t => {
@@ -11,8 +11,9 @@ test('When half-open, the circuit only allows one request through', t => {
     resetTimeout: 100
   };
 
-  const breaker = opossum(timedFailingFunction, options);
+  const breaker = new CircuitBreaker(timedFailingFunction, options);
   breaker.fire(1)
+    .then(t.fail)
     .catch(e => t.equals(e, 'Failed after 1'))
     .then(() => {
       t.ok(breaker.opened, 'should be open after initial fire');
