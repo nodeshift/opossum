@@ -1,7 +1,6 @@
 'use strict';
 
 const CircuitBreaker = require('./lib/circuit');
-let lastCircuit;
 
 const defaults = {
   timeout: 10000, // 10 seconds
@@ -60,38 +59,12 @@ const defaults = {
  * this function returns truthy, the circuit's failure statistics will not be
  * incremented. This is useful, for example, when you don't want HTTP 404 to
  * trip the circuit, but still want to handle it as a failure case.
-
  * @return {CircuitBreaker} a newly created {@link CircuitBreaker} instance
  */
-function factory (action, options) {
-  lastCircuit = new CircuitBreaker(action,
+function factory(action, options) {
+  return new CircuitBreaker(action,
     Object.assign({}, defaults, options));
-  return lastCircuit;
 }
-
-/**
- * Get the Prometheus metrics for all circuits.
- * @function factory.metrics
- * @return {String} the metrics for all circuits or
- * undefined if no circuits have been created
- */
-factory.metrics = function metrics() {
-  // Just get the metrics for the last circuit that was created
-  // since prom-client is additive
-  if (lastCircuit && lastCircuit.metrics) return lastCircuit.metrics.metrics;
-}
-
-let warningIssued = false;
-Object.defineProperty(factory, 'stats', {
-  get: _ => {
-    if (!warningIssued) {
-      warningIssued = true;
-      console.warn(`WARNING: Hystrics stats are deprecated
-      See: https://github.com/Netflix/Hystrix#dashboard`)
-    }
-    return require('./lib/hystrix-stats').stream;
-  }
-});
 
 /**
  * Get an <code>Iterator</code> object containing all
@@ -100,7 +73,7 @@ Object.defineProperty(factory, 'stats', {
  * @return {Iterator} an <code>Iterator</code> of all available circuits
  */
 factory.circuits = CircuitBreaker.circuits;
-
+  
 module.exports = exports = factory;
 // Allow use of default import syntax in TypeScript
 module.exports.default = factory;

@@ -3,7 +3,7 @@
 echo $PWD
 
 cd test
-file_list=$(ls -1 --ignore="*prometheus*" | grep .js)
+file_list=$(ls -1 | grep .js)
 cd ..
 requires=""
 

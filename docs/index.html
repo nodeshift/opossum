@@ -1,14 +1,14 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset='utf-8' />
+  <meta charset='utf-8'>
   <title>opossum 3.0.0 | Documentation</title>
   <meta name='description' content='A fail-fast circuit breaker for promises and callbacks'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
-  <link href='assets/bass.css' rel='stylesheet' />
-  <link href='assets/style.css' rel='stylesheet' />
-  <link href='assets/github.css' rel='stylesheet' />
-  <link href='assets/split.css' rel='stylesheet' />
+  <link href='assets/bass.css' rel='stylesheet'>
+  <link href='assets/style.css' rel='stylesheet'>
+  <link href='assets/github.css' rel='stylesheet'>
+  <link href='assets/split.css' rel='stylesheet'>
 </head>
 <body class='documentation m0'>
     <div class='flex'>
@@ -39,16 +39,6 @@
                   href='#factory'
                   class="">
                   factory
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#factorymetrics'
-                  class="">
-                  factory.metrics
                   
                 </a>
                 
@@ -162,18 +152,6 @@
                       </a></li>
                       
                       <li><a
-                        href='#circuitbreakerhystrixstats'
-                        class='regular pre-open'>
-                        #hystrixStats
-                      </a></li>
-                      
-                      <li><a
-                        href='#circuitbreakermetrics'
-                        class='regular pre-open'>
-                        #metrics
-                      </a></li>
-                      
-                      <li><a
                         href='#circuitbreakerenabled'
                         class='regular pre-open'>
                         #enabled
@@ -260,6 +238,16 @@
                   href='#eventcircuitbreakeropen'
                   class="">
                   CircuitBreaker#open
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventcircuitbreakershutdown'
+                  class="">
+                  CircuitBreaker#shutdown
                   
                 </a>
                 
@@ -409,40 +397,6 @@
                 
                 </li>
               
-                
-                <li><a
-                  href='#hystrixstats'
-                  class=" toggle-sibling">
-                  HystrixStats
-                  <span class='icon'>▸</span>
-                </a>
-                
-                <div class='toggle-target display-none'>
-                  
-                  
-                    <ul class='list-reset py1-ul pl1'>
-                      <li class='h5'><span>Instance members</span></li>
-                      
-                      <li><a
-                        href='#hystrixstatsgethystrixstream'
-                        class='regular pre-open'>
-                        #getHystrixStream
-                      </a></li>
-                      
-                      <li><a
-                        href='#hystrixstatsshutdown'
-                        class='regular pre-open'>
-                        #shutdown
-                      </a></li>
-                      
-                    </ul>
-                  
-                  
-                  
-                </div>
-                
-                </li>
-              
             </ul>
           </div>
           <div class='mt1 h6 quiet'>
@@ -453,15 +407,14 @@
       <div id='split-right' class='relative overflow-auto height-viewport-100'>
         
           
-            <div class='keyline-top-not py2'>
-  <section class='py2 clearfix'>
+            <div class='keyline-top-not py2'><section class='py2 clearfix'>
 
-    <h2 id='readme' class='mt0'>
-      README
-    </h2>
+  <h2 id='readme' class='mt0'>
+    README
+  </h2>
 
-    
-      <h1>opossum <a href="https://circleci.com/gh/nodeshift/opossum/tree/master"><img src="https://circleci.com/gh/nodeshift/opossum/tree/master.svg?style=svg&#x26;circle-token=0742302baa8c95cef354997ea52a383d3d078ff1" alt="CircleCI"></a></h1>
+  
+    <h1>opossum <a href="https://circleci.com/gh/nodeshift/opossum/tree/master"><img src="https://circleci.com/gh/nodeshift/opossum/tree/master.svg?style=svg&#x26;circle-token=0742302baa8c95cef354997ea52a383d3d078ff1" alt="CircleCI"></a></h1>
 <p><a href="https://www.codacy.com/app/nodeshift/opossum?utm_source=github.com&#x26;utm_medium=referral&#x26;utm_content=nodeshift/opossum&#x26;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/03f9af1e697743edbe91f8d29831a75d" alt="Codacy Badge"></a>
 <a href="https://www.codacy.com/app/nodeshift/opossum?utm_source=github.com&#x26;utm_medium=referral&#x26;utm_content=nodeshift/opossum&#x26;utm_campaign=Badge_Coverage"><img src="https://api.codacy.com/project/badge/Coverage/03f9af1e697743edbe91f8d29831a75d" alt="Codacy Badge"></a>
 <a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/nodeshift/opossum.svg" alt="Greenkeeper badge"></a>
@@ -562,9 +515,9 @@ repository for more detail.</p>
 <pre class='hljs'><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>My Super App<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">'text/javascript'</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/jquery.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">'text/javascript'</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/opossum.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">'text/javascript'</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/app.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">'text/javascript'</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/jquery.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">'text/javascript'</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/opossum.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">'text/javascript'</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/app.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
 ...
 <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
@@ -678,43 +631,13 @@ breaker.fire()
 <p>If you'd like to add them, run <code>npm install @types/opossum</code> in your project.</p>
 <h3>Metrics</h3>
 <h4>Prometheus</h4>
-<p>Provide <code>{ usePrometheus: true }</code> in the options when creating a circuit to produce
-metrics that are consumable by Prometheus. These metrics include information about
-the circuit itself, for example how many times it has opened, as well as general Node.js
-statistics, for example event loop lag. To get consolidated metrics for all circuits in your
-application, use the <code>metrics()</code> function on the factory. </p>
-<pre class='hljs'><span class="hljs-keyword">const</span> opossum = <span class="hljs-built_in">require</span>(<span class="hljs-string">'opossum'</span>);
-
-<span class="hljs-comment">// create a circuit</span>
-<span class="hljs-keyword">const</span> circuit = opossum(functionThatMightFail, { <span class="hljs-attr">usePrometheus</span>: <span class="hljs-literal">true</span> });
-
-<span class="hljs-comment">// In an express app, expose the metrics to the Prometheus server</span>
-app.use(<span class="hljs-string">'/metrics'</span>, (req, res) =&gt; {
-  res.type(<span class="hljs-string">'text/plain'</span>);
-  res.send(opossum.metrics());
-});</pre>
-<p>The <code>prometheusRegistry</code> option allows to provide a existing
-<a href="https://github.com/siimon/prom-client">prom-client</a> registry.
-The metrics about the circuit will be added to the provided registry instead
-of the global registry.
-The <a href="https://github.com/siimon/prom-client#default-metrics">default metrics</a>
-will not be added to the provided registry.</p>
-<pre class='hljs'><span class="hljs-keyword">const</span> opossum = <span class="hljs-built_in">require</span>(<span class="hljs-string">'opossum'</span>);
-<span class="hljs-keyword">const</span> { Registry } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'prom-client'</span>);
-
-<span class="hljs-comment">// Create a registry</span>
-<span class="hljs-keyword">const</span> prometheusRegistry = <span class="hljs-keyword">new</span> Registry();
-
-<span class="hljs-comment">// create a circuit</span>
-<span class="hljs-keyword">const</span> circuit = opossum(functionThatMightFail, {
-  <span class="hljs-attr">usePrometheus</span>: <span class="hljs-literal">true</span>,
-  prometheusRegistry
-});</pre>
+<p>The <a href="https://github.com/nodeshift/opossum-prometheus"><code>opossum-prometheus</code></a> module
+can be used to produce metrics that are consumable by Prometheus.
+These metrics include information about the circuit itself, for example how many
+times it has opened, as well as general Node.js statistics, for example event loop lag.</p>
 <h4>Hystrix</h4>
-<p><strong>NOTE: Hystrix metrics are deprecated</strong></p>
-<p>A Hystrix Stream is available for use with a Hystrix Dashboard using the <code>circuitBreaker.hystrixStats.getHystrixStream</code> method.</p>
-<p>This method returns a <a href="https://nodejs.org/api/stream.html">Node.js Stream</a>, which makes it easy to create an SSE stream that will be compliant with a Hystrix Dashboard.</p>
-<p>Additional Reading: <a href="https://github.com/Netflix/Hystrix/tree/master/hystrix-contrib/hystrix-metrics-event-stream">Hystrix Metrics Event Stream</a>, <a href="https://github.com/Netflix/Turbine/wiki">Turbine</a>, <a href="https://github.com/Netflix/Hystrix/wiki/Dashboard">Hystrix Dashboard</a></p>
+<p>The <a href="https://github.com/nodeshift/opossum-hystrix"><code>opossum-hystrix</code></a> module can
+be used to produce metrics that are consumable by the Hystrix Dashboard.</p>
 <h2>Troubleshooting</h2>
 <p>You may run into issues related to too many listeners on an <code>EventEmitter</code> like this.</p>
 <pre class='hljs'>(node:25619) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 10 unpipe listeners added. Use emitter.setMaxListeners() to increase <span class="hljs-built_in">limit</span>
@@ -722,14 +645,13 @@ will not be added to the provided registry.</p>
 (node:25619) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 error listeners added. Use emitter.setMaxListeners() to increase <span class="hljs-built_in">limit</span>
 (node:25619) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added. Use emitter.setMaxListeners() to increase <span class="hljs-built_in">limit</span>
 (node:25619) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 finish listeners added. Use emitter.setMaxListeners() to increase <span class="hljs-built_in">limit</span></pre>
-<p>This typically occurs when you have created more than ten <code>CircuitBreaker</code> instances. This is due to the fact that every circuit created is adding a listener to the stream accessed via <code>circuit.stats.getHystrixStream()</code>, and the default <code>EventEmitter</code> listener limit is 10. In some cases, seeing this error might indicate a bug in client code, where many <code>CircuitBreaker</code>s are inadvertently being created. But there are legitimate scenarios where this may not be the case. For example, it could just be that you need more than 10 <code>CircuitBreaker</code>s in your app. That's ok.</p>
+<p>In some cases, seeing this error might indicate a bug in client code, where many <code>CircuitBreaker</code>s are inadvertently being created. But there are legitimate scenarios where this may not be the case. For example, it could just be that you need more than 10 <code>CircuitBreaker</code>s in your app. That's ok.</p>
 <p>To get around the error, you can set the number of listeners on the stream.</p>
 <pre class='hljs'>circuit.stats.getHystrixStream().setMaxListeners(100);</pre>
 <p>Or it could be that you have a large test suite which exercises some code that creates <code>CircuitBreaker</code>s and does so repeatedly. If the <code>CircuitBreaker</code> being created is only needed for the duration of the test, use <code>circuit.shutdown()</code> when the circuit is no longer in use to clean up all listeners.</p>
 
-    
-  </section>
-</div>
+  
+</section></div>
           
         
           
@@ -973,63 +895,6 @@ trip the circuit, but still want to handle it as a failure case.
         a newly created 
 <a href="#circuitbreaker">CircuitBreaker</a>
  instance
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='factorymetrics'>
-      factory.metrics
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Get the Prometheus metrics for all circuits.</p>
-
-    <div class='pre p1 fill-light mt0'>factory.metrics(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>:
-        the metrics for all circuits or
-undefined if no circuits have been created
 
       
     
@@ -1334,7 +1199,7 @@ does not exceed this threshold, the circuit will remain closed. Default: 0
   </td>
   <td class='break-word'><span>an optional function that will be
 called when the circuit's function fails (returns a rejected Promise). If
-this function returns truthy, the circuit's failure statistics will not be
+this function returns truthy, the circuit's failPure statistics will not be
 incremented. This is useful, for example, when you don't want HTTP 404 to
 trip the circuit, but still want to handle it as a failure case.
 </span></td>
@@ -2064,110 +1929,6 @@ circuit will fail, returning a rejected promise.</p>
       </div>
     </div>
   
-    <div class='border-bottom' id='circuitbreakerhystrixstats'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>hystrixStats</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Get the hystrixStats.</p>
-
-    <div class='pre p1 fill-light mt0'>hystrixStats</div>
-  
-    <p>
-      Type:
-      <a href="#hystrixstats">HystrixStats</a>
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='circuitbreakermetrics'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>metrics</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Get the prometheus metrics for this circuit</p>
-
-    <div class='pre p1 fill-light mt0'>metrics</div>
-  
-    <p>
-      Type:
-      PrometheusMetrics
-    </p>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
     <div class='border-bottom' id='circuitbreakerenabled'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -2853,6 +2614,54 @@ successful, the circuit will be closed. Otherwise it remains open.</p>
 failed more than <code>options.maxFailures</code> number of times.</p>
 
     <div class='pre p1 fill-light mt0'>CircuitBreaker#open</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventcircuitbreakershutdown'>
+      CircuitBreaker#shutdown
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Emitted when the circuit breaker has been shut down.</p>
+
+    <div class='pre p1 fill-light mt0'>CircuitBreaker#shutdown</div>
   
   
 
@@ -3702,200 +3511,6 @@ event will receive a cumulative snapshot of the current status window.</p>
   
 
   
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='hystrixstats'>
-      HystrixStats
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>Stream Hystrix Metrics for a given <a href="#circuitbreaker">CircuitBreaker</a>.
-A HystrixStats instance is created for every <a href="#circuitbreaker">CircuitBreaker</a>
-and does not typically need to be created by a user.</p>
-<p>A HystrixStats instance will listen for all events on the
-<a href="Status#snapshot">Status#snapshot</a>
-and format the data to the proper Hystrix format.
-Making it easy to construct an Event Stream for a client</p>
-
-    <div class='pre p1 fill-light mt0'>new HystrixStats(the: <a href="#circuitbreaker">CircuitBreaker</a>)</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>the</span> <code class='quiet'>(<a href="#circuitbreaker">CircuitBreaker</a>)</code>
-	    circuit breaker
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Example</div>
-    
-      
-      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">const</span> circuit = circuitBreaker(fs.readFile, {});
-
-circuit.hystrixStats.getHystrixStream().pipe(response);</pre>
-    
-  
-
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
-    <div class="clearfix">
-  
-    <div class='border-bottom' id='hystrixstatsgethystrixstream'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>getHystrixStream()</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>A convenience function that returns the hystrixStream</p>
-
-    <div class='pre p1 fill-light mt0'>getHystrixStream(): ReadableStream</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>ReadableStream</code>:
-        the statistics stream
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-    <div class='border-bottom' id='hystrixstatsshutdown'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>shutdown()</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Shuts down this instance, freeing memory.
-When a circuit is shutdown, it should call shutdown() on
-its HystrixStats instance to avoid memory leaks.</p>
-
-    <div class='pre p1 fill-light mt0'>shutdown(): void</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>void</code>:
-        
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-</div>
 
   
 
