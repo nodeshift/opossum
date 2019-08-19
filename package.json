@@ -73,7 +73,5 @@
     "hystrix",
     "rate-limiting"
   ],
-  "dependencies": {
-    "prom-client": "^11.2.1"
-  }
+  "dependencies": {}
 }
