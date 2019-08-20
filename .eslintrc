@@ -17,7 +17,9 @@
     "no-console": ["error", {
       "allow": ["warn", "error"]
     }],
-    "valid-jsdoc": "error"
+    "valid-jsdoc": "error",
+    "semi": ["error", "always"],
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }]
   }
 
 }

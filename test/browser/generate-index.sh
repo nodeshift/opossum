@@ -9,7 +9,7 @@ requires=""
 
 for f in $file_list ; do
   echo "Processing $(basename ${f})"
-  requires=$requires"require('../$(basename ${f})');"$'\n'
+  requires=$requires$'\n'"require('../$(basename ${f})');"
 done
 
 # echo $requires

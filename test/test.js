@@ -2,7 +2,7 @@
 
 const browser = require('./browser/browser-tap');
 const test = require('tape');
-const {promisify} = require('util');
+const { promisify } = require('util');
 const CircuitBreaker = require('../');
 
 browser.enable();
@@ -742,7 +742,9 @@ Please use options.errorThresholdPercentage`;
     console.error = originalLog;
     t.end();
   };
-  new CircuitBreaker(passFail, options);
+
+  // eslint-disable-next-line no-unused-vars
+  const _ = new CircuitBreaker(passFail, options);
 });
 
 test('rolling percentile enabled option defaults to true', t => {
@@ -843,7 +845,7 @@ test('Circuit Breaker timeout event emits function parameters', t => {
     t.end();
   });
 
-  breaker.fire(-1, {arg1: 'arg1', arg2: 'arg2'}, ['1', '2']).catch(noop);
+  breaker.fire(-1, { arg1: 'arg1', arg2: 'arg2' }, ['1', '2']).catch(noop);
 });
 
 test('Circuit Breaker timeout with semaphore released', t => {
