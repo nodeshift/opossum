@@ -33,7 +33,7 @@ a network operation, or disk read, for example. Wrap those functions up in a
 `CircuitBreaker` and you have control over your destiny.
 
 ```javascript
-const circuitBreaker = require('opossum');
+const CircuitBreaker = require('opossum');
 
 function asyncFunctionThatCouldFail (x, y) {
   return new Promise((resolve, reject) => {
@@ -46,7 +46,7 @@ const options = {
   errorThresholdPercentage: 50, // When 50% of requests fail, trip the circuit
   resetTimeout: 30000 // After 30 seconds, try again.
 };
-const breaker = circuitBreaker(asyncFunctionThatCouldFail, options);
+const breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
 
 breaker.fire(params)
   .then(console.log)
@@ -60,7 +60,7 @@ event of failure. To take some action when the fallback is performed,
 listen for the `fallback` event.
 
 ```javascript
-const breaker = circuitBreaker(asyncFunctionThatCouldFail, options);
+const breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
 // if asyncFunctionThatCouldFail starts to fail, firing the breaker
 // will trigger our fallback function
 breaker.fallback(() => 'Sorry, out of service right now');
@@ -124,7 +124,7 @@ server.route({
   }
 });
 ```
-In the browser's global scope will be a `circuitBreaker` function. Use it
+In the browser's global scope will be a `CircuitBreaker` constructor. Use it
 to create circuit breakers, guarding against network failures in your REST
 API calls.
 
@@ -137,7 +137,7 @@ const circuitBreakerOptions = {
   resetTimeout: 5000
 };
 
-const circuit = circuitBreaker(() => $.get(route), circuitBreakerOptions);
+const circuit = new CircuitBreaker(() => $.get(route), circuitBreakerOptions);
 circuit.fallback(() => `${route} unavailable right now. Try later.`));
 circuit.on('success', (result) => $(element).append(JSON.stringify(result)}));
 
@@ -167,7 +167,7 @@ Here are the events you can listen for.
 Handling events gives a greater level of control over your application behavior.
 
 ```js
-const circuit = circuitBreaker(() => $.get(route), circuitBreakerOptions);
+const circuit = new CircuitBreaker(() => $.get(route), circuitBreakerOptions);
 
 circuit.fallback(() => ({ body: `${route} unavailable right now. Try later.` }));
 
@@ -211,10 +211,10 @@ Node core utility function `util.promisify()` .
 ```javascript
 const fs = require('fs');
 const { promisify } = require('util');
-const circuitBreaker = require('opossum');
+const CircuitBreaker = require('opossum');
 
 const readFile = promisify(fs.readFile);
-const breaker = circuitBreaker(readFile, options);
+const breaker = new CircuitBreaker(readFile, options);
 
 breaker.fire('./package.json', 'utf-8')
   .then(console.log)
@@ -225,7 +225,7 @@ And just for fun, your circuit doesn't even really have to be a function.
 Not sure when you'd use this - but you could if you wanted to.
 
 ```javascript
-const breaker = circuitBreaker('foo', options);
+const breaker = new CircuitBreaker('foo', options);
 
 breaker.fire()
   .then(console.log) // logs 'foo'

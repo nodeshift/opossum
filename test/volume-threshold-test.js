@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const opossum = require('../');
+const CircuitBreaker = require('../');
 const { passFail } = require('./common');
 
 test('By default does not have a volume threshold', t => {
@@ -11,7 +11,7 @@ test('By default does not have a volume threshold', t => {
     resetTimeout: 100
   };
 
-  const breaker = opossum(passFail, options);
+  const breaker = new CircuitBreaker(passFail, options);
   breaker.fire(-1)
     .catch(e => t.equals(e, 'Error: -1 is < 0'))
     .then(() => {
@@ -31,7 +31,7 @@ test('Has a volume threshold before tripping when option is provided', t => {
     volumeThreshold: 3
   };
 
-  const breaker = opossum(passFail, options);
+  const breaker = new CircuitBreaker(passFail, options);
   breaker.fire(-1)
     .then(t.fail)
     .catch(e => {
@@ -73,7 +73,7 @@ test('volume threshold does not affect halfOpen state', t => {
     volumeThreshold: 2
   };
 
-  const breaker = opossum(passFail, options);
+  const breaker = new CircuitBreaker(passFail, options);
   breaker.fire(-1)
     .then(t.fail)
     .catch(_ => {

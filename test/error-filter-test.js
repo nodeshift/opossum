@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const opossum = require('../');
+const CircuitBreaker = require('../');
 
 function mightFail (errorCode) {
   const err = new Error('Something went wrong');
@@ -20,7 +20,7 @@ const options = {
 test('Bypasses failure stats if errorFilter returns true', t => {
   t.plan(3);
 
-  const breaker = opossum(mightFail, options);
+  const breaker = new CircuitBreaker(mightFail, options);
   breaker.fire(400)
     .then(t.fail)
     .catch(err => {
@@ -34,7 +34,7 @@ test('Bypasses failure stats if errorFilter returns true', t => {
 test('Increments failure stats if errorFilter returns false', t => {
   t.plan(3);
 
-  const breaker = opossum(mightFail, options);
+  const breaker = new CircuitBreaker(mightFail, options);
   breaker.fire(500)
     .then(t.fail)
     .catch(err => {
@@ -47,7 +47,8 @@ test('Increments failure stats if errorFilter returns false', t => {
 
 test('Increments failure stats if no filter is provided', t => {
   t.plan(3);
-  const breaker = opossum(mightFail, { errorThresholdPercentage: 1 });
+  const breaker = new CircuitBreaker(mightFail,
+    { errorThresholdPercentage: 1 });
   breaker.fire(500)
     .then(t.fail)
     .catch(err => {
