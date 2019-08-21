@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/nodeshift/opossum/compare/v3.0.0...v3.1.0) (2019-08-21)
+
+
+### Features
+
+* refactor Prometheus and Hystrix metrics ([#350](https://github.com/nodeshift/opossum/issues/350)) ([3adbb90](https://github.com/nodeshift/opossum/commit/3adbb90))
+
 ## [3.0.0](https://github.com/nodeshift/opossum/compare/v2.3.0...v3.0.0) (2019-07-26)
 
 
