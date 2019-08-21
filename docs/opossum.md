@@ -27,27 +27,26 @@
         -   [Parameters][23]
     -   [enable][24]
     -   [disable][25]
-    -   [circuits][26]
--   [CircuitBreaker#halfOpen][27]
--   [CircuitBreaker#close][28]
--   [CircuitBreaker#open][29]
--   [CircuitBreaker#shutdown][30]
--   [CircuitBreaker#fire][31]
--   [CircuitBreaker#cacheHit][32]
--   [CircuitBreaker#cacheMiss][33]
--   [CircuitBreaker#reject][34]
--   [CircuitBreaker#timeout][35]
--   [CircuitBreaker#success][36]
--   [CircuitBreaker#semaphoreLocked][37]
--   [CircuitBreaker#healthCheckFailed][38]
--   [CircuitBreaker#fallback][39]
--   [CircuitBreaker#failure][40]
--   [Status][41]
-    -   [Parameters][42]
-    -   [Examples][43]
-    -   [stats][44]
-    -   [window][45]
--   [Status#snapshot][46]
+-   [CircuitBreaker#halfOpen][26]
+-   [CircuitBreaker#close][27]
+-   [CircuitBreaker#open][28]
+-   [CircuitBreaker#shutdown][29]
+-   [CircuitBreaker#fire][30]
+-   [CircuitBreaker#cacheHit][31]
+-   [CircuitBreaker#cacheMiss][32]
+-   [CircuitBreaker#reject][33]
+-   [CircuitBreaker#timeout][34]
+-   [CircuitBreaker#success][35]
+-   [CircuitBreaker#semaphoreLocked][36]
+-   [CircuitBreaker#healthCheckFailed][37]
+-   [CircuitBreaker#fallback][38]
+-   [CircuitBreaker#failure][39]
+-   [Status][40]
+    -   [Parameters][41]
+    -   [Examples][42]
+    -   [stats][43]
+    -   [window][44]
+-   [Status#snapshot][45]
 
 ## CircuitBreaker
 
@@ -57,50 +56,50 @@ Constructs a [CircuitBreaker][1].
 
 ### Parameters
 
--   `action` **[Function][47]** The action to fire for this [CircuitBreaker][1]
--   `options` **[Object][48]** Options for the [CircuitBreaker][1]
-    -   `options.timeout` **[Number][49]** The time in milliseconds that action should
+-   `action` **[Function][46]** The action to fire for this [CircuitBreaker][1]
+-   `options` **[Object][47]** Options for the [CircuitBreaker][1]
+    -   `options.timeout` **[Number][48]** The time in milliseconds that action should
         be allowed to execute before timing out. Default 10000 (10 seconds)
-    -   `options.maxFailures` **[Number][49]** (Deprecated) The number of times the
+    -   `options.maxFailures` **[Number][48]** (Deprecated) The number of times the
         circuit can fail before opening. Default 10.
-    -   `options.resetTimeout` **[Number][49]** The time in milliseconds to wait before
+    -   `options.resetTimeout` **[Number][48]** The time in milliseconds to wait before
         setting the breaker to `halfOpen` state, and trying the action again.
         Default: 30000 (30 seconds)
-    -   `options.rollingCountTimeout` **[Number][49]** Sets the duration of the
+    -   `options.rollingCountTimeout` **[Number][48]** Sets the duration of the
         statistical rolling window, in milliseconds. This is how long Opossum keeps
         metrics for the circuit breaker to use and for publishing. Default: 10000
-    -   `options.rollingCountBuckets` **[Number][49]** Sets the number of buckets the
+    -   `options.rollingCountBuckets` **[Number][48]** Sets the number of buckets the
         rolling statistical window is divided into. So, if
         options.rollingCountTimeout is 10000, and options.rollingCountBuckets is 10,
         then the statistical window will be 1000 1 second snapshots in the
         statistical window. Default: 10
-    -   `options.name` **[String][50]** the circuit name to use when reporting stats.
+    -   `options.name` **[String][49]** the circuit name to use when reporting stats.
         Default: the name of the function this circuit controls.
-    -   `options.rollingPercentilesEnabled` **[boolean][51]** This property indicates
+    -   `options.rollingPercentilesEnabled` **[boolean][50]** This property indicates
         whether execution latencies should be tracked and calculated as percentiles.
         If they are disabled, all summary statistics (mean, percentiles) are
         returned as -1. Default: false
-    -   `options.capacity` **[Number][49]** the number of concurrent requests allowed.
+    -   `options.capacity` **[Number][48]** the number of concurrent requests allowed.
         If the number currently executing function calls is equal to
         options.capacity, further calls to `fire()` are rejected until at least one
         of the current requests completes. Default: `Number.MAX_SAFE_INTEGER`.
-    -   `options.errorThresholdPercentage` **[Number][49]** the error percentage at
+    -   `options.errorThresholdPercentage` **[Number][48]** the error percentage at
         which to open the circuit and start short-circuiting requests to fallback.
         Default: 50
-    -   `options.enabled` **[boolean][51]** whether this circuit is enabled upon
+    -   `options.enabled` **[boolean][50]** whether this circuit is enabled upon
         construction. Default: true
-    -   `options.allowWarmUp` **[boolean][51]** determines whether to allow failures
+    -   `options.allowWarmUp` **[boolean][50]** determines whether to allow failures
         without opening the circuit during a brief warmup period (this is the
         `rollingCountDuration` property). Default: false
         allow before enabling the circuit. This can help in situations where no
         matter what your `errorThresholdPercentage` is, if the first execution
         times out or fails, the circuit immediately opens. Default: 0
-    -   `options.volumeThreshold` **[Number][49]** the minimum number of requests within
+    -   `options.volumeThreshold` **[Number][48]** the minimum number of requests within
         the rolling statistical window that must exist before the circuit breaker
         can open. This is similar to `options.allowWarmUp` in that no matter how many
         failures there are, if the number of requests within the statistical window
         does not exceed this threshold, the circuit will remain closed. Default: 0
-    -   `options.errorFilter` **[Function][47]** an optional function that will be
+    -   `options.errorFilter` **[Function][46]** an optional function that will be
         called when the circuit's function fails (returns a rejected Promise). If
         this function returns truthy, the circuit's failPure statistics will not be
         incremented. This is useful, for example, when you don't want HTTP 404 to
@@ -131,49 +130,49 @@ Returns **void**
 
 Determines if the circuit has been shutdown.
 
-Type: [Boolean][51]
+Type: [Boolean][50]
 
 ### name
 
 Gets the name of this circuit
 
-Type: [String][50]
+Type: [String][49]
 
 ### group
 
 Gets the name of this circuit group
 
-Type: [String][50]
+Type: [String][49]
 
 ### pendingClose
 
 Gets whether this cicruit is in the `pendingClosed` state
 
-Type: [Boolean][51]
+Type: [Boolean][50]
 
 ### closed
 
 True if the circuit is currently closed. False otherwise.
 
-Type: [Boolean][51]
+Type: [Boolean][50]
 
 ### opened
 
 True if the circuit is currently opened. False otherwise.
 
-Type: [Boolean][51]
+Type: [Boolean][50]
 
 ### halfOpen
 
 True if the circuit is currently half opened. False otherwise.
 
-Type: [Boolean][51]
+Type: [Boolean][50]
 
 ### status
 
 The current [Status][13] of this [CircuitBreaker][1]
 
-Type: [Status][52]
+Type: [Status][51]
 
 ### stats
 
@@ -181,25 +180,25 @@ Type: [Status][52]
 
 Get the current stats for the circuit.
 
-Type: [Object][48]
+Type: [Object][47]
 
 ### enabled
 
 Gets whether the circuit is enabled or not
 
-Type: [Boolean][51]
+Type: [Boolean][50]
 
 ### warmUp
 
 Gets whether the circuit is currently in warm up phase
 
-Type: [Boolean][51]
+Type: [Boolean][50]
 
 ### volumeThreshold
 
 Gets the volume threshold for this circuit
 
-Type: [Boolean][51]
+Type: [Boolean][50]
 
 ### fallback
 
@@ -210,10 +209,10 @@ a rejected Promise.
 
 #### Parameters
 
--   `func` **([Function][47] \| [CircuitBreaker][53])** the fallback function to execute
+-   `func` **([Function][46] \| [CircuitBreaker][52])** the fallback function to execute
     when the breaker has opened or when a timeout or error occurs.
 
-Returns **[CircuitBreaker][53]** this
+Returns **[CircuitBreaker][52]** this
 
 ### fire
 
@@ -222,7 +221,7 @@ returned promise will be rejected. If the action succeeds, the promise will
 resolve with the resolved value from action. If a fallback function was
 provided, it will be invoked in the event of any failure or timeout.
 
-Returns **[Promise][54]&lt;any>** promise resolves with the circuit function's return
+Returns **[Promise][53]&lt;any>** promise resolves with the circuit function's return
 value on success or is rejected on failure of the action.
 
 ### clearCache
@@ -245,12 +244,12 @@ circuit breaker itself.
 
 #### Parameters
 
--   `func` **[Function][47]** a health check function which returns a promise.
--   `interval` **[Number][49]?** the amount of time between calls to the health
+-   `func` **[Function][46]** a health check function which returns a promise.
+-   `interval` **[Number][48]?** the amount of time between calls to the health
     check function. Default: 5000 (5 seconds)
 
 
--   Throws **[TypeError][55]** if `interval` is supplied but not a number
+-   Throws **[TypeError][54]** if `interval` is supplied but not a number
 
 Returns **void** 
 
@@ -269,22 +268,13 @@ to be executed without circuit or fallback protection.
 
 Returns **void** 
 
-### circuits
-
-Gets a Set iterator of all active circuits. If a circuit
-has been created, but subsequently shut down, it will not
-be included in the Set iterator.
-
-Returns **Iterator** an Iterator object containing a reference
-to all {CircuitBreaker} instances that have been created.
-
 ## CircuitBreaker#halfOpen
 
 Emitted after `options.resetTimeout` has elapsed, allowing for
 a single attempt to call the service again. If that attempt is
 successful, the circuit will be closed. Otherwise it remains open.
 
-Type: [Number][49]
+Type: [Number][48]
 
 ## CircuitBreaker#close
 
@@ -319,14 +309,14 @@ the cache, but the cache option is enabled.
 
 Emitted when the circuit breaker is open and failing fast
 
-Type: [Error][56]
+Type: [Error][55]
 
 ## CircuitBreaker#timeout
 
 Emitted when the circuit breaker action takes longer than
 `options.timeout`
 
-Type: [Error][56]
+Type: [Error][55]
 
 ## CircuitBreaker#success
 
@@ -339,14 +329,14 @@ Type: any
 Emitted when the rate limit has been reached and there
 are no more locks to be obtained.
 
-Type: [Error][56]
+Type: [Error][55]
 
 ## CircuitBreaker#healthCheckFailed
 
 Emitted with the user-supplied health check function
 returns a rejected promise.
 
-Type: [Error][56]
+Type: [Error][55]
 
 ## CircuitBreaker#fallback
 
@@ -358,7 +348,7 @@ Type: any
 
 Emitted when the circuit breaker action fails
 
-Type: [Error][56]
+Type: [Error][55]
 
 ## Status
 
@@ -383,10 +373,10 @@ is determined by dividing the `rollingCountTimeout` by
 
 ### Parameters
 
--   `options` **[Object][48]** for the status window
-    -   `options.rollingCountBuckets` **[Number][49]** number of buckets in the window
-    -   `options.rollingCountTimeout` **[Number][49]** the duration of the window
-    -   `options.rollingPercentilesEnabled` **[Boolean][51]** whether to calculate
+-   `options` **[Object][47]** for the status window
+    -   `options.rollingCountBuckets` **[Number][48]** number of buckets in the window
+    -   `options.rollingCountTimeout` **[Number][48]** the duration of the window
+    -   `options.rollingPercentilesEnabled` **[Boolean][50]** whether to calculate
         percentiles
 
 ### Examples
@@ -408,20 +398,20 @@ circuit.status.window;
 
 Get the cumulative stats for the current window
 
-Type: [Object][48]
+Type: [Object][47]
 
 ### window
 
 Gets the stats window as an array of time-sliced objects.
 
-Type: [Array][57]
+Type: [Array][56]
 
 ## Status#snapshot
 
 Emitted at each time-slice. Listeners for this
 event will receive a cumulative snapshot of the current status window.
 
-Type: [Object][48]
+Type: [Object][47]
 
 [1]: #circuitbreaker
 
@@ -473,66 +463,64 @@ Type: [Object][48]
 
 [25]: #disable
 
-[26]: #circuits
+[26]: #circuitbreakerhalfopen
 
-[27]: #circuitbreakerhalfopen
+[27]: #circuitbreakerclose
 
-[28]: #circuitbreakerclose
+[28]: #circuitbreakeropen
 
-[29]: #circuitbreakeropen
+[29]: #circuitbreakershutdown
 
-[30]: #circuitbreakershutdown
+[30]: #circuitbreakerfire
 
-[31]: #circuitbreakerfire
+[31]: #circuitbreakercachehit
 
-[32]: #circuitbreakercachehit
+[32]: #circuitbreakercachemiss
 
-[33]: #circuitbreakercachemiss
+[33]: #circuitbreakerreject
 
-[34]: #circuitbreakerreject
+[34]: #circuitbreakertimeout
 
-[35]: #circuitbreakertimeout
+[35]: #circuitbreakersuccess
 
-[36]: #circuitbreakersuccess
+[36]: #circuitbreakersemaphorelocked
 
-[37]: #circuitbreakersemaphorelocked
+[37]: #circuitbreakerhealthcheckfailed
 
-[38]: #circuitbreakerhealthcheckfailed
+[38]: #circuitbreakerfallback
 
-[39]: #circuitbreakerfallback
+[39]: #circuitbreakerfailure
 
-[40]: #circuitbreakerfailure
+[40]: #status-1
 
-[41]: #status-1
+[41]: #parameters-3
 
-[42]: #parameters-3
+[42]: #examples
 
-[43]: #examples
+[43]: #stats-1
 
-[44]: #stats-1
+[44]: #window
 
-[45]: #window
+[45]: #statussnapshot
 
-[46]: #statussnapshot
+[46]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
 
-[47]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function
+[47]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
-[48]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[48]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
 
-[49]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[49]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
-[50]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[50]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
 
-[51]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean
+[51]: #status
 
-[52]: #status
+[52]: #circuitbreaker
 
-[53]: #circuitbreaker
+[53]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
-[54]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise
+[54]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypeError
 
-[55]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypeError
+[55]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error
 
-[56]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error
-
-[57]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array
+[56]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array

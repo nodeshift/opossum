@@ -44,17 +44,6 @@
                 
                 <div class='toggle-target display-none'>
                   
-                  <ul class='list-reset py1-ul pl1'>
-                    <li class='h5'><span>Static members</span></li>
-                    
-                      <li><a
-                        href='#circuitbreakercircuits'
-                        class='regular pre-open'>
-                        .circuits
-                      </a></li>
-                    
-                    </ul>
-                  
                   
                     <ul class='list-reset py1-ul pl1'>
                       <li class='h5'><span>Instance members</span></li>
@@ -517,7 +506,7 @@ server.route({
     }
   }
 });</pre>
-<p>In the browser's global scope will be a <code>circuitBreaker</code> function. Use it
+<p>In the browser's global scope will be a <code>CircuitBreaker</code> constructor. Use it
 to create circuit breakers, guarding against network failures in your REST
 API calls.</p>
 <pre class='hljs'><span class="hljs-comment">// app.js</span>
@@ -528,7 +517,7 @@ API calls.</p>
   <span class="hljs-attr">resetTimeout</span>: <span class="hljs-number">5000</span>
 };
 
-<span class="hljs-keyword">const</span> circuit = circuitBreaker(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> $.<span class="hljs-keyword">get</span>(route), circuitBreakerOptions);
+<span class="hljs-keyword">const</span> circuit = <span class="hljs-keyword">new</span> CircuitBreaker(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> $.<span class="hljs-keyword">get</span>(route), circuitBreakerOptions);
 circuit.fallback(() =&gt; `${route} unavailable right now. Try later.<span class="hljs-string">`));
 circuit.on('success', (result) =&gt; $(element).append(JSON.stringify(result)}));
 
@@ -552,7 +541,7 @@ Here are the events you can listen for.</p>
 <li><code>healthCheckFailed</code> - emitted when a user-supplied health check function returns a rejected promise</li>
 </ul>
 <p>Handling events gives a greater level of control over your application behavior.</p>
-<pre class='hljs'><span class="hljs-keyword">const</span> circuit = circuitBreaker(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> $.<span class="hljs-keyword">get</span>(route), circuitBreakerOptions);
+<pre class='hljs'><span class="hljs-keyword">const</span> circuit = <span class="hljs-keyword">new</span> CircuitBreaker(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> $.<span class="hljs-keyword">get</span>(route), circuitBreakerOptions);
 
 circuit.fallback(() =&gt; ({ body: <span class="hljs-string">`<span class="hljs-subst">${route}</span> unavailable right now. Try later.`</span> }));
 
@@ -591,17 +580,17 @@ callback functions into something <code>opossum</code> understands by using the 
 Node core utility function <code>util.promisify()</code> .</p>
 <pre class='hljs'><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
 <span class="hljs-keyword">const</span> { promisify } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'util'</span>);
-<span class="hljs-keyword">const</span> circuitBreaker = <span class="hljs-built_in">require</span>(<span class="hljs-string">'opossum'</span>);
+<span class="hljs-keyword">const</span> CircuitBreaker = <span class="hljs-built_in">require</span>(<span class="hljs-string">'opossum'</span>);
 
 <span class="hljs-keyword">const</span> readFile = promisify(fs.readFile);
-<span class="hljs-keyword">const</span> breaker = circuitBreaker(readFile, options);
+<span class="hljs-keyword">const</span> breaker = <span class="hljs-keyword">new</span> CircuitBreaker(readFile, options);
 
 breaker.fire(<span class="hljs-string">'./package.json'</span>, <span class="hljs-string">'utf-8'</span>)
   .then(<span class="hljs-built_in">console</span>.log)
   .catch(<span class="hljs-built_in">console</span>.error);</pre>
 <p>And just for fun, your circuit doesn't even really have to be a function.
 Not sure when you'd use this - but you could if you wanted to.</p>
-<pre class='hljs'><span class="hljs-keyword">const</span> breaker = circuitBreaker(<span class="hljs-string">'foo'</span>, options);
+<pre class='hljs'><span class="hljs-keyword">const</span> breaker = <span class="hljs-keyword">new</span> CircuitBreaker(<span class="hljs-string">'foo'</span>, options);
 
 breaker.fire()
   .then(<span class="hljs-built_in">console</span>.log) <span class="hljs-comment">// logs 'foo'</span>
@@ -880,70 +869,6 @@ trip the circuit, but still want to handle it as a failure case.
   
 
   
-
-  
-    <div class='py1 quiet mt1 prose-big'>Static Members</div>
-    <div class="clearfix">
-  
-    <div class='border-bottom' id='circuitbreakercircuits'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>circuits()</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-
-  <p>Gets a Set iterator of all active circuits. If a circuit
-has been created, but subsequently shut down, it will not
-be included in the Set iterator.</p>
-
-    <div class='pre p1 fill-light mt0'>circuits(): Iterator</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code>Iterator</code>:
-        an Iterator object containing a reference
-to all {CircuitBreaker} instances that have been created.
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-      </div>
-    </div>
-  
-</div>
 
   
 
