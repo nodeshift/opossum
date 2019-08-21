@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [4.0.0](https://github.com/nodeshift/opossum/compare/v3.1.0...v4.0.0) (2019-08-21)
 
+### Breaking Changes
+
+* The factory function has been removed in favor of simply using the `CircuitBreaker` constructor.
+* Prometheus and Hystrix metrics have been moved into their own repositories.
+* We no longer keep a set of all circuits
+
 ## [3.1.0](https://github.com/nodeshift/opossum/compare/v3.0.0...v3.1.0) (2019-08-21)
 
 
