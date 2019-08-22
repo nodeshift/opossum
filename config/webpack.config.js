@@ -20,7 +20,6 @@ configs.push({
     extensions: ['*', '.js']
   },
   plugins: [
-    new webpack.IgnorePlugin(/prom-client/),
     new webpack.DefinePlugin({
       'process.env': {
         WEB: JSON.stringify('web')
@@ -34,13 +33,13 @@ function generateConfig (name) {
   const config = {
     mode,
     entry: {
-      circuitBreaker: './index.js'
+      CircuitBreaker: './index.js'
     },
     output: {
       path: path.resolve(__dirname, '..', 'dist'),
       filename: `${name}.js`,
       sourceMapFilename: `${name}.map`,
-      library: 'circuitBreaker',
+      library: 'CircuitBreaker',
       libraryTarget: 'umd'
     },
     node: {
@@ -48,9 +47,8 @@ function generateConfig (name) {
       console: true
     },
     plugins: [
-      new webpack.IgnorePlugin(/prom-client/),
       new webpack.ProvidePlugin({
-        'circuitBreaker': 'opossum'
+        'CircuitBreaker': 'opossum'
       }),
       new webpack.DefinePlugin({
         'process.env': {
