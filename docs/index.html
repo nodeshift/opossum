@@ -854,6 +854,25 @@ trip the circuit, but still want to handle it as a failure case.
 
 
               
+                <tr>
+  <td class='break-word'><span class='code bold'>options.cache</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
+  </td>
+  <td class='break-word'><span>whether the return value of the first
+successful execution of the circuit's function will be cached. Once a value
+has been cached that value will be returned for every subsequent execution:
+the cache can be cleared using 
+<code>clearCache</code>
+. (The metrics 
+<code>cacheHit</code>
+ and
+
+<code>cacheMiss</code>
+ reflect cache activity.) Default: false
+</span></td>
+</tr>
+
+
+              
             </tbody>
           </table>
           

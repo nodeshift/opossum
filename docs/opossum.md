@@ -104,6 +104,11 @@ Constructs a [CircuitBreaker][1].
         this function returns truthy, the circuit's failPure statistics will not be
         incremented. This is useful, for example, when you don't want HTTP 404 to
         trip the circuit, but still want to handle it as a failure case.
+    -   `options.cache` **[boolean][50]** whether the return value of the first
+        successful execution of the circuit's function will be cached. Once a value
+        has been cached that value will be returned for every subsequent execution:
+        the cache can be cleared using `clearCache`. (The metrics `cacheHit` and
+        `cacheMiss` reflect cache activity.) Default: false
 
 ### close
 
