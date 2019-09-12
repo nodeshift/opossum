@@ -60,7 +60,7 @@
     "standardx": "^5.0.0",
     "tap-spec": "~5.0.0",
     "tape": "~4.11.0",
-    "webpack": "~4.39.0",
+    "webpack": "~4.40.0",
     "webpack-cli": "~3.3.0"
   },
   "description": "A fail-fast circuit breaker for promises and callbacks",
