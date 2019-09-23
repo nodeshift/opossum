@@ -23,7 +23,7 @@ test('Allows applying a "this" context', t => {
       t.equal(lunch, 'tacos');
     })
     .then(_ => {
-      circuit.apply(context)
+      circuit.call(context)
         .then(lunch => {
           t.equal(lunch, 'sushi');
           t.end();
@@ -38,7 +38,7 @@ test('The "this" context is used even when circuit is disabled', t => {
   t.plan(1);
   const circuit = new CircuitBreaker(getLunch);
   circuit.disable();
-  circuit.apply(context)
+  circuit.call(context)
     .then(lunch => {
       t.equal(lunch, 'sushi');
       t.end();
@@ -50,7 +50,7 @@ test('The "this" context is used even when circuit is disabled', t => {
 test('The apply() method correctly passes arguments', t => {
   t.plan(1);
   const circuit = new CircuitBreaker(getLunch);
-  circuit.apply(context, 'burgers')
+  circuit.call(context, 'burgers')
     .then(lunch => {
       t.equal(lunch, 'burgers');
       t.end();

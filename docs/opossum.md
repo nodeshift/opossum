@@ -23,7 +23,7 @@
         -   [Parameters][19]
     -   [fire][20]
         -   [Parameters][21]
-    -   [apply][22]
+    -   [call][22]
         -   [Parameters][23]
     -   [clearCache][24]
     -   [healthCheck][25]
@@ -239,7 +239,7 @@ function.
 Returns **[Promise][56]&lt;any>** promise resolves with the circuit function's return
 value on success or is rejected on failure of the action.
 
-### apply
+### call
 
 Execute the action for this circuit using `context` as `this`.
 If the action fails or times out, the
@@ -489,7 +489,7 @@ Type: [Object][50]
 
 [21]: #parameters-2
 
-[22]: #apply
+[22]: #call
 
 [23]: #parameters-3
 

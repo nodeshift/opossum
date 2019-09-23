@@ -151,9 +151,9 @@
                       </a></li>
                       
                       <li><a
-                        href='#circuitbreakerapply'
+                        href='#circuitbreakercall'
                         class='regular pre-open'>
-                        #apply
+                        #call
                       </a></li>
                       
                       <li><a
@@ -1840,11 +1840,11 @@ value on success or is rejected on failure of the action.
       </div>
     </div>
   
-    <div class='border-bottom' id='circuitbreakerapply'>
+    <div class='border-bottom' id='circuitbreakercall'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>apply(context, rest)</span>
+            <span class='code strong strong truncate'>call(context, rest)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -1860,7 +1860,7 @@ provided, it will be invoked in the event of any failure or timeout.</p>
 <p>Any parameters in addition to `context will be passed to the
 circuit function.</p>
 
-    <div class='pre p1 fill-light mt0'>apply(context: any, rest: ...any): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;any></div>
+    <div class='pre p1 fill-light mt0'>call(context: any, rest: ...any): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;any></div>
   
   
 
