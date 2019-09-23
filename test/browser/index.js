@@ -3,6 +3,7 @@
 
 require('../circuit-shutdown-test.js');
 require('../common.js');
+require('../context-test.js');
 require('../enable-disable-test.js');
 require('../error-filter-test.js');
 require('../half-open-test.js');
