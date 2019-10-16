@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.1.0](https://github.com/nodeshift/opossum/compare/v4.0.0...v4.1.0) (2019-10-16)
+
+
+### Features
+
+* add call() method to CircuitBreaker ([#374](https://github.com/nodeshift/opossum/issues/374)) ([ef05d2b](https://github.com/nodeshift/opossum/commit/ef05d2b))
+
 ## [4.0.0](https://github.com/nodeshift/opossum/compare/v3.1.0...v4.0.0) (2019-08-21)
 
 ### Breaking Changes
