@@ -209,7 +209,11 @@ test('Breaker opens after a configurable number of failures', t => {
         .then(t.fail)
         .catch(e => {
           t.equals(e.message, 'Breaker is open', 'breaker opens');
-          t.equals(CircuitBreaker.isOurError(e), true, 'isOurError() should return true');
+          t.equals(
+            CircuitBreaker.isOurError(e),
+            true,
+            'isOurError() should return true'
+          );
         })
         .then(_ => breaker.shutdown())
         .then(t.end);
@@ -298,7 +302,9 @@ test('Passes error as last argument to the fallback function', t => {
     t.equals(result,
       `Error: ${fails} is < 0`, 'fallback received error as last parameter');
     t.equals(
-      CircuitBreaker.isOurError(result), false, 'isOurError() should return false'
+      CircuitBreaker.isOurError(result),
+      false,
+      'isOurError() should return false'
     );
     breaker.shutdown();
     t.end();
