@@ -114,20 +114,23 @@ test('Using cache', t => {
 });
 
 test('Fails when the circuit function fails', t => {
-  t.plan(1);
+  t.plan(2);
   const breaker = new CircuitBreaker(passFail);
 
   breaker.fire(-1)
     .then(() => t.fail)
     .catch(e => {
       t.equals(e, 'Error: -1 is < 0', 'expected error caught');
+      t.equals(
+        CircuitBreaker.isOurError(e), false, 'isOurError() should return false'
+      );
     })
     .then(_ => breaker.shutdown())
     .then(t.end);
 });
 
 test('Fails when the circuit function times out', t => {
-  t.plan(2);
+  t.plan(3);
   const expected = 'Timed out after 10ms';
   const expectedCode = 'ETIMEDOUT';
   const breaker = new CircuitBreaker(slowFunction, { timeout: 10 });
@@ -137,6 +140,9 @@ test('Fails when the circuit function times out', t => {
     .catch(e => {
       t.equals(e.message, expected, 'timeout message received');
       t.equals(e.code, expectedCode, 'ETIMEDOUT');
+      t.equals(
+        CircuitBreaker.isOurError(e), true, 'isOurError() should return true'
+      );
     })
     .then(_ => breaker.shutdown())
     .then(t.end);
@@ -189,7 +195,7 @@ test('Works with callback functions that fail', t => {
 });
 
 test('Breaker opens after a configurable number of failures', t => {
-  t.plan(2);
+  t.plan(3);
   const breaker = new CircuitBreaker(passFail,
     { errorThresholdPercentage: 10 });
 
@@ -201,7 +207,14 @@ test('Breaker opens after a configurable number of failures', t => {
       // with a valid value
       breaker.fire(100)
         .then(t.fail)
-        .catch(e => t.equals(e.message, 'Breaker is open', 'breaker opens'))
+        .catch(e => {
+          t.equals(e.message, 'Breaker is open', 'breaker opens');
+          t.equals(
+            CircuitBreaker.isOurError(e),
+            true,
+            'isOurError() should return true'
+          );
+        })
         .then(_ => breaker.shutdown())
         .then(t.end);
     })
@@ -282,12 +295,17 @@ test('Executes fallback action, if one exists, when breaker is open', t => {
 });
 
 test('Passes error as last argument to the fallback function', t => {
-  t.plan(1);
+  t.plan(2);
   const fails = -1;
   const breaker = new CircuitBreaker(passFail, { errorThresholdPercentage: 1 });
   breaker.on('fallback', result => {
     t.equals(result,
       `Error: ${fails} is < 0`, 'fallback received error as last parameter');
+    t.equals(
+      CircuitBreaker.isOurError(result),
+      false,
+      'isOurError() should return false'
+    );
     breaker.shutdown();
     t.end();
   });
@@ -372,11 +390,14 @@ test('CircuitBreaker executes fallback when an action throws', t => {
 });
 
 test('CircuitBreaker emits failure when falling back', t => {
-  t.plan(2);
+  t.plan(3);
   const breaker = new CircuitBreaker(passFail).fallback(() => 'fallback value');
 
   breaker.on('failure', err => {
     t.equals('Error: -1 is < 0', err, 'Expected failure');
+    t.equals(
+      CircuitBreaker.isOurError(err), false, 'isOurError() should return false'
+    );
   });
 
   breaker.fire(-1).then(result => {
