@@ -44,7 +44,8 @@ test(
 
     Promise.all(promises)
       .then(() => {
-        t.ok(breaker.opened, 'should still be open even after first fire resolved');
+        t.ok(breaker.opened,
+          'should still be open even after first fire resolved');
         t.notOk(breaker.pendingClose,
           'should still not be pending close');
       })
