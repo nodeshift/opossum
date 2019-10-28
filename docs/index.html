@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8'>
-  <title>opossum 4.1.0 | Documentation</title>
+  <title>opossum 4.2.0 | Documentation</title>
   <meta name='description' content='A fail-fast circuit breaker for promises and callbacks'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet'>
@@ -15,7 +15,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>opossum</h3>
-          <div class='mb1'><code>4.1.0</code></div>
+          <div class='mb1'><code>4.2.0</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -43,6 +43,17 @@
                 </a>
                 
                 <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#circuitbreakerisourerror'
+                        class='regular pre-open'>
+                        .isOurError
+                      </a></li>
+                    
+                    </ul>
                   
                   
                     <ul class='list-reset py1-ul pl1'>
@@ -894,6 +905,82 @@ the cache can be cleared using
   
 
   
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='circuitbreakerisourerror'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>isOurError(error)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Returns true if the provided error was generated here. It will be false
+if the error came from the action itself.</p>
+
+    <div class='pre p1 fill-light mt0'>isOurError(error: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>error</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>)</code>
+	    The Error to check.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></code>:
+        true if the error was generated here
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
 
   
 
@@ -1818,7 +1905,9 @@ function.</p>
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;any></code>:
         promise resolves with the circuit function's return
-value on success or is rejected on failure of the action.
+value on success or is rejected on failure of the action. Use isOurError()
+to determine if a rejection was a result of the circuit breaker or the
+action.
 
       
     

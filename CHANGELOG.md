@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0](https://github.com/nodeshift/opossum/compare/v4.1.0...v4.2.0) (2019-10-28)
+
+
+### Bug Fixes
+
+* clear intervals on shutdown ([#378](https://github.com/nodeshift/opossum/issues/378)) ([91e2dbe](https://github.com/nodeshift/opossum/commit/91e2dbe))
+* Clear reset timer on open() ([#383](https://github.com/nodeshift/opossum/issues/383)) ([7f488f1](https://github.com/nodeshift/opossum/commit/7f488f1))
+* do not close if preexisting task resolves when state is not OPEN ([#382](https://github.com/nodeshift/opossum/issues/382)) ([7b92602](https://github.com/nodeshift/opossum/commit/7b92602))
+* **circuit:** remove unneeded resolve() ([#377](https://github.com/nodeshift/opossum/issues/377)) ([cde55eb](https://github.com/nodeshift/opossum/commit/cde55eb))
+
+
+### Features
+
+* implement `isOurError()` ([#376](https://github.com/nodeshift/opossum/issues/376)) ([f6a3e3a](https://github.com/nodeshift/opossum/commit/f6a3e3a))
+* Implement babel-loader in webpack ([#380](https://github.com/nodeshift/opossum/issues/380)) ([7b97914](https://github.com/nodeshift/opossum/commit/7b97914))
+
 ## [4.1.0](https://github.com/nodeshift/opossum/compare/v4.0.0...v4.1.0) (2019-10-16)
 
 
