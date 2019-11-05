@@ -241,6 +241,27 @@ test('Breaker resets after a configurable amount of time', t => {
     });
 });
 
+test('Breaker resets after a configurable amount of time when multiple jobs fail', t => {
+  t.plan(1);
+  const fails = -1;
+  const resetTimeout = 100;
+  const breaker = new CircuitBreaker(passFail,
+    { errorThresholdPercentage: 1, resetTimeout });
+
+  breaker.fire(fails);
+  breaker.fire(fails)
+    .catch(() => {
+      // Now the breaker should be open. Wait for reset and
+      // fire again.
+      setTimeout(() => {
+        breaker.fire(100)
+          .then(arg => t.equals(arg, 100, 'breaker has reset'))
+          .then(_ => breaker.shutdown())
+          .then(t.end);
+      }, resetTimeout * 1.25);
+    });
+});
+
 test('Breaker status reflects open state', t => {
   t.plan(1);
   const breaker = new CircuitBreaker(passFail,
