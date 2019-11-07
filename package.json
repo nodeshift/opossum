@@ -59,7 +59,7 @@
     "nyc": "~14.1.1",
     "opener": "1.5.1",
     "serve": "^11.0.0",
-    "standard-version": "7.0.0",
+    "standard-version": "7.0.1",
     "standardx": "^5.0.0",
     "tap-spec": "~5.0.0",
     "tape": "~4.11.0",
