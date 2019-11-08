@@ -127,6 +127,8 @@ Opens the breaker. Each time the breaker is fired while the circuit is
 opened, a failed Promise is returned, or if any fallback function
 has been provided, it is invoked.
 
+If the breaker is already open this call does nothing.
+
 Returns **void** 
 
 ### shutdown

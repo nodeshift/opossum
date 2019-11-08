@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.2.1](https://github.com/nodeshift/opossum/compare/v4.2.0...v4.2.1) (2019-11-08)
+
+
+### Bug Fixes
+
+* Fix stuck open ([#386](https://github.com/nodeshift/opossum/issues/386)) ([2c5b4a2](https://github.com/nodeshift/opossum/commit/2c5b4a2)), closes [#385](https://github.com/nodeshift/opossum/issues/385)
+
 ## [4.2.0](https://github.com/nodeshift/opossum/compare/v4.1.0...v4.2.0) (2019-10-28)
 
 

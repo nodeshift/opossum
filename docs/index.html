@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8'>
-  <title>opossum 4.2.0 | Documentation</title>
+  <title>opossum 4.2.1 | Documentation</title>
   <meta name='description' content='A fail-fast circuit breaker for promises and callbacks'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet'>
@@ -15,7 +15,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>opossum</h3>
-          <div class='mb1'><code>4.2.0</code></div>
+          <div class='mb1'><code>4.2.1</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -1058,6 +1058,7 @@ if the error came from the action itself.</p>
   <p>Opens the breaker. Each time the breaker is fired while the circuit is
 opened, a failed Promise is returned, or if any fallback function
 has been provided, it is invoked.</p>
+<p>If the breaker is already open this call does nothing.</p>
 
     <div class='pre p1 fill-light mt0'>open(): void</div>
   
