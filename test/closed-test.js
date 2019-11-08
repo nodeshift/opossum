@@ -4,7 +4,7 @@ const test = require('tape');
 const CircuitBreaker = require('../');
 
 test(
-  'When closed, an existing request resolving does not reopen circuit',
+  'When open, an existing request resolving does not close circuit',
   t => {
     t.plan(6);
     const options = {
