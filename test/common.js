@@ -58,6 +58,12 @@ function failedCallbackFunction () {
   Array.prototype.slice.call(arguments).pop()('Whoops!');
 }
 
+function failWithCode (errorCode) {
+  const err = new Error(`Failed with ${errorCode} status code`);
+  err.statusCode = errorCode;
+  return Promise.reject(err);
+}
+
 function identity (_) { return _; }
 
 module.exports = exports = {
@@ -68,5 +74,6 @@ module.exports = exports = {
   callbackFunction,
   failedCallbackFunction,
   nonPromise,
-  identity
+  identity,
+  failWithCode
 };

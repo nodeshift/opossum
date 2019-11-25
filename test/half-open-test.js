@@ -2,7 +2,7 @@
 
 const test = require('tape');
 const CircuitBreaker = require('../');
-const { timedFailingFunction } = require('./common');
+const { timedFailingFunction, failWithCode } = require('./common');
 
 test('When half-open, the circuit only allows one request through', t => {
   t.plan(10);
@@ -41,6 +41,41 @@ test('When half-open, the circuit only allows one request through', t => {
         breaker
           .fire(1)
           .catch(e => t.equals(e.message, 'Breaker is open'));
+      })
+      .then(_ => breaker.shutdown())
+      .then(t.end);
+  }, options.resetTimeout * 1.5);
+});
+
+test('When half-open, a fail with a filtered error', t => {
+  t.plan(7);
+  const options = {
+    errorThresholdPercentage: 1,
+    resetTimeout: 100,
+    errorFilter: err => err.statusCode < 500
+  };
+
+  const breaker = new CircuitBreaker(failWithCode, options);
+  breaker.fire(500)
+    .then(t.fail)
+    .catch(e => t.equals(e.message, 'Failed with 500 status code'))
+    .then(() => {
+      t.ok(breaker.opened, 'should be open after initial fire');
+      t.notOk(breaker.pendingClose,
+        'should not be pending close after initial fire');
+    });
+
+  // Fire again after reset timeout. should be half open
+  setTimeout(() => {
+    t.ok(breaker.halfOpen, 'should be halfOpen after timeout');
+    t.ok(breaker.pendingClose, 'should be pending close after timeout');
+    breaker
+      .fire(400) // fail with a filtered error
+      .catch(e =>
+        t.equals(e.message, 'Failed with 400 status code', 'should fail again'))
+      .then(() => {
+        t.ok(breaker.opened,
+          'should be opened after failing with filtered error');
       })
       .then(_ => breaker.shutdown())
       .then(t.end);
