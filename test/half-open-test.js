@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const CircuitBreaker = require('../');
+const CircuitBreaker = require('../lib/circuit');
 const { timedFailingFunction } = require('./common');
 
 test('When half-open, the circuit only allows one request through', t => {

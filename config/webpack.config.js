@@ -34,7 +34,7 @@ function generateConfig (name) {
   const config = {
     mode,
     entry: {
-      circuitBreaker: './index.js'
+      circuitBreaker: path.resolve(__dirname, '..', 'lib', 'circuit.js')
     },
     output: {
       path: path.resolve(__dirname, '..', 'dist'),
