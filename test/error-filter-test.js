@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const CircuitBreaker = require('../');
+const CircuitBreaker = require('../lib/circuit');
 
 function mightFail (errorCode) {
   const err = new Error('Something went wrong');
