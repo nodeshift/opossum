@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const CircuitBreaker = require('..');
+const CircuitBreaker = require('../lib/circuit');
 const passFail = require('./common').passFail;
 
 // tests that we are not leaving listeners open to
