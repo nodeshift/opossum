@@ -54,22 +54,3 @@ test('Increments failure stats if no filter is provided', t => {
       t.end();
     });
 });
-
-test('Should not call fallback if errorFilter returns true', t => {
-  t.plan(5);
-
-  const breaker = new CircuitBreaker(failWithCode, options);
-
-  breaker.fallback(t.fail);
-
-  breaker.fire(400)
-    .then(t.fail)
-    .catch(err => {
-      t.equal(err.statusCode, 400);
-      t.equal(breaker.stats.successes, 1);
-      t.equal(breaker.stats.failures, 0);
-      t.equal(breaker.stats.fallbacks, 0);
-      t.ok(breaker.closed);
-    })
-    .then(t.end);
-});
