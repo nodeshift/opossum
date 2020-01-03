@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const CircuitBreaker = require('../lib/circuit');
+const CircuitBreaker = require('../');
 const { passFail } = require('./common');
 
 test('Defaults to enabled', t => {

@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const CircuitBreaker = require('../lib/circuit');
+const CircuitBreaker = require('../');
 
 test(
   'When open, an existing request resolving does not close circuit',

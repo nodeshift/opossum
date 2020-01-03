@@ -2,7 +2,6 @@
 'use strict';
 
 require('../circuit-shutdown-test.js');
-require('../closed-test.js');
 require('../common.js');
 require('../context-test.js');
 require('../enable-disable-test.js');

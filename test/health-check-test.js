@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('tape');
-const CircuitBreaker = require('../lib/circuit');
+const CircuitBreaker = require('../');
 const common = require('./common');
 
 test('Circuits accept a health check function', t => {

@@ -8,14 +8,13 @@
     "response": "REGULAR-7",
     "backing": "COMPANY"
   },
-  "main": "dist/opossum.js",
   "scripts": {
     "prebuild": "npm run lint",
     "build": "./test/browser/generate-index.sh && npm run build:browser && npm run build:docs",
     "build:browser": "webpack --config=config/webpack.config.js",
     "build:docs": "npm run build:docs:html && npm run build:docs:markdown",
-    "build:docs:html": "documentation build lib -f html -o docs --config documentation.yml",
-    "build:docs:markdown": "documentation build lib -f md -o docs/opossum.md",
+    "build:docs:html": "documentation build index.js -f html -o docs --config documentation.yml",
+    "build:docs:markdown": "documentation build index.js -f md -o docs/opossum.md",
     "pretest": "npm run lint",
     "test": "nyc tape test/*.js | tap-spec",
     "test:headless": "node test/browser/webpack-test.js",
@@ -24,7 +23,7 @@
     "ci": "npm run build && npm run test && npm run test:headless && npm run coverage",
     "prerelease": "npm run ci",
     "release": "standard-version -s -a",
-    "lint": "standardx test/*.js lib/*.js test/*/*.js",
+    "lint": "standardx test/*.js index.js lib/*.js test/*/*.js",
     "clean": "rm -rf node_modules dist/*.js test/browser/webpack-test.js"
   },
   "standard-version": {
@@ -41,8 +40,10 @@
     "package.json",
     "README.md",
     "LICENSE",
+    "index.js",
+    "lib",
     "dist",
-    "docs/opossum.md"
+    "doc/opossum.md"
   ],
   "bugs": {
     "url": "https://github.com/nodeshift/opossum/issues"

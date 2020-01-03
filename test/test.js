@@ -3,7 +3,7 @@
 const browser = require('./browser/browser-tap');
 const test = require('tape');
 const { promisify } = require('util');
-const CircuitBreaker = require('../lib/circuit');
+const CircuitBreaker = require('../');
 
 browser.enable();
 
