@@ -22,7 +22,7 @@ on the web - search it! Fowler's blog post is one place to
 | License:        | Apache-2.0  |
 | Build:          | make  |
 | Documentation:  | https://nodeshift.dev/opossum/ |
-| Typngs:         | https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/opossum
+| Typings:        | https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/opossum
 | Issue tracker:  | https://github.com/nodeshift/opossum/issues  |
 | Engines:        | Node.js 8.x, 10.x, 11.x, 12.x |
 
