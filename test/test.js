@@ -931,6 +931,30 @@ test('CircuitBreaker default capacity', t => {
   t.end();
 });
 
+test('CircuitBreaker without a timeout', t => {
+  t.plan(1);
+
+  const breaker = new CircuitBreaker(identity, { timeout: false });
+  const origTimeout = setTimeout;
+  let spyCalled = false;
+  // eslint-disable-next-line no-global-assign
+  setTimeout = () => {
+    spyCalled = true;
+  };
+
+  t.on('end', () => {
+    setTimeout = origTimeout; // eslint-disable-line no-global-assign
+  });
+
+  breaker.fire('foo')
+    .then(() => {
+      t.equals(spyCalled, false);
+      breaker.shutdown();
+      t.end();
+    })
+    .catch(t.fail);
+});
+
 const noop = _ => {};
 const common = require('./common');
 const identity = common.identity;
