@@ -64,7 +64,8 @@ Constructs a [CircuitBreaker][1].
 -   `action` **[Function][51]** The action to fire for this [CircuitBreaker][1]
 -   `options` **[Object][52]** Options for the [CircuitBreaker][1]
     -   `options.timeout` **[Number][53]** The time in milliseconds that action should
-        be allowed to execute before timing out. Default 10000 (10 seconds)
+        be allowed to execute before timing out. Timeout can be disabled by setting
+        this to `false`. Default 10000 (10 seconds)
     -   `options.maxFailures` **[Number][53]** (Deprecated) The number of times the
         circuit can fail before opening. Default 10.
     -   `options.resetTimeout` **[Number][53]** The time in milliseconds to wait before
@@ -158,7 +159,7 @@ Type: [String][54]
 
 ### pendingClose
 
-Gets whether this cicruit is in the `pendingClosed` state
+Gets whether this circuit is in the `pendingClosed` state
 
 Type: [Boolean][55]
 
@@ -259,7 +260,7 @@ circuit function.
 #### Parameters
 
 -   `context` **any** the `this` context used for function execution
--   `rest` **...any** 
+-   `rest` **any** the arguments passed to the action
 
 Returns **[Promise][58]&lt;any>** promise resolves with the circuit function's return
 value on success or is rejected on failure of the action.

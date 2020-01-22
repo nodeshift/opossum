@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.2.4](https://github.com/nodeshift/opossum/compare/v4.2.3...v4.2.4) (2020-01-22)
+
+
+### Bug Fixes
+
+* **circuit:** allow timeout option to be false ([#396](https://github.com/nodeshift/opossum/issues/396)) ([2453326](https://github.com/nodeshift/opossum/commit/2453326)), closes [#393](https://github.com/nodeshift/opossum/issues/393)
+
 ### [4.2.3](https://github.com/nodeshift/opossum/compare/v4.2.2...v4.2.3) (2020-01-03)
 
 ### [4.2.2](https://github.com/nodeshift/opossum/compare/v4.2.1...v4.2.2) (2020-01-02)

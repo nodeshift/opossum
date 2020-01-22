@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8'>
-  <title>opossum 4.2.3 | Documentation</title>
+  <title>opossum 4.2.4 | Documentation</title>
   <meta name='description' content='A fail-fast circuit breaker for promises and callbacks'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet'>
@@ -15,7 +15,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>opossum</h3>
-          <div class='mb1'><code>4.2.3</code></div>
+          <div class='mb1'><code>4.2.4</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -435,7 +435,7 @@ on the web - search it! Fowler's blog post is one place to
 <td><a href="https://nodeshift.dev/opossum/">https://nodeshift.dev/opossum/</a></td>
 </tr>
 <tr>
-<td>Typngs:</td>
+<td>Typings:</td>
 <td><a href="https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/opossum">https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/opossum</a></td>
 </tr>
 <tr>
@@ -713,7 +713,10 @@ be used to produce metrics that are consumable by the Hystrix Dashboard.</p>
   <td class='break-word'><span class='code bold'>options.timeout</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
   </td>
   <td class='break-word'><span>The time in milliseconds that action should
-be allowed to execute before timing out. Default 10000 (10 seconds)
+be allowed to execute before timing out. Timeout can be disabled by setting
+this to 
+<code>false</code>
+. Default 10000 (10 seconds)
 </span></td>
 </tr>
 
@@ -1325,7 +1328,7 @@ circuit will fail, returning a rejected promise.</p>
 
   
 
-  <p>Gets whether this cicruit is in the <code>pendingClosed</code> state</p>
+  <p>Gets whether this circuit is in the <code>pendingClosed</code> state</p>
 
     <div class='pre p1 fill-light mt0'>pendingClose</div>
   
@@ -1950,7 +1953,7 @@ provided, it will be invoked in the event of any failure or timeout.</p>
 <p>Any parameters in addition to `context will be passed to the
 circuit function.</p>
 
-    <div class='pre p1 fill-light mt0'>call(context: any, rest: ...any): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;any></div>
+    <div class='pre p1 fill-light mt0'>call(context: any, rest: any): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;any></div>
   
   
 
@@ -1978,8 +1981,9 @@ circuit function.</p>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>rest</span> <code class='quiet'>(...any)</code>
-	    
+            <span class='code bold'>rest</span> <code class='quiet'>(any)</code>
+	    the arguments passed to the action
+
           </div>
           
         </div>
