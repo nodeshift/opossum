@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0](https://github.com/nodeshift/opossum/compare/v4.2.4...v5.0.0) (2020-02-20)
+
 ### [4.2.4](https://github.com/nodeshift/opossum/compare/v4.2.3...v4.2.4) (2020-01-22)
 
 
