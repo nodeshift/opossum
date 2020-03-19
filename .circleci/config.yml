@@ -29,9 +29,9 @@ build-common: &common-build
     - run:
         name: Run Tests
         command: npm run ci
-        # environment:
-        #   NODE_PENDING_DEPRECATION: 1
-        #   NODE_OPTIONS: '--throw-deprecation'
+        environment:
+          NODE_PENDING_DEPRECATION: 1
+          NODE_OPTIONS: '--throw-deprecation'
 
 jobs:
   node8:
