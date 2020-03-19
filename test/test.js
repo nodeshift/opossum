@@ -250,7 +250,7 @@ test(
     const breaker = new CircuitBreaker(passFail,
       { errorThresholdPercentage: 1, resetTimeout });
 
-    breaker.fire(fails);
+    breaker.fire(fails).catch(() => {});
     breaker.fire(fails)
       .catch(() => {
         // Now the breaker should be open. Wait for reset and
