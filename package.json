@@ -11,6 +11,7 @@
   "scripts": {
     "prebuild": "npm run lint",
     "build": "./test/browser/generate-index.sh && npm run build:browser && npm run build:docs",
+    "build:ci": "./test/browser/generate-index.sh && npm run build:browser",
     "build:browser": "webpack --config=config/webpack.config.js",
     "build:docs": "npm run build:docs:html && npm run build:docs:markdown",
     "build:docs:html": "documentation build index.js -f html -o docs --config documentation.yml",
@@ -20,7 +21,7 @@
     "test:headless": "node test/browser/webpack-test.js",
     "test:browser": "opener http://localhost:9007/test/browser/index.html && serve . -p 9007",
     "coverage": "nyc report && if [ $CODACY_PROJECT_TOKEN'' != '' ] ; then nyc report --reporter=text-lcov | codacy-coverage; fi",
-    "ci": "npm run build && npm run test && npm run test:headless && npm run coverage",
+    "ci": "npm run build:ci && npm run test && npm run test:headless && npm run coverage",
     "prerelease": "npm run ci",
     "release": "standard-version -s -a",
     "lint": "standardx test/*.js index.js lib/*.js test/*/*.js",
