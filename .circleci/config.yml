@@ -26,7 +26,12 @@ build-common: &common-build
         key: v1-dependencies-{{ checksum "package.json" }}
 
     # run tests!
-    - run: npm run ci
+    - run:
+        name: Run Tests
+        command: npm run ci
+        # environment:
+        #   NODE_PENDING_DEPRECATION: 1
+        #   NODE_OPTIONS: '--throw-deprecation'
 
 jobs:
   node8:
@@ -66,4 +71,4 @@ workflows:
       - node8
       - node10
       - node12
-    
+
