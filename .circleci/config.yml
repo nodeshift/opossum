@@ -29,16 +29,6 @@ build-common: &common-build
     - run: npm run ci
 
 jobs:
-  node8:
-    docker:
-      - image: circleci/node:8
-    <<: *common-build
-
-    filters:
-      branches:
-        ignore:
-          - gh-pages
-
   node10:
     docker:
       - image: circleci/node:10
@@ -63,7 +53,5 @@ workflows:
   version: 2
   test_node_versions:
     jobs:
-      - node8
       - node10
       - node12
-    
