@@ -54,7 +54,7 @@
     "@babel/preset-env": "^7.8.6",
     "babel-loader": "^8.0.6",
     "codacy-coverage": "^3.4.0",
-    "coveralls": "^3.0.3",
+    "coveralls": "^3.0.9",
     "documentation": "^12.1.4",
     "nyc": "~15.0.0",
     "opener": "1.5.1",
