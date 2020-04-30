@@ -24,7 +24,9 @@
     "prerelease": "npm run ci",
     "release": "standard-version -s -a",
     "lint": "standardx test/*.js index.js lib/*.js test/*/*.js",
-    "clean": "rm -rf node_modules dist/*.js test/browser/webpack-test.js"
+    "clean": "rm -rf node_modules dist/*.js test/browser/webpack-test.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "standard-version": {
     "scripts": {
@@ -79,5 +81,8 @@
   "engines": {
     "node": ">= 10"
   },
-  "dependencies": {}
+  "dependencies": {
+    "snyk": "^1.316.1"
+  },
+  "snyk": true
 }
