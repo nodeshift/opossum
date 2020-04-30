@@ -1,0 +1,78 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - '@babel/core > lodash':
+        patched: '2020-04-30T18:48:12.263Z'
+    - codacy-coverage > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - documentation > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - tap-spec > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - '@babel/preset-env > @babel/types > lodash':
+        patched: '2020-04-30T18:48:12.263Z'
+    - documentation > @babel/core > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - standard-version > conventional-changelog-conventionalcommits > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-define-map > lodash':
+        patched: '2020-04-30T18:48:12.263Z'
+    - documentation > @babel/preset-env > @babel/types > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - nyc > istanbul-lib-instrument > @babel/core > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - codacy-coverage > request-promise > request-promise-core > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - standard-version > conventional-changelog > conventional-changelog-conventionalcommits > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - standard-version > conventional-recommended-bump > conventional-commits-parser > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - standard-version > conventional-changelog > conventional-changelog-core > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - standardx > standard > eslint > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-function-name > @babel/types > lodash':
+        patched: '2020-04-30T18:48:12.263Z'
+    - documentation > @babel/preset-env > @babel/plugin-transform-classes > @babel/helper-define-map > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - standard-version > conventional-changelog > conventional-changelog-core > conventional-changelog-writer > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - standard-version > conventional-changelog > conventional-changelog-core > conventional-commits-parser > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - standardx > standard > eslint > inquirer > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - standardx > standard > eslint > table > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - '@babel/preset-env > @babel/preset-modules > @babel/plugin-transform-dotall-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash':
+        patched: '2020-04-30T18:48:12.263Z'
+    - documentation > @babel/preset-react > @babel/plugin-transform-react-jsx-development > @babel/helper-builder-react-jsx-experimental > @babel/types > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helpers > @babel/traverse > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - '@babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/generator > lodash':
+        patched: '2020-04-30T18:48:12.263Z'
+    - documentation > @babel/preset-env > @babel/preset-modules > @babel/plugin-transform-dotall-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - documentation > @babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - '@babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-04-30T18:48:12.263Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - documentation > @babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - '@babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-04-30T18:48:12.263Z'
+    - nyc > istanbul-lib-instrument > @babel/core > @babel/helper-module-transforms > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
+    - documentation > @babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-04-30T18:48:12.263Z'
