@@ -37,9 +37,6 @@
     "url": "git://github.com/nodeshift/opossum.git"
   },
   "files": [
-    "package.json",
-    "README.md",
-    "LICENSE",
     "index.js",
     "lib",
     "dist",
