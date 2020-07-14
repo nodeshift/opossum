@@ -70,7 +70,12 @@ The tests are on `test` directory. Before submitting a pull request,
 ensure that your change will pass CI.
 
 ```sh
-$ make clean && npm install && make ci
+npm install
+npm test
+
+or
+
+npm it
 ```
 
 ### Push
