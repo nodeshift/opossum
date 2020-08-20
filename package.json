@@ -47,8 +47,8 @@
   },
   "homepage": "https://nodeshift.dev/opossum",
   "devDependencies": {
-    "@babel/core": "^7.10.5",
-    "@babel/preset-env": "^7.10.4",
+    "@babel/core": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
     "babel-loader": "^8.0.6",
     "codacy-coverage": "^3.4.0",
     "coveralls": "^3.1.0",
