@@ -96,10 +96,10 @@ Constructs a [CircuitBreaker][1].
         construction. Default: true
     -   `options.allowWarmUp` **[boolean][55]** determines whether to allow failures
         without opening the circuit during a brief warmup period (this is the
-        `rollingCountDuration` property). Default: false
+        `rollingCountTimeout` property). Default: false
         allow before enabling the circuit. This can help in situations where no
         matter what your `errorThresholdPercentage` is, if the first execution
-        times out or fails, the circuit immediately opens. Default: 0
+        times out or fails, the circuit immediately opens.
     -   `options.volumeThreshold` **[Number][53]** the minimum number of requests within
         the rolling statistical window that must exist before the circuit breaker
         can open. This is similar to `options.allowWarmUp` in that no matter how many

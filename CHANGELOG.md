@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.1](https://github.com/nodeshift/opossum/compare/v5.0.0...v5.0.1) (2020-08-21)
+
+
+### Bug Fixes
+
+* [Snyk] Upgrade documentation from 12.1.4 to 12.2.0 ([#411](https://github.com/nodeshift/opossum/issues/411)) ([4ed0b30](https://github.com/nodeshift/opossum/commit/4ed0b303c8c6de70d39b8bfd828f2ae0c2643265))
+* package.json to reduce vulnerabilities ([#405](https://github.com/nodeshift/opossum/issues/405)) ([186b464](https://github.com/nodeshift/opossum/commit/186b46425c1db454bb1a2aa42712875b9790ee03))
+* upgrade @babel/core from 7.10.4 to 7.10.5 ([#449](https://github.com/nodeshift/opossum/issues/449)) ([a18d669](https://github.com/nodeshift/opossum/commit/a18d669088682be0f5ef645e65792b8499124829))
+* upgrade coveralls from 3.0.3 to 3.0.9 ([#408](https://github.com/nodeshift/opossum/issues/408)) ([d3bf2b4](https://github.com/nodeshift/opossum/commit/d3bf2b4168841b7335c31c5797ecdd38ece88f19))
+* upgrade documentation from 12.0.0 to 12.1.4 ([#407](https://github.com/nodeshift/opossum/issues/407)) ([f2a2a67](https://github.com/nodeshift/opossum/commit/f2a2a6724592b9e28c25b2a9e3cadb4cc18679b0))
+* upgrade multiple dependencies with Snyk ([#406](https://github.com/nodeshift/opossum/issues/406)) ([c485c2d](https://github.com/nodeshift/opossum/commit/c485c2d596075d94b960ab746f98446e1776db19))
+* upgrade multiple dependencies with Snyk ([#455](https://github.com/nodeshift/opossum/issues/455)) ([1fb7791](https://github.com/nodeshift/opossum/commit/1fb77917be2604f93b9321033916c599b1e4e222))
+* upgrade serve from 11.0.0 to 11.3.0 ([#409](https://github.com/nodeshift/opossum/issues/409)) ([8f35473](https://github.com/nodeshift/opossum/commit/8f3547307eec5a4164e7de3b679316bb08f3f54c))
+* upgrade standard-version from 8.0.1 to 8.0.2 ([#448](https://github.com/nodeshift/opossum/issues/448)) ([dcba522](https://github.com/nodeshift/opossum/commit/dcba5225869c3534b17d33a89ee9b536581b848b))
+* upgrade tape from 4.13.0 to 4.13.2 ([#410](https://github.com/nodeshift/opossum/issues/410)) ([b6bbf55](https://github.com/nodeshift/opossum/commit/b6bbf55382c8804861eacd3b2bc1df45fc4abb2f))
+* upgrade webpack from 4.43.0 to 4.44.0 ([#451](https://github.com/nodeshift/opossum/issues/451)) ([ff127d5](https://github.com/nodeshift/opossum/commit/ff127d55a5fe4213166a9ceee61c8e0c0c9823dd))
+* upgrade webpack from 4.44.0 to 4.44.1 ([#456](https://github.com/nodeshift/opossum/issues/456)) ([544fcd9](https://github.com/nodeshift/opossum/commit/544fcd9ddc34c4401ad71f056e31f2991ad5d63c))
+* **test:** Avoiding an UnhandledPromiseRejection ([196457f](https://github.com/nodeshift/opossum/commit/196457fe1da4c32d2f36b7aee70b2b2a424ff984))
+
 ## [5.0.0](https://github.com/nodeshift/opossum/compare/v4.2.4...v5.0.0) (2020-02-20)
 
 ### [4.2.4](https://github.com/nodeshift/opossum/compare/v4.2.3...v4.2.4) (2020-01-22)
