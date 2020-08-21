@@ -1,8 +1,8 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset='utf-8'>
-  <title>opossum 5.0.0 | Documentation</title>
+  <title>opossum 5.0.1 | Documentation</title>
   <meta name='description' content='A fail-fast circuit breaker for promises and callbacks'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet'>
@@ -15,7 +15,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>opossum</h3>
-          <div class='mb1'><code>5.0.0</code></div>
+          <div class='mb1'><code>5.0.1</code></div>
           <input
             placeholder='Filter'
             id='filter-input'
@@ -427,10 +427,6 @@ on the web - search it! Fowler's blog post is one place to
 <td>Apache-2.0</td>
 </tr>
 <tr>
-<td>Build:</td>
-<td>make</td>
-</tr>
-<tr>
 <td>Documentation:</td>
 <td><a href="https://nodeshift.dev/opossum/">https://nodeshift.dev/opossum/</a></td>
 </tr>
@@ -444,7 +440,7 @@ on the web - search it! Fowler's blog post is one place to
 </tr>
 <tr>
 <td>Engines:</td>
-<td>Node.js 8.x, 10.x, 11.x, 12.x</td>
+<td>Node.js >= 10</td>
 </tr>
 </tbody>
 </table>
@@ -462,8 +458,8 @@ a network operation, or disk read, for example. Wrap those functions up in a
 
 <span class="hljs-keyword">const</span> options = {
   <span class="hljs-attr">timeout</span>: <span class="hljs-number">3000</span>, <span class="hljs-comment">// If our function takes longer than 3 seconds, trigger a failure</span>
-  errorThresholdPercentage: <span class="hljs-number">50</span>, <span class="hljs-comment">// When 50% of requests fail, trip the circuit</span>
-  resetTimeout: <span class="hljs-number">30000</span> <span class="hljs-comment">// After 30 seconds, try again.</span>
+  <span class="hljs-attr">errorThresholdPercentage</span>: <span class="hljs-number">50</span>, <span class="hljs-comment">// When 50% of requests fail, trip the circuit</span>
+  <span class="hljs-attr">resetTimeout</span>: <span class="hljs-number">30000</span> <span class="hljs-comment">// After 30 seconds, try again.</span>
 };
 <span class="hljs-keyword">const</span> breaker = <span class="hljs-keyword">new</span> CircuitBreaker(asyncFunctionThatCouldFail, options);
 
@@ -834,13 +830,13 @@ construction. Default: true
   <td class='break-word'><span>determines whether to allow failures
 without opening the circuit during a brief warmup period (this is the
 
-<code>rollingCountDuration</code>
+<code>rollingCountTimeout</code>
  property). Default: false
 allow before enabling the circuit. This can help in situations where no
 matter what your 
 <code>errorThresholdPercentage</code>
  is, if the first execution
-times out or fails, the circuit immediately opens. Default: 0
+times out or fails, the circuit immediately opens.
 </span></td>
 </tr>
 
