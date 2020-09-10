@@ -1,0 +1,23 @@
+name: API Docs
+
+on: release
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Generate API documentation
+        run: npm install && npm run build:docs
+      -
+        name: Deploy to GitHub Pages
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: gh-pages
+          build_dir: docs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
