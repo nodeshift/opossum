@@ -76,6 +76,21 @@ the `open` state.
 When a fallback function is triggered, it's considered a failure, and the
 fallback function will continue to be executed until the breaker is closed.
 
+The fallback function accepts the same parameters as the fire function:
+
+```javascript
+const delay = (delay, a, b, c) =>
+  new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, delay);
+  });
+
+const breaker = new CircuitBreaker(delay);
+breaker.fire(20000, 1, 2, 3);
+breaker.fallback((delay, a, b, c) => `Sorry, out of service right now. But your parameters are: ${delay}, ${a}, ${b} and ${c}`);
+```
+
 ### Browser
 
 Opossum really shines in a browser. You can use it to guard against network
