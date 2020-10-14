@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.2](https://www.github.com/nodeshift/opossum/compare/v5.0.1...v5.0.2) (2020-10-14)
+
+
+### Bug Fixes
+
+* Adding docs about fallback parameters ([#460](https://www.github.com/nodeshift/opossum/issues/460)) ([e8989b6](https://www.github.com/nodeshift/opossum/commit/e8989b688c32d12519783fcd900ea9992e6ec2b6)), closes [#459](https://www.github.com/nodeshift/opossum/issues/459)
+* upgrade @babel/core from 7.11.0 to 7.11.1 ([#458](https://www.github.com/nodeshift/opossum/issues/458)) ([bd59b48](https://www.github.com/nodeshift/opossum/commit/bd59b4860ce412608c520c757af1bf2b9398577b))
+* upgrade @babel/core from 7.11.1 to 7.11.4 ([#463](https://www.github.com/nodeshift/opossum/issues/463)) ([2d4318d](https://www.github.com/nodeshift/opossum/commit/2d4318dd31e78af98e61ef355b451a19c0947bad))
+* upgrade @babel/core from 7.11.5 to 7.11.6 ([#467](https://www.github.com/nodeshift/opossum/issues/467)) ([c0edb40](https://www.github.com/nodeshift/opossum/commit/c0edb40c75dd85eb829f459c86f42de2bc58b394))
+* upgrade multiple dependencies with Snyk ([#466](https://www.github.com/nodeshift/opossum/issues/466)) ([4dc36ef](https://www.github.com/nodeshift/opossum/commit/4dc36ef7936b1cfa0a142dcf6683ee401eb6cefb))
+* upgrade opener from 1.5.1 to 1.5.2 ([#465](https://www.github.com/nodeshift/opossum/issues/465)) ([96df963](https://www.github.com/nodeshift/opossum/commit/96df963ec70b1affa96c2045cfe56ddd8b6774e7))
+* upgrade webpack from 4.44.1 to 4.44.2 ([#471](https://www.github.com/nodeshift/opossum/issues/471)) ([a9d8b86](https://www.github.com/nodeshift/opossum/commit/a9d8b8647544db60f42d32d515f1999cc4324ae0))
+
 ### [5.0.1](https://github.com/nodeshift/opossum/compare/v5.0.0...v5.0.1) (2020-08-21)
 
 
