@@ -19,8 +19,7 @@
     "test": "nyc tape test/*.js | tap-spec",
     "test:headless": "node test/browser/webpack-test.js",
     "test:browser": "opener http://localhost:9007/test/browser/index.html && serve . -p 9007",
-    "coverage": "nyc report && if [ $CODACY_PROJECT_TOKEN'' != '' ] ; then nyc report --reporter=text-lcov | codacy-coverage; fi",
-    "ci": "npm run build && npm run test && npm run test:headless && npm run coverage",
+    "ci": "npm run build && npm run test && npm run test:headless",
     "prerelease": "npm run ci",
     "release": "standard-version -s -a",
     "lint": "standardx test/*.js index.js lib/*.js test/*/*.js",
@@ -74,7 +73,7 @@
     "rate-limiting"
   ],
   "engines": {
-    "node": ">= 10"
+    "node": "^14 || ^12 || ^10"
   },
   "dependencies": {}
 }
