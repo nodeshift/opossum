@@ -31,7 +31,7 @@ a network operation, or disk read, for example. Wrap those functions up in a
 ```javascript
 const CircuitBreaker = require('opossum');
 
-function asyncFunctionThatCouldFail (x, y) {
+function asyncFunctionThatCouldFail(x, y) {
   return new Promise((resolve, reject) => {
     // Do something, maybe on the network or a disk
   });
@@ -44,7 +44,7 @@ const options = {
 };
 const breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
 
-breaker.fire(params)
+breaker.fire(x, y)
   .then(console.log)
   .catch(console.error);
 ```
