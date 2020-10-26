@@ -73,7 +73,7 @@
     "rate-limiting"
   ],
   "engines": {
-    "node": "^14 || ^12 || ^10"
+    "node": "^15 || ^14 || ^12 || ^10"
   },
   "dependencies": {}
 }
