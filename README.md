@@ -2,7 +2,6 @@
 
 ![Node.js CI](https://github.com/nodeshift/opossum/workflows/Node.js%20CI/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/nodeshift/opossum/badge.svg?branch=master)](https://coveralls.io/github/nodeshift/opossum?branch=master)
-[![Greenkeeper badge](https://badges.greenkeeper.io/nodeshift/opossum.svg)](https://greenkeeper.io/)
 [![Known Vulnerabilities](https://snyk.io/test/npm/opossum/badge.svg)](https://snyk.io/test/npm/opossum)
 [![dependencies Status](https://david-dm.org/nodeshift/opossum/status.svg)](https://david-dm.org/nodeshift/opossum)
 
