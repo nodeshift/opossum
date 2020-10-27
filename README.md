@@ -1,4 +1,4 @@
-# opossum 
+# opossum
 
 ![Node.js CI](https://github.com/nodeshift/opossum/workflows/Node.js%20CI/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/nodeshift/opossum/badge.svg?branch=master)](https://coveralls.io/github/nodeshift/opossum?branch=master)
@@ -148,9 +148,9 @@ const circuitBreakerOptions = {
   resetTimeout: 5000
 };
 
-const circuit = new CircuitBreaker(() => $.get(route), circuitBreakerOptions);
-circuit.fallback(() => `${route} unavailable right now. Try later.`));
-circuit.on('success', (result) => $(element).append(JSON.stringify(result)}));
+const breaker = new CircuitBreaker(() => $.get(route), circuitBreakerOptions);
+breaker.fallback(() => `${route} unavailable right now. Try later.`));
+breaker.on('success', (result) => $(element).append(JSON.stringify(result)}));
 
 $(() => {
   $('#serviceButton').click(() => circuit.fire().catch((e) => console.error(e)));
@@ -178,35 +178,35 @@ Here are the events you can listen for.
 Handling events gives a greater level of control over your application behavior.
 
 ```js
-const circuit = new CircuitBreaker(() => $.get(route), circuitBreakerOptions);
+const breaker = new CircuitBreaker(() => $.get(route), circuitBreakerOptions);
 
-circuit.fallback(() => ({ body: `${route} unavailable right now. Try later.` }));
+breaker.fallback(() => ({ body: `${route} unavailable right now. Try later.` }));
 
-circuit.on('success',
+breaker.on('success',
   (result) => $(element).append(
     makeNode(`SUCCESS: ${JSON.stringify(result)}`)));
 
-circuit.on('timeout',
+breaker.on('timeout',
   () => $(element).append(
     makeNode(`TIMEOUT: ${route} is taking too long to respond.`)));
 
-circuit.on('reject',
+breaker.on('reject',
   () => $(element).append(
     makeNode(`REJECTED: The breaker for ${route} is open. Failing fast.`)));
 
-circuit.on('open',
+breaker.on('open',
   () => $(element).append(
     makeNode(`OPEN: The breaker for ${route} just opened.`)));
 
-circuit.on('halfOpen',
+breaker.on('halfOpen',
   () => $(element).append(
     makeNode(`HALF_OPEN: The breaker for ${route} is half open.`)));
 
-circuit.on('close',
+breaker.on('close',
   () => $(element).append(
     makeNode(`CLOSE: The breaker for ${route} has closed. Service OK.`)));
 
-circuit.on('fallback',
+breaker.on('fallback',
   (data) => $(element).append(
     makeNode(`FALLBACK: ${JSON.stringify(data)}`)));
 ```
@@ -279,7 +279,7 @@ In some cases, seeing this error might indicate a bug in client code, where many
 To get around the error, you can set the number of listeners on the stream.
 
 ```js
-circuit.stats.getHystrixStream().setMaxListeners(100);
+breaker.stats.getHystrixStream().setMaxListeners(100);
 ```
 
-Or it could be that you have a large test suite which exercises some code that creates `CircuitBreaker`s and does so repeatedly. If the `CircuitBreaker` being created is only needed for the duration of the test, use `circuit.shutdown()` when the circuit is no longer in use to clean up all listeners.
+Or it could be that you have a large test suite which exercises some code that creates `CircuitBreaker`s and does so repeatedly. If the `CircuitBreaker` being created is only needed for the duration of the test, use `breaker.shutdown()` when the circuit is no longer in use to clean up all listeners.
