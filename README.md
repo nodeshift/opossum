@@ -144,7 +144,7 @@ API calls.
 const route = 'https://example-service.com/rest/route';
 const circuitBreakerOptions = {
   timeout: 500,
-  maxFailures: 3,
+  errorThresholdPercentage: 50,
   resetTimeout: 5000
 };
 
