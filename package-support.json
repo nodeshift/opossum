@@ -1,0 +1,16 @@
+{
+  "versions": [
+    {
+      "version": "*",
+      "target": {
+        "node": "lts"
+      },
+      "response": {
+        "type": "regular-7"
+      },
+      "backing": {
+        "company": "true"
+      }
+    }
+  ]
+}
