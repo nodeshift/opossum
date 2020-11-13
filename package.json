@@ -3,11 +3,6 @@
   "version": "5.0.2",
   "author": "Red Hat, Inc.",
   "license": "Apache-2.0",
-  "support": {
-    "target": "LTS",
-    "response": "REGULAR-7",
-    "backing": "COMPANY"
-  },
   "scripts": {
     "prebuild": "npm run lint",
     "build": "./test/browser/generate-index.sh && npm run build:browser && npm run build:docs",
@@ -75,5 +70,6 @@
   "engines": {
     "node": "^15 || ^14 || ^12 || ^10"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "support": true
 }
