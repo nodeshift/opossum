@@ -46,7 +46,7 @@
     "babel-loader": "^8.0.6",
     "codacy-coverage": "^3.4.0",
     "coveralls": "^3.1.0",
-    "documentation": "^13.0.2",
+    "documentation": "^13.1.0",
     "nyc": "~15.1.0",
     "opener": "1.5.2",
     "serve": "^11.3.2",
