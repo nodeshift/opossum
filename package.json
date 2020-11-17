@@ -18,7 +18,9 @@
     "prerelease": "npm run ci",
     "release": "standard-version -s -a",
     "lint": "standardx test/*.js index.js lib/*.js test/*/*.js",
-    "clean": "rm -rf node_modules dist/*.js test/browser/webpack-test.js"
+    "clean": "rm -rf node_modules dist/*.js test/browser/webpack-test.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "standard-version": {
     "scripts": {
@@ -54,8 +56,8 @@
     "standardx": "^5.0.0",
     "tap-spec": "~5.0.0",
     "tape": "~5.0.1",
-    "webpack": "~4.44.2",
-    "webpack-cli": "~3.3.12"
+    "webpack": "~5.1.1",
+    "webpack-cli": "~4.0.0"
   },
   "description": "A fail-fast circuit breaker for promises and callbacks",
   "keywords": [
@@ -70,6 +72,9 @@
   "engines": {
     "node": "^15 || ^14 || ^12 || ^10"
   },
-  "dependencies": {},
-  "support": true
+  "dependencies": {
+    "snyk": "^1.427.2"
+  },
+  "support": true,
+  "snyk": true
 }
