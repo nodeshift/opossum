@@ -153,7 +153,7 @@ breaker.fallback(() => `${route} unavailable right now. Try later.`));
 breaker.on('success', (result) => $(element).append(JSON.stringify(result)}));
 
 $(() => {
-  $('#serviceButton').click(() => circuit.fire().catch((e) => console.error(e)));
+  $('#serviceButton').click(() => breaker.fire().catch((e) => console.error(e)));
 });
 
 ```
