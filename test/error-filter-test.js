@@ -9,7 +9,7 @@ const options = {
   resetTimeout: 10000,
   // if this function returns true, the error statistics
   // should not be incremented
-  errorFilter: err => err.statusCode < 500
+  errorFilter: (err) => err.statusCode < 500
 };
 
 test('Bypasses failure stats if errorFilter returns true', t => {
@@ -52,5 +52,25 @@ test('Increments failure stats if no filter is provided', t => {
       t.equal(breaker.stats.failures, 1);
       t.ok(breaker.open);
       t.end();
+    });
+});
+
+test('Provides invocation parameters to error filter', t => {
+  t.plan(3);
+  const errorCode = 504;
+  const breaker = new CircuitBreaker(failWithCode,
+    {
+      errorThresholdPercentage: 1,
+      errorFilter: (err, param) => {
+        t.equal(param, errorCode);
+        t.equal(err.statusCode, errorCode);
+      }
+    }
+  );
+  breaker.fire(errorCode)
+    .then(t.fail)
+    .catch(err => {
+      t.equal(err.statusCode, errorCode);
+      t.end()
     });
 });
