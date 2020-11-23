@@ -1,0 +1,80 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.19.0
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - webpack-cli > webpack-merge > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/utils > yeoman-environment > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > yeoman-generator > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/utils > yeoman-environment > inquirer > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/utils > yeoman-environment > grouped-queue > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > yeoman-generator > grouped-queue > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > yeoman-generator > async > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > @webpack-cli/utils > yeoman-environment > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > yeoman-generator > yeoman-environment > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/utils > yeoman-environment > yeoman-generator > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > @webpack-cli/webpack-scaffold > yeoman-generator > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > @webpack-cli/utils > yeoman-environment > inquirer > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > yeoman-generator > yeoman-environment > inquirer > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > @webpack-cli/utils > yeoman-environment > grouped-queue > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > yeoman-generator > yeoman-environment > grouped-queue > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/utils > yeoman-environment > yeoman-generator > grouped-queue > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > @webpack-cli/webpack-scaffold > yeoman-generator > grouped-queue > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/utils > yeoman-environment > yeoman-generator > async > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > @webpack-cli/webpack-scaffold > yeoman-generator > async > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > @webpack-cli/webpack-scaffold > yeoman-generator > yeoman-environment > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > @webpack-cli/utils > yeoman-environment > yeoman-generator > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/utils > jscodeshift > @babel/core > @babel/template > @babel/types > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > @webpack-cli/webpack-scaffold > yeoman-generator > yeoman-environment > inquirer > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > @webpack-cli/webpack-scaffold > yeoman-generator > yeoman-environment > grouped-queue > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > @webpack-cli/utils > yeoman-environment > yeoman-generator > grouped-queue > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > @webpack-cli/utils > yeoman-environment > yeoman-generator > async > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/utils > jscodeshift > @babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > @webpack-cli/webpack-scaffold > jscodeshift > @babel/core > @babel/template > @babel/types > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/utils > jscodeshift > @babel/preset-typescript > @babel/plugin-transform-typescript > @babel/helper-create-class-features-plugin > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > @webpack-cli/webpack-scaffold > jscodeshift > @babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > @webpack-cli/webpack-scaffold > jscodeshift > @babel/preset-typescript > @babel/plugin-transform-typescript > @babel/helper-create-class-features-plugin > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/utils > jscodeshift > @babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > @webpack-cli/webpack-scaffold > jscodeshift > @babel/plugin-proposal-class-properties > @babel/helper-create-class-features-plugin > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/utils > jscodeshift > @babel/preset-typescript > @babel/plugin-transform-typescript > @babel/helper-create-class-features-plugin > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > @webpack-cli/webpack-scaffold > jscodeshift > @babel/preset-typescript > @babel/plugin-transform-typescript > @babel/helper-create-class-features-plugin > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/utils > jscodeshift > @babel/preset-typescript > @babel/plugin-transform-typescript > @babel/helper-create-class-features-plugin > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
+    - webpack-cli > @webpack-cli/init > @webpack-cli/generators > @webpack-cli/webpack-scaffold > jscodeshift > @babel/preset-typescript > @babel/plugin-transform-typescript > @babel/helper-create-class-features-plugin > @babel/helper-replace-supers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-11-23T10:53:25.909Z'
