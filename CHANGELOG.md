@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.3](https://www.github.com/nodeshift/opossum/compare/v5.0.2...v5.0.3) (2020-11-23)
+
+
+### Bug Fixes
+
+* upgrade @babel/core from 7.12.1 to 7.12.3 ([#490](https://www.github.com/nodeshift/opossum/issues/490)) ([6a73957](https://www.github.com/nodeshift/opossum/commit/6a73957a52a290a30039b846bb5785f8503b15cd))
+* upgrade documentation from 13.0.2 to 13.1.0 ([#491](https://www.github.com/nodeshift/opossum/issues/491)) ([cc94100](https://www.github.com/nodeshift/opossum/commit/cc94100c665096c830e04653016662c8c19dc5ce))
+* upgrade multiple dependencies with Snyk ([#485](https://www.github.com/nodeshift/opossum/issues/485)) ([efe299e](https://www.github.com/nodeshift/opossum/commit/efe299e1d1cc0311a5ea406dad659ccd5d105754))
+* upgrade multiple dependencies with Snyk ([#487](https://www.github.com/nodeshift/opossum/issues/487)) ([3afaa17](https://www.github.com/nodeshift/opossum/commit/3afaa1757a1defc7d1b6050aedb301e188fe35c6))
+
 ### [5.0.2](https://www.github.com/nodeshift/opossum/compare/v5.0.1...v5.0.2) (2020-10-14)
 
 
