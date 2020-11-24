@@ -9,7 +9,7 @@ const options = {
   resetTimeout: 10000,
   // if this function returns true, the error statistics
   // should not be incremented
-  errorFilter: (err) => err.statusCode < 500
+  errorFilter: err => err.statusCode < 500
 };
 
 test('Bypasses failure stats if errorFilter returns true', t => {
@@ -71,6 +71,6 @@ test('Provides invocation parameters to error filter', t => {
     .then(t.fail)
     .catch(err => {
       t.equal(err.statusCode, errorCode);
-      t.end()
+      t.end();
     });
 });
