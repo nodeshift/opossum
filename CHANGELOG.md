@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.1.0](https://www.github.com/nodeshift/opossum/compare/v5.0.2...v5.1.0) (2020-12-02)
+
+
+### Features
+
+* pass circuit params to error filter ([#492](https://www.github.com/nodeshift/opossum/issues/492)) ([29175d7](https://www.github.com/nodeshift/opossum/commit/29175d75d03adf4ebfd4d7603dc454349b056b94))
+
+
+### Bug Fixes
+
+* lint issues in test ([#499](https://www.github.com/nodeshift/opossum/issues/499)) ([35ddd8c](https://www.github.com/nodeshift/opossum/commit/35ddd8c9326d0d882d0ab3a089ac87a3279ffa6c))
+* package.json & package-lock.json to reduce vulnerabilities ([#493](https://www.github.com/nodeshift/opossum/issues/493)) ([03fed29](https://www.github.com/nodeshift/opossum/commit/03fed29b3ac5c75662868800feda86b787ed7d9b))
+* upgrade @babel/core from 7.12.1 to 7.12.3 ([#490](https://www.github.com/nodeshift/opossum/issues/490)) ([6a73957](https://www.github.com/nodeshift/opossum/commit/6a73957a52a290a30039b846bb5785f8503b15cd))
+* upgrade babel-loader from 8.1.0 to 8.2.1 ([#505](https://www.github.com/nodeshift/opossum/issues/505)) ([885403b](https://www.github.com/nodeshift/opossum/commit/885403b58e4084d2abe71f1a65e666413abd4f32))
+* upgrade documentation from 13.0.2 to 13.1.0 ([#491](https://www.github.com/nodeshift/opossum/issues/491)) ([cc94100](https://www.github.com/nodeshift/opossum/commit/cc94100c665096c830e04653016662c8c19dc5ce))
+* upgrade multiple dependencies with Snyk ([#485](https://www.github.com/nodeshift/opossum/issues/485)) ([efe299e](https://www.github.com/nodeshift/opossum/commit/efe299e1d1cc0311a5ea406dad659ccd5d105754))
+* upgrade multiple dependencies with Snyk ([#487](https://www.github.com/nodeshift/opossum/issues/487)) ([3afaa17](https://www.github.com/nodeshift/opossum/commit/3afaa1757a1defc7d1b6050aedb301e188fe35c6))
+* upgrade webpack from 5.1.1 to 5.3.2 ([#500](https://www.github.com/nodeshift/opossum/issues/500)) ([1562a41](https://www.github.com/nodeshift/opossum/commit/1562a4148bbfbc8cc9d98e6b2241bbf942941c4e))
+* upgrade webpack-cli from 4.0.0 to 4.1.0 ([#501](https://www.github.com/nodeshift/opossum/issues/501)) ([63d20c2](https://www.github.com/nodeshift/opossum/commit/63d20c27475319a5c8de434b6eb66b5e866376b7))
+
+
+### Reverts
+
+* Revert "build: use pull_request_target in actions workflow (#476)" ([3fa32b9](https://www.github.com/nodeshift/opossum/commit/3fa32b9d20c97a7f4e02cf602b8d4831f1ed1c83)), closes [#476](https://www.github.com/nodeshift/opossum/issues/476)
+
 ### [5.0.2](https://www.github.com/nodeshift/opossum/compare/v5.0.1...v5.0.2) (2020-10-14)
 
 
