@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.1.1](https://www.github.com/nodeshift/opossum/compare/v5.1.0...v5.1.1) (2020-12-07)
+
+
+### Bug Fixes
+
+* catch exceptions in fallback functions ([#510](https://www.github.com/nodeshift/opossum/issues/510)) ([34f75a2](https://www.github.com/nodeshift/opossum/commit/34f75a2994b3efd95fbd86fab5f6cf73f3fa39d8))
+* upgrade webpack from 5.3.2 to 5.4.0 ([#507](https://www.github.com/nodeshift/opossum/issues/507)) ([05a8876](https://www.github.com/nodeshift/opossum/commit/05a88768ca4aae185787fed5eafa3f3b538bf326))
+* upgrade webpack-cli from 4.1.0 to 4.2.0 ([#506](https://www.github.com/nodeshift/opossum/issues/506)) ([ba91b77](https://www.github.com/nodeshift/opossum/commit/ba91b77947f4657d60172d3991b851000a54c9c3))
+
 ## [5.1.0](https://www.github.com/nodeshift/opossum/compare/v5.0.2...v5.1.0) (2020-12-02)
 
 
