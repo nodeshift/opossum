@@ -776,6 +776,22 @@ test('CircuitBreaker fallback as a CircuitBreaker', t => {
     .then(t.end);
 });
 
+test('CircuitBreaker fallback that throws returns a rejected Promise', t => {
+  t.plan(1);
+  const options = {
+    errorThresholdPercentage: 1,
+    resetTimeout: 100
+  };
+  const breaker = new CircuitBreaker(passFail, options);
+  breaker.fallback(_ => { throw new Error('Fallback failed'); });
+
+  breaker.fire(-1)
+    .then(_ => t.fail('CircuitBreaker fallback should return rejected promise'))
+    .catch(e => t.equals(e.message, 'Fallback failed'))
+    .then(_ => breaker.shutdown())
+    .then(t.end);
+});
+
 test('options.maxFailures should be deprecated', t => {
   const options = { maxFailures: 1 };
   const originalLog = console.error;
