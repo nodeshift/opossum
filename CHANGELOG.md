@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.1.2](https://www.github.com/nodeshift/opossum/compare/v5.1.1...v5.1.2) (2021-01-07)
+
+
+### Bug Fixes
+
+* type-error on empty action ([#528](https://www.github.com/nodeshift/opossum/issues/528)) ([7b51dba](https://www.github.com/nodeshift/opossum/commit/7b51dba305ee4dfdbec16a034549a7538910c41b)), closes [#524](https://www.github.com/nodeshift/opossum/issues/524)
+* upgrade @babel/core from 7.12.7 to 7.12.9 ([#517](https://www.github.com/nodeshift/opossum/issues/517)) ([2a28a73](https://www.github.com/nodeshift/opossum/commit/2a28a733087da5544c361406089b825633c9d60e))
+* upgrade @babel/preset-env from 7.12.10 to 7.12.11 ([#527](https://www.github.com/nodeshift/opossum/issues/527)) ([bce3bfc](https://www.github.com/nodeshift/opossum/commit/bce3bfc78938ff37ad7bc5226fb2841a01ef5fc4))
+* upgrade babel-loader from 8.2.1 to 8.2.2 ([#519](https://www.github.com/nodeshift/opossum/issues/519)) ([654af20](https://www.github.com/nodeshift/opossum/commit/654af20a492cc878ad93113f1890d9a735cbc9b4))
+* upgrade multiple dependencies with Snyk ([#513](https://www.github.com/nodeshift/opossum/issues/513)) ([7e3ef5c](https://www.github.com/nodeshift/opossum/commit/7e3ef5c8218e45aa48b1eff159ef97aca2cc9dbe))
+* upgrade multiple dependencies with Snyk ([#523](https://www.github.com/nodeshift/opossum/issues/523)) ([480d2ff](https://www.github.com/nodeshift/opossum/commit/480d2ff490fa53dadae61124638a65c69788f4aa))
+* upgrade webpack from 5.10.1 to 5.10.3 ([#526](https://www.github.com/nodeshift/opossum/issues/526)) ([e72394c](https://www.github.com/nodeshift/opossum/commit/e72394c9b28bd4a2db6a7307ea46bb45f677facd))
+* upgrade webpack from 5.4.0 to 5.6.0 ([#512](https://www.github.com/nodeshift/opossum/issues/512)) ([dc8f308](https://www.github.com/nodeshift/opossum/commit/dc8f308b1b6bd800657de4908a75a968e13f52e9))
+* upgrade webpack from 5.6.0 to 5.8.0 ([#518](https://www.github.com/nodeshift/opossum/issues/518)) ([f4438c8](https://www.github.com/nodeshift/opossum/commit/f4438c84019c79d7d491f4563b61c707ef0f29fc))
+* upgrade webpack from 5.8.0 to 5.9.0 ([#520](https://www.github.com/nodeshift/opossum/issues/520)) ([119ac47](https://www.github.com/nodeshift/opossum/commit/119ac47c34bcb23ee9080b865a8732d87660838e))
+* upgrade webpack from 5.9.0 to 5.10.1 ([#525](https://www.github.com/nodeshift/opossum/issues/525)) ([d552015](https://www.github.com/nodeshift/opossum/commit/d552015888b7635578b18b87d96a7e9daf611da9))
+* using default parameter to avoid runtime error ([#522](https://www.github.com/nodeshift/opossum/issues/522)) ([6a6f08b](https://www.github.com/nodeshift/opossum/commit/6a6f08b258ffb5db15df04bb189a2f31e6279e8a))
+
 ### [5.1.1](https://www.github.com/nodeshift/opossum/compare/v5.1.0...v5.1.1) (2020-12-07)
 
 
