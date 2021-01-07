@@ -971,6 +971,16 @@ test('CircuitBreaker without a timeout', t => {
     .catch(t.fail);
 });
 
+test('CircuitBreaker without an action', t => {
+  t.plan(1);
+  try {
+    // eslint-disable-next-line
+    const _ = new CircuitBreaker();
+  } catch (err) {
+    if (err instanceof TypeError) t.pass();
+  }
+});
+
 const noop = _ => {};
 const common = require('./common');
 const identity = common.identity;
