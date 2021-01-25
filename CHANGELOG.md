@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.1.3](https://www.github.com/nodeshift/opossum/compare/v5.1.2...v5.1.3) (2021-01-25)
+
+
+### Bug Fixes
+
+* package.json & package-lock.json to reduce vulnerabilities ([#533](https://www.github.com/nodeshift/opossum/issues/533)) ([deaa258](https://www.github.com/nodeshift/opossum/commit/deaa2586c51b5ae5fbb528a5dc93d1909b2139bc))
+* upgrade standard-version from 9.0.0 to 9.1.0 ([#535](https://www.github.com/nodeshift/opossum/issues/535)) ([3665bb0](https://www.github.com/nodeshift/opossum/commit/3665bb03f036dfc2728964441039df475a9e0269))
+* upgrade tape from 5.0.1 to 5.1.0 ([#534](https://www.github.com/nodeshift/opossum/issues/534)) ([be93012](https://www.github.com/nodeshift/opossum/commit/be9301256ce137b0a7c32e2c437d72955eb44e95))
+* upgrade tape from 5.1.0 to 5.1.1 ([#537](https://www.github.com/nodeshift/opossum/issues/537)) ([78db7ba](https://www.github.com/nodeshift/opossum/commit/78db7ba38cda4986d77c2642d2c318912a5244da))
+* upgrade webpack from 5.10.3 to 5.11.0 ([#529](https://www.github.com/nodeshift/opossum/issues/529)) ([039fb48](https://www.github.com/nodeshift/opossum/commit/039fb487c61aaf2a582b9feb7efa5d0ae40ecfe8))
+* upgrade webpack from 5.11.0 to 5.11.1 ([#532](https://www.github.com/nodeshift/opossum/issues/532)) ([67d850e](https://www.github.com/nodeshift/opossum/commit/67d850ea5f1289bac1bdb8ade2db0d1e10309f75))
+* upgrade webpack-cli from 4.2.0 to 4.3.0 ([#531](https://www.github.com/nodeshift/opossum/issues/531)) ([9625ff7](https://www.github.com/nodeshift/opossum/commit/9625ff7fc0ca66fd84e9999e1a8c14784360324a))
+* upgrade webpack-cli from 4.3.0 to 4.3.1 ([#536](https://www.github.com/nodeshift/opossum/issues/536)) ([afcc950](https://www.github.com/nodeshift/opossum/commit/afcc9505080e5564144f5d25e4ad9fa28c2a7cbe))
+
 ### [5.1.2](https://www.github.com/nodeshift/opossum/compare/v5.1.1...v5.1.2) (2021-01-07)
 
 
