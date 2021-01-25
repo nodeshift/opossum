@@ -53,7 +53,7 @@
     "standard-version": "9.1.0",
     "standardx": "^5.0.0",
     "tap-spec": "~5.0.0",
-    "tape": "~5.1.0",
+    "tape": "~5.1.1",
     "webpack": "~5.11.1",
     "webpack-cli": "~4.3.0"
   },
