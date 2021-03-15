@@ -5,7 +5,7 @@
  */
 /* eslint-env amd, node */
 
-// https://github.com/umdjs/umd/blob/master/templates/returnExports.js
+// https://github.com/umdjs/umd/blob/HEAD/templates/returnExports.js
 (function(root, factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
