@@ -60,7 +60,7 @@ Use `git rebase` to sync your work from time to time.
 
 ```
 git fetch upstream
-git rebase upstream/master
+git rebase upstream/main
 ```
 
 ### Development cycle
@@ -93,7 +93,7 @@ These are mostly notes for myself.
 
   * Be sure you are starting from a clean slate: `npm run clean && npm install`
   * Run standard-version: `npm run release` - this will run the `ci` task
-  * Push to GitHub: `git push --follow-tags origin master`
+  * Push to GitHub: `git push --follow-tags origin main`
   * Publish to npmjs.com: `npm publish`
   * Assuming all goes well, head over to https://github.com/nodeshift/opossum/releases
     and update the release with any relevant notes. The generated CHANGELOG.md file should
