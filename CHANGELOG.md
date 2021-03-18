@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.0](https://www.github.com/nodeshift/opossum/compare/v5.1.3...v6.0.0) (2021-03-18)
+
+
+### ⚠ BREAKING CHANGES
+
+A succesful erroFilter should not trigger the fallback function.
+
+Previously, if an errorFilter  function passed it would emit success but still call the fallback function.  This corrects this behavior.  even a passing errorFilter is a success
+
+### Bug Fixes
+
+* upgrade multiple dependencies with Snyk ([#545](https://www.github.com/nodeshift/opossum/issues/545)) ([9191afb](https://www.github.com/nodeshift/opossum/commit/9191afba6c433371d897c8cfe0f800f5a00b4efc))
+* upgrade multiple dependencies with Snyk ([#548](https://www.github.com/nodeshift/opossum/issues/548)) ([8db0e9e](https://www.github.com/nodeshift/opossum/commit/8db0e9ec57b510a6f929cdbcfa0c474f6dc1950c))
+* upgrade multiple dependencies with Snyk ([#552](https://www.github.com/nodeshift/opossum/issues/552)) ([7efcf91](https://www.github.com/nodeshift/opossum/commit/7efcf91f919a4517750b1da79293dd4bf93fe6ef))
+* upgrade standard-version from 9.1.0 to 9.1.1 ([#551](https://www.github.com/nodeshift/opossum/issues/551)) ([16341bb](https://www.github.com/nodeshift/opossum/commit/16341bb806c14fec29cb25e7bd301e975ae23631))
+* upgrade tape from 5.1.1 to 5.2.0 ([#553](https://www.github.com/nodeshift/opossum/issues/553)) ([fa69c06](https://www.github.com/nodeshift/opossum/commit/fa69c060199ef5910f541de79ef4eafe6aa36ae8))
+* upgrade webpack from 5.11.1 to 5.12.1 ([#538](https://www.github.com/nodeshift/opossum/issues/538)) ([34b6d61](https://www.github.com/nodeshift/opossum/commit/34b6d618c892205f6478d20dbf6171181edbaab7))
+* upgrade webpack from 5.12.1 to 5.20.1 ([#543](https://www.github.com/nodeshift/opossum/issues/543)) ([38b3e61](https://www.github.com/nodeshift/opossum/commit/38b3e61ad09fecb8e6fd22ff06069d9ff5465f2f))
+* upgrade webpack from 5.20.1 to 5.20.2 ([#546](https://www.github.com/nodeshift/opossum/issues/546)) ([d7952d5](https://www.github.com/nodeshift/opossum/commit/d7952d5cf0dfd4e546f104d513469e9ca6f2e649))
+* upgrade webpack from 5.20.2 to 5.22.0 ([#549](https://www.github.com/nodeshift/opossum/issues/549)) ([41efe20](https://www.github.com/nodeshift/opossum/commit/41efe20243b9584e43a545bc2a27d323f8e3f2be))
+* upgrade webpack-cli from 4.3.1 to 4.4.0 ([#539](https://www.github.com/nodeshift/opossum/issues/539)) ([b089f0b](https://www.github.com/nodeshift/opossum/commit/b089f0b8650f69fa204c8c14a6879f46894a965d))
+* upgrade webpack-cli from 4.4.0 to 4.5.0 ([#544](https://www.github.com/nodeshift/opossum/issues/544)) ([83110a4](https://www.github.com/nodeshift/opossum/commit/83110a4936230c58783d73741e88f6a1878c668f))
+
+
+*  fix!: A succesful erroFilter should not trigger the fallback function. ([8a4fb7c](https://www.github.com/nodeshift/opossum/commit/8a4fb7c48922a39a1e3df7f646fbcf11b31e0872)), closes [#540](https://www.github.com/nodeshift/opossum/issues/540)
+
 ### [5.1.3](https://www.github.com/nodeshift/opossum/compare/v5.1.2...v5.1.3) (2021-01-25)
 
 
