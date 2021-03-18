@@ -48,7 +48,7 @@ test('When half-open, the circuit only allows one request through', t => {
 });
 
 test('When half-open, a filtered error should close the circuit', t => {
-  t.plan(7);
+  t.plan(6);
   const options = {
     errorThresholdPercentage: 1,
     resetTimeout: 100,
@@ -69,13 +69,10 @@ test('When half-open, a filtered error should close the circuit', t => {
         t.ok(breaker.halfOpen, 'should be halfOpen after timeout');
         t.ok(breaker.pendingClose, 'should be pending close after timeout');
         breaker
-          .fire(400) // fail with a filtered error
-          .catch(e =>
-            t.equals(e.message, 'Failed with 400 status code',
-              'should fail again'))
+          .fire(400) // pass with a filtered error
           .then(() => {
             t.ok(breaker.closed,
-              'should be closed after failing with filtered error');
+              'should be closed after passing with filtered error');
           })
           .then(_ => breaker.shutdown())
           .then(t.end);

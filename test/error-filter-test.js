@@ -12,18 +12,20 @@ const options = {
   errorFilter: err => err.statusCode < 500
 };
 
-test('Bypasses failure stats if errorFilter returns true', t => {
+test('Bypasses failure stats if errorFilter returns true - Should return a success', t => {
   t.plan(4);
 
   const breaker = new CircuitBreaker(failWithCode, options);
   breaker.fire(400)
-    .then(t.fail)
-    .catch(err => {
-      t.equal(err.statusCode, 400);
+    .then(returnValue => {
+      t.equal(returnValue, true, 'return value is the value of the errorFilter function');
       t.equal(breaker.stats.failures, 0);
       t.equal(breaker.stats.successes, 1);
       t.ok(breaker.closed);
       t.end();
+    })
+    .catch(_ => {
+      t.fail();
     });
 });
 
