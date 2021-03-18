@@ -7,7 +7,9 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### ⚠ BREAKING CHANGES
 
-* this is a semver major change
+A succesful erroFilter should not trigger the fallback function.
+
+Previously, if an errorFilter  function passed it would emit success but still call the fallback function.  This corrects this behavior.  even a passing errorFilter is a success
 
 ### Bug Fixes
 
