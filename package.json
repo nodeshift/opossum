@@ -18,7 +18,8 @@
     "prerelease": "npm run ci",
     "release": "standard-version -s -a",
     "lint": "standardx test/*.js index.js lib/*.js test/*/*.js",
-    "clean": "rm -rf node_modules dist/*.js test/browser/webpack-test.js"
+    "clean": "rm -rf node_modules dist/*.js test/browser/webpack-test.js",
+    "prepublishOnly": "npm run build"
   },
   "standard-version": {
     "scripts": {
