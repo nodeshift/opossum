@@ -243,6 +243,59 @@ breaker.fire()
   .catch(console.error);
 ```
 
+### Calculating errorThresholdPercentage
+
+The `errorThresholdPercentage` value is compared to the error rate. That rate is determined by dividing the number of failures by the number of times the circuit has been fired. You can see this comparison here:
+
+```js
+// check stats to see if the circuit should be opened
+  const stats = circuit.stats;
+  if ((stats.fires < circuit.volumeThreshold) && !circuit.halfOpen) return;
+  const errorRate = stats.failures / stats.fires * 100;
+  if (errorRate > circuit.options.errorThresholdPercentage ||
+    stats.failures >= circuit.options.maxFailures ||
+    circuit.halfOpen) {
+    circuit.open();
+  }
+```
+
+The numbers for `fires` and `failures` come from the stats that are indeed governed by `rollingCountTimeout` and `rollingCountBuckets`. The timeout value is the total number of seconds for which the stats are being maintained, and the buckets value is the number of slots in the window. The defaults are 10 seconds and 10 buckets. So, the statistics that are being compared against `errorThresholdPercentage` are based on 10 samples, one per second over the last 10 seconds.
+
+Example: a circuit is fired 24 times over 10 seconds with a somewhat bursty pattern, failing three times.
+
+```
+| fires: 2 | fires: 1 | fires: 3 | fires: 0 | fires: 9 | fires: 3 | fires: 2 | fires: 0 | fires: 8 | fires: 0 |
+| fails: 0 | fails: 0 | fails: 0 | fails: 0 | fails: 0 | fails: 3 | fails: 0 | fails: 0 | fails: 0 | fails: 0 |
+```
+The failure rate here is 3/24 or 1/8 or 12.5%. The default error threshold is 50%, so in this case, the circuit would not open. However, if you modified the `rollingCountTimeout` to 3 seconds, and the `rollingCountBuckets` to 3  (not recommended), then the stats array might look like these three seconds from above.
+
+```
+| fires: 3 | fires: 2 | fires: 0 |
+| fails: 3 | fails: 0 | fails: 0 |
+```
+Now, without changing `errorThresholdPercentage` our circuit will open because our error rate is now 3/5 or 60%. It's tricky to test this stuff because the array of statistics is a rolling count. Every second the oldest bucket is removed and a new one is added, so the totals change constantly in a way that may not be intuitive.
+
+For example, if the first example is shifted right, dropping the first bucket and adding another with `fires: 3` the total number of `fires` now in the stats is not 27 (24+3) but 25 (24-2+3).
+
+The code that is summing the stats samples is here:
+
+```js
+  const totals = this[WINDOW].reduce((acc, val) => {
+    if (!val) { return acc; }
+    Object.keys(acc).forEach(key => {
+      if (key !== 'latencyTimes' && key !== 'percentiles') {
+        (acc[key] += val[key] || 0);
+      }
+    });
+
+    if (this.rollingPercentilesEnabled) {
+      acc.latencyTimes.push.apply(acc.latencyTimes, val.latencyTimes || []);
+    }
+    return acc;
+  }, bucket());
+```
+
+
 ### Typings
 
 Typings are available [here](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/opossum).
