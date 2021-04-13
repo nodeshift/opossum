@@ -7,7 +7,7 @@ const context = {
   lunch: 'sushi'
 };
 
-async function getLunch (param) {
+function getLunch (param) {
   return param
     ? Promise.resolve(param)
     : Promise.resolve(this.lunch);
