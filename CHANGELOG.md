@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.0.1](https://www.github.com/nodeshift/opossum/compare/v6.0.0...v6.0.1) (2021-04-15)
+
+
+### Bug Fixes
+
+* return errors from invocation filtered errors ([#567](https://www.github.com/nodeshift/opossum/issues/567)) ([737e1b1](https://www.github.com/nodeshift/opossum/commit/737e1b1bbd5e440791d0b06f5b837073c0d2bdbf)), closes [#556](https://www.github.com/nodeshift/opossum/issues/556)
+* **docs:** Fix documentation for default value of rollingPercentilesEnabled ([#563](https://www.github.com/nodeshift/opossum/issues/563)) ([93d5969](https://www.github.com/nodeshift/opossum/commit/93d59697c614a4b567fee63d76201f151a6ecef8))
+
 ## [6.0.0](https://www.github.com/nodeshift/opossum/compare/v5.1.3...v6.0.0) (2021-03-18)
 
 
