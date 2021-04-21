@@ -21,7 +21,7 @@ test('CircuitBreaker status - import stats', t => {
     latencyTimes: []
   };
 
-  breaker.initialize(prevStats);
+  breaker.initialize({ stats: prevStats });
   const deepEqual = (t, expected) =>
     actual => t.deepEqual(actual, expected, 'expected status values');
 
@@ -76,7 +76,7 @@ test('CircuitBreaker status - import stats, but leave some out', t => {
     latencyTimes: []
   };
 
-  breaker.initialize(prevStats);
+  breaker.initialize({ stats: prevStats });
   t.equal(breaker.status.stats.failures, 0, 'failures was initialized');
   t.equal(breaker.status.stats.fallbacks, 0, 'fallbacks was initialized');
   t.equal(breaker.status.stats.successes, 0, 'successes was initialized');
