@@ -21,7 +21,7 @@ test('CircuitBreaker status - import stats', t => {
     latencyTimes: []
   };
 
-  breaker.importStats(prevStats);
+  breaker.initialize(prevStats);
   const deepEqual = (t, expected) =>
     actual => t.deepEqual(actual, expected, 'expected status values');
 
