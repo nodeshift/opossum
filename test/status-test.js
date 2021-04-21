@@ -61,3 +61,26 @@ test('CircuitBreaker status - import stats', t => {
         .then(t.end);
     });
 });
+
+test('CircuitBreaker status - import stats, but leave some out', t => {
+  t.plan(3);
+  const breaker = new CircuitBreaker(passFail, { errorThresholdPercentage: 1 });
+  const prevStats = {
+    rejects: 1,
+    fires: 1,
+    timeouts: 1,
+    cacheHits: 1,
+    cacheMisses: 1,
+    semaphoreRejections: 1,
+    percentiles: {},
+    latencyTimes: []
+  };
+
+  breaker.initialize(prevStats);
+  t.equal(breaker.status.stats.failures, 0, 'failures was initialized');
+  t.equal(breaker.status.stats.fallbacks, 0, 'fallbacks was initialized');
+  t.equal(breaker.status.stats.successes, 0, 'successes was initialized');
+
+  breaker.shutdown();
+  t.end();
+});
