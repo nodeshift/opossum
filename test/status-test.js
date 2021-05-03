@@ -2,11 +2,12 @@
 
 const test = require('tape');
 const CircuitBreaker = require('../');
+const Status = require('../lib/status.js');
 const { passFail } = require('./common');
 
-test('CircuitBreaker status - import stats', t => {
-  t.plan(12);
-  const breaker = new CircuitBreaker(passFail, { errorThresholdPercentage: 1 });
+test('CircuitBreaker status - new Status static method', t => {
+  t.plan(9);
+
   const prevStats = {
     failures: 1,
     fallbacks: 1,
@@ -21,7 +22,46 @@ test('CircuitBreaker status - import stats', t => {
     latencyTimes: []
   };
 
-  breaker.initialize({ stats: prevStats });
+  const status = CircuitBreaker.newStatus({stats: prevStats});
+  t.equal(status instanceof Status, true, 'returns a new Status instance');
+
+  const stats = status.stats;
+  t.equal(stats.failures, 1, 'status reports 1 failure');
+  t.equal(stats.rejects, 1, 'status reports 1 reject');
+  t.equal(stats.fires, 1, 'status reports 5 fires');
+  t.equal(stats.fallbacks, 1, 'status reports 1 fallback');
+  t.equal(stats.successes, 1, 'status reports 1 successes');
+  t.equal(stats.timeouts, 1, 'status reports 1 timeouts');
+  t.equal(stats.cacheHits, 1, 'status reports 1 cacheHits');
+  t.equal(stats.semaphoreRejections, 1, 'status reports 1 semaphoreRejections');
+
+  t.end();
+});
+
+test('CircuitBreaker status - import stats', t => {
+  t.plan(12);
+
+  const prevStats = {
+    failures: 1,
+    fallbacks: 1,
+    successes: 1,
+    rejects: 1,
+    fires: 1,
+    timeouts: 1,
+    cacheHits: 1,
+    cacheMisses: 1,
+    semaphoreRejections: 1,
+    percentiles: {},
+    latencyTimes: []
+  };
+
+  const status = CircuitBreaker.newStatus({stats: prevStats});
+
+  const breaker = new CircuitBreaker(passFail, {
+    errorThresholdPercentage: 1,
+    status: status
+  });
+
   const deepEqual = (t, expected) =>
     actual => t.deepEqual(actual, expected, 'expected status values');
 
@@ -64,7 +104,7 @@ test('CircuitBreaker status - import stats', t => {
 
 test('CircuitBreaker status - import stats, but leave some out', t => {
   t.plan(3);
-  const breaker = new CircuitBreaker(passFail, { errorThresholdPercentage: 1 });
+
   const prevStats = {
     rejects: 1,
     fires: 1,
@@ -76,7 +116,40 @@ test('CircuitBreaker status - import stats, but leave some out', t => {
     latencyTimes: []
   };
 
-  breaker.initialize({ stats: prevStats });
+  const status = CircuitBreaker.newStatus({stats: prevStats});
+
+  const breaker = new CircuitBreaker(passFail, {
+    errorThresholdPercentage: 1,
+    status: status
+  });
+
+  t.equal(breaker.status.stats.failures, 0, 'failures was initialized');
+  t.equal(breaker.status.stats.fallbacks, 0, 'fallbacks was initialized');
+  t.equal(breaker.status.stats.successes, 0, 'successes was initialized');
+
+  breaker.shutdown();
+  t.end();
+});
+
+test('CircuitBreaker status - import stats,but not a status object', t => {
+  t.plan(3);
+
+  const prevStats = {
+    rejects: 1,
+    fires: 1,
+    timeouts: 1,
+    cacheHits: 1,
+    cacheMisses: 1,
+    semaphoreRejections: 1,
+    percentiles: {},
+    latencyTimes: []
+  };
+
+  const breaker = new CircuitBreaker(passFail, {
+    errorThresholdPercentage: 1,
+    status: prevStats
+  });
+
   t.equal(breaker.status.stats.failures, 0, 'failures was initialized');
   t.equal(breaker.status.stats.fallbacks, 0, 'fallbacks was initialized');
   t.equal(breaker.status.stats.successes, 0, 'successes was initialized');
