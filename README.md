@@ -87,6 +87,56 @@ const breaker = new CircuitBreaker(delay);
 breaker.fire(20000, 1, 2, 3);
 breaker.fallback((delay, a, b, c) => `Sorry, out of service right now. But your parameters are: ${delay}, ${a}, ${b} and ${c}`);
 ```
+### Status Initialization
+
+There may be times where you will need to pre-populate the stats of the Circuit Breaker Status Object.  The major use case for this is in a serverless functions environment,  or in a container based deployment, where the container being deployed is ephemeral.
+
+Getting the existing cumalative stats for a breaker can be done like this:
+
+```
+const stats = breaker.status.stats;
+```
+
+`stats` will be an object that might look similar to this:
+
+```
+{
+  failures: 11,
+  fallbacks: 0,
+  successes: 5,
+  rejects: 0,
+  fires: 16,
+  timeouts: 0,
+  cacheHits: 0,
+  cacheMisses: 0,
+  semaphoreRejections: 0,
+  percentiles: {
+    '0': 0,
+    '1': 0,
+    '0.25': 0,
+    '0.5': 0,
+    '0.75': 0,
+    '0.9': 0,
+    '0.95': 0,
+    '0.99': 0,
+    '0.995': 0
+  },
+  latencyTimes: [ 0 ],
+  latencyMean: 0
+}
+```
+
+To then re-import those stats, first create a new `Status` object with the previous stats and then pass that as an option to the CircuitBreaker constructor:
+
+```
+const statusOptions = {
+  stats: {....}
+};
+
+const newStatus = CircuitBreaker.newStatus(statusOptions);
+
+const breaker = new CircuitBreaker({status: newStatus});
+```
 
 ### Browser
 
