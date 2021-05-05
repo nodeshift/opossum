@@ -132,7 +132,7 @@ test('CircuitBreaker status - import stats, but leave some out', t => {
 });
 
 test('CircuitBreaker status - import stats,but not a status object', t => {
-  t.plan(3);
+  t.plan(1);
 
   const prevStats = {
     rejects: 1,
@@ -145,15 +145,15 @@ test('CircuitBreaker status - import stats,but not a status object', t => {
     latencyTimes: []
   };
 
-  const breaker = new CircuitBreaker(passFail, {
-    errorThresholdPercentage: 1,
-    status: prevStats
-  });
-
-  t.equal(breaker.status.stats.failures, 0, 'failures was initialized');
-  t.equal(breaker.status.stats.fallbacks, 0, 'fallbacks was initialized');
-  t.equal(breaker.status.stats.successes, 0, 'successes was initialized');
-
-  breaker.shutdown();
-  t.end();
+  try {
+    // eslint-disable-next-line
+    const _ = new CircuitBreaker(passFail, {
+      errorThresholdPercentage: 1,
+      status: prevStats
+    });
+    t.fail();
+  } catch (err) {
+    if (err instanceof TypeError) t.pass();
+    t.end();
+  }
 });
