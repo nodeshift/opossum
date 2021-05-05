@@ -94,7 +94,7 @@ There may be times where you will need to pre-populate the stats of the Circuit 
 Getting the existing cumalative stats for a breaker can be done like this:
 
 ```
-const stats = breaker.status.stats;
+const stats = breaker.stats;
 ```
 
 `stats` will be an object that might look similar to this:
