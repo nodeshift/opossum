@@ -89,7 +89,7 @@ breaker.fallback((delay, a, b, c) => `Sorry, out of service right now. But your 
 ```
 ### Status Initialization
 
-There may be times where you will need to pre-populate the stats of the Circuit Breaker Status Object.  The major use case for this is in a serverless functions environment,  or in a container based deployment, where the container being deployed is ephemeral.
+There may be times where you will need to pre-populate the stats of the Circuit Breaker Status Object.  Primary use cases for this are in a serverless environment such as Knative or AWS Lambda, or any container based platform, where the container being deployed is ephemeral.
 
 Getting the existing cumalative stats for a breaker can be done like this:
 
