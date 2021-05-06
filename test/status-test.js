@@ -28,7 +28,7 @@ test('CircuitBreaker status - new Status static method', t => {
   const stats = status.stats;
   t.equal(stats.failures, 1, 'status reports 1 failure');
   t.equal(stats.rejects, 1, 'status reports 1 reject');
-  t.equal(stats.fires, 1, 'status reports 5 fires');
+  t.equal(stats.fires, 1, 'status reports 1 fires');
   t.equal(stats.fallbacks, 1, 'status reports 1 fallback');
   t.equal(stats.successes, 1, 'status reports 1 successes');
   t.equal(stats.timeouts, 1, 'status reports 1 timeouts');
@@ -80,8 +80,8 @@ test('CircuitBreaker status - import stats', t => {
           const stats = breaker.status.stats;
           t.equal(value, 'Error: -10 is < 0',
             'fails with correct error message');
-          t.equal(stats.failures, 2, 'status reports a single failure');
-          t.equal(stats.fires, 5, 'status reports 4 fires');
+          t.equal(stats.failures, 2, 'status reports 2 failures');
+          t.equal(stats.fires, 5, 'status reports 5 fires');
         })
         .then(() => {
           breaker.fallback(() => 'Fallback called');
@@ -89,10 +89,10 @@ test('CircuitBreaker status - import stats', t => {
             .then(result => {
               const stats = breaker.status.stats;
               t.equal(result, 'Fallback called', 'fallback is invoked');
-              t.equal(stats.failures, 2, 'status reports 1 failure');
-              t.equal(stats.rejects, 2, 'status reports 1 reject');
-              t.equal(stats.fires, 6, 'status reports 5 fires');
-              t.equal(stats.fallbacks, 2, 'status reports 1 fallback');
+              t.equal(stats.failures, 2, 'status reports 2 failure');
+              t.equal(stats.rejects, 2, 'status reports 2 reject');
+              t.equal(stats.fires, 6, 'status reports 6 fires');
+              t.equal(stats.fallbacks, 2, 'status reports 2 fallback');
             })
             .catch(t.fail);
         })
