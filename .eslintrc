@@ -5,6 +5,9 @@
     "es6": true,
     "node": true
   },
+  "parserOptions": {
+    "ecmaVersion": 2020
+  },
   "rules": {
     "standard/no-callback-literal": "off",
     "arrow-spacing": "error",
