@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.1.0](https://www.github.com/nodeshift/opossum/compare/v6.0.1...v6.1.0) (2021-05-06)
+
+
+### Features
+
+* Add the ability to prime a breaker with previous stats ([#568](https://www.github.com/nodeshift/opossum/issues/568)) ([be26d74](https://www.github.com/nodeshift/opossum/commit/be26d74e30e7c13386cd2b2eacf89ca964e1467d))
+
 ### [6.0.1](https://www.github.com/nodeshift/opossum/compare/v6.0.0...v6.0.1) (2021-04-15)
 
 
