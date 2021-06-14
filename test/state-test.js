@@ -111,3 +111,25 @@ test('When half-open, the circuit only allows one request through', t => {
     .then(_ => breaker.shutdown())
     .then(t.end);
 });
+
+test('Circuit initalized as shutdown', t => {
+  t.plan(5);
+  const options = {
+    state: {
+      shutdown: true
+    }
+  };
+  const breaker = new CircuitBreaker(passFail, options);
+  t.ok(breaker.isShutdown, 'breaker is shutdown');
+  t.notOk(breaker.enabled, 'breaker has been disabled');
+  breaker.fire(1)
+    .then(t.fail)
+    .catch(err => {
+      t.equals('ESHUTDOWN', err.code);
+      t.equals('The circuit has been shutdown.', err.message);
+      t.equals(
+        CircuitBreaker.isOurError(err), true, 'isOurError() should return true'
+      );
+      t.end();
+    });
+});
