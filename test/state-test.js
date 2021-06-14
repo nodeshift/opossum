@@ -83,8 +83,7 @@ test('When half-open, the circuit only allows one request through', t => {
     errorThresholdPercentage: 1,
     resetTimeout: 100,
     state: {
-      halfOpen: true,
-      pendingClose: true
+      halfOpen: true
     }
   };
 
