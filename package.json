@@ -13,6 +13,7 @@
     "build:docs:markdown": "documentation build index.js -f md -o docs/opossum.md",
     "pretest": "eslint --ignore-path .gitignore .",
     "test": "nyc tape test/*.js | tap-spec",
+    "test:hrml": "nyc report --reporter=html",
     "test:headless": "node test/browser/webpack-test.js",
     "test:browser": "opener http://localhost:9007/test/browser/index.html && serve . -p 9007",
     "ci": "npm run build && npm run test && npm run test:headless",

@@ -91,23 +91,28 @@ breaker.fallback((delay, a, b, c) => `Sorry, out of service right now. But your 
 
 There may be times where you will need to initialize the state of a Circuit Breaker.  Primary use cases for this are in a serverless environment such as Knative or AWS Lambda, or any container based platform, where the container being deployed is ephemeral.
 
-The `exportState` method is a helper function to get the current state of a breaker:
+The `toJSON` method is a helper function to get the current state and status of a breaker:
 
 ```
-breaker.exportState();
+const breakerState = breaker.toJSON();
 ```
 
 This will return an object that might look similar to this:
 
 ```
-const state = {
-  enabled: true,
-  closed: true,
-  open: false,
-  halfOpen: false,
-  warmUp: false,
-  pendingClose: false,
-  shutdown: false
+{
+  state: {
+    enabled: true,
+    name: 'functionName'
+    closed: true,
+    open: false,
+    halfOpen: false,
+    warmUp: false,
+    shutdown: false
+  },
+  status: {
+    ...
+  }
 };
 ```
 

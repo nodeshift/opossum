@@ -5,29 +5,44 @@ const CircuitBreaker = require('../');
 const { timedFailingFunction, passFail } = require('./common');
 
 test('CircuitBreaker State - export the state of a breaker instance', t => {
+  t.plan(7);
+  const breaker = new CircuitBreaker(passFail);
+
+  t.ok(breaker.toJSON, 'has the toJSON function');
+  const breakerState = breaker.toJSON();
+
+  t.equal(breakerState.state.enabled, true, 'enabled initialized value');
+  t.equal(breakerState.state.closed, true, 'closed initialized value');
+  t.equal(breakerState.state.open, false, 'open initialized value');
+  t.equal(breakerState.state.halfOpen, false, 'half open initialized value');
+  t.equal(breakerState.state.warmUp, false, 'warmup initialized value');
+  t.equal(breakerState.state.shutdown, false, 'shutdown initialized value');
+  t.end();
+});
+
+test('CircuitBreaker State - export the state of a breaker instance using toJson', t => {
   t.plan(8);
   const breaker = new CircuitBreaker(passFail);
 
-  t.ok(breaker.exportState, 'has the exportState function');
-  const breakerState = breaker.exportState();
+  t.ok(breaker.toJSON, 'has the toJSON function');
+  const breakerState = breaker.toJSON();
 
-  t.equal(breakerState.enabled, true, 'enabled initialized value');
-  t.equal(breakerState.closed, true, 'closed initialized value');
-  t.equal(breakerState.open, false, 'open initialized value');
-  t.equal(breakerState.halfOpen, false, 'half open initialized value');
-  t.equal(breakerState.warmUp, false, 'warmup initialized value');
-  t.equal(breakerState.pendingClose, false, 'pendingClose initialized value');
-  t.equal(breakerState.shutdown, false, 'shutdown initialized value');
+  t.equal(breakerState.state.name, 'passFail', 'name initialized value');
+  t.equal(breakerState.state.enabled, true, 'enabled initialized value');
+  t.equal(breakerState.state.closed, true, 'closed initialized value');
+  t.equal(breakerState.state.open, false, 'open initialized value');
+  t.equal(breakerState.state.halfOpen, false, 'half open initialized value');
+  t.equal(breakerState.state.warmUp, false, 'warmup initialized value');
+  t.equal(breakerState.state.shutdown, false, 'shutdown initialized value');
   t.end();
 });
 
 test('CircuitBreaker State - initalize the breaker as Closed', t => {
-  t.plan(9);
+  t.plan(8);
 
   const state = {
     enabled: true,
     closed: true,
-    open: false,
     halfOpen: false,
     warmUp: false,
     pendingClose: false,
@@ -35,15 +50,14 @@ test('CircuitBreaker State - initalize the breaker as Closed', t => {
   };
 
   const breaker = new CircuitBreaker(passFail, {state});
-  const breakerState = breaker.exportState();
+  const breakerState = breaker.toJSON();
 
-  t.equal(breakerState.enabled, true, 'enabled primed value');
-  t.equal(breakerState.closed, true, 'closed primed value');
-  t.equal(breakerState.open, false, 'open primed value');
-  t.equal(breakerState.halfOpen, false, 'half open primed value');
-  t.equal(breakerState.warmUp, false, 'warmup primed value');
-  t.equal(breakerState.pendingClose, false, 'pendingClose primed value');
-  t.equal(breakerState.shutdown, false, 'shutdown primed value');
+  t.equal(breakerState.state.enabled, true, 'enabled primed value');
+  t.equal(breakerState.state.closed, true, 'closed primed value');
+  t.equal(breakerState.state.open, false, 'open primed value');
+  t.equal(breakerState.state.halfOpen, false, 'half open primed value');
+  t.equal(breakerState.state.warmUp, false, 'warmup primed value');
+  t.equal(breakerState.state.shutdown, false, 'shutdown primed value');
 
   breaker.fire(-1).then(() => {
     t.fail();
@@ -55,14 +69,14 @@ test('CircuitBreaker State - initalize the breaker as Closed', t => {
   });
 });
 
-test('Pre-populate state as Open - Breaker resets after a configurable amount of time', t => {
+test('Pre-populate state as Open(Closed === false) - Breaker resets after a configurable amount of time', t => {
   t.plan(1);
   const resetTimeout = 100;
   const breaker = new CircuitBreaker(passFail, {
     errorThresholdPercentage: 1,
     resetTimeout,
     state: {
-      open: true
+      closed: false
     }
   });
 
@@ -83,6 +97,7 @@ test('When half-open, the circuit only allows one request through', t => {
     errorThresholdPercentage: 1,
     resetTimeout: 100,
     state: {
+      closed: false,
       halfOpen: true
     }
   };
@@ -116,6 +131,8 @@ test('Circuit initalized as shutdown', t => {
   t.plan(5);
   const options = {
     state: {
+      closed: false,
+      open: false,
       shutdown: true
     }
   };
