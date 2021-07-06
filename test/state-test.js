@@ -150,3 +150,26 @@ test('Circuit initalized as shutdown', t => {
       t.end();
     });
 });
+
+test('CircuitBreaker State - imports the state and status of a breaker instance', t => {
+  const breaker = new CircuitBreaker(passFail);
+  const exp = breaker.toJSON();
+  const state = exp.state;
+  const status = exp.status;
+  const clone = new CircuitBreaker(passFail, { state, status });
+  // test imported state
+  for (const stat of ['enabled', 'closed', 'halfOpen', 'warmUp']) {
+    t.equal(clone[status], state[status], `cloned breaker ${stat} state`);
+  }
+  t.equal(clone.opened, state.open, 'cloned breaker open state');
+  t.equal(clone.isShutdown, state.shutdown, 'cloned breaker shutdown state');
+  // test imported status
+  const stats = clone.stats;
+  for (const stat in stats) {
+    t.equal(
+      stats[stat].toString(),
+      status[stat].toString(),
+      `cloned stat ${stat} value`);
+  }
+  t.end();
+});

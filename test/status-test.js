@@ -130,30 +130,3 @@ test('CircuitBreaker status - import stats, but leave some out', t => {
   breaker.shutdown();
   t.end();
 });
-
-test('CircuitBreaker status - import stats,but not a status object', t => {
-  t.plan(1);
-
-  const prevStats = {
-    rejects: 1,
-    fires: 1,
-    timeouts: 1,
-    cacheHits: 1,
-    cacheMisses: 1,
-    semaphoreRejections: 1,
-    percentiles: {},
-    latencyTimes: []
-  };
-
-  try {
-    // eslint-disable-next-line
-    const _ = new CircuitBreaker(passFail, {
-      errorThresholdPercentage: 1,
-      status: prevStats
-    });
-    t.fail();
-  } catch (err) {
-    if (err instanceof TypeError) t.pass();
-    t.end();
-  }
-});
