@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.2.0](https://www.github.com/nodeshift/opossum/compare/v6.1.0...v6.2.0) (2021-07-07)
+
+
+### Features
+
+* initialize the state of a breaker on creation ([#574](https://www.github.com/nodeshift/opossum/issues/574)) ([b3dd431](https://www.github.com/nodeshift/opossum/commit/b3dd431bee343dd58c8612868333c90d0edbb83a))
+
 ## [6.1.0](https://www.github.com/nodeshift/opossum/compare/v6.0.1...v6.1.0) (2021-05-06)
 
 
