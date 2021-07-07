@@ -151,9 +151,9 @@ test('CircuitBreaker status - import stats,but not a status object', t => {
       errorThresholdPercentage: 1,
       status: prevStats
     });
-    t.fail();
-  } catch (err) {
-    if (err instanceof TypeError) t.pass();
+    t.pass();
     t.end();
+  } catch (err) {
+    t.fail();
   }
 });
