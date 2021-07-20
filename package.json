@@ -47,11 +47,11 @@
     "@babel/preset-env": "^7.12.17",
     "babel-loader": "^8.2.2",
     "codacy-coverage": "^3.4.0",
-    "coveralls": "^3.1.0",
+    "coveralls": "^3.1.1",
     "documentation": "^13.1.1",
-    "eslint": "^7.24.0",
+    "eslint": "^7.29.0",
     "eslint-config-semistandard": "^15.0.1",
-    "eslint-config-standard": "^16.0.2",
+    "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
@@ -62,9 +62,9 @@
     "serve": "^11.3.2",
     "standard-version": "9.1.1",
     "tap-spec": "~5.0.0",
-    "tape": "~5.2.0",
+    "tape": "~5.2.2",
     "webpack": "~4.46.0",
-    "webpack-cli": "~4.5.0"
+    "webpack-cli": "~4.7.2"
   },
   "description": "A fail-fast circuit breaker for promises and callbacks",
   "keywords": [
