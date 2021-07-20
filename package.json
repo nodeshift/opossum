@@ -51,7 +51,7 @@
     "documentation": "^13.1.1",
     "eslint": "^7.24.0",
     "eslint-config-semistandard": "^15.0.1",
-    "eslint-config-standard": "^16.0.2",
+    "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
