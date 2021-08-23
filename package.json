@@ -16,17 +16,9 @@
     "test:headless": "node test/browser/webpack-test.js",
     "test:browser": "opener http://localhost:9007/test/browser/index.html && serve . -p 9007",
     "ci": "npm run build && npm run test && npm run test:headless",
-    "prerelease": "npm run ci",
-    "release": "standard-version -s -a",
     "lint": "standardx test/*.js index.js lib/*.js test/*/*.js",
     "clean": "rm -rf node_modules dist/*.js test/browser/webpack-test.js",
     "prepublishOnly": "npm run build"
-  },
-  "standard-version": {
-    "scripts": {
-      "postbump": "npm run build:docs",
-      "precommit": "git add docs/"
-    }
   },
   "repository": {
     "type": "git",
@@ -60,7 +52,6 @@
     "nyc": "~15.1.0",
     "opener": "1.5.2",
     "serve": "^11.3.2",
-    "standard-version": "9.1.1",
     "tap-spec": "~5.0.0",
     "tape": "~5.2.2",
     "webpack": "~4.46.0",
