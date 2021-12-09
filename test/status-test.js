@@ -22,7 +22,7 @@ test('CircuitBreaker status - new Status static method', t => {
     latencyTimes: []
   };
 
-  const status = CircuitBreaker.newStatus({stats: prevStats});
+  const status = CircuitBreaker.newStatus({ stats: prevStats });
   t.equal(status instanceof Status, true, 'returns a new Status instance');
 
   const stats = status.stats;
@@ -55,7 +55,7 @@ test('CircuitBreaker status - import stats', t => {
     latencyTimes: []
   };
 
-  const status = CircuitBreaker.newStatus({stats: prevStats});
+  const status = CircuitBreaker.newStatus({ stats: prevStats });
 
   const breaker = new CircuitBreaker(passFail, {
     errorThresholdPercentage: 1,
@@ -116,7 +116,7 @@ test('CircuitBreaker status - import stats, but leave some out', t => {
     latencyTimes: []
   };
 
-  const status = CircuitBreaker.newStatus({stats: prevStats});
+  const status = CircuitBreaker.newStatus({ stats: prevStats });
 
   const breaker = new CircuitBreaker(passFail, {
     errorThresholdPercentage: 1,
