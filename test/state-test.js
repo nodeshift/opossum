@@ -37,7 +37,7 @@ test('CircuitBreaker State - export the state of a breaker instance using toJson
   t.end();
 });
 
-test('CircuitBreaker State - initalize the breaker as Closed', t => {
+test('CircuitBreaker State - initialize the breaker as Closed', t => {
   t.plan(8);
 
   const state = {
@@ -49,7 +49,7 @@ test('CircuitBreaker State - initalize the breaker as Closed', t => {
     shutdown: false
   };
 
-  const breaker = new CircuitBreaker(passFail, {state});
+  const breaker = new CircuitBreaker(passFail, { state });
   const breakerState = breaker.toJSON();
 
   t.equal(breakerState.state.enabled, true, 'enabled primed value');
@@ -103,8 +103,8 @@ test('When half-open, the circuit only allows one request through', t => {
   };
 
   const breaker = new CircuitBreaker(timedFailingFunction, options);
-  t.ok(breaker.halfOpen, 'should be halfOpen on initalize');
-  t.ok(breaker.pendingClose, 'should be pending close on initalize');
+  t.ok(breaker.halfOpen, 'should be halfOpen on initialize');
+  t.ok(breaker.pendingClose, 'should be pending close on initialize');
 
   breaker
     .fire(500) // fail after a long time, letting other fire()s occur
@@ -127,7 +127,7 @@ test('When half-open, the circuit only allows one request through', t => {
     .then(t.end);
 });
 
-test('Circuit initalized as shutdown', t => {
+test('Circuit initialized as shutdown', t => {
   t.plan(5);
   const options = {
     state: {

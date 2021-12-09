@@ -1,5 +1,5 @@
 {
-  "extends": "eslint:recommended",
+  "extends": "semistandard",
   "ignorePatterns": ["config/**/*.js"],
   "env": {
     "es6": true,
