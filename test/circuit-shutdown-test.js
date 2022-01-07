@@ -17,8 +17,11 @@ test('EventEmitter max listeners', t => {
 });
 
 test('Circuit shuts down properly', t => {
-  t.plan(6);
+  t.plan(7);
   const breaker = new CircuitBreaker(passFail);
+  breaker.on('shutdown', _ => {
+    t.pass('Breaker emits Shutdown');
+  });
   t.ok(breaker.fire(1), 'breaker is active');
   breaker.shutdown();
   t.ok(breaker.isShutdown, 'breaker is shutdown');
