@@ -259,6 +259,7 @@ Here are the events you can listen for.
   * `fallback` - emitted when the breaker has a fallback function and executes it
   * `semaphoreLocked` - emitted when the breaker is at capacity and cannot execute the request
   * `healthCheckFailed` - emitted when a user-supplied health check function returns a rejected promise
+  * `shutdown` - emitted when the breaker shuts down
 
 Handling events gives a greater level of control over your application behavior.
 
