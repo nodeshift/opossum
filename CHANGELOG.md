@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.3.1](https://www.github.com/nodeshift/opossum/compare/v6.3.0...v6.3.1) (2022-02-10)
+
+
+### Bug Fixes
+
+* upgrade multiple dependencies with Snyk ([#636](https://www.github.com/nodeshift/opossum/issues/636)) ([3561571](https://www.github.com/nodeshift/opossum/commit/3561571dfffe18f78969dfe56e5928d73b9f8d1a))
+* upgrade tape from 5.3.2 to 5.4.0 ([#626](https://www.github.com/nodeshift/opossum/issues/626)) ([308ff6a](https://www.github.com/nodeshift/opossum/commit/308ff6ad102eee1055c3f5c804620c7431554f97))
+
 ## [6.3.0](https://www.github.com/nodeshift/opossum/compare/v6.2.1...v6.3.0) (2022-01-10)
 
 
