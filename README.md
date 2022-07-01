@@ -350,7 +350,7 @@ The numbers for `fires` and `failures` come from the stats that are indeed gover
 Example: a circuit is fired 24 times over 10 seconds with a somewhat bursty pattern, failing three times.
 
 ```
-| fires: 2 | fires: 1 | fires: 3 | fires: 0 | fires: 9 | fires: 3 | fires: 2 | fires: 0 | fires: 8 | fires: 0 |
+| fires: 2 | fires: 1 | fires: 3 | fires: 0 | fires: 9 | fires: 3 | fires: 2 | fires: 0 | fires: 4 | fires: 0 |
 | fails: 0 | fails: 0 | fails: 0 | fails: 0 | fails: 0 | fails: 3 | fails: 0 | fails: 0 | fails: 0 | fails: 0 |
 ```
 The failure rate here is 3/24 or 1/8 or 12.5%. The default error threshold is 50%, so in this case, the circuit would not open. However, if you modified the `rollingCountTimeout` to 3 seconds, and the `rollingCountBuckets` to 3  (not recommended), then the stats array might look like these three seconds from above.
