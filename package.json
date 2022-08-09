@@ -42,7 +42,7 @@
     "coveralls": "^3.1.1",
     "documentation": "^13.2.5",
     "eslint": "^8.6.0",
-    "eslint-config-semistandard": "^16.0.0",
+    "eslint-config-semistandard": "^17.0.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.2.0",
