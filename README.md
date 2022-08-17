@@ -338,9 +338,7 @@ The `errorThresholdPercentage` value is compared to the error rate. That rate is
   const stats = circuit.stats;
   if ((stats.fires < circuit.volumeThreshold) && !circuit.halfOpen) return;
   const errorRate = stats.failures / stats.fires * 100;
-  if (errorRate > circuit.options.errorThresholdPercentage ||
-    stats.failures >= circuit.options.maxFailures ||
-    circuit.halfOpen) {
+  if (errorRate > circuit.options.errorThresholdPercentage || circuit.halfOpen) {
     circuit.open();
   }
 ```
