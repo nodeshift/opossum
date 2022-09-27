@@ -148,6 +148,74 @@ test('Fails when the circuit function times out', t => {
     .then(t.end);
 });
 
+test('When options.abortController is provided but does not contain an `abort()` function', t => {
+  t.plan(2);
+  const abortController = {};
+
+  try {
+    const _ = new CircuitBreaker(passFail, { abortController });
+
+    t.fail('Did not throw TypeError on instantiation');
+  } catch (e) {
+    t.equals(e.constructor, TypeError, 'throws TypeError');
+    t.equals(e.message, 'AbortController does not contain `abort()` method');
+  }
+
+  t.end();
+});
+
+test('When options.abortController is provided, the circuit breaker should call abort() upon timeout', t => {
+  t.plan(1);
+
+  let spyAbortCalled = false;
+
+  // Did not provide the AbortController instance here as NodeJS 14 doesn't
+  // support AbortController but for all intents and purposes, a class or object
+  // with the `abort()` method should be supported.
+  const abortController = {
+    abort: () => {
+      spyAbortCalled = true;
+    }
+  };
+
+  const breaker = new CircuitBreaker(
+    slowFunction,
+    { timeout: 10, abortController }
+  );
+
+  breaker.fire()
+    .then(t.fail)
+    .catch(e => {
+      t.true(spyAbortCalled, 'AbortController.abort() was not called upon timeout');
+    })
+    .then(_ => breaker.shutdown())
+    .then(t.end);
+});
+
+test('When options.abortController is provided, abort controller should not be aborted if request completes before timeout', t => {
+  t.plan(1);
+
+  let spyAbortCalled = false;
+  const abortController = {
+    abort: () => {
+      spyAbortCalled = true;
+    }
+  };
+
+  const breaker = new CircuitBreaker(
+    passFail,
+    { abortController }
+  );
+
+  breaker.fire(10)
+    .catch(t.fail)
+    .then(() => {
+      t.false(spyAbortCalled, 'AbortController.abort() was called when it shouldn\'t have');
+    })
+    .then(_ => breaker.shutdown())
+    .then(t.end);
+});
+
 test('Works with functions that do not return a promise', t => {
   t.plan(1);
   const breaker = new CircuitBreaker(nonPromise);

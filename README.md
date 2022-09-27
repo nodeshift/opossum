@@ -49,6 +49,44 @@ breaker.fire(x, y)
   .catch(console.error);
 ```
 
+### AbortController support
+
+You can provide an `AbortController` (https://developer.mozilla.org/en-US/docs/Web/API/AbortController, https://nodejs.org/docs/latest/api/globals.html#globals_class_abortcontroller) for aborting on going request upon
+reaching Opossum timeout.
+
+```javascript
+const CircuitBreaker = require('opossum');
+const http = require('http);
+
+function asyncFunctionThatCouldFail(abortSignal, x, y) {
+  return new Promise((resolve, reject) => {
+    http.get(
+      'http://httpbin.org/delay/10',
+      { signal: abortSignal },
+      (res) => {
+        if(res.statusCode < 300) {
+          resolve(res.statusCode);
+          return;
+        }
+
+        reject(res.statusCode);
+      }
+    );
+  });
+}
+
+const abortController = new AbortController();
+const options = {
+  abortController,
+  timeout: 3000, // If our function takes longer than 3 seconds, trigger a failure
+};
+const breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
+
+breaker.fire(abortController.signal)
+  .then(console.log)
+  .catch(console.error);
+```
+
 ### Fallback
 
 You can also provide a fallback function that will be executed in the
