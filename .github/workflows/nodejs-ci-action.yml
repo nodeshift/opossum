@@ -22,7 +22,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
+    - run: npm run build
     - run: npm test
+    - run: npm run test:headless
     - run: npx @pkgjs/support validate
     - run: node_modules/nyc/bin/nyc.js report --reporter=lcovonly
     - name: Coveralls Parallel
