@@ -59,7 +59,7 @@ test('CircuitBreaker status - import stats', t => {
 
   const breaker = new CircuitBreaker(passFail, {
     errorThresholdPercentage: 1,
-    status: status
+    status
   });
 
   const deepEqual = (t, expected) =>
@@ -120,7 +120,7 @@ test('CircuitBreaker status - import stats, but leave some out', t => {
 
   const breaker = new CircuitBreaker(passFail, {
     errorThresholdPercentage: 1,
-    status: status
+    status
   });
 
   t.equal(breaker.status.stats.failures, 0, 'failures was initialized');
