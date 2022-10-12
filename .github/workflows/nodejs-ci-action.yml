@@ -55,7 +55,7 @@ jobs:
         parallel: true
 
   finish:
-    needs: build
+    needs: lts
     runs-on: ubuntu-latest
     steps:
     - name: Coveralls Finished
