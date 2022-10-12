@@ -7,13 +7,13 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  lts:
 
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [14.x, 16.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -30,6 +30,28 @@ jobs:
       with:
         github-token: ${{ secrets.github_token }}
         flag-name: run-${{ matrix.node-version }}
+        parallel: true
+
+  current:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js 18.x
+      uses: actions/setup-node@v2
+      with:
+        node-version: 18.x
+    - run: npm ci
+    - run: npm run build
+    - run: npm run test:headless
+    - run: npm test
+    - run: npx @pkgjs/support validate
+    - run: node_modules/nyc/bin/nyc.js report --reporter=lcovonly
+    - name: Coveralls Parallel
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.github_token }}
+        flag-name: run-current
         parallel: true
 
   finish:
