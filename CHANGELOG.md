@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.0.0](https://www.github.com/nodeshift/opossum/compare/v6.4.0...v7.0.0) (2022-10-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop Node.js 12 (#664)
+
+### Features
+
+* adds `AbortController` support ([#674](https://www.github.com/nodeshift/opossum/issues/674)) ([4b5f9f6](https://www.github.com/nodeshift/opossum/commit/4b5f9f637ddda324ddffb7ff4c3a066b6f1aed22))
+* upgrade eslint-config-semistandard from 16.0.0 to 17.0.0 ([#667](https://www.github.com/nodeshift/opossum/issues/667)) ([dab109b](https://www.github.com/nodeshift/opossum/commit/dab109b2ed6c56fd566d9ae634d6d0f8e92f86de))
+* upgrade husky from 7.0.4 to 8.0.0 ([#654](https://www.github.com/nodeshift/opossum/issues/654)) ([5807884](https://www.github.com/nodeshift/opossum/commit/5807884dfc3a8336ab263a5dbe40712b7fcaacac))
+* upgrade serve from 13.0.4 to 14.0.1 ([#677](https://www.github.com/nodeshift/opossum/issues/677)) ([3af0318](https://www.github.com/nodeshift/opossum/commit/3af03187374906fe9e4f1a43e09a470f86937521))
+
+
+### Bug Fixes
+
+* package.json & package-lock.json to reduce vulnerabilities ([#672](https://www.github.com/nodeshift/opossum/issues/672)) ([00c6b08](https://www.github.com/nodeshift/opossum/commit/00c6b08fdba4995d97d9688c0f33b5bace5b3367))
+* upgrade eslint-plugin-promise from 6.0.0 to 6.0.1 ([#678](https://www.github.com/nodeshift/opossum/issues/678)) ([27e3446](https://www.github.com/nodeshift/opossum/commit/27e344691c77b88b5a69ba10384940f48d27b16f))
+* upgrade husky from 8.0.0 to 8.0.1 ([#679](https://www.github.com/nodeshift/opossum/issues/679)) ([2b24410](https://www.github.com/nodeshift/opossum/commit/2b244104f7e64b3de1c083b489ce7f686559bb04))
+* upgrade serve from 13.0.2 to 13.0.4 ([#666](https://www.github.com/nodeshift/opossum/issues/666)) ([9bcbc19](https://www.github.com/nodeshift/opossum/commit/9bcbc19030c442c36d53dbaa83866e8daa8e53ab))
+* upgrade tape from 5.5.3 to 5.6.0 ([#676](https://www.github.com/nodeshift/opossum/issues/676)) ([54fc8d0](https://www.github.com/nodeshift/opossum/commit/54fc8d0cc069e3196a9bbb4ca7b3ec11eadfac43))
+* upgrade tape from 5.6.0 to 5.6.1 ([#683](https://www.github.com/nodeshift/opossum/issues/683)) ([626038f](https://www.github.com/nodeshift/opossum/commit/626038f6f07094e9407c570d3546d1d54061999f))
+
+
+### Miscellaneous Chores
+
+* drop Node.js 12 ([#664](https://www.github.com/nodeshift/opossum/issues/664)) ([db37766](https://www.github.com/nodeshift/opossum/commit/db37766dcfadc95dbe3861cbfd407346e6807d4a))
+
 ## [6.4.0](https://www.github.com/nodeshift/opossum/compare/v6.3.0...v6.4.0) (2022-06-13)
 
 
