@@ -38,6 +38,7 @@
     "@babel/core": "^7.17.7",
     "@babel/preset-env": "^7.16.11",
     "babel-loader": "^8.2.4",
+    "buffer": "^6.0.3",
     "documentation": "^14.0.0",
     "eslint": "^8.6.0",
     "eslint-config-semistandard": "^17.0.0",
@@ -52,9 +53,11 @@
     "nyc": "~15.1.0",
     "opener": "1.5.2",
     "serve": "^14.0.1",
+    "stream-browserify": "^3.0.0",
     "tape": "~5.6.1",
-    "webpack": "~4.46.0",
-    "webpack-cli": "~4.9.2"
+    "util": "^0.12.4",
+    "webpack": "~5.74.0",
+    "webpack-cli": "~4.10.0"
   },
   "description": "A fail-fast circuit breaker for promises and callbacks",
   "keywords": [
