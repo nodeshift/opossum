@@ -153,6 +153,7 @@ test('When options.abortController is provided but does not contain an `abort()`
   const abortController = {};
 
   try {
+    // eslint-disable-next-line no-unused-vars
     const _ = new CircuitBreaker(passFail, { abortController });
 
     t.fail('Did not throw TypeError on instantiation');
