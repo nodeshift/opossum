@@ -8,19 +8,22 @@ configs.push({
   target: 'web',
   mode: 'development',
   entry: './test/browser/index.js',
-  node: {
-    fs: 'empty'
-  },
   output: {
     path: path.resolve(__dirname, '..', 'test', 'browser'),
     filename: 'webpack-test.js'
   },
   resolve: {
     modules: ['node_modules'],
-    extensions: ['*', '.js']
+    extensions: ['*', '.js'],
+    fallback: { 
+      fs: false, 
+      path: false,
+      util: require.resolve('util/'),
+      stream: require.resolve('stream-browserify'),
+      buffer: require.resolve('buffer/')
+    }
   },
   plugins: [
-    new webpack.IgnorePlugin(/prom-client/),
     new webpack.DefinePlugin({
       'process.env': {
         WEB: JSON.stringify('web')
@@ -43,12 +46,13 @@ function generateConfig (name) {
       library: 'circuitBreaker',
       libraryTarget: 'umd'
     },
-    node: {
-      process: true,
-      console: true
+    resolve: {
+      fallback: { 
+        fs: false,
+        console: false
+      }
     },
     plugins: [
-      new webpack.IgnorePlugin(/prom-client/),
       new webpack.ProvidePlugin({
         'circuitBreaker': 'opossum'
       }),
@@ -78,3 +82,4 @@ function generateConfig (name) {
 }
 
 module.exports = configs;
+
