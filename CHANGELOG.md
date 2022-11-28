@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [7.0.1](https://www.github.com/nodeshift/opossum/compare/v7.0.0...v7.0.1) (2022-11-28)
+
+
+### Bug Fixes
+
+* upgrade @babel/preset-env from 7.19.3 to 7.19.4 ([#691](https://www.github.com/nodeshift/opossum/issues/691)) ([26c3ce7](https://www.github.com/nodeshift/opossum/commit/26c3ce75fb33e62aa1abedbacc4a87f966319eef))
+* upgrade eslint from 8.14.0 to 8.24.0 ([#686](https://www.github.com/nodeshift/opossum/issues/686)) ([c030d9c](https://www.github.com/nodeshift/opossum/commit/c030d9cf0bf6e5196003168e3f390eb354ce9b53))
+* upgrade eslint from 8.24.0 to 8.25.0 ([#690](https://www.github.com/nodeshift/opossum/issues/690)) ([8c37e10](https://www.github.com/nodeshift/opossum/commit/8c37e1021048d852b2dee0688481e7a4194b35a3))
+* upgrade eslint-plugin-n from 15.2.0 to 15.3.0 ([#687](https://www.github.com/nodeshift/opossum/issues/687)) ([e9f540e](https://www.github.com/nodeshift/opossum/commit/e9f540e11260a215fc16abcaba2f5cbc47bb8a88))
+* upgrade eslint-plugin-promise from 6.0.1 to 6.1.0 ([#692](https://www.github.com/nodeshift/opossum/issues/692)) ([fd03739](https://www.github.com/nodeshift/opossum/commit/fd0373986471a884c80046a83987b37ea7a228d0))
+* upgrade multiple dependencies with Snyk ([#688](https://www.github.com/nodeshift/opossum/issues/688)) ([4c634a4](https://www.github.com/nodeshift/opossum/commit/4c634a419e66ba3ca097f35efc759c92a443d120))
+* upgrade util from 0.12.4 to 0.12.5 ([#693](https://www.github.com/nodeshift/opossum/issues/693)) ([dec7c75](https://www.github.com/nodeshift/opossum/commit/dec7c75e554c55ce7c0adf947ffb072592e70821))
+
 ## [7.0.0](https://www.github.com/nodeshift/opossum/compare/v6.4.0...v7.0.0) (2022-10-13)
 
 
