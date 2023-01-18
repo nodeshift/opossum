@@ -5,7 +5,7 @@ const CircuitBreaker = require('../');
 const { timedFailingFunction, passFail } = require('./common');
 
 test('CircuitBreaker State - export the state of a breaker instance', t => {
-  t.plan(7);
+  t.plan(8);
   const breaker = new CircuitBreaker(passFail);
 
   t.ok(breaker.toJSON, 'has the toJSON function');
@@ -17,6 +17,7 @@ test('CircuitBreaker State - export the state of a breaker instance', t => {
   t.equal(breakerState.state.halfOpen, false, 'half open initialized value');
   t.equal(breakerState.state.warmUp, false, 'warmup initialized value');
   t.equal(breakerState.state.shutdown, false, 'shutdown initialized value');
+  t.assert(Object.hasOwn(breakerState.state, 'lastTimerAt'), 'lastTimerAt initialized value');
   t.end();
 });
 
@@ -80,8 +81,6 @@ test('Pre-populate state as Open(Closed === false) - Breaker resets after a conf
     }
   });
 
-  // Now the breaker should be open. Wait for reset and
-  // fire again.
   setTimeout(() => {
     breaker.fire(100)
       .catch(t.fail)
@@ -89,6 +88,26 @@ test('Pre-populate state as Open(Closed === false) - Breaker resets after a conf
       .then(_ => breaker.shutdown())
       .then(t.end);
   }, resetTimeout * 1.25);
+});
+
+test('Enters halfOpen state if closed is false and more time has elapsed since resetTimeout', t => {
+  t.plan(2);
+  const resetTimeout = 100;
+  const breaker = new CircuitBreaker(passFail, {
+    errorThresholdPercentage: 1,
+    resetTimeout,
+    state: {
+      closed: false,
+      lastTimerAt: Date.now() - (resetTimeout * 1.25)
+    }
+  });
+
+  t.ok(breaker.halfOpen, 'breaker should be halfOpen');
+  breaker.fire(100)
+    .catch(t.fail)
+    .then(arg => t.equals(arg, 100, 'breaker has reset'))
+    .then(_ => breaker.shutdown())
+    .then(t.end);
 });
 
 test('When half-open, the circuit only allows one request through', t => {
