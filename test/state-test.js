@@ -17,7 +17,7 @@ test('CircuitBreaker State - export the state of a breaker instance', t => {
   t.equal(breakerState.state.halfOpen, false, 'half open initialized value');
   t.equal(breakerState.state.warmUp, false, 'warmup initialized value');
   t.equal(breakerState.state.shutdown, false, 'shutdown initialized value');
-  t.assert(Object.hasOwn(breakerState.state, 'lastTimerAt'), 'lastTimerAt initialized value');
+  t.assert(Object.prototype.hasOwnProperty.call(breakerState.state, 'lastTimerAt'), 'lastTimerAt initialized value');
   t.end();
 });
 
