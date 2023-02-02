@@ -50,7 +50,7 @@
     "eslint-plugin-promise": "^6.1.0",
     "eslint-plugin-standard": "^5.0.0",
     "faucet": "^0.0.3",
-    "husky": "^8.0.1",
+    "husky": "^8.0.3",
     "nyc": "~15.1.0",
     "opener": "1.5.2",
     "serve": "^14.1.2",
