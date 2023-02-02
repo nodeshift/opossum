@@ -3,6 +3,7 @@
   "version": "7.1.0",
   "author": "Red Hat, Inc.",
   "license": "Apache-2.0",
+  "type": "commonjs",
   "scripts": {
     "prepare": "husky install",
     "prebuild": "npm run pretest",
