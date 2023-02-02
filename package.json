@@ -41,7 +41,7 @@
     "babel-loader": "^9.1.0",
     "buffer": "^6.0.3",
     "documentation": "^14.0.1",
-    "eslint": "^8.30.0",
+    "eslint": "^8.31.0",
     "eslint-config-semistandard": "^17.0.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
