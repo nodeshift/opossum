@@ -113,6 +113,48 @@ test('Using cache', t => {
     });
 });
 
+test('Using cache with TTL', t => {
+  t.plan(12);
+  const expected = 34;
+  const options = {
+    cache: true,
+    cacheTTL: 100
+  };
+  const breaker = new CircuitBreaker(passFail, options);
+
+  return breaker.fire(expected)
+    .then(arg => {
+      const stats = breaker.status.stats;
+      t.equals(stats.cacheHits, 0, 'does not hit the cache');
+      t.equals(stats.cacheMisses, 1, 'emits a cacheMiss');
+      t.equals(stats.fires, 1, 'fired once');
+      t.equals(arg, expected,
+        `cache hits:misses ${stats.cacheHits}:${stats.cacheMisses}`);
+    })
+    .then(() => breaker.fire(expected))
+    .then(arg => {
+      const stats = breaker.status.stats;
+      t.equals(stats.cacheHits, 1, 'hit the cache');
+      t.equals(stats.cacheMisses, 1, 'did not emit miss');
+      t.equals(stats.fires, 2, 'fired twice');
+      t.equals(arg, expected,
+        `cache hits:misses ${stats.cacheHits}:${stats.cacheMisses}`);
+    })
+    // wait 100ms for the cache to expire
+    .then(() => new Promise(resolve => setTimeout(resolve, 100)))
+    .then(() => breaker.fire(expected))
+    .then(arg => {
+      const stats = breaker.status.stats;
+      t.equals(stats.cacheHits, 1, 'hit the cache');
+      t.equals(stats.cacheMisses, 2, 'did not emit miss');
+      t.equals(stats.fires, 3, 'fired twice');
+      t.equals(arg, expected,
+        `cache hits:misses ${stats.cacheHits}:${stats.cacheMisses}`);
+    })
+    .then(t.end)
+    .catch(t.fail);
+});
+
 test('Fails when the circuit function fails', t => {
   t.plan(2);
   const breaker = new CircuitBreaker(passFail);
