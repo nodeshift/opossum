@@ -25,6 +25,6 @@ options.distributed.client.on('error', err => console.log('Redis Client Error', 
 
 test('Distributed testing', async t => {
   const breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
-  // await Promise.resolve(r => setTimeout(r, 2000));
-  // t.comment(await options.distributed.client.keys());
+  await Promise.resolve(r => setTimeout(r, 2000));
+  t.comment(await options.distributed.client.keys("*"));
 });

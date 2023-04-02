@@ -8,3 +8,4 @@ test/browser/webpack-test.js
 .nyc_output
 .npmrc
 .coveralls.yml
+.idea
