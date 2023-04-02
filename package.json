@@ -14,6 +14,7 @@
     "build:docs:markdown": "documentation build index.js -f md -o docs/opossum.md",
     "pretest": "npm run lint",
     "test": "nyc tape test/*.js | faucet",
+    "test-distributed": "nyc tape test/distributed-test.js",
     "test:headless": "node test/browser/webpack-test.js",
     "test:browser": "opener http://localhost:9007/test/browser/index.html && serve . -p 9007",
     "test:all": "npm run build && npm run test && npm run test:headless",
@@ -75,6 +76,7 @@
   },
   "support": true,
   "dependencies": {
+    "redis": "^4.6.5",
     "uuid": "^9.0.0"
   }
 }
