@@ -11,7 +11,7 @@ Distributed Opossum enhances the power of the project multifold by introducing s
 Because Distributed Opossum is a fork of opossum project, the api remains almost the same. You just need 
 to pass the redis client in options: 
 
-```angular2html
+```javascript
 const options = {
   timeout: 3000, // If our function takes longer than 3 seconds, trigger a failure
   errorThresholdPercentage: 50, // When 50% of requests fail, trip the circuit
@@ -32,7 +32,7 @@ Because we store our state information in list, it's vital to clear this informa
 The ideal way is to run a cron based lua script within the redis server. Here is a simple lua script to remove any element that is older than 30 minutes from the redis key
 
 
-```angular2html
+```javascript
 local timestamp_threshold = os.time() * 1000 - 1800000 -- 1800000 milliseconds = 30 minutes
 
 local elements = redis.call("LRANGE", "distributedStats", 0, -1)
