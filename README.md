@@ -5,18 +5,6 @@ Distributed Opossum is an efficient production-ready library for implementing di
 This project builds on top of the amazing work Red hat and team (refer https://github.com/nodeshift/opossum) but it diverges in it's targeted usage patterns. 
 Distributed Opossum enhances the power of the project multifold by introducing some constraints explaiend further below. 
 
-## Concept and Architecture
-
-A circuit breaker is a design pattern that helps prevent cascading failures in distributed systems. It works by wrapping calls to remote services or resources with a circuit breaker object, which monitors the success and failure rates of the calls. If the failure rate exceeds a certain threshold, the circuit breaker trips and subsequent calls are prevented from reaching the remote service, instead being handled with a fallback response or action. This helps to isolate faults and prevent them from causing further damage or slowing down the entire system. A good place to start digging is this excellent blog by Martin fowler : https://martinfowler.com/bliki/CircuitBreaker.html
-
-A distributed circuit breaker is an extension of the circuit breaker pattern that is designed to handle failures in distributed systems. In a distributed system, multiple services or nodes may be involved in a single request or transaction, and failures in one service can potentially cascade and affect other services. A distributed circuit breaker provides a way to coordinate and manage circuit breakers across multiple services or nodes, to help prevent these cascading failures.
-
-The basic idea behind a distributed circuit breaker is to use a centralized registry or control plane to monitor the health of each service and coordinate the state of the circuit breakers. When a circuit breaker trips in one service, the control plane can notify the other services and prevent them from sending requests to the failed service. This can help isolate the failure and prevent it from spreading to other parts of the system.
-
-Distributed Opossum uses redis as a central registry to notify all involved pods of such eccentricities occuring in one pod 
-
-However, Distributed Opossum doesn't work on browser for obvious reasons. This is one of the places where Distributed opossum presents itself as a more powerful solution to a specific usecase
-
 
 ## Usage 
 
@@ -35,8 +23,8 @@ const options = {
 
 ```
 
-That's all! Distributed opossum automatically does all management internaly. This includes communication of state to 
-the central registry, updating local circuit breaker where required. 
+That's all! Distributed opossum automatically does all state management internaly including communication of state to 
+the central registry and updating local circuit breaker where required. 
 
 ### Cleanup
 
@@ -62,7 +50,17 @@ return "Done"
 
 ```
 
+## Concept and Architecture
 
+A circuit breaker is a design pattern that helps prevent cascading failures in distributed systems. It works by wrapping calls to remote services or resources with a circuit breaker object, which monitors the success and failure rates of the calls. If the failure rate exceeds a certain threshold, the circuit breaker trips and subsequent calls are prevented from reaching the remote service, instead being handled with a fallback response or action. This helps to isolate faults and prevent them from causing further damage or slowing down the entire system. A good place to start digging is this excellent blog by Martin fowler : https://martinfowler.com/bliki/CircuitBreaker.html
+
+A distributed circuit breaker is an extension of the circuit breaker pattern that is designed to handle failures in distributed systems. In a distributed system, multiple services or nodes may be involved in a single request or transaction, and failures in one service can potentially cascade and affect other services. A distributed circuit breaker provides a way to coordinate and manage circuit breakers across multiple services or nodes, to help prevent these cascading failures.
+
+The basic idea behind a distributed circuit breaker is to use a centralized registry or control plane to monitor the health of each service and coordinate the state of the circuit breakers. When a circuit breaker trips in one service, the control plane can notify the other services and prevent them from sending requests to the failed service. This can help isolate the failure and prevent it from spreading to other parts of the system.
+
+Distributed Opossum uses redis as a central registry to notify all involved pods of such eccentricities occuring in one pod
+
+However, Distributed Opossum doesn't work on browser for obvious reasons. This is one of the places where Distributed opossum presents itself as a more powerful solution to a specific usecase
 ## Contributing
 
 If you'd like to contribute to Distributed Opossum, please see the contribution guidelines  for more information.
