@@ -1,14 +1,12 @@
 {
-  "name": "opossum",
-  "version": "7.1.0",
-  "author": "Red Hat, Inc.",
-  "license": "Apache-2.0",
+  "name": "@mayankagarwals/distributed-opossum",
+  "version": "0.0.1",
+  "author": "Mayank Agarwal",
   "type": "commonjs",
   "scripts": {
     "prepare": "husky install",
     "prebuild": "npm run pretest",
-    "build": "./test/browser/generate-index.sh && NODE_OPTIONS=--openssl-legacy-provider npm run build:browser && npm run build:docs",
-    "build:browser": "webpack --config=config/webpack.config.js",
+    "build": "./test/browser/generate-index.sh && npm run build:docs",
     "build:docs": "npm run build:docs:html && npm run build:docs:markdown",
     "build:docs:html": "documentation build index.js -f html -o docs --config documentation.yml",
     "build:docs:markdown": "documentation build index.js -f md -o docs/opossum.md",
@@ -24,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/nodeshift/opossum.git"
+    "url": "git://github.com/mayankagarwals/Distributed-Opossum.git"
   },
   "files": [
     "index.js",
@@ -33,9 +31,11 @@
     "doc/opossum.md"
   ],
   "bugs": {
-    "url": "https://github.com/nodeshift/opossum/issues"
+    "url": "https://github.com/mayankagarwals/Distributed-Opossum/issues"
   },
-  "homepage": "https://nodeshift.dev/opossum",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.19.4",
