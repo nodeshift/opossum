@@ -35,7 +35,7 @@ const options = {
 
 ```
 
-That's all! Distributed opossum automatically does all management internall. This includes communication of state to 
+That's all! Distributed opossum automatically does all management internaly. This includes communication of state to 
 the central registry, updating local circuit breaker where required. 
 
 ### Cleanup
