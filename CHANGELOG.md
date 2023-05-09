@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [7.1.1](https://www.github.com/nodeshift/opossum/compare/v7.1.0...v7.1.1) (2023-05-09)
+
+
+### Bug Fixes
+
+* package.json & package-lock.json to reduce vulnerabilities ([#737](https://www.github.com/nodeshift/opossum/issues/737)) ([6f65ff2](https://www.github.com/nodeshift/opossum/commit/6f65ff2d1261015b4baa592d6d23632e8ed62f45))
+* upgrade @babel/core from 7.20.12 to 7.21.0 ([#738](https://www.github.com/nodeshift/opossum/issues/738)) ([2ab63f4](https://www.github.com/nodeshift/opossum/commit/2ab63f4b0b7aad67e4192e520e43a0618ee86233))
+* upgrade @babel/core from 7.20.7 to 7.20.12 ([#724](https://www.github.com/nodeshift/opossum/issues/724)) ([734e10e](https://www.github.com/nodeshift/opossum/commit/734e10e2bcebc319e16523836713afc3797cd2db))
+* upgrade babel-loader from 9.1.0 to 9.1.2 ([#723](https://www.github.com/nodeshift/opossum/issues/723)) ([10d3294](https://www.github.com/nodeshift/opossum/commit/10d3294d75badd73c6fec09f04b0dd5f887f2bca))
+* upgrade eslint from 8.30.0 to 8.31.0 ([#721](https://www.github.com/nodeshift/opossum/issues/721)) ([7af314b](https://www.github.com/nodeshift/opossum/commit/7af314b8fe92b0ebadb6dbed0f74b1823a2dc9bb))
+* upgrade eslint from 8.31.0 to 8.32.0 ([#729](https://www.github.com/nodeshift/opossum/issues/729)) ([d858b11](https://www.github.com/nodeshift/opossum/commit/d858b113ab166532f8af62ba52d8a2c636fea7ed))
+* upgrade eslint from 8.32.0 to 8.33.0 ([#733](https://www.github.com/nodeshift/opossum/issues/733)) ([5de4b15](https://www.github.com/nodeshift/opossum/commit/5de4b1570ce9a2ea23f87bb35da8dc3764226c63))
+* upgrade eslint from 8.33.0 to 8.34.0 ([#736](https://www.github.com/nodeshift/opossum/issues/736)) ([941ba0b](https://www.github.com/nodeshift/opossum/commit/941ba0bf45f146acda8783555039502c74459ec6))
+* upgrade eslint-plugin-import from 2.26.0 to 2.27.5 ([#731](https://www.github.com/nodeshift/opossum/issues/731)) ([979b898](https://www.github.com/nodeshift/opossum/commit/979b898f67844585ca17b5ef027c4e41dd21c2fc))
+* upgrade eslint-plugin-n from 15.6.0 to 15.6.1 ([#725](https://www.github.com/nodeshift/opossum/issues/725)) ([84d94d1](https://www.github.com/nodeshift/opossum/commit/84d94d111e61f8f94808cb5ef06e7d68baea92b5))
+* upgrade husky from 8.0.1 to 8.0.3 ([#722](https://www.github.com/nodeshift/opossum/issues/722)) ([9de3755](https://www.github.com/nodeshift/opossum/commit/9de3755c25759547da88efd38196cf2d2e4ae4a9))
+* upgrade serve from 14.1.2 to 14.2.0 ([#732](https://www.github.com/nodeshift/opossum/issues/732)) ([3a84d3e](https://www.github.com/nodeshift/opossum/commit/3a84d3e944d172fd5f04eb3266bb52f6e6a00103))
+* upgrade tape from 5.6.1 to 5.6.3 ([#730](https://www.github.com/nodeshift/opossum/issues/730)) ([3af33ce](https://www.github.com/nodeshift/opossum/commit/3af33ce5a814ccd0e26c8deb3fceb33fb6a2ce2e))
+* upgrade webpack from 5.76.0 to 5.76.3 ([#742](https://www.github.com/nodeshift/opossum/issues/742)) ([3f9edea](https://www.github.com/nodeshift/opossum/commit/3f9edea30ed1cad670f3ac46393155e9eb1fc9fa))
+
 ## [7.1.0](https://www.github.com/nodeshift/opossum/compare/v7.0.1...v7.1.0) (2023-01-19)
 
 
