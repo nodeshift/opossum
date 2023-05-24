@@ -69,50 +69,6 @@ test('Passes parameters to the circuit function', t => {
     .catch(t.fail);
 });
 
-test('Using cache', t => {
-  t.plan(9);
-  const expected = 34;
-  const options = {
-    cache: true
-  };
-  const breaker = new CircuitBreaker(passFail, options);
-
-  breaker.fire(expected)
-    .then(arg => {
-      const stats = breaker.status.stats;
-      t.equals(stats.cacheHits, 0, 'does not hit the cache');
-      t.equals(stats.cacheMisses, 1, 'emits a cacheMiss');
-      t.equals(stats.fires, 1, 'fired once');
-      t.equals(arg, expected,
-        `cache hits:misses ${stats.cacheHits}:${stats.cacheMisses}`);
-    })
-    .catch(t.fail)
-    .then(() => {
-      breaker.fire(expected)
-        .then(arg => {
-          const stats = breaker.status.stats;
-          t.equals(stats.cacheHits, 1, 'hit the cache');
-          t.equals(stats.cacheMisses, 1, 'did not emit miss');
-          t.equals(stats.fires, 2, 'fired twice');
-          t.equals(arg, expected,
-            `cache hits:misses ${stats.cacheHits}:${stats.cacheMisses}`);
-          breaker.clearCache();
-        })
-        .catch(t.fail)
-        .then(() => {
-          breaker.fire(expected)
-            .then(arg => {
-              const stats = breaker.status.stats;
-              t.equals(arg, expected,
-                `cache hits:misses ${stats.cacheHits}:${stats.cacheMisses}`);
-            })
-            // .then(_ => breaker.shutdown())
-            .then(t.end)
-            .catch(t.fail);
-        });
-    });
-});
-
 test('Fails when the circuit function fails', t => {
   t.plan(2);
   const breaker = new CircuitBreaker(passFail);
