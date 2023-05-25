@@ -20,7 +20,7 @@ on the web - search it! Fowler's blog post is one place to
 | Documentation:  | https://nodeshift.dev/opossum/ |
 | Typings:        | https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/opossum
 | Issue tracker:  | https://github.com/nodeshift/opossum/issues  |
-| Engines:        | Node.js >= 14 |
+| Engines:        | Node.js >= 16 |
 
 ## Usage
 

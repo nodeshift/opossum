@@ -71,7 +71,7 @@
     "rate-limiting"
   ],
   "engines": {
-    "node": "^19 || ^18 || ^16 || ^14"
+    "node": "^20 || ^18 || ^16"
   },
   "support": true
 }
