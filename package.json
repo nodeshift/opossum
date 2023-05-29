@@ -58,7 +58,7 @@
     "tape": "~5.6.3",
     "util": "^0.12.5",
     "webpack": "~5.82.0",
-    "webpack-cli": "~5.0.2"
+    "webpack-cli": "~5.1.0"
   },
   "description": "A fail-fast circuit breaker for promises and callbacks",
   "keywords": [
