@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.0.1](https://github.com/nodeshift/opossum/compare/v8.0.0...v8.0.1) (2023-05-30)
+
+
+### Bug Fixes
+
+* Reduce apply() calls to improve call times. ([#765](https://github.com/nodeshift/opossum/issues/765)) ([8d559e4](https://github.com/nodeshift/opossum/commit/8d559e4ab82643ddbf03a55b9164014ddcacc516))
+* upgrade eslint from 8.39.0 to 8.40.0 ([#766](https://github.com/nodeshift/opossum/issues/766)) ([197cc6d](https://github.com/nodeshift/opossum/commit/197cc6dc24673a717f154d3c4903ab532b7249c2))
+
 ## [8.0.0](https://github.com/nodeshift/opossum/compare/v7.1.0...v8.0.0) (2023-05-25)
 
 
