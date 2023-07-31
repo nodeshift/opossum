@@ -157,3 +157,40 @@ test('CircuitBreaker status - import stats,but not a status object', t => {
     t.fail();
   }
 });
+
+test('CircuitBreaker status - enableSnapshots defaults to true', t => {
+  t.plan(1);
+
+  const breaker = new CircuitBreaker(passFail);
+
+  t.equal(breaker.status.enableSnapshots, true, 'enableSnapshots defaults to true');
+
+  breaker.shutdown();
+  t.end();
+});
+
+test('CircuitBreaker status - enableSnapshots is true in Status when set to true', t => {
+  t.plan(1);
+
+  const breaker = new CircuitBreaker(passFail, {
+    enableSnapshots: true
+  });
+
+  t.equal(breaker.status.enableSnapshots, true, 'enableSnapshots propagates as true');
+
+  breaker.shutdown();
+  t.end();
+});
+
+test('CircuitBreaker status - enableSnapshots is false in Status when set to false', t => {
+  t.plan(1);
+
+  const breaker = new CircuitBreaker(passFail, {
+    enableSnapshots: false
+  });
+
+  t.equal(breaker.status.enableSnapshots, false, 'enableSnapshots propagates as false');
+
+  breaker.shutdown();
+  t.end();
+});
