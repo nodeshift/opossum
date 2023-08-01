@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.1.0](https://github.com/nodeshift/opossum/compare/v8.0.1...v8.1.0) (2023-07-31)
+
+
+### Features
+
+* add option to disable stats snapshots ([#799](https://github.com/nodeshift/opossum/issues/799)) ([a9c5935](https://github.com/nodeshift/opossum/commit/a9c5935adfd740ed514134c9f3615425b6381cb8))
+
+
+### Bug Fixes
+
+* package.json & package-lock.json to reduce vulnerabilities ([#789](https://github.com/nodeshift/opossum/issues/789)) ([74a45c5](https://github.com/nodeshift/opossum/commit/74a45c5544fa5d7505339fb6130c2f7af82e4d96))
+* upgrade eslint from 8.40.0 to 8.43.0 ([#790](https://github.com/nodeshift/opossum/issues/790)) ([fda48ca](https://github.com/nodeshift/opossum/commit/fda48ca84f8e763c666635142a7bb3415913a237))
+* upgrade eslint from 8.43.0 to 8.44.0 ([#794](https://github.com/nodeshift/opossum/issues/794)) ([3dffb78](https://github.com/nodeshift/opossum/commit/3dffb78f9874f49f765484a9d615d8d7d06004fa))
+* upgrade webpack from 5.82.0 to 5.82.1 ([#772](https://github.com/nodeshift/opossum/issues/772)) ([c84639f](https://github.com/nodeshift/opossum/commit/c84639f73212aaeee7901b7c6f99984be00f0a86))
+* upgrade webpack from 5.82.1 to 5.83.1 ([#775](https://github.com/nodeshift/opossum/issues/775)) ([01443c6](https://github.com/nodeshift/opossum/commit/01443c685fc160d43e1565376db48cd894e0e1df))
+* upgrade webpack from 5.83.1 to 5.88.0 ([#791](https://github.com/nodeshift/opossum/issues/791)) ([5296413](https://github.com/nodeshift/opossum/commit/5296413faecea205b75a8af8f0c37f5d870f5acc))
+* upgrade webpack-cli from 5.0.2 to 5.1.4 ([#782](https://github.com/nodeshift/opossum/issues/782)) ([e66ca47](https://github.com/nodeshift/opossum/commit/e66ca474eb2e43555fd08f9bba04a4c33c7b4752))
+
 ## [8.0.1](https://github.com/nodeshift/opossum/compare/v8.0.0...v8.0.1) (2023-05-30)
 
 
