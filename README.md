@@ -56,7 +56,7 @@ reaching Opossum timeout.
 
 ```javascript
 const CircuitBreaker = require('opossum');
-const http = require('http);
+const http = require('http');
 
 function asyncFunctionThatCouldFail(abortSignal, x, y) {
   return new Promise((resolve, reject) => {
