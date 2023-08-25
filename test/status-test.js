@@ -1,6 +1,6 @@
 'use strict';
 
-const { EventEmitter } = require('node:events');
+const { EventEmitter } = require('events');
 const test = require('tape');
 const CircuitBreaker = require('../');
 const Status = require('../lib/status.js');
