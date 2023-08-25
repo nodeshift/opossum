@@ -1,5 +1,6 @@
 'use strict';
 
+const { EventEmitter } = require('stream');
 const test = require('tape');
 const CircuitBreaker = require('../');
 const Status = require('../lib/status.js');
@@ -193,4 +194,59 @@ test('CircuitBreaker status - enableSnapshots is false in Status when set to fal
 
   breaker.shutdown();
   t.end();
+});
+
+test('CircuitBreaker status - breaker stats should not reset when rotateBucketController provided and no event emitted', t => {
+  t.plan(1);
+
+  const emitter = new EventEmitter();
+  const breaker = new CircuitBreaker(passFail, {
+    rotateBucketController: emitter,
+    rollingCountTimeout: 10
+  });
+
+  breaker.fire(-1)
+    .catch(() => {
+      setTimeout(() => {
+        t.equal(breaker.status.stats.failures, 1, 'failures do not reset because no rotate event is emitted');
+        breaker.shutdown();
+        t.end();
+      }, 100);
+    });
+});
+
+test('CircuitBreaker status - breaker stats should rotate when rotateBucketController provided and "rotate" event emitted', t => {
+  t.plan(1);
+
+  const emitter = new EventEmitter();
+  const breaker = new CircuitBreaker(passFail, {
+    rotateBucketController: emitter,
+    rollingCountBuckets: 1,
+    rollingCountTimeout: 10000000
+  });
+
+  breaker.fire(-1)
+    .catch(() => {
+      emitter.emit('rotate');
+      t.equal(breaker.status.stats.failures, 0, 'failures reset buckets are rotated by EventEmitter');
+      breaker.shutdown();
+      t.end();
+    });
+});
+
+test('CircuitBreaker status - breaker stats should reset when rotateBucketController not provided', t => {
+  t.plan(1);
+
+  const breaker = new CircuitBreaker(passFail, {
+    rollingCountTimeout: 10
+  });
+
+  breaker.fire(-1)
+    .catch(() => {
+      setTimeout(() => {
+        t.equal(breaker.status.stats.failures, 0, 'failures reset because no event emitter is provided and rollingCountTimeout set to 10ms');
+        breaker.shutdown();
+        t.end();
+      }, 100);
+    });
 });
