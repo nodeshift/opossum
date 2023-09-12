@@ -87,7 +87,7 @@ test('Event listener should be removed only for the breaker that is disabled', t
   t.end();
 });
 
-test.only('Event listener should be re-added when circuit is re-enabled', t => {
+test('Event listener should be re-added when circuit is re-enabled', t => {
   t.plan(3);
   const emitter = new EventEmitter();
   const breaker = new CircuitBreaker(passFail, {
