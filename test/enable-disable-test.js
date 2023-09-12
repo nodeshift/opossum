@@ -78,7 +78,7 @@ test('Event listener should be removed only for the breaker that is disabled', t
   const breakerToBeDisabled = new CircuitBreaker(passFail, {
     rotateBucketController: emitter
   });
-  const breakerNotToBeDisabled = new CircuitBreaker(passFail, {
+  const _breakerNotToBeDisabled = new CircuitBreaker(passFail, {
     rotateBucketController: emitter
   });
   t.equals(emitter.listeners('rotate').length, 2, '1 listener attached for each breaker');
