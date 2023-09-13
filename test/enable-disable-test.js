@@ -51,7 +51,7 @@ test('When disabled the circuit should always be closed', t => {
       breaker.fire(-1)
         .catch(e => t.equals(e, 'Error: -1 is < 0'))
         .then(() => {
-          t.ok(breaker.opened, 'should be closed');
+          t.ok(breaker.opened, 'should be open');
         })
         .then(_ => breaker.shutdown())
         .then(t.end);
