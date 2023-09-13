@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.1.1](https://github.com/nodeshift/opossum/compare/v8.1.0...v8.1.1) (2023-09-13)
+
+
+### Bug Fixes
+
+* upgrade multiple dependencies with Snyk ([#800](https://github.com/nodeshift/opossum/issues/800)) ([d1b22a2](https://github.com/nodeshift/opossum/commit/d1b22a28b2cf059a204b66fc61cf533e8dfe8cdb))
+* upgrade tape from 5.6.3 to 5.6.5 ([#803](https://github.com/nodeshift/opossum/issues/803)) ([f48ba4c](https://github.com/nodeshift/opossum/commit/f48ba4cfe28eff0ecc27442bec815fb64c61dfce))
+* upgrade tape from 5.6.5 to 5.6.6 ([#806](https://github.com/nodeshift/opossum/issues/806)) ([2d915be](https://github.com/nodeshift/opossum/commit/2d915becb7f268a0b0917de5e55977c17a1f90d7))
+* upgrade webpack from 5.88.0 to 5.88.2 ([#805](https://github.com/nodeshift/opossum/issues/805)) ([7e3d6ca](https://github.com/nodeshift/opossum/commit/7e3d6ca3286dd46b74cb533f1c7fb93ffc662d1e))
+
 ## [8.1.0](https://github.com/nodeshift/opossum/compare/v8.0.1...v8.1.0) (2023-07-31)
 
 
