@@ -3,7 +3,6 @@
 const test = require('tape');
 const CircuitBreaker = require('../');
 const { passFail } = require('./common');
-const EventEmitter = require('events').EventEmitter;
 
 test('Defaults to enabled', t => {
   t.plan(1);
