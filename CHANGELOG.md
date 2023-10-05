@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.1.2](https://github.com/nodeshift/opossum/compare/v8.1.1...v8.1.2) (2023-10-05)
+
+
+### Bug Fixes
+
+* fix bug where options couldn't be set to zero. ([#825](https://github.com/nodeshift/opossum/issues/825)) ([e6b3b77](https://github.com/nodeshift/opossum/commit/e6b3b77eaaf2abbec118da1470fb78418b0dfd90)), closes [#824](https://github.com/nodeshift/opossum/issues/824)
+* upgrade eslint from 8.44.0 to 8.48.0 ([#814](https://github.com/nodeshift/opossum/issues/814)) ([178294e](https://github.com/nodeshift/opossum/commit/178294e632e78142166e5f4698f9e0e608d23978))
+* upgrade eslint from 8.48.0 to 8.49.0 ([#822](https://github.com/nodeshift/opossum/issues/822)) ([fc5c002](https://github.com/nodeshift/opossum/commit/fc5c00216cc62ff4600db0edace0b5489e90f7eb))
+
 ## [8.1.1](https://github.com/nodeshift/opossum/compare/v8.1.0...v8.1.1) (2023-09-13)
 
 
