@@ -1,0 +1,3949 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset='utf-8'>
+  <title>opossum 8.1.3 | Documentation</title>
+  <meta name='description' content='A fail-fast circuit breaker for promises and callbacks'>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='assets/bass.css' rel='stylesheet'>
+  <link href='assets/style.css' rel='stylesheet'>
+  <link href='assets/github.css' rel='stylesheet'>
+  <link href='assets/split.css' rel='stylesheet'>
+</head>
+<body class='documentation m0'>
+    <div class='flex'>
+      <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
+        <div class='py1 px2'>
+          <h3 class='mb0 no-anchor'>opossum</h3>
+          <div class='mb1'><code>8.1.3</code></div>
+          <input
+            placeholder='Filter'
+            id='filter-input'
+            class='col12 block input'
+            spellcheck='false'
+            autocapitalize='off'
+            autocorrect='off'
+            type='text' />
+          <div id='toc'>
+            <ul class='list-reset h5 py1-ul'>
+              
+                
+                <li><a
+                  href='#readme'
+                  class="h5 bold black caps">
+                  README
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#circuitbreaker'
+                  class=" toggle-sibling">
+                  CircuitBreaker
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+                    
+                      <li><a
+                        href='#circuitbreakerisourerror'
+                        class='regular pre-open'>
+                        .isOurError
+                      </a></li>
+                    
+                      <li><a
+                        href='#circuitbreakernewstatus'
+                        class='regular pre-open'>
+                        .newStatus
+                      </a></li>
+                    
+                    </ul>
+                  
+                  
+                    <ul class='list-reset py1-ul pl1'>
+                      <li class='h5'><span>Instance members</span></li>
+                      
+                      <li><a
+                        href='#circuitbreakerclose'
+                        class='regular pre-open'>
+                        #close
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakeropen'
+                        class='regular pre-open'>
+                        #open
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakershutdown'
+                        class='regular pre-open'>
+                        #shutdown
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakerisshutdown'
+                        class='regular pre-open'>
+                        #isShutdown
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakername'
+                        class='regular pre-open'>
+                        #name
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakergroup'
+                        class='regular pre-open'>
+                        #group
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakerpendingclose'
+                        class='regular pre-open'>
+                        #pendingClose
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakerclosed'
+                        class='regular pre-open'>
+                        #closed
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakeropened'
+                        class='regular pre-open'>
+                        #opened
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakerhalfopen'
+                        class='regular pre-open'>
+                        #halfOpen
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakerstatus'
+                        class='regular pre-open'>
+                        #status
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakerstats'
+                        class='regular pre-open'>
+                        #stats
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakerenabled'
+                        class='regular pre-open'>
+                        #enabled
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakerwarmup'
+                        class='regular pre-open'>
+                        #warmUp
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakervolumethreshold'
+                        class='regular pre-open'>
+                        #volumeThreshold
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakerfallback'
+                        class='regular pre-open'>
+                        #fallback
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakerfire'
+                        class='regular pre-open'>
+                        #fire
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakercall'
+                        class='regular pre-open'>
+                        #call
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakerclearcache'
+                        class='regular pre-open'>
+                        #clearCache
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakerhealthcheck'
+                        class='regular pre-open'>
+                        #healthCheck
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakerenable'
+                        class='regular pre-open'>
+                        #enable
+                      </a></li>
+                      
+                      <li><a
+                        href='#circuitbreakerdisable'
+                        class='regular pre-open'>
+                        #disable
+                      </a></li>
+                      
+                    </ul>
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventcircuitbreakerhalfopen'
+                  class="">
+                  CircuitBreaker#halfOpen
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventcircuitbreakerclose'
+                  class="">
+                  CircuitBreaker#close
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventcircuitbreakeropen'
+                  class="">
+                  CircuitBreaker#open
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventcircuitbreakershutdown'
+                  class="">
+                  CircuitBreaker#shutdown
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventcircuitbreakerfire'
+                  class="">
+                  CircuitBreaker#fire
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventcircuitbreakercachehit'
+                  class="">
+                  CircuitBreaker#cacheHit
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventcircuitbreakercachemiss'
+                  class="">
+                  CircuitBreaker#cacheMiss
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventcircuitbreakerreject'
+                  class="">
+                  CircuitBreaker#reject
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventcircuitbreakertimeout'
+                  class="">
+                  CircuitBreaker#timeout
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventcircuitbreakersuccess'
+                  class="">
+                  CircuitBreaker#success
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventcircuitbreakersemaphorelocked'
+                  class="">
+                  CircuitBreaker#semaphoreLocked
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventcircuitbreakerhealthcheckfailed'
+                  class="">
+                  CircuitBreaker#healthCheckFailed
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventcircuitbreakerfallback'
+                  class="">
+                  CircuitBreaker#fallback
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventcircuitbreakerfailure'
+                  class="">
+                  CircuitBreaker#failure
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#status'
+                  class=" toggle-sibling">
+                  Status
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  
+                    <ul class='list-reset py1-ul pl1'>
+                      <li class='h5'><span>Instance members</span></li>
+                      
+                      <li><a
+                        href='#statusstats'
+                        class='regular pre-open'>
+                        #stats
+                      </a></li>
+                      
+                      <li><a
+                        href='#statuswindow'
+                        class='regular pre-open'>
+                        #window
+                      </a></li>
+                      
+                    </ul>
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#eventstatussnapshot'
+                  class="">
+                  Status#snapshot
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#memorycache'
+                  class=" toggle-sibling">
+                  MemoryCache
+                  <span class='icon'>▸</span>
+                </a>
+                
+                <div class='toggle-target display-none'>
+                  
+                  
+                    <ul class='list-reset py1-ul pl1'>
+                      <li class='h5'><span>Instance members</span></li>
+                      
+                      <li><a
+                        href='#memorycacheget'
+                        class='regular pre-open'>
+                        #get
+                      </a></li>
+                      
+                      <li><a
+                        href='#memorycacheset'
+                        class='regular pre-open'>
+                        #set
+                      </a></li>
+                      
+                      <li><a
+                        href='#memorycacheflush'
+                        class='regular pre-open'>
+                        #flush
+                      </a></li>
+                      
+                    </ul>
+                  
+                  
+                  
+                </div>
+                
+                </li>
+              
+            </ul>
+          </div>
+          <div class='mt1 h6 quiet'>
+            <a href='https://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
+          </div>
+        </div>
+      </div>
+      <div id='split-right' class='relative overflow-auto height-viewport-100'>
+        
+          
+            <div class='keyline-top-not py2'><section class='py2 clearfix'>
+
+  <h2 id='readme' class='mt0'>
+    README
+  </h2>
+
+  
+    <h1>opossum</h1>
+<p><img src="https://github.com/nodeshift/opossum/workflows/Node.js%20CI/badge.svg" alt="Node.js CI">
+<a href="https://coveralls.io/github/nodeshift/opossum?branch=master"><img src="https://coveralls.io/repos/github/nodeshift/opossum/badge.svg?branch=master" alt="Coverage Status"></a>
+<a href="https://snyk.io/test/npm/opossum"><img src="https://snyk.io/test/npm/opossum/badge.svg" alt="Known Vulnerabilities"></a>
+<a href="https://david-dm.org/nodeshift/opossum"><img src="https://david-dm.org/nodeshift/opossum/status.svg" alt="dependencies Status"></a></p>
+<p>Opossum is a Node.js circuit breaker that executes asynchronous functions
+and monitors their execution status. When things start failing, <code>opossum</code>
+plays dead and fails fast. If you want, you can provide a fallback function
+to be executed when in the failure state.</p>
+<p>For more about the circuit breaker pattern, there are lots of resources
+on the web - search it! Fowler's blog post is one place to
+<a href="http://martinfowler.com/bliki/CircuitBreaker.html">start reading</a>.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Project Info</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>License:</td>
+<td>Apache-2.0</td>
+</tr>
+<tr>
+<td>Documentation:</td>
+<td><a href="https://nodeshift.dev/opossum/">https://nodeshift.dev/opossum/</a></td>
+</tr>
+<tr>
+<td>Typings:</td>
+<td><a href="https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/opossum">https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/opossum</a></td>
+</tr>
+<tr>
+<td>Issue tracker:</td>
+<td><a href="https://github.com/nodeshift/opossum/issues">https://github.com/nodeshift/opossum/issues</a></td>
+</tr>
+<tr>
+<td>Engines:</td>
+<td>Node.js >= 16</td>
+</tr>
+</tbody>
+</table>
+<h2>Usage</h2>
+<p>Let's say you've got an API that depends on something that might fail -
+a network operation, or disk read, for example. Wrap those functions up in a
+<code>CircuitBreaker</code> and you have control over your destiny.</p>
+<h3>AbortController support</h3>
+<p>You can provide an <code>AbortController</code> (<a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortController">https://developer.mozilla.org/en-US/docs/Web/API/AbortController</a>, <a href="https://nodejs.org/docs/latest/api/globals.html#globals_class_abortcontroller">https://nodejs.org/docs/latest/api/globals.html#globals_class_abortcontroller</a>) for aborting on going request upon
+reaching Opossum timeout.</p>
+<h3>Fallback</h3>
+<p>You can also provide a fallback function that will be executed in the
+event of failure. To take some action when the fallback is performed,
+listen for the <code>fallback</code> event.</p>
+<p>Once the circuit has opened, a timeout is set based on <code>options.resetTimeout</code>.
+When the <code>resetTimeout</code> expires, <code>opossum</code> will enter the <code>halfOpen</code> state.
+Once in the <code>halfOpen</code> state, the next time the circuit is fired, the circuit's
+action will be executed again. If successful, the circuit will close and emit
+the <code>close</code> event. If the action fails or times out, it immediately re-enters
+the <code>open</code> state.</p>
+<p>When a fallback function is triggered, it's considered a failure, and the
+fallback function will continue to be executed until the breaker is closed.</p>
+<p>The fallback function accepts the same parameters as the fire function:</p>
+<h3>Breaker State Initialization</h3>
+<p>There may be times where you will need to initialize the state of a Circuit Breaker.  Primary use cases for this are in a serverless environment such as Knative or AWS Lambda, or any container based platform, where the container being deployed is ephemeral.</p>
+<p>The <code>toJSON</code> method is a helper function to get the current state and status of a breaker:</p>
+<pre><code>const breakerState = breaker.toJSON();
+</code></pre>
+<p>This will return an object that might look similar to this:</p>
+<pre><code>{
+  state: {
+    enabled: true,
+    name: 'functionName'
+    closed: true,
+    open: false,
+    halfOpen: false,
+    warmUp: false,
+    shutdown: false
+  },
+  status: {
+    ...
+  }
+};
+</code></pre>
+<p>A new circuit breaker instance can be created with this state by passing this object in:</p>
+<pre><code>const breaker = new CircuitBreaker({state: state});
+</code></pre>
+<h3>Status Initialization</h3>
+<p>There may also be times where you will need to pre-populate the stats of the Circuit Breaker Status Object.  Primary use cases for this are also in a serverless environment such as Knative or AWS Lambda, or any container based platform, where the container being deployed is ephemeral.</p>
+<p>Getting the existing cumalative stats for a breaker can be done like this:</p>
+<pre><code>const stats = breaker.stats;
+</code></pre>
+<p><code>stats</code> will be an object that might look similar to this:</p>
+<pre><code>{
+  failures: 11,
+  fallbacks: 0,
+  successes: 5,
+  rejects: 0,
+  fires: 16,
+  timeouts: 0,
+  cacheHits: 0,
+  cacheMisses: 0,
+  semaphoreRejections: 0,
+  percentiles: {
+    '0': 0,
+    '1': 0,
+    '0.25': 0,
+    '0.5': 0,
+    '0.75': 0,
+    '0.9': 0,
+    '0.95': 0,
+    '0.99': 0,
+    '0.995': 0
+  },
+  latencyTimes: [ 0 ],
+  latencyMean: 0
+}
+</code></pre>
+<p>To then re-import those stats, first create a new <code>Status</code> object with the previous stats and then pass that as an option to the CircuitBreaker constructor:</p>
+<pre><code>const statusOptions = {
+  stats: {....}
+};
+
+const newStatus = CircuitBreaker.newStatus(statusOptions);
+
+const breaker = new CircuitBreaker({status: newStatus});
+</code></pre>
+<h3>Browser</h3>
+<p>Opossum really shines in a browser. You can use it to guard against network
+failures in your AJAX calls.</p>
+<p>We recommend using <a href="https://webpack.js.org/">webpack</a> to bundle your applications,
+since it does not have the effect of polluting the <code>window</code> object with a global.
+However, if you need it, you can access a <code>circuitBreaker</code> function in the global
+namespace by doing something similar to what is shown in the below example.</p>
+<p>Here is an example using <a href="https://hapijs.com">hapi.js</a>. See the
+<a href="https://github.com/nodeshift-starters/opossum-examples/">opossum-examples</a>
+repository for more detail.</p>
+<p>Include <code>opossum.js</code> in your HTML file.</p>
+<p>In your application, set a route to the file, pointing to
+<code>node_modules/opossum/dist/opossum-min.js</code>.</p>
+<p>In the browser's global scope will be a <code>CircuitBreaker</code> constructor. Use it
+to create circuit breakers, guarding against network failures in your REST
+API calls.</p>
+<h3>Events</h3>
+<p>A <code>CircuitBreaker</code> will emit events for important things that occur.
+Here are the events you can listen for.</p>
+<ul>
+<li><code>fire</code> - emitted when the breaker is fired.</li>
+<li><code>reject</code> - emitted when the breaker is open (or halfOpen).</li>
+<li><code>timeout</code> - emitted when the breaker action times out.</li>
+<li><code>success</code> - emitted when the breaker action completes successfully</li>
+<li><code>failure</code> - emitted when the breaker action fails, called with the error</li>
+<li><code>open</code> - emitted when the breaker state changes to <code>open</code></li>
+<li><code>close</code> - emitted when the breaker state changes to <code>closed</code></li>
+<li><code>halfOpen</code> - emitted when the breaker state changes to <code>halfOpen</code></li>
+<li><code>fallback</code> - emitted when the breaker has a fallback function and executes it</li>
+<li><code>semaphoreLocked</code> - emitted when the breaker is at capacity and cannot execute the request</li>
+<li><code>healthCheckFailed</code> - emitted when a user-supplied health check function returns a rejected promise</li>
+<li><code>shutdown</code> - emitted when the breaker shuts down</li>
+</ul>
+<p>Handling events gives a greater level of control over your application behavior.</p>
+<h3>Promises vs. Callbacks</h3>
+<p>The <code>opossum</code> API returns a <code>Promise</code> from <code>CircuitBreaker.fire()</code>.
+But your circuit action - the async function that might fail -
+doesn't have to return a promise. You can easily turn Node.js style
+callback functions into something <code>opossum</code> understands by using the built in
+Node core utility function <code>util.promisify()</code> .</p>
+<p>And just for fun, your circuit doesn't even really have to be a function.
+Not sure when you'd use this - but you could if you wanted to.</p>
+<h3>Calculating errorThresholdPercentage</h3>
+<p>The <code>errorThresholdPercentage</code> value is compared to the error rate. That rate is determined by dividing the number of failures by the number of times the circuit has been fired. You can see this comparison here:</p>
+<p>The numbers for <code>fires</code> and <code>failures</code> come from the stats that are indeed governed by <code>rollingCountTimeout</code> and <code>rollingCountBuckets</code>. The timeout value is the total number of seconds for which the stats are being maintained, and the buckets value is the number of slots in the window. The defaults are 10 seconds and 10 buckets. So, the statistics that are being compared against <code>errorThresholdPercentage</code> are based on 10 samples, one per second over the last 10 seconds.</p>
+<p>Example: a circuit is fired 24 times over 10 seconds with a somewhat bursty pattern, failing three times.</p>
+<pre><code>| fires: 2 | fires: 1 | fires: 3 | fires: 0 | fires: 9 | fires: 3 | fires: 2 | fires: 0 | fires: 4 | fires: 0 |
+| fails: 0 | fails: 0 | fails: 0 | fails: 0 | fails: 0 | fails: 3 | fails: 0 | fails: 0 | fails: 0 | fails: 0 |
+</code></pre>
+<p>The failure rate here is 3/24 or 1/8 or 12.5%. The default error threshold is 50%, so in this case, the circuit would not open. However, if you modified the <code>rollingCountTimeout</code> to 3 seconds, and the <code>rollingCountBuckets</code> to 3  (not recommended), then the stats array might look like these three seconds from above.</p>
+<pre><code>| fires: 3 | fires: 2 | fires: 0 |
+| fails: 3 | fails: 0 | fails: 0 |
+</code></pre>
+<p>Now, without changing <code>errorThresholdPercentage</code> our circuit will open because our error rate is now 3/5 or 60%. It's tricky to test this stuff because the array of statistics is a rolling count. Every second the oldest bucket is removed and a new one is added, so the totals change constantly in a way that may not be intuitive.</p>
+<p>For example, if the first example is shifted right, dropping the first bucket and adding another with <code>fires: 3</code> the total number of <code>fires</code> now in the stats is not 27 (24+3) but 25 (24-2+3).</p>
+<p>The code that is summing the stats samples is here:</p>
+<h3>Typings</h3>
+<p>Typings are available <a href="https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/opossum">here</a>.</p>
+<p>If you'd like to add them, run <code>npm install @types/opossum</code> in your project.</p>
+<h3>Metrics</h3>
+<h4>Prometheus</h4>
+<p>The <a href="https://github.com/nodeshift/opossum-prometheus"><code>opossum-prometheus</code></a> module
+can be used to produce metrics that are consumable by Prometheus.
+These metrics include information about the circuit itself, for example how many
+times it has opened, as well as general Node.js statistics, for example event loop lag.</p>
+<h4>Hystrix</h4>
+<p>The <a href="https://github.com/nodeshift/opossum-hystrix"><code>opossum-hystrix</code></a> module can
+be used to produce metrics that are consumable by the Hystrix Dashboard.</p>
+<h2>Troubleshooting</h2>
+<p>You may run into issues related to too many listeners on an <code>EventEmitter</code> like this.</p>
+<p>In some cases, seeing this error might indicate a bug in client code, where many <code>CircuitBreaker</code>s are inadvertently being created. But there are legitimate scenarios where this may not be the case. For example, it could just be that you need more than 10 <code>CircuitBreaker</code>s in your app. That's ok.</p>
+<p>To get around the error, you can set the number of listeners on the stream.</p>
+<p>Or it could be that you have a large test suite which exercises some code that creates <code>CircuitBreaker</code>s and does so repeatedly. If the <code>CircuitBreaker</code> being created is only needed for the duration of the test, use <code>breaker.shutdown()</code> when the circuit is no longer in use to clean up all listeners.</p>
+
+  
+</section></div>
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='circuitbreaker'>
+      CircuitBreaker
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Constructs a <a href="#circuitbreaker">CircuitBreaker</a>.</p>
+
+    <div class='pre p1 fill-light mt0'>new CircuitBreaker(action: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>, options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
+  
+  
+    <p>
+      Extends
+      
+        EventEmitter
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>action</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+	    The action to fire for this 
+<a href="#circuitbreaker">CircuitBreaker</a>
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Options for the 
+<a href="#circuitbreaker">CircuitBreaker</a>
+
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.status</span> <code class='quiet'><a href="#status">Status</a></code>
+  </td>
+  <td class='break-word'><span>A 
+<a href="#status">Status</a>
+ object that might
+have pre-prime stats
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.timeout</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
+  </td>
+  <td class='break-word'><span>The time in milliseconds that action should
+be allowed to execute before timing out. Timeout can be disabled by setting
+this to 
+<code>false</code>
+. Default 10000 (10 seconds)
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.maxFailures</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
+  </td>
+  <td class='break-word'><span>(Deprecated) The number of times the
+circuit can fail before opening. Default 10.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.resetTimeout</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
+  </td>
+  <td class='break-word'><span>The time in milliseconds to wait before
+setting the breaker to 
+<code>halfOpen</code>
+ state, and trying the action again.
+Default: 30000 (30 seconds)
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.rollingCountTimeout</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
+  </td>
+  <td class='break-word'><span>Sets the duration of the
+statistical rolling window, in milliseconds. This is how long Opossum keeps
+metrics for the circuit breaker to use and for publishing. Default: 10000
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.rollingCountBuckets</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
+  </td>
+  <td class='break-word'><span>Sets the number of buckets the
+rolling statistical window is divided into. So, if
+options.rollingCountTimeout is 10000, and options.rollingCountBuckets is 10,
+then the statistical window will be 1000/1 second snapshots in the
+statistical window. Default: 10
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.name</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code>
+  </td>
+  <td class='break-word'><span>the circuit name to use when reporting stats.
+Default: the name of the function this circuit controls.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.rollingPercentilesEnabled</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
+  </td>
+  <td class='break-word'><span>This property indicates
+whether execution latencies should be tracked and calculated as percentiles.
+If they are disabled, all summary statistics (mean, percentiles) are
+returned as -1. Default: true
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.capacity</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
+  </td>
+  <td class='break-word'><span>the number of concurrent requests allowed.
+If the number currently executing function calls is equal to
+options.capacity, further calls to 
+<code>fire()</code>
+ are rejected until at least one
+of the current requests completes. Default: 
+<code>Number.MAX_SAFE_INTEGER</code>
+.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.errorThresholdPercentage</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
+  </td>
+  <td class='break-word'><span>the error percentage at
+which to open the circuit and start short-circuiting requests to fallback.
+Default: 50
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.enabled</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
+  </td>
+  <td class='break-word'><span>whether this circuit is enabled upon
+construction. Default: true
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.allowWarmUp</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
+  </td>
+  <td class='break-word'><span>determines whether to allow failures
+without opening the circuit during a brief warmup period (this is the
+
+<code>rollingCountTimeout</code>
+ property). Default: false
+This can help in situations where no matter what your
+
+<code>errorThresholdPercentage</code>
+ is, if the first execution times out or fails,
+the circuit immediately opens.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.volumeThreshold</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
+  </td>
+  <td class='break-word'><span>the minimum number of requests within
+the rolling statistical window that must exist before the circuit breaker
+can open. This is similar to 
+<code>options.allowWarmUp</code>
+ in that no matter how many
+failures there are, if the number of requests within the statistical window
+does not exceed this threshold, the circuit will remain closed. Default: 0
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.errorFilter</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></code>
+  </td>
+  <td class='break-word'><span>an optional function that will be
+called when the circuit's function fails (returns a rejected Promise). If
+this function returns truthy, the circuit's failPure statistics will not be
+incremented. This is useful, for example, when you don't want HTTP 404 to
+trip the circuit, but still want to handle it as a failure case.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.cache</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
+  </td>
+  <td class='break-word'><span>whether the return value of the first
+successful execution of the circuit's function will be cached. Once a value
+has been cached that value will be returned for every subsequent execution:
+the cache can be cleared using 
+<code>clearCache</code>
+. (The metrics 
+<code>cacheHit</code>
+ and
+
+<code>cacheMiss</code>
+ reflect cache activity.) Default: false
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.cacheTTL</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
+  </td>
+  <td class='break-word'><span>the time to live for the cache
+in milliseconds. Set 0 for infinity cache. Default: 0 (no TTL)
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.cacheGetKey</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></code>
+  </td>
+  <td class='break-word'><span>function that returns the key to use
+when caching the result of the circuit's fire.
+Better to use custom one, because 
+<code>JSON.stringify</code>
+ is not good
+from performance perspective.
+Default: 
+<code>(...args) => JSON.stringify(args)</code>
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.cacheTransport</span> <code class='quiet'>CacheTransport</code>
+  </td>
+  <td class='break-word'><span>custom cache transport
+should implement 
+<code>get</code>
+, 
+<code>set</code>
+ and 
+<code>flush</code>
+ methods.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.abortController</span> <code class='quiet'>AbortController</code>
+  </td>
+  <td class='break-word'><span>this allows Opossum to
+signal upon timeout and properly abort your on going requests instead of
+leaving it in the background
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.enableSnapshots</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
+  </td>
+  <td class='break-word'><span>whether to enable the rolling
+stats snapshots that opossum emits at the bucketInterval. Disable this
+as an optimization if you don't listen to the 'snapshot' event to reduce
+the number of timers opossum initiates.
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.rotateBucketController</span> <code class='quiet'>EventEmitter</code>
+  </td>
+  <td class='break-word'><span>if you have multiple
+breakers in your app, the number of timers across breakers can get costly.
+This option allows you to provide an EventEmitter that rotates the buckets
+so you can have one global timer in your app. Make sure that you are
+emitting a 'rotate' event from this EventEmitter
+</span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='circuitbreakerisourerror'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>isOurError(error)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Returns true if the provided error was generated here. It will be false
+if the error came from the action itself.</p>
+
+    <div class='pre p1 fill-light mt0'>isOurError(error: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>error</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>)</code>
+	    The Error to check.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></code>:
+        true if the error was generated here
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakernewstatus'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>newStatus(options)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Create a new Status object,
+helpful when you need to prime a breaker with stats</p>
+
+    <div class='pre p1 fill-light mt0'>newStatus(options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="#status">Status</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    <ul>
+<li></li>
+</ul>
+
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.rollingCountBuckets</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
+  </td>
+  <td class='break-word'><span>number of buckets in the window
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.rollingCountTimeout</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
+  </td>
+  <td class='break-word'><span>the duration of the window
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.rollingPercentilesEnabled</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></code>
+  </td>
+  <td class='break-word'><span>whether to calculate
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.stats</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>
+  </td>
+  <td class='break-word'><span>user supplied stats
+</span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="#status">Status</a></code>:
+        a new 
+<a href="#status">Status</a>
+ object
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='circuitbreakerclose'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>close()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Closes the breaker, allowing the action to execute again</p>
+
+    <div class='pre p1 fill-light mt0'>close(): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakeropen'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>open()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Opens the breaker. Each time the breaker is fired while the circuit is
+opened, a failed Promise is returned, or if any fallback function
+has been provided, it is invoked.</p>
+<p>If the breaker is already open this call does nothing.</p>
+
+    <div class='pre p1 fill-light mt0'>open(): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakershutdown'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>shutdown()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Shuts down this circuit breaker. All subsequent calls to the
+circuit will fail, returning a rejected promise.</p>
+
+    <div class='pre p1 fill-light mt0'>shutdown(): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakerisshutdown'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>isShutdown</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Determines if the circuit has been shutdown.</p>
+
+    <div class='pre p1 fill-light mt0'>isShutdown</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakername'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>name</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Gets the name of this circuit</p>
+
+    <div class='pre p1 fill-light mt0'>name</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakergroup'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>group</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Gets the name of this circuit group</p>
+
+    <div class='pre p1 fill-light mt0'>group</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">String</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakerpendingclose'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>pendingClose</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Gets whether this circuit is in the <code>pendingClosed</code> state</p>
+
+    <div class='pre p1 fill-light mt0'>pendingClose</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakerclosed'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>closed</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>True if the circuit is currently closed. False otherwise.</p>
+
+    <div class='pre p1 fill-light mt0'>closed</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakeropened'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>opened</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>True if the circuit is currently opened. False otherwise.</p>
+
+    <div class='pre p1 fill-light mt0'>opened</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakerhalfopen'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>halfOpen</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>True if the circuit is currently half opened. False otherwise.</p>
+
+    <div class='pre p1 fill-light mt0'>halfOpen</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakerstatus'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>status</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>The current <a href="#status">Status</a> of this <a href="#circuitbreaker">CircuitBreaker</a></p>
+
+    <div class='pre p1 fill-light mt0'>status</div>
+  
+    <p>
+      Type:
+      <a href="#status">Status</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakerstats'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>stats</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Get the current stats for the circuit.</p>
+
+    <div class='pre p1 fill-light mt0'>stats</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Related</div>
+    
+      
+        Status#stats
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakerenabled'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>enabled</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Gets whether the circuit is enabled or not</p>
+
+    <div class='pre p1 fill-light mt0'>enabled</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakerwarmup'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>warmUp</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Gets whether the circuit is currently in warm up phase</p>
+
+    <div class='pre p1 fill-light mt0'>warmUp</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakervolumethreshold'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>volumeThreshold</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Gets the volume threshold for this circuit</p>
+
+    <div class='pre p1 fill-light mt0'>volumeThreshold</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakerfallback'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>fallback(func)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Provide a fallback function for this <a href="#circuitbreaker">CircuitBreaker</a>. This
+function will be executed when the circuit is <code>fire</code>d and fails.
+It will always be preceded by a <code>failure</code> event, and <code>breaker.fire</code> returns
+a rejected Promise.</p>
+
+    <div class='pre p1 fill-light mt0'>fallback(func: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a> | <a href="#circuitbreaker">CircuitBreaker</a>)): <a href="#circuitbreaker">CircuitBreaker</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>func</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a> | <a href="#circuitbreaker">CircuitBreaker</a>))</code>
+	    the fallback function to execute
+when the breaker has opened or when a timeout or error occurs.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="#circuitbreaker">CircuitBreaker</a></code>:
+        this
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakerfire'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>fire(args)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Execute the action for this circuit. If the action fails or times out, the
+returned promise will be rejected. If the action succeeds, the promise will
+resolve with the resolved value from action. If a fallback function was
+provided, it will be invoked in the event of any failure or timeout.</p>
+<p>Any parameters passed to this function will be proxied to the circuit
+function.</p>
+
+    <div class='pre p1 fill-light mt0'>fire(args: ...any): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;any></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>args</span> <code class='quiet'>(...any)</code>
+	    
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;any></code>:
+        promise resolves with the circuit function's return
+value on success or is rejected on failure of the action. Use isOurError()
+to determine if a rejection was a result of the circuit breaker or the
+action.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakercall'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>call(context, rest)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Execute the action for this circuit using <code>context</code> as <code>this</code>.
+If the action fails or times out, the
+returned promise will be rejected. If the action succeeds, the promise will
+resolve with the resolved value from action. If a fallback function was
+provided, it will be invoked in the event of any failure or timeout.</p>
+<p>Any parameters in addition to `context will be passed to the
+circuit function.</p>
+
+    <div class='pre p1 fill-light mt0'>call(context: any, rest: any): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;any></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>context</span> <code class='quiet'>(any)</code>
+	    the 
+<code>this</code>
+ context used for function execution
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>rest</span> <code class='quiet'>(any)</code>
+	    the arguments passed to the action
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a>&#x3C;any></code>:
+        promise resolves with the circuit function's return
+value on success or is rejected on failure of the action.
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakerclearcache'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>clearCache()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Clears the cache of this <a href="#circuitbreaker">CircuitBreaker</a></p>
+
+    <div class='pre p1 fill-light mt0'>clearCache(): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakerhealthcheck'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>healthCheck(func, interval?)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Provide a health check function to be called periodically. The function
+should return a Promise. If the promise is rejected the circuit will open.
+This is in addition to the existing circuit behavior as defined by
+<code>options.errorThresholdPercentage</code> in the constructor. For example, if the
+health check function provided here always returns a resolved promise, the
+circuit can still trip and open if there are failures exceeding the
+configured threshold. The health check function is executed within the
+circuit breaker's execution context, so <code>this</code> within the function is the
+circuit breaker itself.</p>
+
+    <div class='pre p1 fill-light mt0'>healthCheck(func: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>, interval: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>?): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>func</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
+	    a health check function which returns a promise.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>interval</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>?)</code>
+	    the amount of time between calls to the health
+check function. Default: 5000 (5 seconds)
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+      
+    
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Throws</div>
+    <ul>
+      
+        <li><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypeError">TypeError</a>: if 
+<code>interval</code>
+ is supplied but not a number
+</li>
+      
+    </ul>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakerenable'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>enable()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Enables this circuit. If the circuit is the  disabled
+state, it will be re-enabled. If not, this is essentially
+a noop.</p>
+
+    <div class='pre p1 fill-light mt0'>enable(): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='circuitbreakerdisable'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>disable()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Disables this circuit, causing all calls to the circuit's function
+to be executed without circuit or fallback protection.</p>
+
+    <div class='pre p1 fill-light mt0'>disable(): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventcircuitbreakerhalfopen'>
+      CircuitBreaker#halfOpen
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Emitted after <code>options.resetTimeout</code> has elapsed, allowing for
+a single attempt to call the service again. If that attempt is
+successful, the circuit will be closed. Otherwise it remains open.</p>
+
+    <div class='pre p1 fill-light mt0'>CircuitBreaker#halfOpen</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventcircuitbreakerclose'>
+      CircuitBreaker#close
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Emitted when the breaker is reset allowing the action to execute again</p>
+
+    <div class='pre p1 fill-light mt0'>CircuitBreaker#close</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventcircuitbreakeropen'>
+      CircuitBreaker#open
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Emitted when the breaker opens because the action has
+failure percentage greater than <code>options.errorThresholdPercentage</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>CircuitBreaker#open</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventcircuitbreakershutdown'>
+      CircuitBreaker#shutdown
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Emitted when the circuit breaker has been shut down.</p>
+
+    <div class='pre p1 fill-light mt0'>CircuitBreaker#shutdown</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventcircuitbreakerfire'>
+      CircuitBreaker#fire
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Emitted when the circuit breaker action is executed</p>
+
+    <div class='pre p1 fill-light mt0'>CircuitBreaker#fire</div>
+  
+    <p>
+      Type:
+      any
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventcircuitbreakercachehit'>
+      CircuitBreaker#cacheHit
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Emitted when the circuit breaker is using the cache
+and finds a value.</p>
+
+    <div class='pre p1 fill-light mt0'>CircuitBreaker#cacheHit</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventcircuitbreakercachemiss'>
+      CircuitBreaker#cacheMiss
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Emitted when the circuit breaker does not find a value in
+the cache, but the cache option is enabled.</p>
+
+    <div class='pre p1 fill-light mt0'>CircuitBreaker#cacheMiss</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventcircuitbreakerreject'>
+      CircuitBreaker#reject
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Emitted when the circuit breaker is open and failing fast</p>
+
+    <div class='pre p1 fill-light mt0'>CircuitBreaker#reject</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventcircuitbreakertimeout'>
+      CircuitBreaker#timeout
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Emitted when the circuit breaker action takes longer than
+<code>options.timeout</code></p>
+
+    <div class='pre p1 fill-light mt0'>CircuitBreaker#timeout</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventcircuitbreakersuccess'>
+      CircuitBreaker#success
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Emitted when the circuit breaker action succeeds</p>
+
+    <div class='pre p1 fill-light mt0'>CircuitBreaker#success</div>
+  
+    <p>
+      Type:
+      any
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventcircuitbreakersemaphorelocked'>
+      CircuitBreaker#semaphoreLocked
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Emitted when the rate limit has been reached and there
+are no more locks to be obtained.</p>
+
+    <div class='pre p1 fill-light mt0'>CircuitBreaker#semaphoreLocked</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventcircuitbreakerhealthcheckfailed'>
+      CircuitBreaker#healthCheckFailed
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Emitted with the user-supplied health check function
+returns a rejected promise.</p>
+
+    <div class='pre p1 fill-light mt0'>CircuitBreaker#healthCheckFailed</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventcircuitbreakerfallback'>
+      CircuitBreaker#fallback
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Emitted when the circuit breaker executes a fallback function</p>
+
+    <div class='pre p1 fill-light mt0'>CircuitBreaker#fallback</div>
+  
+    <p>
+      Type:
+      any
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventcircuitbreakerfailure'>
+      CircuitBreaker#failure
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Emitted when the circuit breaker action fails</p>
+
+    <div class='pre p1 fill-light mt0'>CircuitBreaker#failure</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='status'>
+      Status
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Tracks execution status for a given <a href="#circuitbreaker">CircuitBreaker</a>.
+A Status instance is created for every <a href="#circuitbreaker">CircuitBreaker</a>
+and does not typically need to be created by a user.</p>
+<p>A Status instance will listen for all events on the <a href="#circuitbreaker">CircuitBreaker</a>
+and track them in a rolling statistical window. The window duration is
+determined by the <code>rollingCountTimeout</code> option provided to the
+<a href="#circuitbreaker">CircuitBreaker</a>. The window consists of an array of Objects,
+each representing the counts for a <a href="#circuitbreaker">CircuitBreaker</a>'s events.</p>
+<p>The array's length is determined by the <a href="#circuitbreaker">CircuitBreaker</a>'s
+<code>rollingCountBuckets</code> option. The duration of each slice of the window
+is determined by dividing the <code>rollingCountTimeout</code> by
+<code>rollingCountBuckets</code>.</p>
+
+    <div class='pre p1 fill-light mt0'>new Status(options: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
+  
+  
+    <p>
+      Extends
+      
+        EventEmitter
+      
+    </p>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>options</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    for the status window
+
+          </div>
+          
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.rollingCountBuckets</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
+  </td>
+  <td class='break-word'><span>number of buckets in the window
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.rollingCountTimeout</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code>
+  </td>
+  <td class='break-word'><span>the duration of the window
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.rollingPercentilesEnabled</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></code>
+  </td>
+  <td class='break-word'><span>whether to calculate
+percentiles
+</span></td>
+</tr>
+
+
+              
+                <tr>
+  <td class='break-word'><span class='code bold'>options.stats</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>
+  </td>
+  <td class='break-word'><span>object of previous stats
+</span></td>
+</tr>
+
+
+              
+            </tbody>
+          </table>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Related</div>
+    
+      
+        CircuitBreaker#status
+
+      
+    
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+    
+      
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Creates a 1 second window consisting of ten time slices,</span>
+<span class="hljs-comment">// each 100ms long.</span>
+<span class="hljs-keyword">const</span> circuit = <span class="hljs-title function_">circuitBreaker</span>(fs.<span class="hljs-property">readFile</span>,
+ { <span class="hljs-attr">rollingCountBuckets</span>: <span class="hljs-number">10</span>, <span class="hljs-attr">rollingCountTimeout</span>: <span class="hljs-number">1000</span>});
+
+<span class="hljs-comment">// get the cumulative statistics for the last second</span>
+circuit.<span class="hljs-property">status</span>.<span class="hljs-property">stats</span>;
+
+<span class="hljs-comment">// get the array of 10, 1 second time slices for the last second</span>
+circuit.<span class="hljs-property">status</span>.<span class="hljs-property">window</span>;</pre>
+    
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='statusstats'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>stats</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Get the cumulative stats for the current window</p>
+
+    <div class='pre p1 fill-light mt0'>stats</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='statuswindow'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>window</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Gets the stats window as an array of time-sliced objects.</p>
+
+    <div class='pre p1 fill-light mt0'>window</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='eventstatussnapshot'>
+      Status#snapshot
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Emitted at each time-slice. Listeners for this
+event will receive a cumulative snapshot of the current status window.</p>
+
+    <div class='pre p1 fill-light mt0'>Status#snapshot</div>
+  
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+    </p>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='memorycache'>
+      MemoryCache
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Simple in-memory cache implementation</p>
+
+    <div class='pre p1 fill-light mt0'>new MemoryCache()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+      
+        <div class='space-bottom0'>
+          <span class='code bold'>cache</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map">Map</a>)</code>
+          : Cache map
+
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+  
+    <div class='border-bottom' id='memorycacheget'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>get(key)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Get cache value by key</p>
+
+    <div class='pre p1 fill-light mt0'>get(key: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): any</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>key</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    Cache key
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>any</code>:
+        Response from cache
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='memorycacheset'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>set(key, value, ttl)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Set cache key with value and ttl</p>
+
+    <div class='pre p1 fill-light mt0'>set(key: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, value: any, ttl: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>key</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    Cache key
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(any)</code>
+	    Value to cache
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>ttl</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    Time to live in milliseconds
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+    <div class='border-bottom' id='memorycacheflush'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>flush()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+
+  <p>Clear cache</p>
+
+    <div class='pre p1 fill-light mt0'>flush(): void</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code>void</code>:
+        
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+      </div>
+    </div>
+  
+</div>
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+      </div>
+    </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/split.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>
