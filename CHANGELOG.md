@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.1.3](https://github.com/nodeshift/opossum/compare/v8.1.2...v8.1.3) (2023-11-06)
+
+
+### Bug Fixes
+
+* push.apply with an unbounded array leads to stack overflow exceptions. ([#830](https://github.com/nodeshift/opossum/issues/830)) ([2cfb1ae](https://github.com/nodeshift/opossum/commit/2cfb1aeb8649359b0e8adc44b20bce61ee2bb3c1))
+* upgrade tape from 5.6.6 to 5.7.0 ([#828](https://github.com/nodeshift/opossum/issues/828)) ([650807a](https://github.com/nodeshift/opossum/commit/650807ac5a4e6a8417c9165914559f452110f460))
+
 ## [8.1.2](https://github.com/nodeshift/opossum/compare/v8.1.1...v8.1.2) (2023-10-05)
 
 
