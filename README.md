@@ -3,7 +3,7 @@
 ![Node.js CI](https://github.com/nodeshift/opossum/workflows/Node.js%20CI/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/nodeshift/opossum/badge.svg?branch=master)](https://coveralls.io/github/nodeshift/opossum?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/npm/opossum/badge.svg)](https://snyk.io/test/npm/opossum)
-[![dependencies Status](https://david-dm.org/nodeshift/opossum/status.svg)](https://david-dm.org/nodeshift/opossum)
+[![Dependency Status](https://img.shields.io/librariesio/github/nodeshift/opossum)](https://libraries.io/nodeshift/opossum)
 
 Opossum is a Node.js circuit breaker that executes asynchronous functions
 and monitors their execution status. When things start failing, `opossum`
@@ -164,7 +164,7 @@ const breaker = new CircuitBreaker({state: state});
 
 There may also be times where you will need to pre-populate the stats of the Circuit Breaker Status Object.  Primary use cases for this are also in a serverless environment such as Knative or AWS Lambda, or any container based platform, where the container being deployed is ephemeral.
 
-Getting the existing cumalative stats for a breaker can be done like this:
+Getting the existing cumulative stats for a breaker can be done like this:
 
 ```
 const stats = breaker.stats;
