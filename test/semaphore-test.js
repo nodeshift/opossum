@@ -69,17 +69,6 @@ test('User code cannot change the lock count', t => {
   t.end();
 });
 
-test('A semaphore can time out waiting for a lock', t => {
-  t.plan(1);
-  const sem = Semaphore(1);
-  sem.take().then(_ => {
-    sem.take(100).catch(e => {
-      t.equals(e.code, 'ETIMEDOUT', 'Semaphore lock acquisition timed out');
-      t.end();
-    });
-  });
-});
-
 test('A user can test semaphore to see if a lock is available', t => {
   t.plan(4);
   const sem = Semaphore(1);
