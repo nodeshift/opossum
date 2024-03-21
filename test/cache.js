@@ -87,7 +87,7 @@ test('Using cache with TTL', t => {
 });
 
 test('Using cache with custom get cache key', t => {
-  t.plan(9);
+  t.plan(11);
   const expected = 34;
   const options = {
     cache: true,
@@ -106,6 +106,9 @@ test('Using cache with custom get cache key', t => {
     })
     .then(() => breaker.fire(expected))
     .then(arg => {
+      t.equals(breaker.options.cacheTransport.cache.size, 1, 'cache have one entry');
+      t.ok(breaker.options.cacheTransport.cache.has(`key-${expected}`), 'cache has the key');
+
       const stats = breaker.status.stats;
       t.equals(stats.cacheHits, 1, 'hit the cache');
       t.equals(stats.cacheMisses, 1, 'did not emit miss');
@@ -114,6 +117,7 @@ test('Using cache with custom get cache key', t => {
           `cache hits:misses ${stats.cacheHits}:${stats.cacheMisses}`);
       breaker.clearCache();
     })
+    .then(() => breaker.clearCache())
     .then(() => breaker.fire(expected))
     .then(arg => {
       const stats = breaker.status.stats;
@@ -126,7 +130,7 @@ test('Using cache with custom get cache key', t => {
 });
 
 test('Using cache with custom transport', t => {
-  t.plan(9);
+  t.plan(15);
   const expected = 34;
   const cache = new Map();
   const options = {
@@ -139,8 +143,11 @@ test('Using cache with custom transport', t => {
   };
   const breaker = new CircuitBreaker(passFail, options);
 
+  t.equals(cache.size, 0, 'cache is empty');
+
   breaker.fire(expected)
     .then(arg => {
+      t.equals(cache.size, 1, 'cache has one entry');
       const stats = breaker.status.stats;
       t.equals(stats.cacheHits, 0, 'does not hit the cache');
       t.equals(stats.cacheMisses, 1, 'emits a cacheMiss');
@@ -150,6 +157,7 @@ test('Using cache with custom transport', t => {
     })
     .then(() => breaker.fire(expected))
     .then(arg => {
+      t.equals(cache.size, 1, 'cache has one entry');
       const stats = breaker.status.stats;
       t.equals(stats.cacheHits, 1, 'hit the cache');
       t.equals(stats.cacheMisses, 1, 'did not emit miss');
@@ -157,14 +165,19 @@ test('Using cache with custom transport', t => {
       t.equals(arg, expected,
           `cache hits:misses ${stats.cacheHits}:${stats.cacheMisses}`);
       breaker.clearCache();
+      t.equals(cache.size, 0, 'cache is empty');
     })
     .then(() => breaker.fire(expected))
     .then(arg => {
+      t.equals(cache.size, 1, 'cache has one entry');
       const stats = breaker.status.stats;
       t.equals(arg, expected,
           `cache hits:misses ${stats.cacheHits}:${stats.cacheMisses}`);
     })
     .then(() => breaker.shutdown())
+    .then(() => {
+      t.equals(cache.size, 0, 'cache is empty');
+    })
     .then(t.end)
     .catch(t.fail);
 });
