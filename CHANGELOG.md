@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.1.4](https://github.com/nodeshift/opossum/compare/v8.1.3...v8.1.4) (2024-04-30)
+
+
+### Bug Fixes
+
+* upgrade eslint from 8.49.0 to 8.51.0 ([#835](https://github.com/nodeshift/opossum/issues/835)) ([99481d5](https://github.com/nodeshift/opossum/commit/99481d588970491bd5ead09f7fd10fdd63c7fd2f))
+* upgrade tape from 5.7.0 to 5.7.2 ([#841](https://github.com/nodeshift/opossum/issues/841)) ([0929749](https://github.com/nodeshift/opossum/commit/0929749fa4f942cc08e062db9a33941cfdb7cf07))
+
 ## [8.1.3](https://github.com/nodeshift/opossum/compare/v8.1.2...v8.1.3) (2023-11-06)
 
 
