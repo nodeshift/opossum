@@ -55,7 +55,7 @@
     "opener": "1.5.2",
     "serve": "^14.2.0",
     "stream-browserify": "^3.0.0",
-    "tape": "~5.7.2",
+    "tape": "~5.7.5",
     "util": "^0.12.5",
     "webpack": "~5.88.2",
     "webpack-cli": "~5.1.4"
