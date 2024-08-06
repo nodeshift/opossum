@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.2.0](https://github.com/nodeshift/opossum/compare/v8.1.4...v8.2.0) (2024-08-06)
+
+
+### Features
+
+* upgrade nyc from 15.1.0 to 17.0.0 ([#862](https://github.com/nodeshift/opossum/issues/862)) ([ccf7803](https://github.com/nodeshift/opossum/commit/ccf78033462e74533e3cbb74a865d659745e4dd9))
+
 ## [8.1.4](https://github.com/nodeshift/opossum/compare/v8.1.3...v8.1.4) (2024-04-30)
 
 
