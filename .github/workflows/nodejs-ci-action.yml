@@ -23,7 +23,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
     - run: npm test
-    - run: npx @pkgjs/support validate
+    - run: npx @pkgjs/support@latest validate
     - run: node_modules/nyc/bin/nyc.js report --reporter=lcovonly
     - name: Coveralls Parallel
       uses: coverallsapp/github-action@master
