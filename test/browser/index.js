@@ -1,6 +1,7 @@
 // This is a generated file. Do not modify by hand
 'use strict';
 
+require('../cache.js');
 require('../circuit-shutdown-test.js');
 require('../closed-test.js');
 require('../common.js');
@@ -9,6 +10,7 @@ require('../enable-disable-test.js');
 require('../error-filter-test.js');
 require('../half-open-test.js');
 require('../health-check-test.js');
+require('../options-test.js');
 require('../semaphore-test.js');
 require('../state-test.js');
 require('../status-test.js');

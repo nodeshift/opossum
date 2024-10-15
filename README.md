@@ -182,6 +182,8 @@ const stats = breaker.stats;
   timeouts: 0,
   cacheHits: 0,
   cacheMisses: 0,
+  coalesceCacheHits: 0,
+  coalesceCacheMisses: 0,
   semaphoreRejections: 0,
   percentiles: {
     '0': 0,
@@ -417,6 +419,9 @@ The code that is summing the stats samples is here:
   }, bucket());
 ```
 
+### Coalesce calls
+
+Circuitbreaker offers coalescing your calls. If options.coalesce is set, multiple calls to the circuitbreaker will be handled as one, within the given timeframe (options.coalesceTTL). Performance will improve when rapidly firing the circuitbreaker with the same request, especially on a slower action. This is especially useful if multiple events can trigger the same functions at the same time. Of course, caching has the same function, but will only be effective when the call has been executed once to store the return value. Coalescing and cache can be used at the same time, coalescing calls will always use the internal cache.
 
 ### Typings
 
