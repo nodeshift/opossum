@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.2.0](https://github.com/nodeshift/opossum/compare/v8.1.4...v8.2.0) (2024-10-23)
+
+
+### Features
+
+* coalescing calls + feature: max cache size ([#877](https://github.com/nodeshift/opossum/issues/877)) ([d50c912](https://github.com/nodeshift/opossum/commit/d50c912ebb5b642f9bd16efc24afda94432cd666))
+* upgrade nyc from 15.1.0 to 17.0.0 ([#862](https://github.com/nodeshift/opossum/issues/862)) ([ccf7803](https://github.com/nodeshift/opossum/commit/ccf78033462e74533e3cbb74a865d659745e4dd9))
+
+
+### Bug Fixes
+
+* package.json & package-lock.json to reduce vulnerabilities ([#890](https://github.com/nodeshift/opossum/issues/890)) ([6cd2895](https://github.com/nodeshift/opossum/commit/6cd28950244218fde9c2d75ca04e753bd37761e4))
+* upgrade babel-loader from 9.1.3 to 9.2.1 ([#888](https://github.com/nodeshift/opossum/issues/888)) ([6d26113](https://github.com/nodeshift/opossum/commit/6d26113ab7ef8afa768717c166390f5c84ed6e61))
+* upgrade tape from 5.7.2 to 5.9.0 ([#885](https://github.com/nodeshift/opossum/issues/885)) ([2896676](https://github.com/nodeshift/opossum/commit/2896676745d26b08912bb547b80af8916d1ddeeb))
+
 ## [8.1.4](https://github.com/nodeshift/opossum/compare/v8.1.3...v8.1.4) (2024-04-30)
 
 
