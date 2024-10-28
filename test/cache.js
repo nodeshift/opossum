@@ -143,8 +143,50 @@ test('Using coalesce cache + regular cache.', t => {
       const stats = breaker.status.stats;
 
       t.equals(stats.cacheHits, 1, 'hits the cache');
-      t.equals(stats.coalesceCacheHits, 2, 'not further hits to coalesce cache, it is now expired');
+      t.equals(stats.coalesceCacheHits, 2, 'not further hits to coalesce cache, normal cache takes preference');
       t.equals(stats.successes, 1, 'success once');
+      t.equals(arg, expected,
+        `cache hits:misses ${stats.cacheHits}:${stats.cacheMisses}`);
+    })
+    .then(t.end)
+    .catch(t.fail);
+});
+
+test('Using coalesce cache only.', t => {
+  t.plan(10);
+
+  const options = {
+    cache: false,
+    coalesce: true,
+    coalesceTTL: 200
+  };
+
+  const breaker = new CircuitBreaker(passFail, options);
+
+  // fire breaker three times in rapid succession, expect execution once.
+  Promise.all([
+    breaker.fire(expected),
+    breaker.fire(expected),
+    breaker.fire(expected)
+  ]).then(results => {
+    const stats = breaker.status.stats;
+    t.equals(stats.cacheHits, 0, 'does not hit the cache');
+    t.equals(stats.coalesceCacheHits, 2, 'hits coalesce cache twice');
+    t.equals(stats.fires, 3, 'fired thrice');
+    t.equals(stats.successes, 1, 'success once');
+    t.equals(results.length, 3, 'executed 3');
+    t.deepEqual(results, [expected, expected, expected],
+      `cache coalesceCacheHits:coalesceCacheMisses` +
+      `${stats.coalesceCacheHits}:${stats.coalesceCacheMisses}`);
+  })
+    // Re-fire breaker, expect cache hit as cache takes preference.
+    .then(() => new Promise(resolve => setTimeout(resolve, 250)))
+    .then(() => breaker.fire(expected)).then(arg => {
+      const stats = breaker.status.stats;
+
+      t.equals(stats.cacheHits, 0, 'does not hit the cache');
+      t.equals(stats.coalesceCacheHits, 2, 'not further hits to coalesce cache, it is now expired');
+      t.equals(stats.successes, 2, 'success twice, no cache used');
       t.equals(arg, expected,
         `cache hits:misses ${stats.cacheHits}:${stats.cacheMisses}`);
     })
