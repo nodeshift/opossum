@@ -87,6 +87,44 @@ breaker.fire(abortController.signal)
   .catch(console.error);
 ```
 
+### Auto Renew AbortController
+
+The `autoRenewAbortController` option allows the automatic renewal of the `AbortController` when the circuit breaker transitions into the `halfOpen` or `closed` states. This feature ensures that the `AbortController` can be reused properly for ongoing requests without manual intervention.
+
+```javascript
+const CircuitBreaker = require('opossum');
+const http = require('http');
+
+function asyncFunctionThatCouldFail(abortSignal, x, y) {
+  return new Promise((resolve, reject) => {
+    http.get(
+      'http://httpbin.org/delay/10',
+      { signal: abortSignal },
+      (res) => {
+        if(res.statusCode < 300) {
+          resolve(res.statusCode);
+          return;
+        }
+
+        reject(res.statusCode);
+      }
+    );
+  });
+}
+
+const abortController = new AbortController();
+const options = {
+  autoRenewAbortController: true,
+  timeout: 3000, // If our function takes longer than 3 seconds, trigger a failure
+};
+const breaker = new CircuitBreaker(asyncFunctionThatCouldFail, options);
+
+const signal = breaker.getSignal();
+breaker.fire(signal)
+  .then(console.log)
+  .catch(console.error);
+```
+
 ### Fallback
 
 You can also provide a fallback function that will be executed in the
