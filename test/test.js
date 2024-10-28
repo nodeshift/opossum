@@ -241,6 +241,77 @@ test('When options.abortController is provided, abort controller should not be a
     .then(t.end);
 });
 
+test('When options.autoRenewAbortController is not provided, signal should not be provided', t => {
+  t.plan(1);
+
+  const breaker = new CircuitBreaker(
+    passFail
+  );
+
+  const signal = breaker.getSignal();
+  t.false(signal, 'AbortSignal is empty');
+
+  breaker.shutdown();
+  t.end();
+});
+
+test('When options.autoRenewAbortController is provided, signal should be provided', t => {
+  t.plan(1);
+
+  const breaker = new CircuitBreaker(
+    passFail,
+    { autoRenewAbortController: true }
+  );
+
+  const signal = breaker.getSignal();
+  t.true(signal, 'AbortSignal has instance');
+
+  breaker.shutdown();
+  t.end();
+});
+
+test('When autoRenewAbortController option is provided, the signal should be reset', t => {
+  t.plan(2);
+
+  const breaker = new CircuitBreaker(
+    passFail,
+    {
+      autoRenewAbortController: true,
+      resetTimeout: 10,
+      timeout: 1
+    }
+  );
+
+  breaker.fire(10)
+    .catch(() => new Promise(resolve => {
+      const signal = breaker.getSignal();
+      t.true(signal.aborted, 'AbortSignal is aborted after timeout');
+      setTimeout(() => {
+        const signal = breaker.getSignal();
+        t.false(signal.aborted, 'A new AbortSignal is created upon half-open state');
+        resolve();
+      }, 20);
+    })).finally(() => {
+      breaker.shutdown();
+      t.end();
+    });
+});
+
+test('When options.autoRenewAbortController is provided, abortController should be provided', t => {
+  t.plan(1);
+
+  const breaker = new CircuitBreaker(
+    passFail,
+    { autoRenewAbortController: true }
+  );
+
+  const ab = breaker.getAbortController();
+  t.true(ab, 'AbortController has instance');
+
+  breaker.shutdown();
+  t.end();
+});
+
 test('Works with functions that do not return a promise', t => {
   t.plan(1);
   const breaker = new CircuitBreaker(nonPromise);
