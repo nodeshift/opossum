@@ -57,3 +57,16 @@ test('When disabled the circuit should always be closed', t => {
         .then(t.end);
     });
 });
+
+test('When disabled fire event is still emitted', t => {
+  t.plan(1);
+  const breaker = new CircuitBreaker(passFail);
+  breaker.on('fire', () => {
+    t.pass('fire event');
+    t.end();
+  });
+
+  breaker.disable();
+  breaker.fire(1)
+    .finally(_ => breaker.shutdown());
+});
