@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.3.0](https://github.com/nodeshift/opossum/compare/v8.2.0...v8.3.0) (2024-10-28)
+
+
+### Features
+
+* renewing the AbortController when the circuit enters the 'halfClose' or 'close' state ([#892](https://github.com/nodeshift/opossum/issues/892)) ([2ba3a31](https://github.com/nodeshift/opossum/commit/2ba3a31def3f11305778490c7c2b858f02d8ca2a))
+
+
+### Bug Fixes
+
+* disabled breaker emits fire events ([#895](https://github.com/nodeshift/opossum/issues/895)) ([d0ee9e6](https://github.com/nodeshift/opossum/commit/d0ee9e6853493a97761e5c4976dcad6e2a58d08d))
+
 ## [8.2.0](https://github.com/nodeshift/opossum/compare/v8.1.4...v8.2.0) (2024-10-23)
 
 
