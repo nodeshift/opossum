@@ -194,6 +194,64 @@ test('Using coalesce cache only.', t => {
     .catch(t.fail);
 });
 
+// Test coalesce coalesceResetOn.
+(function () {
+  const options = {
+    coalesce: true,
+    timeout: 200,
+    coalesceResetOn: ['error', 'success', 'timeout', 'foobar'],
+    errorThresholdPercentage: 99,
+    allowWarmUp: true
+  };
+
+  test('coalesceResetOn: expect proper parsing of options', t => {
+    t.plan(1);
+    const breaker = new CircuitBreaker(passFail, options);
+    t.same(breaker.options.coalesceResetOn, ['error', 'success', 'timeout']);
+    t.end();
+  });
+
+  test('coalesceResetOn: expect no hit after success', t => {
+    t.plan(1);
+    const breaker = new CircuitBreaker(passFail, options);
+    breaker
+      .fire(1)
+      .then(() => {
+        breaker.fire(1).then(() => {
+          const stats = breaker.status.stats;
+          t.equals(stats.coalesceCacheHits, 0, 'no hits to coalesce cache, it is reset when action succeeded.');
+          t.end();
+        });
+      });
+  });
+
+  test('coalesceResetOn: expect no hit after error', t => {
+    t.plan(1);
+    const breaker = new CircuitBreaker(passFail, options);
+    breaker
+      .fire(-1)
+      .catch(() => {
+        breaker.fire(1).then(() => {
+          const stats = breaker.status.stats;
+          t.equals(stats.coalesceCacheHits, 0, 'no hits to coalesce cache, it is reset when action failed.');
+          t.end();
+        });
+      });
+  });
+
+  test('coalesceResetOn: expect no hit after timeout', t => {
+    t.plan(1);
+    const timedBreaker = new CircuitBreaker(common.timedFunction, options);
+    timedBreaker.fire(1000).catch(() => {
+      timedBreaker.fire(1).then(() => {
+        const stats = timedBreaker.status.stats;
+        t.equals(stats.coalesceCacheHits, 0, 'no hits to coalesce cache, it is reset when action timed out.');
+        t.end();
+      });
+    });
+  });
+})();
+
 test('No coalesce cache.', t => {
   t.plan(5);
   const breaker = new CircuitBreaker(passFail);
