@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.3.1](https://github.com/nodeshift/opossum/compare/v8.3.0...v8.3.1) (2024-11-11)
+
+
+### Bug Fixes
+
+* Incorrect default value of maxEntries for MemoryCache [#904](https://github.com/nodeshift/opossum/issues/904) ([#906](https://github.com/nodeshift/opossum/issues/906)) ([f7abe3f](https://github.com/nodeshift/opossum/commit/f7abe3fe468a4b212ebae40e74f98e3c0e02e8c9))
+
 ## [8.3.0](https://github.com/nodeshift/opossum/compare/v8.2.0...v8.3.0) (2024-10-28)
 
 
