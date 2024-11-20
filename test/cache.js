@@ -2,6 +2,7 @@
 
 const test = require('tape');
 const CircuitBreaker = require('../');
+const MemoryCache = require('../lib/cache');
 const common = require('./common');
 const passFail = common.passFail;
 const expected = 34;
@@ -369,4 +370,101 @@ test('Using cache with custom transport', t => {
     })
     .then(t.end)
     .catch(t.fail);
+});
+
+// Testing cache internal features/
+test('Default max size of cache.', t => {
+  t.plan(1);
+  const c = new MemoryCache();
+  t.equal(c.maxEntries, 16777215, 'Max size of cache is limited to max size of Map to prevent mem leaks.');
+  t.end();
+});
+
+test('Enforcement of cache max size.', t => {
+  t.plan(26);
+
+  const maxEntries = 10;
+  const c = new MemoryCache(maxEntries);
+  t.equal(c.maxEntries, maxEntries, 'Max size is given and respected.');
+
+  // note: 1 based index to match size.
+  for (let i = 1; i <= maxEntries; i++) {
+    const key = `key${i}`;
+    c.set(key, i, 0);
+    t.equal(c.cache.size, i, `${i} entry/ies added, so size is ${i}.`);
+    t.equal(c.get(key), i, `${key} stored successfully`);
+  }
+
+  // next entry should purge oldest, as maxEntries is hit.
+  c.set('new entry', 'someval');
+  t.equal(
+    c.cache.size,
+    maxEntries,
+    `Max size is respected, cache size does not grow over ${maxEntries}.`
+  );
+  t.equal(c.get('key1'), undefined, 'Oldest key (key1) is removed');
+
+  // update oldest entry.
+  c.set('key2', 'updated');
+  c.set('another new entry', 'someval');
+  t.equal(
+    c.cache.size,
+    maxEntries,
+    `Max size is respected, cache size does not grow over ${maxEntries}.`
+  );
+
+  // And notice Map iterator behavior.
+  t.equal(c.get('key2'), undefined, 'key2 is purged, as it was oldest. Updates do not count in Maps.');
+  t.equal(c.get('key3'), 3, 'key3 can be considered older, but is not purged.');
+
+  t.end();
+});
+
+test('Flush cache.', t => {
+  t.plan(22);
+
+  const maxEntries = 10;
+  const c = new MemoryCache(maxEntries);
+
+  // note: 1 based index to match size.
+  for (let i = 1; i <= maxEntries; i++) {
+    const key = `key${i}`;
+    c.set(key, i, 0);
+    t.equal(c.cache.size, i, `${i} entry/ies added, so size is ${i}.`);
+    t.equal(c.get(key), i, `${key} stored successfully`);
+  }
+
+  c.flush();
+  t.equal(c.cache.size, 0, 'cache flushed successfully');
+  t.equal(c.get('key5'), undefined, 'all cache entries return undefined');
+
+  t.end();
+});
+
+test('TTL is checked and entry removed when expired.', t => {
+  t.plan(8);
+
+  const c = new MemoryCache();
+  const ok = 'cached string value';
+
+  c.set('100ms ttl', ok, Date.now() + 100);
+  c.set('200ms ttl', ok, Date.now() + 200);
+  c.set('no ttl', ok, 0);
+
+  t.equal(c.cache.size, 3, '3 items stored');
+  t.deepEqual([c.get('100ms ttl'), c.get('200ms ttl'), c.get('no ttl')], [ok, ok, ok], '3 items can be retrieved');
+
+  setTimeout(() => {
+    t.equal(c.get('100ms ttl'), undefined, 'TTL expired, so cache returns undefined.');
+    t.equal(c.cache.size, 2, 'Upon fetching expired item, it is removed from cache');
+    t.deepEqual([c.get('200ms ttl'), c.get('no ttl')], [ok, ok], 'Entries that have not yet expired are ok');
+
+    setTimeout(() => {
+      t.equal(c.get('200ms ttl'), undefined, 'TTL expired, so cache returns undefined.');
+      t.equal(c.cache.size, 1, 'Upon fetching expired item, it is removed from cache');
+      t.equal(c.get('no ttl'), ok, 'Entries that have not yet expired are ok');
+
+      t.end();
+    }, 200);
+  }, 101);
 });
