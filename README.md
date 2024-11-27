@@ -459,7 +459,45 @@ The code that is summing the stats samples is here:
 
 ### Coalesce calls
 
-Circuitbreaker offers coalescing your calls. If options.coalesce is set, multiple calls to the circuitbreaker will be handled as one, within the given timeframe (options.coalesceTTL). Performance will improve when rapidly firing the circuitbreaker with the same request, especially on a slower action. This is especially useful if multiple events can trigger the same functions at the same time. Of course, caching has the same function, but will only be effective when the call has been executed once to store the return value. Coalescing and cache can be used at the same time, coalescing calls will always use the internal cache.
+Circuitbreaker offers coalescing your calls. If options.coalesce is set, multiple calls to the circuitbreaker will be handled as one, within the given timeframe (options.coalesceTTL). Performance will improve when rapidly firing the circuitbreaker with the same request, especially on a slower action. This is especially useful if multiple events can trigger the same functions at the same time. Of course, caching has the same function, but will only be effective when the call has been successfully executed once to store the return value. Coalescing and cache can be used at the same time, coalescing calls will always use the internal cache. Accessing cache is done prior to coalescing. When using `capacity` option, coalescing reduces the capacity used for the CircuitBreaker and will allow higher throughput of the rest of the application without actually firing the CircuitBreaker protected function. The `cacheGetKey` option is used for coalescing as well.
+
+#### Finetuning Coalesce behavior
+
+By default, all calls within given timeframe are coalesced, including errors and timeouts. This might be unwanted, as this twarths retry mechanisms etc. To finetune coalesce behavior, use the coalesceResetOn parameter. Some examples:
+
+| coalesceResetOn value | behavior |
+| --------------------- | -------- |
+| `error`, `success`, `timeout` | coalescing is reset after every 'done' status, so only concurrent 'running' calls are coalesced. One could consider this the most essential form of coalescing. |
+| `error`, `timeout` | No error state is being stored for longer than the running call, you might want to start here if you use any retry mechanisms. |
+| `error` | Reset on errors. |
+| `timeout` | Reset on timeouts. |
+| `success` | Reset on success. |
+
+You can use any combination of `error`, `success`, `timeout`.
+
+#### Using CircuitBreaker with Coalescing and fetch.
+
+When using the CircuitBreaker with Coalescing enabled to protect calling external services using the Fetch API, it's important to keep this in mind: The Response interface of the Fetch API does not allow reading the same body multiple times, cloning the Response will not help either as it will delay the reading of the response until the slowest reader is done. To work around this you can either choose to wrap handling of the response (e.g. parsing) in the protected function as well, keep in mind any errors and delays in this process will amount to the error thresholds configured. This might not be suitable for complexer setups. Another option would be to flatten the response and revive it. This might come in handy when working with libraries that expect a Response object. Example below:
+
+```js
+const flattenResponse = async (r) => ({
+  arrayBuffer: await r.arrayBuffer(),
+  init: {
+    headers: r.headers,
+    ok: r.ok,
+    redirected: r.redirected,
+    status: r.status,
+    statusText: r.statusText,
+    type: r.type,
+    url: r.url,
+  },
+});
+
+const reviveResponse = (r) => new Response(r.arrayBuffer, r.init);
+```
+
+Also note, Fetch doesn't fail on HTTP errors (e.g. 50x). If you want to protect your application from calling failing APIs, check the response status and throw errors accordingly.
+
 
 ### Typings
 
