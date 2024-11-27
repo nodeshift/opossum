@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.4.0](https://github.com/nodeshift/opossum/compare/v8.3.1...v8.4.0) (2024-11-27)
+
+
+### Features
+
+* Coalesce reset options, reset coalesce based on result. (error, success, timeout) ([#908](https://github.com/nodeshift/opossum/issues/908)) ([c9782ae](https://github.com/nodeshift/opossum/commit/c9782aef22b00467e20d67bf1ada89f1e868f212))
+
 ## [8.3.1](https://github.com/nodeshift/opossum/compare/v8.3.0...v8.3.1) (2024-11-11)
 
 
