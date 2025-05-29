@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [8.5.0](https://github.com/nodeshift/opossum/compare/v8.4.0...v8.5.0) (2025-05-29)
+
+
+### Features
+
+* upgrade husky from 8.0.3 to 9.1.7 ([#912](https://github.com/nodeshift/opossum/issues/912)) ([0f7e56c](https://github.com/nodeshift/opossum/commit/0f7e56c9949dfc31a37596cc5eae0753e103a051))
+
+
+### Bug Fixes
+
+* package.json & package-lock.json to reduce vulnerabilities ([#915](https://github.com/nodeshift/opossum/issues/915)) ([66f2b48](https://github.com/nodeshift/opossum/commit/66f2b487fff89e2ab0fe5ecb85691632b7b3e1af))
+
 ## [8.4.0](https://github.com/nodeshift/opossum/compare/v8.3.1...v8.4.0) (2024-11-27)
 
 
