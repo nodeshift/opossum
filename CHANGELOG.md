@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [9.0.0](https://github.com/nodeshift/opossum/compare/v8.5.0...v9.0.0) (2025-05-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove Node 16 and Node 18 support ([#921](https://github.com/nodeshift/opossum/issues/921))
+
+### Features
+
+* remove Node 16 and Node 18 support ([#921](https://github.com/nodeshift/opossum/issues/921)) ([dbae7b1](https://github.com/nodeshift/opossum/commit/dbae7b1e2862e001911c15bd835808f1d1c7af48))
+
 ## [8.5.0](https://github.com/nodeshift/opossum/compare/v8.4.0...v8.5.0) (2025-05-29)
 
 
