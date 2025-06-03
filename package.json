@@ -57,7 +57,7 @@
     "stream-browserify": "^3.0.0",
     "tape": "~5.9.0",
     "util": "^0.12.5",
-    "webpack": "~5.98.0",
+    "webpack": "~5.99.8",
     "webpack-cli": "~5.1.4"
   },
   "description": "A fail-fast circuit breaker for promises and callbacks",
