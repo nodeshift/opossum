@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [10.0.0](https://github.com/nodeshift/opossum/compare/v9.0.0...v10.0.0) (2026-06-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove Node 20 support ([#953](https://github.com/nodeshift/opossum/issues/953))
+
+### Features
+
+* remove Node 20 support ([#953](https://github.com/nodeshift/opossum/issues/953)) ([5cc1a57](https://github.com/nodeshift/opossum/commit/5cc1a577c99a2bf1a64f086d19712f0130245c5b))
+
+
+### Bug Fixes
+
+* package.json & package-lock.json to reduce vulnerabilities ([#940](https://github.com/nodeshift/opossum/issues/940)) ([855d4e5](https://github.com/nodeshift/opossum/commit/855d4e5dcfba433304bedb617c2c9118456c9127))
+* package.json & package-lock.json to reduce vulnerabilities ([#943](https://github.com/nodeshift/opossum/issues/943)) ([dcdb98e](https://github.com/nodeshift/opossum/commit/dcdb98e327c8fb559c3e50724c20b52aa1550215))
+* package.json & package-lock.json to reduce vulnerabilities ([#944](https://github.com/nodeshift/opossum/issues/944)) ([700cf23](https://github.com/nodeshift/opossum/commit/700cf2322fcead0b36c45a1713c21f855607a050))
+
 ## [9.0.0](https://github.com/nodeshift/opossum/compare/v8.5.0...v9.0.0) (2025-05-30)
 
 
