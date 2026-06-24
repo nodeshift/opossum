@@ -1,19 +1,25 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nodejs-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lts:
-
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
-        node-version: [20.x, 22.x, 24.x]
+        node-version: [22.x, 24.x]
 
     steps:
     - uses: actions/checkout@v6
@@ -25,10 +31,11 @@ jobs:
     - run: npm test
     - run: npx @pkgjs/support@latest validate
     - run: node_modules/nyc/bin/nyc.js report --reporter=lcovonly
+
     - name: Coveralls Parallel
-      uses: coverallsapp/github-action@master
+      uses: coverallsapp/github-action@v2
       with:
-        github-token: ${{ secrets.github_token }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
         flag-name: run-${{ matrix.node-version }}
         parallel: true
 
@@ -37,29 +44,31 @@ jobs:
 
     steps:
     - uses: actions/checkout@v6
-    - name: Use Node.js 20.x
+    - name: Use Node.js 26.x
       uses: actions/setup-node@v6
       with:
-        node-version: 20.x
+        node-version: 26.x
     - run: npm ci
     - run: npm run build
     - run: npm run test:headless
     - run: npm test
     - run: npx @pkgjs/support@latest validate
     - run: node_modules/nyc/bin/nyc.js report --reporter=lcovonly
+
     - name: Coveralls Parallel
-      uses: coverallsapp/github-action@master
+      uses: coverallsapp/github-action@v2
       with:
-        github-token: ${{ secrets.github_token }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
         flag-name: run-current
         parallel: true
 
   finish:
+    name: Node.js CI
     needs: [lts, current]
     runs-on: ubuntu-latest
     steps:
     - name: Coveralls Finished
-      uses: coverallsapp/github-action@master
+      uses: coverallsapp/github-action@v2
       with:
-        github-token: ${{ secrets.github_token }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
         parallel-finished: true

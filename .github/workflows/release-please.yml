@@ -1,31 +1,38 @@
-on:
-   push:
-     branches:
-       - main
 name: release-please
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
+
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
     steps:
-      - uses: GoogleCloudPlatform/release-please-action@v5
+      - uses: googleapis/release-please-action@v4
         id: release
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
-          package-name: opossum
 
+  publish:
+    runs-on: ubuntu-latest
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+
+    steps:
       - uses: actions/checkout@v6
-        if: ${{ steps.release.outputs.release_created }}
       - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
           registry-url: 'https://registry.npmjs.org'
-        if: ${{ steps.release.outputs.release_created }}
+          package-manager-cache: false
       - run: npm ci
-        if: ${{ steps.release.outputs.release_created }}
       - run: npm test
-        if: ${{ steps.release.outputs.release_created }}
       - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.OPOSSUM_PUBLISH}}
-        if: ${{ steps.release.outputs.release_created }}
