@@ -110,6 +110,45 @@ test('Enters halfOpen state if closed is false and more time has elapsed since r
     .then(t.end);
 });
 
+test('lastTimerAt is the open time so a restored OPEN breaker stays open', t => {
+  t.plan(5);
+  const resetTimeout = 200;
+  const options = {
+    errorThresholdPercentage: 1,
+    resetTimeout,
+    timeout: false
+  };
+
+  const original = new CircuitBreaker(async () => {
+    throw new Error('down');
+  }, options);
+
+  // Wait past resetTimeout before opening so a construction-time
+  // lastTimerAt would incorrectly force halfOpen on restore.
+  setTimeout(() => {
+    original.fire()
+      .then(t.fail)
+      .catch(() => {
+        t.ok(original.opened, 'original should be open');
+        t.notOk(original.halfOpen, 'original should not be halfOpen yet');
+        const age = Date.now() - original.toJSON().state.lastTimerAt;
+        t.ok(age < resetTimeout,
+          'lastTimerAt should be recent (open time), not construction time');
+
+        const restored = new CircuitBreaker(async () => 'ok', {
+          ...options,
+          state: original.toJSON().state
+        });
+        t.ok(restored.opened, 'restored should stay open');
+        t.notOk(restored.halfOpen,
+          'restored should not jump to halfOpen immediately');
+        original.shutdown();
+        restored.shutdown();
+        t.end();
+      });
+  }, resetTimeout * 1.5);
+});
+
 test('When half-open, the circuit only allows one request through', t => {
   t.plan(7);
   const options = {
