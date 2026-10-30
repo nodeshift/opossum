@@ -68,3 +68,45 @@ test('Only warms up for rollingCountTimeout', t => {
       }, 500);
     });
 });
+
+test('Failed half-open trial reopens breaker during warm-up', t => {
+  t.plan(6);
+  const options = {
+    allowWarmUp: true,
+    rollingCountTimeout: 10000,
+    resetTimeout: 100,
+    timeout: false
+  };
+
+  let up = false;
+  const breaker = new CircuitBreaker(async () => {
+    if (!up) throw new Error('down');
+    return 'ok';
+  }, options);
+
+  breaker.open();
+
+  setTimeout(() => {
+    t.ok(breaker.halfOpen, 'should be halfOpen after resetTimeout');
+    t.ok(breaker.warmUp, 'should still be warming up');
+    breaker.fire()
+      .then(t.fail)
+      .catch(e => t.equals(e.message, 'down'))
+      .then(() => {
+        t.ok(breaker.opened,
+          'failed trial should reopen the breaker during warm-up');
+        t.notOk(breaker.halfOpen,
+          'should not remain halfOpen after failed trial');
+        up = true;
+        setTimeout(() => {
+          breaker.fire()
+            .then(result => {
+              t.equals(result, 'ok',
+                'should succeed after another resetTimeout');
+            })
+            .then(_ => breaker.shutdown())
+            .then(t.end);
+        }, options.resetTimeout * 1.5);
+      });
+  }, options.resetTimeout * 1.5);
+});
